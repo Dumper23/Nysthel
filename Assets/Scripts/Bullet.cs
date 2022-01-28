@@ -16,11 +16,25 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.transform.tag == "Destructible")
+        if (collision.gameObject.tag == "Player")
+        {
+            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+        }
+
+        if (collision.transform.tag == "Destructible")
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
         }
-        Destroy(gameObject);
+
+        if(collision.transform.tag == "Enemy")
+        {
+            collision.transform.GetComponent<Enemy>().takeDamage(damage);
+        }
+
+        if(collision.transform.tag != "Player")
+        {
+            Destroy(gameObject);
+        }
     }
 
     

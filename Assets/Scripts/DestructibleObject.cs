@@ -6,12 +6,14 @@ public class DestructibleObject : MonoBehaviour
 {
     public int health = 10;
     public int maxGoldToGive = 1;
+    public GameObject coin;
+    public float coinForce = 20f;
 
     private int goldToGive;
 
     void Start()
     {
-        int g = Random.RandomRange(0, 2) - 1;
+        int g = Random.Range(0, maxGoldToGive);
         if (g < 0) g = 0;
         goldToGive = g;
     }
@@ -20,7 +22,11 @@ public class DestructibleObject : MonoBehaviour
     {
         if(health <= 0)
         {
-            //instanciar coins al terra
+            for (int i = 0; i <= goldToGive; i++) {
+                GameObject g = Instantiate(coin, transform.position, transform.rotation);
+                g.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
+
+            }
             Destroy(gameObject);
         }
     }
