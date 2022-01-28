@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class Ent : Enemy
 {
+    public bool isRanged = false;
+    public GameObject bullet;
+
     private Transform target;
+    private float nextShot = 0f;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        changeAnimationState("Idle");
     }
 
     void Update()
@@ -17,18 +22,37 @@ public class Ent : Enemy
 
         if(target.position.x > transform.position.x)
         {
-            GetComponent<SpriteRenderer>().flipX = false;
+            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
         }
         else
         {
-            GetComponent<SpriteRenderer>().flipX = true;
+            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
         }
 
     }
 
     private void FixedUpdate()
     {
-        Seek();
+        if (!isRanged)
+        {
+            Seek();
+        }
+        else
+        {
+            if (Vector3.Magnitude(target.position - transform.position) < range)
+            {
+                if (Time.time > nextShot)
+                {
+                    nextShot = Time.time + attackRate;
+                    changeAnimationState("Attack");
+                    Invoke("Shoot", 0.5f);
+                }
+            }
+            else
+            {
+                changeAnimationState("Idle");
+            }
+        }
     }
 
 
@@ -37,7 +61,18 @@ public class Ent : Enemy
         if(Vector3.Magnitude(target.position - transform.position) < range)
         {
             transform.Translate((target.position-transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
+            changeAnimationState("Walk");
         }
+        else
+        {
+            changeAnimationState("Idle");
+        }
+    }
+
+    void Shoot()
+    {
+        changeAnimationState("idle");
+        Instantiate(bullet, firePoint.position, transform.rotation);
     }
 
     private void OnCollisionStay2D(Collision2D collision)

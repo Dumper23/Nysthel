@@ -20,12 +20,19 @@ public class Player : MonoBehaviour
     public float coinMagnetSpeed = 1f;
     public int health = 50;
     public float immunityTime = 1f;
+    public float dashRestoreTime = 3f;
+    public float dashForce = 10f;
+    public float dashTime = 1f;
 
     private Vector2 movement;
     private string currentState;
     private bool attacking = false;
     private float nextFire = 0f;
     private bool immune = false;
+    private bool dashing = false;
+    private float nextDash = 0f;
+    private Vector2 dashDirection;
+    private Vector2 dashSpeed;
 
     private Vector2 lookDir;
     private Vector3 directionToShoot;
@@ -37,6 +44,7 @@ public class Player : MonoBehaviour
     {
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
         Collider2D[] coins = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange);
+
         if (coins.Length > 0)
         {
             coinMagnet(coins);
@@ -44,46 +52,77 @@ public class Player : MonoBehaviour
 
         die();
 
-        movement.x = Input.GetAxisRaw("Horizontal");
-        movement.y = Input.GetAxisRaw("Vertical");
-
-        if (!(movement.x == 0 && movement.y == 0))
+        if (Input.GetKey(KeyCode.LeftShift))
         {
-            firePoint.localPosition = new Vector3(Mathf.Clamp(movement.x, -0.6f, 0.6f), Mathf.Clamp(movement.y, -0.6f, 0.6f), 0);
-        }
-
-        if (Input.GetButtonDown("Jump"))
-        {
-            if (Time.time > nextFire)
+            if (Time.time > nextDash && !dashing)
             {
-                nextFire = Time.time + attackRate;
-                if (movement.y <= 0)
-                {
-                    changeAnimationState("Nysthel_Attack");
-                }
-                else
-                {
-                    changeAnimationState("Nysthel_AttackUp");
-                }
-
-                lookDir = firePoint.position - transform.position;
-                angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-                directionToShoot = (firePoint.position - transform.position);
-                
-
-                attacking = true;
-                Invoke("stopAttacking", animationDelay);
-                Shoot();
+                nextDash = Time.time + dashRestoreTime;
+                dashing = true;
+                dashDirection = movement;
+                dashSpeed = dashDirection.normalized * dashForce;
             }
         }
 
+        if (!dashing)
+        {
+            movement.x = Input.GetAxisRaw("Horizontal");
+            movement.y = Input.GetAxisRaw("Vertical");
+            playerMovement();
+
+            if (!(movement.x == 0 && movement.y == 0))
+            {
+                firePoint.localPosition = new Vector3(Mathf.Clamp(movement.x, -0.6f, 0.6f), Mathf.Clamp(movement.y, -0.6f, 0.6f), 0);
+            }
+
+            if (Input.GetButtonDown("Jump"))
+            {
+                Shoot();
+            }
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        //Movement
+        if (!dashing)
+        {
+            rb.MovePosition(rb.position + (movement.normalized * moveSpeed * Time.fixedDeltaTime));
+        }
+        else
+        {
+            rb.MovePosition(rb.position + (dashSpeed * Time.fixedDeltaTime));
+            dashSpeed *= 0.9f;
+            if (dashSpeed.magnitude < moveSpeed)
+            {
+                dashing = false;
+            }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Coin")
+        {
+            gold++;
+            Destroy(collision.gameObject);
+        }
+    }
+
+    void stopDash()
+    {
+        dashing = false;
+    }
+
+    void playerMovement()
+    {
         if (movement.y > 0)
         {
             if (!attacking)
             {
                 changeAnimationState("Nysthel_walkUp");
             }
-        }else if (movement.y < 0)
+        }
+        else if (movement.y < 0)
         {
             if (!attacking)
             {
@@ -118,26 +157,37 @@ public class Player : MonoBehaviour
                 }
             }
         }
-
-        
-
     }
 
-    private void FixedUpdate()
-    {
-        //Movement
-        rb.MovePosition(rb.position + (movement * moveSpeed * Time.fixedDeltaTime));
-
-    }
+    
 
     void Shoot()
     {
-        positionToShoot = firePoint.position;
-        GameObject bullet = Instantiate(bulletPrefab, positionToShoot, Quaternion.Euler(0, 0, angle));
-        Rigidbody2D rBullet = bullet.GetComponent<Rigidbody2D>();
-        rBullet.rotation = angle;
-        rBullet.AddForce(directionToShoot * bulletForce, ForceMode2D.Impulse);
-    
+        if (Time.time > nextFire)
+        {
+            nextFire = Time.time + attackRate;
+
+            if (movement.y <= 0)
+            {
+                changeAnimationState("Nysthel_Attack");
+            }
+            else
+            {
+                changeAnimationState("Nysthel_AttackUp");
+            }
+
+            lookDir = firePoint.position - transform.position;
+            angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
+            directionToShoot = (firePoint.position - transform.position);
+            attacking = true;
+            Invoke("stopAttacking", animationDelay);
+
+            positionToShoot = firePoint.position;
+            GameObject bullet = Instantiate(bulletPrefab, positionToShoot, Quaternion.Euler(0, 0, angle));
+            Rigidbody2D rBullet = bullet.GetComponent<Rigidbody2D>();
+            rBullet.rotation = angle;
+            rBullet.AddForce(directionToShoot * bulletForce, ForceMode2D.Impulse);
+        }
     }
 
     void coinMagnet(Collider2D[] coins)
@@ -165,17 +215,6 @@ public class Player : MonoBehaviour
         anim.Play(newState);
 
         currentState = newState;
-    }
-
-
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.tag == "Coin")
-        {
-            gold++;
-            Destroy(collision.gameObject);
-        }
     }
 
     public void takeDamage(int value)

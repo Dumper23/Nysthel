@@ -17,13 +17,14 @@ public abstract class Enemy : MonoBehaviour
     public float coinForce = 2f;
 
     protected int goldToGive;
+    protected string currentState;
 
     public void takeDamage(int value)
     {
         health -= value;
     }
 
-    public void die()
+    protected void die()
     {
         if (health <= 0)
         {
@@ -38,5 +39,16 @@ public abstract class Enemy : MonoBehaviour
             }
             Destroy(gameObject);
         }
+    }
+
+    protected void changeAnimationState(string newState)
+    {
+        //We avoid playing the same animation multiple times
+        if (currentState == newState) return;
+
+        //We play a determinated animation
+        anim.Play(newState);
+
+        currentState = newState;
     }
 }
