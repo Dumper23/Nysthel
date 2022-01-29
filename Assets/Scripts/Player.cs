@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     public float dashRestoreTime = 3f;
     public float dashForce = 10f;
     public float dashTime = 1f;
+    public float smoothFactor = 5f;
 
     private Vector2 movement;
     private string currentState;
@@ -42,7 +43,10 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
+        //cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, cam.transform.position.z), smoothFactor/100);
+
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
+
         Collider2D[] coins = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange);
 
         if (coins.Length > 0)

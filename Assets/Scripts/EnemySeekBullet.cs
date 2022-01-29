@@ -41,9 +41,5 @@ public class EnemySeekBullet : MonoBehaviour
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
         }
-        else
-        {
-            Destroy(gameObject);
-        }
     }
 }

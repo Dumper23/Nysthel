@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 2055102311959635368}
   - component: {fileID: 5890802837618066405}
   - component: {fileID: 10145298200545765}
-  - component: {fileID: 1907868833}
   m_Layer: 20
   m_Name: PF Props Barrel
   m_TagString: Destructible
@@ -138,20 +137,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!114 &1907868833
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2055102311959635369}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fb03b25b17607e042b188b6e4b8b480d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 10
-  maxGoldToGive: 2
 --- !u!1 &2055102312182832482
 GameObject:
   m_ObjectHideFlags: 0

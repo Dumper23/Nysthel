@@ -7,13 +7,16 @@ public class Ent : Enemy
     public bool isRanged = false;
     public GameObject bullet;
 
-    private Transform target;
     private float nextShot = 0f;
 
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         changeAnimationState("Idle");
+        if(firePoint == null)
+        {
+            firePoint = transform;
+        }
     }
 
     void Update()
@@ -86,14 +89,5 @@ public class Ent : Enemy
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
         }
-    }
-
-    private void OnDrawGizmos()
-    {
-        if (target != null)
-        {
-            Gizmos.DrawLine(transform.position, target.position);
-        }
-        Gizmos.DrawWireSphere(transform.position, range);
     }
 }

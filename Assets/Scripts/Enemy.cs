@@ -16,6 +16,7 @@ public abstract class Enemy : MonoBehaviour
     public GameObject coin;
     public float coinForce = 2f;
 
+    protected Transform target;
     protected int goldToGive;
     protected string currentState;
 
@@ -41,6 +42,18 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    protected void Seek()
+    {
+        if (Vector3.Magnitude(target.position - transform.position) < range)
+        {
+            transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
+            changeAnimationState("Walk");
+        }
+        else
+        {
+            changeAnimationState("Idle");
+        }
+    }
     protected void changeAnimationState(string newState)
     {
         //We avoid playing the same animation multiple times
@@ -50,5 +63,14 @@ public abstract class Enemy : MonoBehaviour
         anim.Play(newState);
 
         currentState = newState;
+    }
+
+    private void OnDrawGizmos()
+    {
+        if (target != null)
+        {
+            Gizmos.DrawLine(transform.position, target.position);
+        }
+        Gizmos.DrawWireSphere(transform.position, range);
     }
 }
