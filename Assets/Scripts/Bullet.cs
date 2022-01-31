@@ -31,11 +31,16 @@ public class Bullet : MonoBehaviour
             collision.transform.GetComponent<Enemy>().takeDamage(damage);
         }
 
-        if(collision.transform.tag != "Player")
+        if (collision.transform.tag == "Bullet")
+        {
+            Destroy(collision.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (collision.transform.tag != "Player")
         {
             Destroy(gameObject);
         }
     }
 
-    
 }

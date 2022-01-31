@@ -56,12 +56,13 @@ public class Player : MonoBehaviour
 
         die();
 
-        if (Input.GetKey(KeyCode.LeftShift))
+        if (Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift))
         {
             if (Time.time > nextDash && !dashing)
             {
                 nextDash = Time.time + dashRestoreTime;
                 dashing = true;
+                immune = true;
                 dashDirection = movement;
                 dashSpeed = dashDirection.normalized * dashForce;
             }
@@ -78,7 +79,7 @@ public class Player : MonoBehaviour
                 firePoint.localPosition = new Vector3(Mathf.Clamp(movement.x, -0.6f, 0.6f), Mathf.Clamp(movement.y, -0.6f, 0.6f), 0);
             }
 
-            if (Input.GetButtonDown("Jump"))
+            if (Input.GetButtonDown("Attack"))
             {
                 Shoot();
             }
@@ -99,6 +100,7 @@ public class Player : MonoBehaviour
             if (dashSpeed.magnitude < moveSpeed)
             {
                 dashing = false;
+                immune = false;
             }
         }
     }
@@ -110,11 +112,6 @@ public class Player : MonoBehaviour
             gold++;
             Destroy(collision.gameObject);
         }
-    }
-
-    void stopDash()
-    {
-        dashing = false;
     }
 
     void playerMovement()
@@ -182,7 +179,7 @@ public class Player : MonoBehaviour
 
             lookDir = firePoint.position - transform.position;
             angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-            directionToShoot = (firePoint.position - transform.position);
+            directionToShoot = (firePoint.position - transform.position).normalized;
             attacking = true;
             Invoke("stopAttacking", animationDelay);
 
