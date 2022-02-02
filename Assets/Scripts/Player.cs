@@ -40,6 +40,16 @@ public class Player : MonoBehaviour
     private Vector3 positionToShoot;
     private float angle;
 
+    private Inventory inventory;
+    [SerializeField]
+    private UIInventory uiInventory;
+
+    private void Awake()
+    {
+        inventory = new Inventory();
+        uiInventory.setInventory(inventory);
+        uiInventory.setPlayer(this);
+    }
 
     private void Update()
     {
@@ -86,6 +96,8 @@ public class Player : MonoBehaviour
         }
     }
 
+   
+
     private void FixedUpdate()
     {
         //Movement
@@ -111,6 +123,12 @@ public class Player : MonoBehaviour
         {
             gold++;
             Destroy(collision.gameObject);
+        }
+        ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
+        if (iw != null)
+        {
+            inventory.addItem(iw.getItem());
+            iw.destroySelf();
         }
     }
 
