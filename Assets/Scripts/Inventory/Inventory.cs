@@ -8,9 +8,11 @@ public class Inventory
     public event EventHandler OnItemListChange;
 
     private List<Item> itemList;
+    private Action<Item> useItemAction;
 
-    public Inventory()
+    public Inventory(Action<Item> useItemAction)
     {
+        this.useItemAction = useItemAction;
         itemList = new List<Item>();
     }
 
@@ -67,5 +69,10 @@ public class Inventory
     public List<Item> getItemList()
     {
         return itemList;
+    }
+
+    public void UseItem(Item item)
+    {
+        useItemAction(item);
     }
 }

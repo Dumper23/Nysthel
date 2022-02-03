@@ -8,9 +8,8 @@ public class Item
 {
    public enum ItemType
     {
-        Sword,
-        potion,
-        coin,
+        smallPotion,
+        bigPotion,
     }
 
     public ItemType itemType;
@@ -21,9 +20,8 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.Sword:    return ItemAssets.Instance.swordSprite;
-            case ItemType.potion:   return ItemAssets.Instance.potionSprite;
-            case ItemType.coin:     return ItemAssets.Instance.coinSprite;
+            case ItemType.smallPotion:    return ItemAssets.Instance.SmallPotion;
+            case ItemType.bigPotion:   return ItemAssets.Instance.BigPotion;
         }
     }
 
@@ -32,11 +30,11 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.coin:
-            case ItemType.potion:
+            case ItemType.bigPotion:
+            case ItemType.smallPotion:
                 return true;
-            case ItemType.Sword:
-                return false;
+            //case ItemType.Sword:
+             //   return false;
 
         }
     }

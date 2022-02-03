@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class Player : MonoBehaviour
 {
@@ -18,13 +19,16 @@ public class Player : MonoBehaviour
     public int gold;
     public float coinMagnetRange = 2f;
     public float coinMagnetSpeed = 1f;
-    public int health = 50;
+    public int maxHealth = 50;
     public float immunityTime = 1f;
     public float dashRestoreTime = 3f;
     public float dashForce = 10f;
     public float dashTime = 1f;
     public float smoothFactor = 5f;
+    public HealthBar healthBar;
+    public TextMeshProUGUI goldText;
 
+    private int currentHealth;
     private Vector2 movement;
     private string currentState;
     private bool attacking = false;
@@ -46,14 +50,29 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        inventory = new Inventory();
+        currentHealth = maxHealth;
+        inventory = new Inventory(UseItem);
         uiInventory.setInventory(inventory);
         uiInventory.setPlayer(this);
+        GameStateManager.Instance.OnGameStateChange += OnGameStateChanged;
+        healthBar.setMaxHealth(maxHealth);
+    }
+
+    private void OnDestroy()
+    {
+        GameStateManager.Instance.OnGameStateChange -= OnGameStateChanged;
+    }
+
+    private void OnGameStateChanged(GameState newGameState)
+    {
+        enabled = newGameState == GameState.Gameplay;
     }
 
     private void Update()
     {
         //cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, cam.transform.position.z), smoothFactor/100);
+
+        healthBar.setHealth(currentHealth);
 
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
 
@@ -66,6 +85,7 @@ public class Player : MonoBehaviour
 
         die();
 
+        
         if (Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift))
         {
             if (Time.time > nextDash && !dashing)
@@ -96,8 +116,6 @@ public class Player : MonoBehaviour
         }
     }
 
-   
-
     private void FixedUpdate()
     {
         //Movement
@@ -122,6 +140,7 @@ public class Player : MonoBehaviour
         if (collision.transform.tag == "Coin")
         {
             gold++;
+            goldText.text = gold.ToString();
             Destroy(collision.gameObject);
         }
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
@@ -240,7 +259,7 @@ public class Player : MonoBehaviour
     {
         if (!immune)
         {
-            health -= value;
+            currentHealth -= value;
             immunity();
         }
     }
@@ -258,7 +277,7 @@ public class Player : MonoBehaviour
 
     void die()
     {
-        if(health <= 0)
+        if(currentHealth <= 0)
         {
             //Die, for now restart
             SceneManager.LoadScene(0);
@@ -269,4 +288,51 @@ public class Player : MonoBehaviour
     {
         Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
     }
+
+    #region Item Usage
+    public void UseItem(Item item)
+    {
+        if (item.isStackable())
+        {
+            switch (item.itemType)
+            {
+                //Functionality for each item
+                case Item.ItemType.smallPotion:
+                    if (currentHealth < maxHealth)
+                    {
+                        if (currentHealth + 10 > maxHealth)
+                        {
+                            currentHealth = maxHealth;
+                        }
+                        else
+                        {
+                            currentHealth += 10;
+                        }
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1 });
+                    }
+                    break;
+                case Item.ItemType.bigPotion:
+                    if (currentHealth < maxHealth)
+                    {
+                        if (currentHealth + 20 > maxHealth)
+                        {
+                            currentHealth = maxHealth;
+                        }
+                        else
+                        {
+                            currentHealth += 20;
+                        }
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
+                    }
+                    break;
+            }
+            healthBar.setHealth(currentHealth);
+        }
+        else
+        {
+            //Equip item
+        }
+    }
+
+    #endregion
 }

@@ -13,7 +13,6 @@ public class ItemAssets : MonoBehaviour
 
     public Transform pfItemWorld;
 
-    public Sprite swordSprite;
-    public Sprite potionSprite;
-    public Sprite coinSprite;
+    public Sprite BigPotion;
+    public Sprite SmallPotion;
 }
