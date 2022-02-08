@@ -10,7 +10,6 @@ public class Slime : Enemy
     public float bulletForce = 10f;
 
     private int shotsPerJump = 4;
-    private float nextShot = 0f;
     private Vector2[] shotPatterns;
 
     void Start()

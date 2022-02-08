@@ -14,7 +14,8 @@ public class EnemyBullet : MonoBehaviour
     private Transform target;
     private Rigidbody2D rb;
 
-    void Start()
+
+    private void Start()
     {
         if (isSeeker)
         {
@@ -23,7 +24,10 @@ public class EnemyBullet : MonoBehaviour
 
         Destroy(gameObject, timeAlive);
         rb = GetComponent<Rigidbody2D>();
+        
     }
+
+
 
     void Update()
     {
@@ -33,6 +37,7 @@ public class EnemyBullet : MonoBehaviour
         }
     }
 
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.tag == "Player")
@@ -41,13 +46,25 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
+        if(collision.transform.tag == "PlayerBullet")
+        {
+            Destroy(gameObject);
+        }
+
         if (collision.transform.tag == "Bullet")
         {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            Destroy(gameObject);
         }
         else if(collision.transform.tag == "Enemy")
         {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            if (collision.collider.GetComponent<Ent>() != null)
+            {
+                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
         }
         else if(collision.transform.tag == "Destructible")
         {
@@ -55,6 +72,14 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
         else
+        {
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "PlayerBullet")
         {
             Destroy(gameObject);
         }

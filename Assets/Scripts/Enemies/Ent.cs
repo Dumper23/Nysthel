@@ -7,8 +7,6 @@ public class Ent : Enemy
     public bool isRanged = false;
     public GameObject bullet;
 
-    private float nextShot = 0f;
-
     void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -48,6 +46,7 @@ public class Ent : Enemy
                 {
                     nextShot = Time.time + attackRate;
                     changeAnimationState("Attack");
+                    //triga en atacar per l'animació
                     Invoke("Shoot", 0.5f);
                 }
             }
@@ -58,23 +57,9 @@ public class Ent : Enemy
         }
     }
 
-
-    void Seek()
-    {
-        if(Vector3.Magnitude(target.position - transform.position) < range)
-        {
-            transform.Translate((target.position-transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
-            changeAnimationState("Walk");
-        }
-        else
-        {
-            changeAnimationState("Idle");
-        }
-    }
-
     void Shoot()
     {
-        changeAnimationState("idle");
+        changeAnimationState("Idle");
         Instantiate(bullet, firePoint.position, transform.rotation);
     }
 

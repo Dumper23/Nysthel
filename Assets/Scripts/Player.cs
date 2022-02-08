@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     public float smoothFactor = 5f;
     public HealthBar healthBar;
     public TextMeshProUGUI goldText;
+    public GameObject shield;
 
     private int currentHealth;
     private Vector2 movement;
@@ -38,6 +39,8 @@ public class Player : MonoBehaviour
     private float nextDash = 0f;
     private Vector2 dashDirection;
     private Vector2 dashSpeed;
+    private bool shielded = false;
+    private bool multiaxe = false;
 
     private Vector2 lookDir;
     private Vector3 directionToShoot;
@@ -86,7 +89,7 @@ public class Player : MonoBehaviour
         die();
 
         
-        if (Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift))
+        if ((Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift)) && !shielded)
         {
             if (Time.time > nextDash && !dashing)
             {
@@ -201,6 +204,7 @@ public class Player : MonoBehaviour
 
     void Shoot()
     {
+        //Cambiar la forma de disparar i fer un script per a que la bala vagi a una velocitat constant (tipo la bala bullethellbullet)
         if (Time.time > nextFire)
         {
             nextFire = Time.time + attackRate;
@@ -214,17 +218,31 @@ public class Player : MonoBehaviour
                 changeAnimationState("Nysthel_AttackUp");
             }
 
-            lookDir = firePoint.position - transform.position;
-            angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f;
-            directionToShoot = (firePoint.position - transform.position).normalized;
-            attacking = true;
-            Invoke("stopAttacking", animationDelay);
+            if (multiaxe)
+            {
+                lookDir =  firePoint.position - transform.position;
+                float angleSpread = 45;
+                int numberOfProjectiles = 3;
+                float facingRotation = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
+                float startRotation = facingRotation + angleSpread / 2f;
+                float angleIncrease = angleSpread / ((float)numberOfProjectiles - 1);
 
-            positionToShoot = firePoint.position;
-            GameObject bullet = Instantiate(bulletPrefab, positionToShoot, Quaternion.Euler(0, 0, angle));
-            Rigidbody2D rBullet = bullet.GetComponent<Rigidbody2D>();
-            rBullet.rotation = angle;
-            rBullet.AddForce(directionToShoot * bulletForce, ForceMode2D.Impulse);
+                for (int i = 0; i < numberOfProjectiles; i++)
+                {
+                    float tempRot = startRotation - angleIncrease * i;
+                    Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                    bullet.setDirection(new Vector2(Mathf.Cos(tempRot * Mathf.Deg2Rad), Mathf.Sin(tempRot * Mathf.Deg2Rad)));              
+                }
+            }
+            else
+            {
+                directionToShoot = (firePoint.position - transform.position).normalized;
+                attacking = true;
+                Invoke("stopAttacking", animationDelay);
+
+                Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.setDirection(directionToShoot);
+            }
         }
     }
 
@@ -325,14 +343,33 @@ public class Player : MonoBehaviour
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
                     }
                     break;
+                case Item.ItemType.shieldPotion:
+                    shield.SetActive(true);
+                    immune = true;
+                    Invoke("endShield", 5f);
+                    Invoke("notImmunity", 5f);
+                    shielded = true;
+                    inventory.RemoveItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                    break;
             }
             healthBar.setHealth(currentHealth);
         }
         else
         {
-            //Equip item
+            switch (item.itemType)
+            {
+                case Item.ItemType.multiAxe:
+                    multiaxe = true;
+                    break;
+            }
         }
     }
 
     #endregion
+
+    private void endShield()
+    {
+        shield.SetActive(false);
+        shielded = false;
+    }
 }

@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 8738362145537654640}
   - component: {fileID: 8738362145537654641}
   - component: {fileID: 8738362145537654643}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: RangedEnt
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8738362145663006745}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Firepoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}

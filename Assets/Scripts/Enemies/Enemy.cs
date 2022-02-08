@@ -2,12 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Rigidbody2D))]
+[RequireComponent(typeof(Animator))]
+
 public abstract class Enemy : MonoBehaviour
 {
     public int health = 20;
     public int damage = 10;
     public int maxGoldToGive = 5;
     public float moveSpeed = 2f;
+    
     public Rigidbody2D rb;
     public Animator anim;
     public Transform firePoint;
@@ -19,6 +23,7 @@ public abstract class Enemy : MonoBehaviour
     protected Transform target;
     protected int goldToGive;
     protected string currentState;
+    protected float nextShot = 0f;
 
     public void takeDamage(int value)
     {
@@ -34,7 +39,7 @@ public abstract class Enemy : MonoBehaviour
             goldToGive = g;
             for (int i = 0; i <= goldToGive; i++)
             {
-                GameObject go = Instantiate(coin, transform.position, transform.rotation);
+                GameObject go = Instantiate(coin, transform.position, Quaternion.identity);
                 go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
 
             }

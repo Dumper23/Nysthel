@@ -10,6 +10,8 @@ public class Item
     {
         smallPotion,
         bigPotion,
+        shieldPotion,
+        multiAxe,
     }
 
     public ItemType itemType;
@@ -22,6 +24,8 @@ public class Item
             default:
             case ItemType.smallPotion:    return ItemAssets.Instance.SmallPotion;
             case ItemType.bigPotion:   return ItemAssets.Instance.BigPotion;
+            case ItemType.shieldPotion:   return ItemAssets.Instance.ShieldPotion;
+            case ItemType.multiAxe:   return ItemAssets.Instance.MultiAxe;
         }
     }
 
@@ -30,12 +34,12 @@ public class Item
         switch (itemType)
         {
             default:
-            case ItemType.bigPotion:
             case ItemType.smallPotion:
+            case ItemType.shieldPotion:
+            case ItemType.bigPotion:
                 return true;
-            //case ItemType.Sword:
-             //   return false;
-
+            case ItemType.multiAxe:
+                return false;
         }
     }
 }

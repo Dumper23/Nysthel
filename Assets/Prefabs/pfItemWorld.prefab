@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3814663607305526154}
   - component: {fileID: 8155005602971350676}
   - component: {fileID: 4424792536465005426}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: textAmount
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -185,9 +185,9 @@ GameObject:
   - component: {fileID: -6252361119050612158}
   - component: {fileID: 8531106927971595961}
   - component: {fileID: 8531106927971595962}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: pfItemWorld
-  m_TagString: Untagged
+  m_TagString: Collectable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -247,7 +247,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 10
-  m_Sprite: {fileID: 21300000, guid: 37aadcb338ff4b34991707fcf40172df, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -255,7 +255,7 @@ SpriteRenderer:
   m_Size: {x: 8, y: 8}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!114 &-6252361119050612158

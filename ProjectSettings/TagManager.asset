@@ -8,6 +8,11 @@ TagManager:
   - Coin
   - Enemy
   - Bullet
+  - Shield
+  - PlayerBullet
+  - Collectable
+  - SpawnPoint
+  - Rooms
   layers:
   - Default
   - TransparentFX
@@ -15,9 +20,9 @@ TagManager:
   - 
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Collectable
+  - Destructible
+  - Enemy
   - 
   - 
   - 

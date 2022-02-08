@@ -12,6 +12,7 @@ public class ItemWorld : MonoBehaviour
 
         ItemWorld itemWorld = transform.GetComponent<ItemWorld>();
         itemWorld.setItem(item);
+        transform.tag = "Collectable";
 
         return itemWorld;
     }
