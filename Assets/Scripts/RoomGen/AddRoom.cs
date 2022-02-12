@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddRoom : MonoBehaviour {
+public class AddRoom : MonoBehaviour
+{
 
 	private RoomTemplates templates;
 
-	void Start(){
+	void Start()
+	{
 
 		templates = GameObject.FindGameObjectWithTag("Rooms").GetComponent<RoomTemplates>();
 		templates.rooms.Add(this.gameObject);

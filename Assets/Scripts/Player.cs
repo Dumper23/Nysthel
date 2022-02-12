@@ -28,9 +28,11 @@ public class Player : MonoBehaviour
     public HealthBar healthBar;
     public TextMeshProUGUI goldText;
     public GameObject shield;
+    public GameObject crossHair;
 
     private int currentHealth;
     private Vector2 movement;
+    private Vector2 aimPos;
     private string currentState;
     private bool attacking = false;
     private float nextFire = 0f;
@@ -77,6 +79,11 @@ public class Player : MonoBehaviour
 
         healthBar.setHealth(currentHealth);
 
+        if (aimPos.magnitude != 0)
+        {
+            crossHair.transform.position = transform.position + new Vector3(aimPos.x, aimPos.y);
+        }
+
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
 
         Collider2D[] coins = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange);
@@ -105,11 +112,27 @@ public class Player : MonoBehaviour
         {
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
-            playerMovement();
 
-            if (!(movement.x == 0 && movement.y == 0))
+            aimPos.x = Input.GetAxisRaw("HorizontalAim");
+            aimPos.y = Input.GetAxisRaw("VerticalAim");
+
+            Vector2 tempAim = aimPos;
+
+            aimPos = GetConstrainedPosition(Vector2.zero, tempAim); 
+            
+
+            if (aimPos.magnitude <= 0)
             {
-                firePoint.localPosition = new Vector3(Mathf.Clamp(movement.x, -0.6f, 0.6f), Mathf.Clamp(movement.y, -0.6f, 0.6f), 0);
+                playerMovement(movement);
+            }
+            else
+            {
+                playerMovement(aimPos);
+            }
+
+            if (!(aimPos.x == 0 && aimPos.y == 0))
+            {
+                firePoint.localPosition = new Vector3(Mathf.Clamp(aimPos.x, -0.6f, 0.6f), Mathf.Clamp(aimPos.y, -0.6f, 0.6f), 0);
             }
 
             if (Input.GetButtonDown("Attack"))
@@ -117,6 +140,27 @@ public class Player : MonoBehaviour
                 Shoot();
             }
         }
+    }
+
+    Vector2 GetConstrainedPosition(Vector2 midPoint, Vector2 endPoint)
+    {
+        //get the length of the line
+        float dist = Vector2.Distance(midPoint, endPoint);
+
+        //Check for max length
+        if (Vector2.Distance(midPoint, endPoint) > 1)
+        {
+            //get the direction of the line between mid point and end point
+            Vector2 dirVector = endPoint - midPoint;
+
+            //normalize
+            dirVector.Normalize();
+
+            //return the clamped position
+            return (dirVector * 1) + midPoint;
+        }
+        //return the original position
+        return endPoint;
     }
 
     private void FixedUpdate()
@@ -154,16 +198,16 @@ public class Player : MonoBehaviour
         }
     }
 
-    void playerMovement()
+    void playerMovement(Vector2 dir)
     {
-        if (movement.y > 0)
+        if (dir.y > 0)
         {
             if (!attacking)
             {
                 changeAnimationState("Nysthel_walkUp");
             }
         }
-        else if (movement.y < 0)
+        else if (dir.y < 0)
         {
             if (!attacking)
             {
@@ -172,7 +216,7 @@ public class Player : MonoBehaviour
         }
         else
         {
-            if (movement.x > 0)
+            if (dir.x > 0)
             {
                 //transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
                 GetComponent<SpriteRenderer>().flipX = false;
@@ -181,7 +225,7 @@ public class Player : MonoBehaviour
                     changeAnimationState("Nysthel_walk");
                 }
             }
-            else if (movement.x < 0)
+            else if (dir.x < 0)
             {
                 //transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
                 GetComponent<SpriteRenderer>().flipX = true;
@@ -190,7 +234,7 @@ public class Player : MonoBehaviour
                     changeAnimationState("Nysthel_walk");
                 }
             }
-            else if (movement.y == 0)
+            else if (dir.y == 0)
             {
                 if (!attacking)
                 {
@@ -209,7 +253,7 @@ public class Player : MonoBehaviour
         {
             nextFire = Time.time + attackRate;
 
-            if (movement.y <= 0)
+            if (aimPos.y <= 0)
             {
                 changeAnimationState("Nysthel_Attack");
             }
