@@ -105,7 +105,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 13
   m_Sprite: {fileID: 21300000, guid: 913b0624a09791c48ab21b06bf7956b9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   anim: {fileID: 1526128746178488950}
   firePoint: {fileID: 1526128745595485273}
   attackRate: 0.1
-  range: 5
+  range: 14
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
   bullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}

@@ -12,6 +12,8 @@ public class Item
         bigPotion,
         shieldPotion,
         multiAxe,
+        doubleAxe,
+        basicAxe
     }
 
     public ItemType itemType;
@@ -26,6 +28,8 @@ public class Item
             case ItemType.bigPotion:   return ItemAssets.Instance.BigPotion;
             case ItemType.shieldPotion:   return ItemAssets.Instance.ShieldPotion;
             case ItemType.multiAxe:   return ItemAssets.Instance.MultiAxe;
+            case ItemType.doubleAxe:   return ItemAssets.Instance.DoubleAxe;
+            case ItemType.basicAxe:   return ItemAssets.Instance.BasicAxe;
         }
     }
 
@@ -39,6 +43,8 @@ public class Item
             case ItemType.bigPotion:
                 return true;
             case ItemType.multiAxe:
+            case ItemType.doubleAxe:
+            case ItemType.basicAxe:
                 return false;
         }
     }

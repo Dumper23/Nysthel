@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb03b25b17607e042b188b6e4b8b480d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 15
+  health: 5
   maxGoldToGive: 2
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 5

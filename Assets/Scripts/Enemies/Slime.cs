@@ -25,30 +25,36 @@ public class Slime : Enemy
 
     void Update()
     {
-        die();
+        if (activated)
+        {
+            die();
 
-        if (target.position.x > transform.position.x)
-        {
-            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-        }
-
-        if (isRanged)
-        {
-            if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range)
+            if (target.position.x > transform.position.x)
             {
-                nextShot = Time.time + attackRate;
-                Shoot();
+                transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            }
+
+            if (isRanged)
+            {
+                if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range)
+                {
+                    nextShot = Time.time + attackRate;
+                    Shoot();
+                }
             }
         }
     }
 
     private void FixedUpdate()
     {
-        Seek();
+        if (activated)
+        {
+            Seek();
+        }
     }
 
     void Shoot()

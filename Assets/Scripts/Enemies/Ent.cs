@@ -19,40 +19,46 @@ public class Ent : Enemy
 
     void Update()
     {
-        die();
+        if (activated)
+        {
+            die();
 
-        if(target.position.x > transform.position.x)
-        {
-            transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-        }
-        else
-        {
-            transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            if (target.position.x > transform.position.x)
+            {
+                transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
+            }
+            else
+            {
+                transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
+            }
         }
 
     }
 
     private void FixedUpdate()
     {
-        if (!isRanged)
+        if (activated)
         {
-            Seek();
-        }
-        else
-        {
-            if (Vector3.Magnitude(target.position - transform.position) < range)
+            if (!isRanged)
             {
-                if (Time.time > nextShot)
-                {
-                    nextShot = Time.time + attackRate;
-                    changeAnimationState("Attack");
-                    //triga en atacar per l'animació
-                    Invoke("Shoot", 0.5f);
-                }
+                Seek();
             }
             else
             {
-                changeAnimationState("Idle");
+                if (Vector3.Magnitude(target.position - transform.position) < range)
+                {
+                    if (Time.time > nextShot)
+                    {
+                        nextShot = Time.time + attackRate;
+                        changeAnimationState("Attack");
+                        //triga en atacar per l'animació
+                        Invoke("Shoot", 0.5f);
+                    }
+                }
+                else
+                {
+                    changeAnimationState("Idle");
+                }
             }
         }
     }

@@ -24,10 +24,16 @@ public abstract class Enemy : MonoBehaviour
     protected int goldToGive;
     protected string currentState;
     protected float nextShot = 0f;
+    protected bool activated = true;
 
     public void takeDamage(int value)
     {
         health -= value;
+    }
+
+    public void enemyActivation(bool activate)
+    {
+        activated = activate;
     }
 
     protected void die()
@@ -49,14 +55,17 @@ public abstract class Enemy : MonoBehaviour
 
     protected void Seek()
     {
-        if (Vector3.Magnitude(target.position - transform.position) < range)
+        if (activated)
         {
-            transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
-            changeAnimationState("Walk");
-        }
-        else
-        {
-            changeAnimationState("Idle");
+            if (Vector3.Magnitude(target.position - transform.position) < range)
+            {
+                transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
+                changeAnimationState("Walk");
+            }
+            else
+            {
+                changeAnimationState("Idle");
+            }
         }
     }
     protected void changeAnimationState(string newState)

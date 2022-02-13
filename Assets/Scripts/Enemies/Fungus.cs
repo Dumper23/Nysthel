@@ -18,19 +18,22 @@ public class Fungus : Enemy
 
     void Update()
     {
-        die();
+        if (activated)
+        {
+            die();
 
-        if((target.position - transform.position).magnitude <= range)
-        {
-            if (Time.time > nextShot)
+            if ((target.position - transform.position).magnitude <= range)
             {
-                nextShot = Time.time + attackRate;
-                shoot();
+                if (Time.time > nextShot)
+                {
+                    nextShot = Time.time + attackRate;
+                    shoot();
+                }
             }
-        }
-        else
-        {
-            changeAnimationState("Idle");
+            else
+            {
+                changeAnimationState("Idle");
+            }
         }
     }
 

@@ -17,4 +17,6 @@ public class ItemAssets : MonoBehaviour
     public Sprite SmallPotion;
     public Sprite ShieldPotion;
     public Sprite MultiAxe;
+    public Sprite DoubleAxe;
+    public Sprite BasicAxe;
 }

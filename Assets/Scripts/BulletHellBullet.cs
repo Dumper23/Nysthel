@@ -47,7 +47,7 @@ public class BulletHellBullet : MonoBehaviour
             Destroy();
         }
 
-        if (collision.transform.tag == "Bullet")
+        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet")
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }

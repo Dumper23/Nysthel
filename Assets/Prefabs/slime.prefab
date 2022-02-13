@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 15
+  m_SortingOrder: 13
   m_Sprite: {fileID: 21300000, guid: a946833f0a47f7b4cb6d5bb3e4f69810, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,13 +119,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 30
   damage: 5
-  maxGoldToGive: 5
-  moveSpeed: 3
+  maxGoldToGive: 4
+  moveSpeed: 3.5
   rb: {fileID: 3653892466106664214}
   anim: {fileID: 3653892466106664212}
   firePoint: {fileID: 0}
   attackRate: 1
-  range: 7
+  range: 15
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
   isRanged: 0

@@ -93,6 +93,15 @@ public class UIInventory : MonoBehaviour
         inventory.UseItem(item);
     }
 
+    public void navigationRefresh()
+    {
+        if (container.Find("ItemTemplate(Clone)") != null)
+        {
+            GameObject temp = container.Find("ItemTemplate(Clone)").gameObject;
+            EventSystem.current.SetSelectedGameObject(temp);
+        }
+    }
+
     public static void updateText(Item item)
     {
 

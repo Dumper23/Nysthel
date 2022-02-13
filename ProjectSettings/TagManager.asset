@@ -13,6 +13,9 @@ TagManager:
   - Collectable
   - SpawnPoint
   - Rooms
+  - Interactable
+  - EnemyZone
+  - BulletHellBullet
   layers:
   - Default
   - TransparentFX
@@ -24,7 +27,7 @@ TagManager:
   - Destructible
   - Enemy
   - Minimap
-  - 
+  - Interactable
   - 
   - 
   - 

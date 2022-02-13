@@ -9,7 +9,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 5f;
     public  Rigidbody2D rb;
     public Animator anim;
-
+    public int damage = 10;
     public Transform firePoint;
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
@@ -42,7 +42,9 @@ public class Player : MonoBehaviour
     private Vector2 dashDirection;
     private Vector2 dashSpeed;
     private bool shielded = false;
+    private bool basicaxe = true;
     private bool multiaxe = false;
+    private bool doubleaxe = false;
 
     private Vector2 lookDir;
     private Vector3 directionToShoot;
@@ -55,6 +57,8 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
+        gold = PlayerPrefs.GetInt("gold");
+        goldText.text = gold.ToString();
         currentHealth = maxHealth;
         inventory = new Inventory(UseItem);
         uiInventory.setInventory(inventory);
@@ -188,6 +192,7 @@ public class Player : MonoBehaviour
         {
             gold++;
             goldText.text = gold.ToString();
+            SaveVariables.PLAYER_GOLD = gold;
             Destroy(collision.gameObject);
         }
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
@@ -275,19 +280,43 @@ public class Player : MonoBehaviour
                 {
                     float tempRot = startRotation - angleIncrease * i;
                     Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
-                    bullet.setDirection(new Vector2(Mathf.Cos(tempRot * Mathf.Deg2Rad), Mathf.Sin(tempRot * Mathf.Deg2Rad)));              
+                    bullet.setDirection(new Vector2(Mathf.Cos(tempRot * Mathf.Deg2Rad), Mathf.Sin(tempRot * Mathf.Deg2Rad)));
+                    bullet.setDamage(damage);
                 }
             }
-            else
+            else if (doubleaxe)
             {
+                Invoke("generateSecondBullet", 0.2f);
                 directionToShoot = (firePoint.position - transform.position).normalized;
                 attacking = true;
                 Invoke("stopAttacking", animationDelay);
 
                 Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
+                bullet.setDamage(damage);
+            }
+            else if (basicaxe)
+            {
+                directionToShoot = (firePoint.position - transform.position).normalized;
+                attacking = true;
+                Invoke("stopAttacking", animationDelay);
+                
+
+                Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.setDirection(directionToShoot);
+                bullet.setDamage(damage);
             }
         }
+    }
+
+    private void generateSecondBullet()
+    {
+        directionToShoot = (firePoint.position - transform.position).normalized;
+        attacking = true;
+        Invoke("stopAttacking", animationDelay);
+
+        Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+        bullet.setDirection(directionToShoot);
     }
 
     void coinMagnet(Collider2D[] coins)
@@ -341,8 +370,8 @@ public class Player : MonoBehaviour
     {
         if(currentHealth <= 0)
         {
-            //Die, for now restart
-            SceneManager.LoadScene(0);
+            //Die, for now just go to the village
+            SceneManager.LoadScene("Village");
         }
     }
 
@@ -403,7 +432,19 @@ public class Player : MonoBehaviour
             switch (item.itemType)
             {
                 case Item.ItemType.multiAxe:
+                    if (doubleaxe)doubleaxe = false;
+                    if (basicaxe) basicaxe = false;
                     multiaxe = true;
+                    break;
+                case Item.ItemType.doubleAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (basicaxe) basicaxe = false;
+                    doubleaxe = true;
+                    break;
+                case Item.ItemType.basicAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (doubleaxe) doubleaxe = false;
+                    basicaxe = true;
                     break;
             }
         }

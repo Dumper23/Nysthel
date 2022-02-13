@@ -59,7 +59,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 60
+  orthographic size: 35
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -286,8 +286,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2135134600}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 2.0298, y: 2.2759, z: 0}
-  m_LocalScale: {x: 8, y: 8, z: 8}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 5, y: 5, z: 5}
   m_Children: []
   m_Father: {fileID: 9216989108363573417}
   m_RootOrder: 3
@@ -332,8 +332,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: -70
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
-  m_Color: {r: 0.3820755, g: 1, b: 0.42945775, a: 1}
+  m_Sprite: {fileID: -2413806693520163455, guid: 4adeaf2d2b1c7417e89f026626d8264f, type: 3}
+  m_Color: {r: 0, g: 1, b: 0.08227849, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -498,6 +498,7 @@ MonoBehaviour:
   moveSpeed: 6
   rb: {fileID: 9216989108363573416}
   anim: {fileID: 9216989108363573419}
+  damage: 10
   firePoint: {fileID: 9216989107770260182}
   bulletPrefab: {fileID: 8848529324968467858, guid: 99b9fa0d3654df44ea8951569f6e48df, type: 3}
   bulletForce: 10
