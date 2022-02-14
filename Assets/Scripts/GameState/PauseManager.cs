@@ -14,7 +14,15 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Cancel"))
+        {
+            GameStateManager.Instance.SetState(GameState.Gameplay);
+            Time.timeScale = 1f;
+            pauseUi.SetActive(false);
+            inventoryUi.SetActive(false);
+        }
+
+            if (Input.GetButtonDown("Pause"))
         {
             EventSystem.current.SetSelectedGameObject(ResumeButton);
             inventoryUi.SetActive(false);
@@ -81,6 +89,7 @@ public class PauseManager : MonoBehaviour
     public void MainMenu()
     {
         //Load Main menu
+        PlayerPrefs.DeleteAll();
     }
 
     public void Quit()

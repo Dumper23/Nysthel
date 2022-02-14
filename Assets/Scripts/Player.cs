@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IShopCustomer
 {
     public float moveSpeed = 5f;
     public  Rigidbody2D rb;
@@ -57,7 +57,6 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        gold = PlayerPrefs.GetInt("gold");
         goldText.text = gold.ToString();
         currentHealth = maxHealth;
         inventory = new Inventory(UseItem);
@@ -65,6 +64,55 @@ public class Player : MonoBehaviour
         uiInventory.setPlayer(this);
         GameStateManager.Instance.OnGameStateChange += OnGameStateChanged;
         healthBar.setMaxHealth(maxHealth);
+    }
+
+    private void Start()
+    {
+        if (PlayerPrefs.GetInt("gold") > 0)
+        {
+            gold = PlayerPrefs.GetInt("gold");
+        }
+        if (PlayerPrefs.GetInt("attack") > 0)
+        {
+            damage = PlayerPrefs.GetInt("attack");
+        }
+        if (PlayerPrefs.GetInt("life") > 0)
+        {
+            maxHealth = PlayerPrefs.GetInt("life");
+            healthBar.setMaxHealth(maxHealth);
+            currentHealth = maxHealth;
+        }
+        if (PlayerPrefs.GetFloat("speed") > 0)
+        {
+            moveSpeed = PlayerPrefs.GetFloat("speed");
+        }
+        if (PlayerPrefs.GetFloat("attackSpeed") > 0)
+        {
+            attackRate = PlayerPrefs.GetFloat("attackSpeed");
+        }
+        if (PlayerPrefs.GetFloat("range") > 0)
+        {
+            coinMagnetRange = PlayerPrefs.GetFloat("range");
+        }
+        if (PlayerPrefs.GetFloat("dashRecovery") > 0)
+        {
+            dashRestoreTime = PlayerPrefs.GetFloat("dashRecovery");
+        }
+        if (PlayerPrefs.GetFloat("dashRange") > 0)
+        {
+            dashForce = PlayerPrefs.GetFloat("dashRange");
+        }
+
+        goldText.text = gold.ToString();
+
+        SaveVariables.PLAYER_LIFE = maxHealth;
+        SaveVariables.PLAYER_ATTACK = damage;
+        SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
+        SaveVariables.PLAYER_SPEED = moveSpeed;
+        SaveVariables.PLAYER_RANGE = coinMagnetRange;
+        SaveVariables.PLAYER_DASH_RANGE = dashForce;
+        SaveVariables.PLAYER_DASH_RECOVERY = dashRestoreTime;
+
     }
 
     private void OnDestroy()
@@ -139,7 +187,7 @@ public class Player : MonoBehaviour
                 firePoint.localPosition = new Vector3(Mathf.Clamp(aimPos.x, -0.6f, 0.6f), Mathf.Clamp(aimPos.y, -0.6f, 0.6f), 0);
             }
 
-            if (Input.GetButtonDown("Attack"))
+            if (Input.GetButton("Attack"))
             {
                 Shoot();
             }
@@ -191,7 +239,7 @@ public class Player : MonoBehaviour
         if (collision.transform.tag == "Coin")
         {
             gold++;
-            goldText.text = gold.ToString();
+            updateGold();
             SaveVariables.PLAYER_GOLD = gold;
             Destroy(collision.gameObject);
         }
@@ -456,5 +504,85 @@ public class Player : MonoBehaviour
     {
         shield.SetActive(false);
         shielded = false;
+    }
+
+    public void BoughtItem(ShopItem.ItemType itemType)
+    {
+
+        switch (itemType)
+        {
+            case ShopItem.ItemType.LifeUpgrade:
+                maxHealth += 10;
+                SaveVariables.PLAYER_LIFE = maxHealth;
+                healthBar.setMaxHealth(maxHealth);
+                currentHealth = maxHealth;
+                break;
+
+            case ShopItem.ItemType.AttackUpgrade:
+                damage += 10;
+                SaveVariables.PLAYER_ATTACK = damage;
+                break;
+
+            case ShopItem.ItemType.SpeedUpgrade:
+                moveSpeed += 1;
+                SaveVariables.PLAYER_SPEED = moveSpeed;
+                break;
+
+            case ShopItem.ItemType.AttackSpeedUpgrade:
+                attackRate -= 0.01f;
+                SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
+                break;
+
+            case ShopItem.ItemType.RangeUpgrade:
+                coinMagnetRange += 0.55f;
+                SaveVariables.PLAYER_RANGE = coinMagnetRange;
+                break;
+
+            case ShopItem.ItemType.DashRecoveryUpgrade:
+                dashRestoreTime -= 0.5f;
+                SaveVariables.PLAYER_DASH_RECOVERY = dashRestoreTime;
+                break;
+
+            case ShopItem.ItemType.DashRangeUpgrade:
+                dashForce += 0.5f;
+                SaveVariables.PLAYER_DASH_RANGE = dashForce;
+                break;
+
+        }
+    }
+
+    private void updateGold()
+    {
+        goldText.text = gold.ToString();
+    }
+
+    public bool TrySpendGoldAmount(int goldAmount)
+    {
+        if(gold >= goldAmount)
+        {
+            gold -= goldAmount;
+            updateGold();
+            SaveVariables.PLAYER_GOLD = gold;
+            PlayerPrefs.SetInt("gold", SaveVariables.PLAYER_GOLD);
+            return true;
+        }
+        else
+        {
+            //Error, no enough gold
+            return false;
+        }
+    }
+
+    public float[] GetStatistics()
+    {
+        float[] s = new float[7];
+        s[0] = damage;
+        s[1] = maxHealth;
+        s[2] = moveSpeed;
+        s[3] = (1/attackRate);
+        s[4] = dashRestoreTime;
+        s[5] = dashTime;
+        s[6] = coinMagnetRange;
+        return s;    
     }
 }

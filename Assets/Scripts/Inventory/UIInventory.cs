@@ -12,6 +12,7 @@ public class UIInventory : MonoBehaviour
     private Inventory inventory;
     private Transform container;
     private Transform itemTemplate;
+    private Transform statistics;
     private Player player;
     private Item currentItem;
 
@@ -19,7 +20,18 @@ public class UIInventory : MonoBehaviour
     {
         container = transform.Find("Container");
         itemTemplate = container.Find("ItemTemplate");
+        statistics = transform.Find("Statistics");
         container.parent.gameObject.SetActive(false);
+    }
+
+    private void OnEnable()
+    {
+        TextMeshProUGUI t = statistics.Find("stats").GetComponent<TextMeshProUGUI>();
+        t.text = "Life: " + player.maxHealth + "\n"
+               + "Attack: " + player.damage + "\n"
+               + "Speed: " + player.moveSpeed.ToString("F2") + "\n"
+               + "Attack Speed: " + (1/player.attackRate).ToString("F2") + "\n"
+               + "Range: " + player.coinMagnetRange.ToString("F2");
     }
 
     public void setPlayer(Player player)
