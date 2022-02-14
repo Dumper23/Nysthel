@@ -23,6 +23,14 @@ public class UiShop : MonoBehaviour
 
     private void Start()
     {
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.LifeUpgrade, SaveVariables.LIFE_LEVEL);
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.AttackUpgrade, SaveVariables.ATTACK_LEVEL);
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade, SaveVariables.ATTACK_SPEED_LEVEL);
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.SpeedUpgrade, SaveVariables.SPEED_LEVEL);
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.RangeUpgrade, SaveVariables.RANGE_LEVEL);
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade, SaveVariables.DASH_RECOVERY_LEVEL);
+        ShopItem.SetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade, SaveVariables.DASH_RANGE_LEVEL);
+
         CreateItemButton(ShopItem.ItemType.LifeUpgrade, ShopItem.GetSprite(ShopItem.ItemType.LifeUpgrade), "Life Upgrade", ShopItem.GetCost(ShopItem.ItemType.LifeUpgrade), 0);
         CreateItemButton(ShopItem.ItemType.AttackUpgrade, ShopItem.GetSprite(ShopItem.ItemType.AttackUpgrade), "Attack Upgrade", ShopItem.GetCost(ShopItem.ItemType.AttackUpgrade), 1);
         CreateItemButton(ShopItem.ItemType.SpeedUpgrade, ShopItem.GetSprite(ShopItem.ItemType.SpeedUpgrade), "Speed Upgrade", ShopItem.GetCost(ShopItem.ItemType.SpeedUpgrade), 2);
@@ -58,42 +66,53 @@ public class UiShop : MonoBehaviour
 
     private void TryBuyItem(ShopItem.ItemType itemType)
     {
-        if (shopCustomer.TrySpendGoldAmount(ShopItem.GetCost(itemType)))
+        if (ShopItem.GetMaxLevel(itemType) > ShopItem.GetCurrentLevel(itemType))
         {
-            ShopAssets.Instance.BlackSmithLevel++;
-            SaveVariables.BLACKSMITH_LEVEL = ShopAssets.Instance.BlackSmithLevel;
-            PlayerPrefs.SetInt("blacksmith", SaveVariables.BLACKSMITH_LEVEL);
-            for (int i = 0; i < templates.Count; i++)
+            if (shopCustomer.TrySpendGoldAmount(ShopItem.GetCost(itemType)))
             {
-                switch (templates[i].Find("itemName").GetComponent<TextMeshProUGUI>().text)
+                ShopAssets.Instance.BlackSmithLevel++;
+                SaveVariables.BLACKSMITH_LEVEL = ShopAssets.Instance.BlackSmithLevel;
+                PlayerPrefs.SetInt("blacksmith", SaveVariables.BLACKSMITH_LEVEL);
+                for (int i = 0; i < templates.Count; i++)
                 {
-                    case "Life Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((300 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
-                    case "Attack Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((300 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
-                    case "Speed Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((150 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
-                    case "Attack Speed Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((250 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
-                    case "Range Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((150 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
-                    case "Dash Recovery Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((200 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
-                    case "Dash Range Upgrade":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((150 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
-                        break;
+                    switch (templates[i].Find("itemName").GetComponent<TextMeshProUGUI>().text)
+                    {
+                        case "Life Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((300 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                        case "Attack Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((300 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                        case "Speed Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((150 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                        case "Attack Speed Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((250 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                        case "Range Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((150 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                        case "Dash Recovery Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((200 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                        case "Dash Range Upgrade":
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText((150 * (ShopAssets.Instance.BlackSmithLevel + 1)).ToString());
+                            break;
+                    }
                 }
+                shopCustomer.BoughtItem(itemType);
+                Transform t = transform.Find("Panel").Find("Statistics");
+                float[] s = shopCustomer.GetStatistics();
+                t.GetComponent<TextMeshProUGUI>().text =
+                    "Statistics:" +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + ")Health:\t\t" + s[1] +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + ")Attack:\t\t" + s[0] +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + ")Speed:\t\t" + s[2].ToString("F2") +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ")Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + ")Magnet Range:\t" + s[6].ToString("F2") +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ")Dash Recv.:\t" + s[4].ToString("F2") +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + ")Dash Range:\t" + s[5].ToString("F2");
             }
-            shopCustomer.BoughtItem(itemType);
-            Transform t = transform.Find("Statistics");
-            float[] s = shopCustomer.GetStatistics();
-            t.GetComponent<TextMeshProUGUI>().text = "Statistics:\nHealth:\t\t" + s[1] + "\nAttack:\t\t" + s[0] +  "\nSpeed:\t\t" + s[2].ToString("F2") + "\nAttack Speed:\t" + s[3].ToString("F2") + " (attacks/s)\nMagnet Range:\t" + s[6].ToString("F2") + "\nDash Recv.:\t\t" + s[4].ToString("F2") + "\nDash Range:\t" + s[5].ToString("F2");
         }
     }
 
@@ -103,9 +122,17 @@ public class UiShop : MonoBehaviour
         PlayerPrefs.SetInt("blacksmith", SaveVariables.BLACKSMITH_LEVEL);
         this.shopCustomer = shopCustomer;
         gameObject.SetActive(true);
-        Transform t = transform.Find("Statistics");
+        Transform t = transform.Find("Panel").Find("Statistics");
         float[] s = shopCustomer.GetStatistics();
-        t.GetComponent<TextMeshProUGUI>().text = "Statistics:\nHealth:\t\t" + s[1] + "\nAttack:\t\t" + s[0] + "\nSpeed:\t\t" + s[2].ToString("F2") + "\nAttack Speed:\t" + s[3].ToString("F2") + " (attacks/s)\nMagnet Range:\t" + s[6].ToString("F2") + "\nDash Recv.:\t\t" + s[4].ToString("F2") + "\nDash Range:\t" + s[5].ToString("F2");
+        t.GetComponent<TextMeshProUGUI>().text =
+                "Statistics:" +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + ")Health:\t\t" + s[1] +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + ")Attack:\t\t" + s[0] +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + ")Speed:\t\t" + s[2].ToString("F2") +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ")Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + ")Magnet Range:\t" + s[6].ToString("F2") +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ")Dash Recv.:\t" + s[4].ToString("F2") +
+                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + ")Dash Range:\t" + s[5].ToString("F2");
         EventSystem.current.SetSelectedGameObject(templates[0].gameObject);
     }
 

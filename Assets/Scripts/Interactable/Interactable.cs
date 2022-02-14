@@ -45,6 +45,14 @@ public class Interactable : MonoBehaviour
                         PlayerPrefs.SetFloat("range", SaveVariables.PLAYER_RANGE);
                         PlayerPrefs.SetFloat("dashRecovery", SaveVariables.PLAYER_DASH_RECOVERY);
                         PlayerPrefs.SetFloat("dashRange", SaveVariables.PLAYER_DASH_RANGE);
+
+                        SaveVariables.ATTACK_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackUpgrade.ToString());
+                        SaveVariables.LIFE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.LifeUpgrade.ToString());
+                        SaveVariables.SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.SpeedUpgrade.ToString());
+                        SaveVariables.ATTACK_SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackSpeedUpgrade.ToString());
+                        SaveVariables.RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.RangeUpgrade.ToString());
+                        SaveVariables.DASH_RECOVERY_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRecoveryUpgrade.ToString());
+                        SaveVariables.DASH_RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRangeUpgrade.ToString());
                         SceneManager.LoadScene("Village");
                     }
                     //Else fer un soroll per mostrar que no te diners i que no pot viatjar
@@ -60,6 +68,14 @@ public class Interactable : MonoBehaviour
                     PlayerPrefs.SetFloat("range", SaveVariables.PLAYER_RANGE);
                     PlayerPrefs.SetFloat("dashRecovery", SaveVariables.PLAYER_DASH_RECOVERY);
                     PlayerPrefs.SetFloat("dashRange", SaveVariables.PLAYER_DASH_RANGE);
+
+                    SaveVariables.ATTACK_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackUpgrade.ToString());
+                    SaveVariables.LIFE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.LifeUpgrade.ToString());
+                    SaveVariables.SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.SpeedUpgrade.ToString());
+                    SaveVariables.ATTACK_SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackSpeedUpgrade.ToString());
+                    SaveVariables.RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.RangeUpgrade.ToString());
+                    SaveVariables.DASH_RECOVERY_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRecoveryUpgrade.ToString());
+                    SaveVariables.DASH_RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRangeUpgrade.ToString());
                     SceneManager.LoadScene("Forest");
                     break;
 

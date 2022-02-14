@@ -105,6 +105,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
         goldText.text = gold.ToString();
 
+        SaveVariables.PLAYER_GOLD = gold;
         SaveVariables.PLAYER_LIFE = maxHealth;
         SaveVariables.PLAYER_ATTACK = damage;
         SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
@@ -418,7 +419,9 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if(currentHealth <= 0)
         {
-            //Die, for now just go to the village
+            gold -= Mathf.RoundToInt(0.6f * gold);
+            SaveVariables.PLAYER_GOLD = gold;
+            PlayerPrefs.SetInt("gold", gold);
             SceneManager.LoadScene("Village");
         }
     }
@@ -508,12 +511,15 @@ public class Player : MonoBehaviour, IShopCustomer
 
     public void BoughtItem(ShopItem.ItemType itemType)
     {
+        ShopItem.AddLevel(itemType);
+        PlayerPrefs.SetInt(itemType.ToString(), ShopItem.GetCurrentLevel(itemType));
 
         switch (itemType)
         {
             case ShopItem.ItemType.LifeUpgrade:
                 maxHealth += 10;
                 SaveVariables.PLAYER_LIFE = maxHealth;
+                SaveVariables.LIFE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 healthBar.setMaxHealth(maxHealth);
                 currentHealth = maxHealth;
                 break;
@@ -521,33 +527,38 @@ public class Player : MonoBehaviour, IShopCustomer
             case ShopItem.ItemType.AttackUpgrade:
                 damage += 10;
                 SaveVariables.PLAYER_ATTACK = damage;
+                SaveVariables.ATTACK_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
 
             case ShopItem.ItemType.SpeedUpgrade:
                 moveSpeed += 1;
                 SaveVariables.PLAYER_SPEED = moveSpeed;
+                SaveVariables.SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
 
             case ShopItem.ItemType.AttackSpeedUpgrade:
                 attackRate -= 0.01f;
                 SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
+                SaveVariables.ATTACK_SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
 
             case ShopItem.ItemType.RangeUpgrade:
                 coinMagnetRange += 0.55f;
                 SaveVariables.PLAYER_RANGE = coinMagnetRange;
+                SaveVariables.RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
 
             case ShopItem.ItemType.DashRecoveryUpgrade:
                 dashRestoreTime -= 0.5f;
                 SaveVariables.PLAYER_DASH_RECOVERY = dashRestoreTime;
+                SaveVariables.DASH_RECOVERY_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
 
             case ShopItem.ItemType.DashRangeUpgrade:
                 dashForce += 0.5f;
                 SaveVariables.PLAYER_DASH_RANGE = dashForce;
+                SaveVariables.DASH_RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
-
         }
     }
 
@@ -581,7 +592,7 @@ public class Player : MonoBehaviour, IShopCustomer
         s[2] = moveSpeed;
         s[3] = (1/attackRate);
         s[4] = dashRestoreTime;
-        s[5] = dashTime;
+        s[5] = dashForce;
         s[6] = coinMagnetRange;
         return s;    
     }

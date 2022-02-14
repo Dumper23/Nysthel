@@ -51,20 +51,9 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet")
+        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet" || collision.transform.tag == "Enemy")
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-        }
-        else if(collision.transform.tag == "Enemy")
-        {
-            if (collision.collider.GetComponent<Ent>() != null)
-            {
-                Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
         }
         else if(collision.transform.tag == "Destructible")
         {

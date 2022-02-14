@@ -45,6 +45,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   inventoryUi: {fileID: 0}
+  pauseUi: {fileID: 0}
+  ResumeButton: {fileID: 0}
+  Map: {fileID: 0}
+  minimapCam: {fileID: 0}
 --- !u!114 &8469165761278272949
 MonoBehaviour:
   m_ObjectHideFlags: 0
