@@ -30,6 +30,14 @@ public class Interactable : MonoBehaviour
     {
         if (inRange && Input.GetButtonDown("Interact"))
         {
+            SaveVariables.PLAYER_LIFE = player.maxHealth;
+            SaveVariables.PLAYER_ATTACK = player.damage;
+            SaveVariables.PLAYER_SPEED = player.moveSpeed;
+            SaveVariables.PLAYER_ATTACK_SPEED = player.attackRate;
+            SaveVariables.PLAYER_RANGE = player.coinMagnetRange;
+            SaveVariables.PLAYER_DASH_RECOVERY = player.dashRestoreTime;
+            SaveVariables.PLAYER_DASH_RANGE = player.dashForce;
+
             //Functionality of the interaction
             switch (interaction)
             {
@@ -37,45 +45,18 @@ public class Interactable : MonoBehaviour
                     if (SaveVariables.PLAYER_GOLD - Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) >= 0)
                     {
                         SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f);
-                        PlayerPrefs.SetInt("gold", SaveVariables.PLAYER_GOLD);
-                        PlayerPrefs.SetInt("attack", SaveVariables.PLAYER_ATTACK);
-                        PlayerPrefs.SetInt("life", SaveVariables.PLAYER_LIFE);
-                        PlayerPrefs.SetFloat("speed", SaveVariables.PLAYER_SPEED);
-                        PlayerPrefs.SetFloat("attackSpeed", SaveVariables.PLAYER_ATTACK_SPEED);
-                        PlayerPrefs.SetFloat("range", SaveVariables.PLAYER_RANGE);
-                        PlayerPrefs.SetFloat("dashRecovery", SaveVariables.PLAYER_DASH_RECOVERY);
-                        PlayerPrefs.SetFloat("dashRange", SaveVariables.PLAYER_DASH_RANGE);
+                        SaveManager.Instance.SaveGame();
 
-                        SaveVariables.ATTACK_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackUpgrade.ToString());
-                        SaveVariables.LIFE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.LifeUpgrade.ToString());
-                        SaveVariables.SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.SpeedUpgrade.ToString());
-                        SaveVariables.ATTACK_SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackSpeedUpgrade.ToString());
-                        SaveVariables.RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.RangeUpgrade.ToString());
-                        SaveVariables.DASH_RECOVERY_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRecoveryUpgrade.ToString());
-                        SaveVariables.DASH_RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRangeUpgrade.ToString());
                         SceneManager.LoadScene("Village");
                     }
-                    //Else fer un soroll per mostrar que no te diners i que no pot viatjar
+                    //Else fer un Popup per mostrar que no te diners i que no pot viatjar
                     break;
 
                 case Interactions.GoToAdventure:
-                    //Faltar triar a quin nivell viatjara en funcio del datafile o en funcio de la seva tria
-                    PlayerPrefs.SetInt("gold", SaveVariables.PLAYER_GOLD);
-                    PlayerPrefs.SetInt("attack", SaveVariables.PLAYER_ATTACK);
-                    PlayerPrefs.SetInt("life", SaveVariables.PLAYER_LIFE);
-                    PlayerPrefs.SetFloat("speed", SaveVariables.PLAYER_SPEED);
-                    PlayerPrefs.SetFloat("attackSpeed", SaveVariables.PLAYER_ATTACK_SPEED);
-                    PlayerPrefs.SetFloat("range", SaveVariables.PLAYER_RANGE);
-                    PlayerPrefs.SetFloat("dashRecovery", SaveVariables.PLAYER_DASH_RECOVERY);
-                    PlayerPrefs.SetFloat("dashRange", SaveVariables.PLAYER_DASH_RANGE);
+                    SaveManager.Instance.SaveGame();
 
-                    SaveVariables.ATTACK_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackUpgrade.ToString());
-                    SaveVariables.LIFE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.LifeUpgrade.ToString());
-                    SaveVariables.SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.SpeedUpgrade.ToString());
-                    SaveVariables.ATTACK_SPEED_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.AttackSpeedUpgrade.ToString());
-                    SaveVariables.RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.RangeUpgrade.ToString());
-                    SaveVariables.DASH_RECOVERY_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRecoveryUpgrade.ToString());
-                    SaveVariables.DASH_RANGE_LEVEL = PlayerPrefs.GetInt(ShopItem.ItemType.DashRangeUpgrade.ToString());
+                    //mostrar ui per triar a quin mon anar (dels disponibles: maxWorld) i canviar el current world al mon seleccionat
+                    //De moment només forest
                     SceneManager.LoadScene("Forest");
                     break;
 
@@ -91,14 +72,8 @@ public class Interactable : MonoBehaviour
 
                 case Interactions.Save:
                     //Save
-                    PlayerPrefs.SetInt("gold", SaveVariables.PLAYER_GOLD);
-                    PlayerPrefs.SetInt("attack", SaveVariables.PLAYER_ATTACK);
-                    PlayerPrefs.SetInt("life", SaveVariables.PLAYER_LIFE);
-                    PlayerPrefs.SetFloat("speed", SaveVariables.PLAYER_SPEED);
-                    PlayerPrefs.SetFloat("attackSpeed", SaveVariables.PLAYER_ATTACK_SPEED);
-                    PlayerPrefs.SetFloat("range", SaveVariables.PLAYER_RANGE);
-                    PlayerPrefs.SetFloat("dashRecovery", SaveVariables.PLAYER_DASH_RECOVERY);
-                    PlayerPrefs.SetFloat("dashRange", SaveVariables.PLAYER_DASH_RANGE);
+                    SaveManager.Instance.SaveGame();
+
                     break;
             }
         }

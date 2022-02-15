@@ -7,6 +7,7 @@ public class Bullet : MonoBehaviour
     [Range(0, 1)]
     public float range = 1f;
     public float speed = 1f;
+    public GameObject afterDestroySound;
 
     private int damage = 10;
 
@@ -57,6 +58,7 @@ public class Bullet : MonoBehaviour
 
         if (collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin")
         {
+            Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

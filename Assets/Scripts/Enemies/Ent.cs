@@ -2,13 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Ent : Enemy
 {
     public bool isRanged = false;
     public GameObject bullet;
+    public AudioClip[] audios;
+    public GameObject afterDieSound;
+
+    private AudioSource audioSource;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         target = GameObject.FindGameObjectWithTag("Player").transform;
         changeAnimationState("Idle");
         if(firePoint == null)
@@ -21,7 +27,10 @@ public class Ent : Enemy
     {
         if (activated)
         {
-            die();
+            if (health <= 0) {
+                Instantiate(afterDieSound, transform.position, Quaternion.identity);
+                die();
+            }
 
             if (target.position.x > transform.position.x)
             {
@@ -41,7 +50,14 @@ public class Ent : Enemy
         {
             if (!isRanged)
             {
-                Seek();
+                bool inRange = Seek();
+                if (Time.time > nextShot && inRange)
+                {
+                    nextShot = Time.time + 0.8f;
+                    audioSource.clip = audios[0];
+                    audioSource.Play();
+
+                }
             }
             else
             {
@@ -49,6 +65,8 @@ public class Ent : Enemy
                 {
                     if (Time.time > nextShot)
                     {
+                        audioSource.clip = audios[0];
+                        audioSource.Play();
                         nextShot = Time.time + attackRate;
                         changeAnimationState("Attack");
                         //triga en atacar per l'animació

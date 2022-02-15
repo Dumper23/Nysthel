@@ -27,11 +27,13 @@ public class UIInventory : MonoBehaviour
     private void OnEnable()
     {
         TextMeshProUGUI t = statistics.Find("stats").GetComponent<TextMeshProUGUI>();
-        t.text = "Life: " + player.maxHealth + "\n"
-               + "Attack: " + player.damage + "\n"
-               + "Speed: " + player.moveSpeed.ToString("F2") + "\n"
-               + "Attack Speed: " + (1/player.attackRate).ToString("F2") + "\n"
-               + "Range: " + player.coinMagnetRange.ToString("F2");
+        t.text = "Life: \t\t\t\t" + player.maxHealth + "\n"
+               + "Attack: \t\t\t" + player.damage + "\n"
+               + "Speed: \t\t\t" + player.moveSpeed.ToString("F2") + "\n"
+               + "Attack Speed: \t\t" + (1/player.attackRate).ToString("F2") + "\n"
+               + "Range: \t\t\t" + player.coinMagnetRange.ToString("F2") + "\n"
+               + "Dash Recovery: \t\t" + player.dashRestoreTime.ToString("F2") + "\n"
+               + "Dash Range: \t\t" + player.dashForce.ToString("F2");
     }
 
     public void setPlayer(Player player)

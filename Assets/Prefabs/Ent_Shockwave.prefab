@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7739992277971540698}
   - component: {fileID: 1695380726678251744}
   - component: {fileID: 4817173349189836695}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Ent_Shockwave
   m_TagString: Bullet
   m_Icon: {fileID: 0}

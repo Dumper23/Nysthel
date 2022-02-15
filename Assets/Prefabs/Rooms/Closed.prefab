@@ -7104,6 +7104,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cc871afcca2f2b4cabcb71986b0d117, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  canSpawnBoss: 0
 --- !u!1 &4367077265931198144
 GameObject:
   m_ObjectHideFlags: 0

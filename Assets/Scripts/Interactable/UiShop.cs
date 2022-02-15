@@ -17,12 +17,11 @@ public class UiShop : MonoBehaviour
         container = transform.Find("Container");
         shopItemTemplate = container.Find("ShopItemTemplate");
         shopItemTemplate.gameObject.SetActive(false);
-        SaveVariables.BLACKSMITH_LEVEL = PlayerPrefs.GetInt("blacksmith");
-        ShopAssets.Instance.BlackSmithLevel = SaveVariables.BLACKSMITH_LEVEL;
     }
 
     private void Start()
     {
+        ShopAssets.Instance.BlackSmithLevel = SaveVariables.BLACKSMITH_LEVEL;
         ShopItem.SetCurrentLevel(ShopItem.ItemType.LifeUpgrade, SaveVariables.LIFE_LEVEL);
         ShopItem.SetCurrentLevel(ShopItem.ItemType.AttackUpgrade, SaveVariables.ATTACK_LEVEL);
         ShopItem.SetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade, SaveVariables.ATTACK_SPEED_LEVEL);
@@ -72,7 +71,7 @@ public class UiShop : MonoBehaviour
             {
                 ShopAssets.Instance.BlackSmithLevel++;
                 SaveVariables.BLACKSMITH_LEVEL = ShopAssets.Instance.BlackSmithLevel;
-                PlayerPrefs.SetInt("blacksmith", SaveVariables.BLACKSMITH_LEVEL);
+
                 for (int i = 0; i < templates.Count; i++)
                 {
                     switch (templates[i].Find("itemName").GetComponent<TextMeshProUGUI>().text)
@@ -105,13 +104,13 @@ public class UiShop : MonoBehaviour
                 float[] s = shopCustomer.GetStatistics();
                 t.GetComponent<TextMeshProUGUI>().text =
                     "Statistics:" +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + ")Health:\t\t" + s[1] +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + ")Attack:\t\t" + s[0] +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + ")Speed:\t\t" + s[2].ToString("F2") +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ")Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + ")Magnet Range:\t" + s[6].ToString("F2") +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ")Dash Recv.:\t" + s[4].ToString("F2") +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + ")Dash Range:\t" + s[5].ToString("F2");
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Health:\t\t" + s[1] +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack:\t\t\t" + s[0] +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed:\t\t\t" + s[2].ToString("F2") +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range:\t" + s[6].ToString("F2") +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
             }
         }
     }
@@ -119,20 +118,19 @@ public class UiShop : MonoBehaviour
     public void show(IShopCustomer shopCustomer)
     {
         ShopAssets.Instance.BlackSmithLevel = SaveVariables.BLACKSMITH_LEVEL;
-        PlayerPrefs.SetInt("blacksmith", SaveVariables.BLACKSMITH_LEVEL);
         this.shopCustomer = shopCustomer;
         gameObject.SetActive(true);
         Transform t = transform.Find("Panel").Find("Statistics");
         float[] s = shopCustomer.GetStatistics();
         t.GetComponent<TextMeshProUGUI>().text =
-                "Statistics:" +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + ")Health:\t\t" + s[1] +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + ")Attack:\t\t" + s[0] +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + ")Speed:\t\t" + s[2].ToString("F2") +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ")Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + ")Magnet Range:\t" + s[6].ToString("F2") +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ")Dash Recv.:\t" + s[4].ToString("F2") +
-                "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + ")Dash Range:\t" + s[5].ToString("F2");
+            "Statistics:" +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Health:\t\t" + s[1] +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack:\t\t\t" + s[0] +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed:\t\t\t" + s[2].ToString("F2") +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range:\t" + s[6].ToString("F2") +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
         EventSystem.current.SetSelectedGameObject(templates[0].gameObject);
     }
 

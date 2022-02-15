@@ -58,6 +58,14 @@ public class ShopItem
 
     public static int GetCurrentLevel(ItemType itemType)
     {
+        LifeUpgradeLevel = SaveVariables.LIFE_LEVEL;
+        AttackUpgradeLevel = SaveVariables.ATTACK_LEVEL;
+        SpeedUpgradeLevel = SaveVariables.SPEED_LEVEL;
+        AttackSpeedUpgradeLevel = SaveVariables.ATTACK_SPEED_LEVEL;
+        RangeUpgradeLevel = SaveVariables.RANGE_LEVEL;
+        DashRecoveryUpgradeLevel = SaveVariables.DASH_RECOVERY_LEVEL;
+        DashRangeUpgradeLevel = SaveVariables.DASH_RANGE_LEVEL;
+
         switch (itemType)
         {
             default:
@@ -77,30 +85,37 @@ public class ShopItem
         {
             case ShopItem.ItemType.LifeUpgrade:
                 LifeUpgradeLevel = level;
+                SaveVariables.LIFE_LEVEL = LifeUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.AttackUpgrade:
                 AttackUpgradeLevel = level;
+                SaveVariables.ATTACK_LEVEL = AttackUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.SpeedUpgrade:
                 SpeedUpgradeLevel = level;
+                SaveVariables.SPEED_LEVEL = SpeedUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.AttackSpeedUpgrade:
                 AttackSpeedUpgradeLevel = level;
+                SaveVariables.ATTACK_SPEED_LEVEL = AttackSpeedUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.RangeUpgrade:
                 RangeUpgradeLevel = level;
+                SaveVariables.RANGE_LEVEL = RangeUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.DashRecoveryUpgrade:
                 DashRecoveryUpgradeLevel = level;
+                SaveVariables.DASH_RECOVERY_LEVEL = DashRecoveryUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.DashRangeUpgrade:
                 DashRangeUpgradeLevel = level;
+                SaveVariables.DASH_RANGE_LEVEL = DashRangeUpgradeLevel;
                 break;
 
         }
@@ -112,30 +127,37 @@ public class ShopItem
         {
             case ShopItem.ItemType.LifeUpgrade:
                 LifeUpgradeLevel++;
+                SaveVariables.LIFE_LEVEL = LifeUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.AttackUpgrade:
                 AttackUpgradeLevel++;
+                SaveVariables.ATTACK_LEVEL = AttackUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.SpeedUpgrade:
                 SpeedUpgradeLevel++;
+                SaveVariables.SPEED_LEVEL = SpeedUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.AttackSpeedUpgrade:
                 AttackSpeedUpgradeLevel++;
+                SaveVariables.ATTACK_SPEED_LEVEL = AttackSpeedUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.RangeUpgrade:
                 RangeUpgradeLevel++;
+                SaveVariables.RANGE_LEVEL = RangeUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.DashRecoveryUpgrade:
                 DashRecoveryUpgradeLevel++;
+                SaveVariables.DASH_RECOVERY_LEVEL = DashRecoveryUpgradeLevel;
                 break;
 
             case ShopItem.ItemType.DashRangeUpgrade:
                 DashRangeUpgradeLevel++;
+                SaveVariables.DASH_RANGE_LEVEL = DashRangeUpgradeLevel;
                 break;
 
         }

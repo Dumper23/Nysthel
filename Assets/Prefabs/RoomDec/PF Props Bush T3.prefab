@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 296048274010227437}
   - component: {fileID: 296048274010227436}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Shadow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 296048274256869924}
   - component: {fileID: 1774126866194669458}
   - component: {fileID: 1316956517}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: PF Props Bush T3
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -301,6 +301,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 0.3
   speed: 10
+  afterDestroySound: {fileID: 8017809112979578920, guid: c28a433ffb7b4b74da1bd23c3a883bf6, type: 3}
 --- !u!95 &3849730002283103051
 Animator:
   serializedVersion: 3

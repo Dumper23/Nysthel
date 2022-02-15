@@ -14,6 +14,21 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
+        if(GameStateManager.Instance.CurrentGameState == GameState.Paused)
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].Pause();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[1].Pause();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[2].Pause();
+        }
+        else
+        {
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].UnPause();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[1].UnPause();
+            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[2].UnPause();
+        }
+
+            
+
         if (Input.GetButtonDown("Cancel"))
         {
             GameStateManager.Instance.SetState(GameState.Gameplay);
@@ -89,11 +104,13 @@ public class PauseManager : MonoBehaviour
     public void MainMenu()
     {
         //Load Main menu
+        //SaveManager.Instance.SaveGame() To save all player prefs of the game 
         PlayerPrefs.DeleteAll();
     }
 
     public void Quit()
     {
+        SaveManager.Instance.SaveGame();
         Application.Quit();
     }
 }

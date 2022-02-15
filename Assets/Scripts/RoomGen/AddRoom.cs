@@ -6,6 +6,7 @@ public class AddRoom : MonoBehaviour
 {
 
 	private RoomTemplates templates;
+	public bool canSpawnBoss = true;
 
 	void Start()
 	{

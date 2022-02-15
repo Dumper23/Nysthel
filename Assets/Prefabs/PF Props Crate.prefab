@@ -149,6 +149,7 @@ MonoBehaviour:
   maxGoldToGive: 3
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 5
+  soundEffect: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}
 --- !u!1 &8445139624077903752
 GameObject:
   m_ObjectHideFlags: 0

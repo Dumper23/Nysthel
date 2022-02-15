@@ -17,6 +17,7 @@ public class EnemyBullet : MonoBehaviour
 
     private void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("EnemyBullet"), true);
         if (isSeeker)
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;

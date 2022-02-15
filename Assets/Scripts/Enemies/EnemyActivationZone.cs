@@ -13,14 +13,22 @@ public class EnemyActivationZone : MonoBehaviour
 
     private bool activated = false;
     private bool finished = false;
+    private bool hasBarriers = true;
     private Collider2D[] collisions;
 
 
     private void Start()
     {
-        foreach (GameObject barrier in Barriers)
+        if (Barriers != null)
         {
-            barrier.SetActive(false);
+            foreach (GameObject barrier in Barriers)
+            {
+                barrier.SetActive(false);
+            }
+        }
+        else
+        {
+            hasBarriers = false;
         }
         GetComponent<AudioSource>().loop = false;
         GetComponent<BoxCollider2D>().isTrigger = true;
@@ -49,7 +57,7 @@ public class EnemyActivationZone : MonoBehaviour
     {
         if (activated && !finished)
         {
-            Collider2D[] temp = Physics2D.OverlapBoxAll(transform.position, EnemyAreaSurface, 90);
+            Collider2D[] temp = Physics2D.OverlapBoxAll(transform.position, EnemyAreaSurface, 0);
             int i = 0;
             int enemyCount = 0;
             foreach (Collider2D enemy in temp)
@@ -65,9 +73,12 @@ public class EnemyActivationZone : MonoBehaviour
                 //Avis que ja s'ha acabat la sala
                 GetComponent<AudioSource>().clip = endOfRoom;
                 GetComponent<AudioSource>().Play();
-                foreach (GameObject barrier in Barriers)
+                if (hasBarriers)
                 {
-                    barrier.SetActive(false);
+                    foreach (GameObject barrier in Barriers)
+                    {
+                        barrier.SetActive(false);
+                    }
                 }
                 Invoke("destroyObj", 1.5f);   
             }
@@ -89,10 +100,13 @@ public class EnemyActivationZone : MonoBehaviour
                 activated = true;
                 GetComponent<AudioSource>().clip = startOfRoom;
                 GetComponent<AudioSource>().Play();
-                foreach (GameObject barrier in Barriers)
+                if (hasBarriers)
                 {
-                    barrier.SetActive(true);
+                    foreach (GameObject barrier in Barriers)
+                    {
+                        barrier.SetActive(true);
 
+                    }
                 }
 
                 foreach (Collider2D enemy in collisions)

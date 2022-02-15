@@ -29,6 +29,16 @@ public class Player : MonoBehaviour, IShopCustomer
     public TextMeshProUGUI goldText;
     public GameObject shield;
     public GameObject crossHair;
+    public ParticleSystem walkParticles;
+    public ParticleSystem dashParticles;
+    public List<AudioClip> audios;
+    public List<AudioSource> audioSource;
+    public bool usingController = true;
+
+    private const int ATTACK_AUDIO = 0;
+    private const int DASH_AUDIO = 1;
+    private const int FOOTSTEP_AUDIO = 2;
+    private const int PICKUP_AUDIO = 3;
 
     private int currentHealth;
     private Vector2 movement;
@@ -46,10 +56,20 @@ public class Player : MonoBehaviour, IShopCustomer
     private bool multiaxe = false;
     private bool doubleaxe = false;
 
+    public bool pathRenderer = false;
+    public LineRenderer ruteFollowed;
+    private int posIndex = 0;
+    private float nextPoint = 0;
+    public float timeBetweenPointsInRute = 2f;
+
     private Vector2 lookDir;
     private Vector3 directionToShoot;
     private Vector3 positionToShoot;
     private float angle;
+
+    private Vector3 lastUpdatePos = Vector3.zero;
+    private Vector3 dist;
+    private float curentSpeed;
 
     private Inventory inventory;
     [SerializeField]
@@ -57,63 +77,39 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Awake()
     {
-        goldText.text = gold.ToString();
-        currentHealth = maxHealth;
+        //Unic LoadGame Que hi ha d'haver ja que carrega totes les variables no només les del jugador
+        SaveManager.Instance.loadGame();
+
         inventory = new Inventory(UseItem);
         uiInventory.setInventory(inventory);
         uiInventory.setPlayer(this);
         GameStateManager.Instance.OnGameStateChange += OnGameStateChanged;
-        healthBar.setMaxHealth(maxHealth);
     }
 
     private void Start()
     {
-        if (PlayerPrefs.GetInt("gold") > 0)
-        {
-            gold = PlayerPrefs.GetInt("gold");
-        }
-        if (PlayerPrefs.GetInt("attack") > 0)
-        {
-            damage = PlayerPrefs.GetInt("attack");
-        }
-        if (PlayerPrefs.GetInt("life") > 0)
-        {
-            maxHealth = PlayerPrefs.GetInt("life");
-            healthBar.setMaxHealth(maxHealth);
-            currentHealth = maxHealth;
-        }
-        if (PlayerPrefs.GetFloat("speed") > 0)
-        {
-            moveSpeed = PlayerPrefs.GetFloat("speed");
-        }
-        if (PlayerPrefs.GetFloat("attackSpeed") > 0)
-        {
-            attackRate = PlayerPrefs.GetFloat("attackSpeed");
-        }
-        if (PlayerPrefs.GetFloat("range") > 0)
-        {
-            coinMagnetRange = PlayerPrefs.GetFloat("range");
-        }
-        if (PlayerPrefs.GetFloat("dashRecovery") > 0)
-        {
-            dashRestoreTime = PlayerPrefs.GetFloat("dashRecovery");
-        }
-        if (PlayerPrefs.GetFloat("dashRange") > 0)
-        {
-            dashForce = PlayerPrefs.GetFloat("dashRange");
-        }
 
+        gold = SaveVariables.PLAYER_GOLD;
+
+        if (SaveVariables.PLAYER_ATTACK > 0) damage = SaveVariables.PLAYER_ATTACK;
+
+        if (SaveVariables.PLAYER_LIFE > 0) maxHealth = SaveVariables.PLAYER_LIFE;
+
+        if (SaveVariables.PLAYER_SPEED > 0) moveSpeed = SaveVariables.PLAYER_SPEED;
+
+        if(SaveVariables.PLAYER_ATTACK_SPEED > 0) attackRate = SaveVariables.PLAYER_ATTACK_SPEED;
+       
+        if(SaveVariables.PLAYER_RANGE > 0) coinMagnetRange = SaveVariables.PLAYER_RANGE;
+
+        if(SaveVariables.PLAYER_DASH_RECOVERY > 0) dashRestoreTime = SaveVariables.PLAYER_DASH_RECOVERY;
+
+        if(SaveVariables.PLAYER_DASH_RANGE > 0) dashForce = SaveVariables.PLAYER_DASH_RANGE;
+        
+
+
+        healthBar.setMaxHealth(maxHealth);
+        currentHealth = maxHealth;
         goldText.text = gold.ToString();
-
-        SaveVariables.PLAYER_GOLD = gold;
-        SaveVariables.PLAYER_LIFE = maxHealth;
-        SaveVariables.PLAYER_ATTACK = damage;
-        SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
-        SaveVariables.PLAYER_SPEED = moveSpeed;
-        SaveVariables.PLAYER_RANGE = coinMagnetRange;
-        SaveVariables.PLAYER_DASH_RANGE = dashForce;
-        SaveVariables.PLAYER_DASH_RECOVERY = dashRestoreTime;
-
     }
 
     private void OnDestroy()
@@ -129,6 +125,32 @@ public class Player : MonoBehaviour, IShopCustomer
     private void Update()
     {
         //cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, cam.transform.position.z), smoothFactor/100);
+        if (pathRenderer)
+        {
+            if (Time.time > nextPoint)
+            {
+                nextPoint = Time.time + timeBetweenPointsInRute;
+                ruteFollowed.positionCount = 9999;
+                for (int i = posIndex; i < ruteFollowed.positionCount; i++)
+                {
+                    ruteFollowed.SetPosition(i, transform.position);
+                }
+
+                posIndex++;
+            }
+        }
+
+        if (immune)
+        {
+            if (!shielded)
+            {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+            }
+        }
+        else
+        {
+            Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
+        }
 
         healthBar.setHealth(currentHealth);
 
@@ -153,6 +175,8 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             if (Time.time > nextDash && !dashing)
             {
+                audioSource[1].clip = audios[1];
+                audioSource[1].Play();
                 nextDash = Time.time + dashRestoreTime;
                 dashing = true;
                 immune = true;
@@ -166,14 +190,28 @@ public class Player : MonoBehaviour, IShopCustomer
             movement.x = Input.GetAxisRaw("Horizontal");
             movement.y = Input.GetAxisRaw("Vertical");
 
-            aimPos.x = Input.GetAxisRaw("HorizontalAim");
-            aimPos.y = Input.GetAxisRaw("VerticalAim");
+            if (usingController)
+            {
+                aimPos.x = Input.GetAxisRaw("HorizontalAim");
+                aimPos.y = Input.GetAxisRaw("VerticalAim");
+                Vector2 tempAim = aimPos;
+                aimPos = GetConstrainedPosition(Vector2.zero, tempAim);
+            }
+            else
+            {
+                crossHair.SetActive(false);
+                Vector3 mPos = (Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position).normalized;
+                aimPos.x = mPos.x;
+                aimPos.y = mPos.y;
+            }
 
-            Vector2 tempAim = aimPos;
-
-            aimPos = GetConstrainedPosition(Vector2.zero, tempAim); 
+            if(movement.magnitude == 0)
+            {
+                walkParticles.Play();
+                audioSource[2].clip = audios[2];
+                audioSource[2].Play();
+            }
             
-
             if (aimPos.magnitude <= 0)
             {
                 playerMovement(movement);
@@ -193,6 +231,23 @@ public class Player : MonoBehaviour, IShopCustomer
                 Shoot();
             }
         }
+    }
+
+    private bool checkMovement()
+    {
+        dist = transform.position - lastUpdatePos;
+        curentSpeed = dist.magnitude / Time.deltaTime;
+        lastUpdatePos = transform.position;
+
+        if(curentSpeed > 0.1)
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+
     }
 
     Vector2 GetConstrainedPosition(Vector2 midPoint, Vector2 endPoint)
@@ -222,9 +277,12 @@ public class Player : MonoBehaviour, IShopCustomer
         if (!dashing)
         {
             rb.MovePosition(rb.position + (movement.normalized * moveSpeed * Time.fixedDeltaTime));
+            dashParticles.Stop();
         }
         else
         {
+            
+            dashParticles.Play();
             rb.MovePosition(rb.position + (dashSpeed * Time.fixedDeltaTime));
             dashSpeed *= 0.9f;
             if (dashSpeed.magnitude < moveSpeed)
@@ -247,54 +305,52 @@ public class Player : MonoBehaviour, IShopCustomer
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
         if (iw != null)
         {
+            audioSource[0].clip = audios[PICKUP_AUDIO];
+            audioSource[0].Play();
             inventory.addItem(iw.getItem());
             iw.destroySelf();
         }
     }
 
+    public bool isImmune()
+    {
+        return immune;
+    }
+
     void playerMovement(Vector2 dir)
     {
-        if (dir.y > 0)
+        if (checkMovement())
         {
-            if (!attacking)
+            if (dir.x >= 0)
             {
-                changeAnimationState("Nysthel_walkUp");
+                GetComponent<SpriteRenderer>().flipX = false;
             }
-        }
-        else if (dir.y < 0)
-        {
-            if (!attacking)
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+
+            if (dir.y > 0 && Mathf.Abs(dir.y) >= Mathf.Abs(dir.x))
+            {
+                if (!attacking)
+                {
+                    changeAnimationState("Nysthel_walkUp");
+                }
+            }
+            else if (dir.y < 0)
+            {
+                if (!attacking)
+                {
+                    changeAnimationState("Nysthel_walk");
+                }
+            }
+            else
             {
                 changeAnimationState("Nysthel_walk");
             }
-        }
-        else
+        }else if (!attacking)
         {
-            if (dir.x > 0)
-            {
-                //transform.localScale = new Vector3(1, transform.localScale.y, transform.localScale.z);
-                GetComponent<SpriteRenderer>().flipX = false;
-                if (!attacking)
-                {
-                    changeAnimationState("Nysthel_walk");
-                }
-            }
-            else if (dir.x < 0)
-            {
-                //transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
-                GetComponent<SpriteRenderer>().flipX = true;
-                if (!attacking)
-                {
-                    changeAnimationState("Nysthel_walk");
-                }
-            }
-            else if (dir.y == 0)
-            {
-                if (!attacking)
-                {
-                    changeAnimationState("Nysthel_idle");
-                }
-            }
+            changeAnimationState("Nysthel_idle");
         }
     }
 
@@ -302,10 +358,12 @@ public class Player : MonoBehaviour, IShopCustomer
 
     void Shoot()
     {
-        //Cambiar la forma de disparar i fer un script per a que la bala vagi a una velocitat constant (tipo la bala bullethellbullet)
         if (Time.time > nextFire)
         {
             nextFire = Time.time + attackRate;
+            //Ficar un so per a cada arma de moment un per totes
+            audioSource[0].clip = audios[0];
+            audioSource[0].Play();
 
             if (aimPos.y <= 0)
             {
@@ -360,6 +418,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void generateSecondBullet()
     {
+        audioSource[0].Play();
         directionToShoot = (firePoint.position - transform.position).normalized;
         attacking = true;
         Invoke("stopAttacking", animationDelay);
@@ -407,11 +466,13 @@ public class Player : MonoBehaviour, IShopCustomer
     void immunity()
     {
         immune = true;
+        shield.SetActive(true);
         Invoke("notImmunity", immunityTime);
     }
 
     void notImmunity()
     {
+        shield.SetActive(false);
         immune = false;
     }
 
@@ -421,7 +482,7 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             gold -= Mathf.RoundToInt(0.6f * gold);
             SaveVariables.PLAYER_GOLD = gold;
-            PlayerPrefs.SetInt("gold", gold);
+            SaveManager.Instance.SaveGame();
             SceneManager.LoadScene("Village");
         }
     }
@@ -512,7 +573,6 @@ public class Player : MonoBehaviour, IShopCustomer
     public void BoughtItem(ShopItem.ItemType itemType)
     {
         ShopItem.AddLevel(itemType);
-        PlayerPrefs.SetInt(itemType.ToString(), ShopItem.GetCurrentLevel(itemType));
 
         switch (itemType)
         {
@@ -525,7 +585,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 break;
 
             case ShopItem.ItemType.AttackUpgrade:
-                damage += 10;
+                damage += 5;
                 SaveVariables.PLAYER_ATTACK = damage;
                 SaveVariables.ATTACK_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
@@ -537,7 +597,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 break;
 
             case ShopItem.ItemType.AttackSpeedUpgrade:
-                attackRate -= 0.01f;
+                attackRate -= 0.05f;
                 SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
                 SaveVariables.ATTACK_SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
@@ -555,7 +615,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 break;
 
             case ShopItem.ItemType.DashRangeUpgrade:
-                dashForce += 0.5f;
+                dashForce += 2f;
                 SaveVariables.PLAYER_DASH_RANGE = dashForce;
                 SaveVariables.DASH_RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 break;
@@ -574,7 +634,6 @@ public class Player : MonoBehaviour, IShopCustomer
             gold -= goldAmount;
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
-            PlayerPrefs.SetInt("gold", SaveVariables.PLAYER_GOLD);
             return true;
         }
         else

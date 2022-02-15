@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+[RequireComponent(typeof(AudioSource))]
 public class Slime : Enemy
 {
 
@@ -9,8 +11,17 @@ public class Slime : Enemy
     public GameObject bullet;
     public float bulletForce = 10f;
 
+    public AudioClip[] audios;
+    public GameObject afterDieSound;
+
+    public AudioSource audioSourceAttack;
+    public AudioSource audioSourceWalk;
+
     private int shotsPerJump = 4;
     private Vector2[] shotPatterns;
+
+    private float nextSound = 0f;
+    private float timeSounds = 0.6f;
 
     void Start()
     {
@@ -27,7 +38,11 @@ public class Slime : Enemy
     {
         if (activated)
         {
-            die();
+            if (health <= 0)
+            {
+                Instantiate(afterDieSound, transform.position, Quaternion.identity);
+                die();
+            }
 
             if (target.position.x > transform.position.x)
             {
@@ -53,12 +68,22 @@ public class Slime : Enemy
     {
         if (activated)
         {
-            Seek();
+            bool inRange = Seek();
+            if (Time.time > nextSound && inRange)
+            {
+                nextSound = Time.time + timeSounds;
+                audioSourceWalk.clip = audios[1];
+                audioSourceWalk.pitch = Random.Range(0.7f, 1.3f);
+                audioSourceWalk.Play();
+
+            }
         }
     }
 
     void Shoot()
     {
+        audioSourceAttack.clip = audios[0];
+        audioSourceAttack.Play();
         int j = 0;
         for (int i = 0; i < shotsPerJump; i++)
         {

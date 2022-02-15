@@ -8,6 +8,7 @@ public class DestructibleObject : MonoBehaviour
     public int maxGoldToGive = 1;
     public GameObject coin;
     public float coinForce = 20f;
+    public GameObject soundEffect;
 
     private int goldToGive;
 
@@ -25,15 +26,15 @@ public class DestructibleObject : MonoBehaviour
             for (int i = 0; i <= goldToGive; i++) {
                 GameObject g = Instantiate(coin, transform.position, transform.rotation);
                 g.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
-
             }
+            soundEffect.GetComponent<AudioSource>().pitch = Random.Range(0.55f, 1.55f);
+            Instantiate(soundEffect, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
 
     public void damage(int damage)
     {
-        //Instantiate damage particles
         health -= damage;
     }
 }

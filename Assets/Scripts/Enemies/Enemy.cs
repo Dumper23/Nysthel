@@ -10,6 +10,7 @@ public abstract class Enemy : MonoBehaviour
     public int health = 20;
     public int damage = 10;
     public int maxGoldToGive = 5;
+    public int minGoldToGive = 0;
     public float moveSpeed = 2f;
     
     public Rigidbody2D rb;
@@ -24,11 +25,20 @@ public abstract class Enemy : MonoBehaviour
     protected int goldToGive;
     protected string currentState;
     protected float nextShot = 0f;
-    protected bool activated = true;
+    protected int startHealth;
+    public bool activated = false;
 
-    public void takeDamage(int value)
+    private void Start()
     {
-        health -= value;
+        startHealth = health;
+    }
+
+    public virtual void takeDamage(int value)
+    {
+        if (activated)
+        {
+            health -= value;
+        }
     }
 
     public void enemyActivation(bool activate)
@@ -40,33 +50,40 @@ public abstract class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
-            int g = Random.Range(0, maxGoldToGive);
+            int g = Random.Range(minGoldToGive, maxGoldToGive);
             if (g < 0) g = 0;
             goldToGive = g;
-            for (int i = 0; i <= goldToGive; i++)
+            if (g > 0)
             {
-                GameObject go = Instantiate(coin, transform.position, Quaternion.identity);
-                go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
+                for (int i = 0; i <= goldToGive; i++)
+                {
+                    GameObject go = Instantiate(coin, transform.position, Quaternion.identity);
+                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
 
+                }
             }
             Destroy(gameObject);
         }
     }
 
-    protected void Seek()
+    protected bool Seek()
     {
+        bool inRange = false;
         if (activated)
         {
             if (Vector3.Magnitude(target.position - transform.position) < range)
             {
+                inRange = true;
                 transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
                 changeAnimationState("Walk");
             }
             else
             {
+                inRange = false;
                 changeAnimationState("Idle");
             }
         }
+        return inRange;
     }
     protected void changeAnimationState(string newState)
     {
@@ -86,5 +103,20 @@ public abstract class Enemy : MonoBehaviour
             Gizmos.DrawLine(transform.position, target.position);
         }
         Gizmos.DrawWireSphere(transform.position, range);
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            if (collision.transform.GetComponent<Player>().isImmune())
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+            }
+            else
+            {
+                collision.transform.GetComponent<Player>().takeDamage(damage);
+            }
+        }
     }
 }

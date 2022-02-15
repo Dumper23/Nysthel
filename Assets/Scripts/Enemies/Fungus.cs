@@ -1,17 +1,25 @@
-using System.Collections;
+  using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Fungus : Enemy
 {
     private float angle = 0f;
+    public float angleStep = 10f;
     public GameObject bullet;
     public float bulletForce = 10f;
     public Sprite bulletSprite;
     public bool isRandomShooter = true;
 
+    public AudioClip[] audios;
+    public GameObject afterDieSound;
+
+    private AudioSource audioSource;
+
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         changeAnimationState("Idle");
         target = GameObject.FindGameObjectWithTag("Player").transform;
     }
@@ -20,13 +28,20 @@ public class Fungus : Enemy
     {
         if (activated)
         {
-            die();
+
+            if (health <= 0)
+            {
+                Instantiate(afterDieSound, transform.position, Quaternion.identity);
+                die();
+            }
 
             if ((target.position - transform.position).magnitude <= range)
             {
                 if (Time.time > nextShot)
                 {
                     nextShot = Time.time + attackRate;
+                    audioSource.clip = audios[0];
+                    audioSource.Play();
                     shoot();
                 }
             }
@@ -60,7 +75,7 @@ public class Fungus : Enemy
         bul.SetActive(true);
         bul.GetComponent<BulletHellBullet>().SetMoveDirection(bulDir);
 
-        angle += 10f;
+        angle += angleStep;
 
     }
 }

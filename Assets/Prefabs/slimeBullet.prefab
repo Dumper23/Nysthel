@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5719909438311033892}
   - component: {fileID: 5719909438311033891}
   - component: {fileID: 3459651109466817607}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: slimeBullet
   m_TagString: Bullet
   m_Icon: {fileID: 0}

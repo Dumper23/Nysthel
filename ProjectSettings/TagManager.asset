@@ -20,7 +20,7 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
   - Collectable
@@ -28,8 +28,8 @@ TagManager:
   - Enemy
   - Minimap
   - Interactable
-  - 
-  - 
+  - EnemyBullet
+  - Decoration
   - 
   - 
   - 
