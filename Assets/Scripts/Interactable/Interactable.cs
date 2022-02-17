@@ -37,6 +37,7 @@ public class Interactable : MonoBehaviour
             SaveVariables.PLAYER_RANGE = player.coinMagnetRange;
             SaveVariables.PLAYER_DASH_RECOVERY = player.dashRestoreTime;
             SaveVariables.PLAYER_DASH_RANGE = player.dashForce;
+            player.saveInventory();
 
             //Functionality of the interaction
             switch (interaction)

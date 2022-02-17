@@ -89,6 +89,7 @@ public class Slime : Enemy
         {
             GameObject go = Instantiate(bullet, firePoint.position + new Vector3(shotPatterns[j].x, shotPatterns[j].y), transform.rotation);
             Rigidbody2D r = go.GetComponent<Rigidbody2D>();
+            go.GetComponent<EnemyBullet>().damage = damage;
             if (j < shotPatterns.Length)
             {
                 r.AddForce(shotPatterns[j].normalized * bulletForce, ForceMode2D.Impulse);

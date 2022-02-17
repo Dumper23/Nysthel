@@ -6,80 +6,95 @@ using TMPro;
 
 public class Player : MonoBehaviour, IShopCustomer
 {
+    public bool usingController = true;
+
+    [Header("--------------Movement--------------")]
     public float moveSpeed = 5f;
     public  Rigidbody2D rb;
-    public Animator anim;
+    public float dashRestoreTime = 3f;
+    public float dashForce = 10f;
+    public float dashTime = 1f;
+    public ParticleSystem walkParticles;
+    public ParticleSystem dashParticles;
+
+    private Vector2 movement;
+    private Vector2 aimPos;
+    private bool dashing = false;
+    private float nextDash = 0f;
+    private Vector2 dashDirection;
+    private Vector2 dashSpeed;
+    private Vector3 lastUpdatePos = Vector3.zero;
+    private Vector3 dist;
+    private float curentSpeed;
+
+    [Header("--------------Combat--------------")]
     public int damage = 10;
     public Transform firePoint;
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
     public float animationDelay = 0.4f;
     public float attackRate = 1f;
-    public Camera cam;
+    public float immunityTime = 1f;
+    public GameObject crossHair;
+
+    private bool attacking = false;
+    private float nextFire = 0f;
+    private bool immune = false;
+    private Vector2 lookDir;
+    private Vector3 directionToShoot;
+
+
+    [Header("--------------Player Stats--------------")]
+    public int maxHealth = 50;
     public int gold;
     public float coinMagnetRange = 2f;
     public float coinMagnetSpeed = 1f;
-    public int maxHealth = 50;
-    public float immunityTime = 1f;
-    public float dashRestoreTime = 3f;
-    public float dashForce = 10f;
-    public float dashTime = 1f;
-    public float smoothFactor = 5f;
-    public HealthBar healthBar;
-    public TextMeshProUGUI goldText;
-    public GameObject shield;
-    public GameObject crossHair;
-    public ParticleSystem walkParticles;
-    public ParticleSystem dashParticles;
+
+    private int currentHealth;
+    
+
+
+    [Header("--------------Audio--------------")]
     public List<AudioClip> audios;
     public List<AudioSource> audioSource;
-    public bool usingController = true;
 
     private const int ATTACK_AUDIO = 0;
     private const int DASH_AUDIO = 1;
     private const int FOOTSTEP_AUDIO = 2;
     private const int PICKUP_AUDIO = 3;
 
-    private int currentHealth;
-    private Vector2 movement;
-    private Vector2 aimPos;
+
+
+    [Header("--------------UI And other settings--------------")]
+    public TextMeshProUGUI goldText;
+    [SerializeField]
+    private UIInventory uiInventory;
+    public HealthBar healthBar;
+    public GameObject shield;
+    public Animator anim;
+    public Camera cam;
+    public float smoothFactor = 5f;
+
     private string currentState;
-    private bool attacking = false;
-    private float nextFire = 0f;
-    private bool immune = false;
-    private bool dashing = false;
-    private float nextDash = 0f;
-    private Vector2 dashDirection;
-    private Vector2 dashSpeed;
+    private Inventory inventory;
     private bool shielded = false;
     private bool basicaxe = true;
     private bool multiaxe = false;
     private bool doubleaxe = false;
 
+    
+    [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
     public LineRenderer ruteFollowed;
-    private int posIndex = 0;
-    private float nextPoint = 0;
     public float timeBetweenPointsInRute = 2f;
 
-    private Vector2 lookDir;
-    private Vector3 directionToShoot;
-    private Vector3 positionToShoot;
-    private float angle;
-
-    private Vector3 lastUpdatePos = Vector3.zero;
-    private Vector3 dist;
-    private float curentSpeed;
-
-    private Inventory inventory;
-    [SerializeField]
-    private UIInventory uiInventory;
+    private int posIndex = 0;
+    private float nextPoint = 0;
+    
+   
 
     private void Awake()
     {
-        //Unic LoadGame Que hi ha d'haver ja que carrega totes les variables no només les del jugador
-        SaveManager.Instance.loadGame();
-
         inventory = new Inventory(UseItem);
         uiInventory.setInventory(inventory);
         uiInventory.setPlayer(this);
@@ -88,24 +103,10 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Start()
     {
+        //Unic LoadGame Que hi ha d'haver ja que carrega totes les variables no només les del jugador
+        SaveManager.Instance.loadGame();
 
-        gold = SaveVariables.PLAYER_GOLD;
-
-        if (SaveVariables.PLAYER_ATTACK > 0) damage = SaveVariables.PLAYER_ATTACK;
-
-        if (SaveVariables.PLAYER_LIFE > 0) maxHealth = SaveVariables.PLAYER_LIFE;
-
-        if (SaveVariables.PLAYER_SPEED > 0) moveSpeed = SaveVariables.PLAYER_SPEED;
-
-        if(SaveVariables.PLAYER_ATTACK_SPEED > 0) attackRate = SaveVariables.PLAYER_ATTACK_SPEED;
-       
-        if(SaveVariables.PLAYER_RANGE > 0) coinMagnetRange = SaveVariables.PLAYER_RANGE;
-
-        if(SaveVariables.PLAYER_DASH_RECOVERY > 0) dashRestoreTime = SaveVariables.PLAYER_DASH_RECOVERY;
-
-        if(SaveVariables.PLAYER_DASH_RANGE > 0) dashForce = SaveVariables.PLAYER_DASH_RANGE;
-        
-
+        loadPlayerVariables();
 
         healthBar.setMaxHealth(maxHealth);
         currentHealth = maxHealth;
@@ -140,6 +141,7 @@ public class Player : MonoBehaviour, IShopCustomer
             }
         }
 
+        //If we are shielded or immune we ignore the collisions with enemies so we can go through them
         if (immune)
         {
             if (!shielded)
@@ -152,8 +154,7 @@ public class Player : MonoBehaviour, IShopCustomer
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
         }
 
-        healthBar.setHealth(currentHealth);
-
+        
         if (aimPos.magnitude != 0)
         {
             crossHair.transform.position = transform.position + new Vector3(aimPos.x, aimPos.y);
@@ -161,6 +162,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
 
+        //We check collision with coins and collect them
         Collider2D[] coins = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange);
 
         if (coins.Length > 0)
@@ -170,13 +172,14 @@ public class Player : MonoBehaviour, IShopCustomer
 
         die();
 
-        
+        #region Dash
+
         if ((Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift)) && !shielded)
         {
             if (Time.time > nextDash && !dashing)
             {
-                audioSource[1].clip = audios[1];
-                audioSource[1].Play();
+                audioSource[DASH_AUDIO].clip = audios[1];
+                audioSource[DASH_AUDIO].Play();
                 nextDash = Time.time + dashRestoreTime;
                 dashing = true;
                 immune = true;
@@ -184,6 +187,10 @@ public class Player : MonoBehaviour, IShopCustomer
                 dashSpeed = dashDirection.normalized * dashForce;
             }
         }
+
+        #endregion
+
+        #region Movement and Attack
 
         if (!dashing)
         {
@@ -208,8 +215,8 @@ public class Player : MonoBehaviour, IShopCustomer
             if(movement.magnitude == 0)
             {
                 walkParticles.Play();
-                audioSource[2].clip = audios[2];
-                audioSource[2].Play();
+                audioSource[FOOTSTEP_AUDIO].clip = audios[2];
+                audioSource[FOOTSTEP_AUDIO].Play();
             }
             
             if (aimPos.magnitude <= 0)
@@ -231,8 +238,10 @@ public class Player : MonoBehaviour, IShopCustomer
                 Shoot();
             }
         }
+        #endregion
     }
 
+    //We are checking if the player is moving or not
     private bool checkMovement()
     {
         dist = transform.position - lastUpdatePos;
@@ -250,6 +259,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     }
 
+    //We constraint the position of an object to create a circular constrained movement
     Vector2 GetConstrainedPosition(Vector2 midPoint, Vector2 endPoint)
     {
         //get the length of the line
@@ -273,7 +283,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void FixedUpdate()
     {
-        //Movement
+        //Movement And Dash
         if (!dashing)
         {
             rb.MovePosition(rb.position + (movement.normalized * moveSpeed * Time.fixedDeltaTime));
@@ -305,8 +315,8 @@ public class Player : MonoBehaviour, IShopCustomer
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
         if (iw != null)
         {
-            audioSource[0].clip = audios[PICKUP_AUDIO];
-            audioSource[0].Play();
+            audioSource[ATTACK_AUDIO].clip = audios[PICKUP_AUDIO];
+            audioSource[ATTACK_AUDIO].Play();
             inventory.addItem(iw.getItem());
             iw.destroySelf();
         }
@@ -362,8 +372,8 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             nextFire = Time.time + attackRate;
             //Ficar un so per a cada arma de moment un per totes
-            audioSource[0].clip = audios[0];
-            audioSource[0].Play();
+            audioSource[ATTACK_AUDIO].clip = audios[0];
+            audioSource[ATTACK_AUDIO].Play();
 
             if (aimPos.y <= 0)
             {
@@ -418,7 +428,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void generateSecondBullet()
     {
-        audioSource[0].Play();
+        audioSource[ATTACK_AUDIO].Play();
         directionToShoot = (firePoint.position - transform.position).normalized;
         attacking = true;
         Invoke("stopAttacking", animationDelay);
@@ -461,6 +471,7 @@ public class Player : MonoBehaviour, IShopCustomer
             currentHealth -= value;
             immunity();
         }
+        healthBar.setHealth(currentHealth);
     }
 
     void immunity()
@@ -654,5 +665,88 @@ public class Player : MonoBehaviour, IShopCustomer
         s[5] = dashForce;
         s[6] = coinMagnetRange;
         return s;    
+    }
+
+    public void saveInventory()
+    {
+        foreach (Item item in inventory.getItemList())
+        {
+            switch (item.itemType)
+            {
+                case Item.ItemType.smallPotion:
+                    SaveVariables.INV_SMALL_POTION = item.amount;
+                    break;
+                case Item.ItemType.bigPotion:
+                    SaveVariables.INV_BIG_POTION = item.amount;
+                    break;
+                case Item.ItemType.shieldPotion:
+                    SaveVariables.INV_SHIELD_POTION = item.amount;
+                    break;
+                case Item.ItemType.basicAxe:
+                    SaveVariables.INV_BASIC_AXE = item.amount;
+                    break;
+                case Item.ItemType.multiAxe:
+                    SaveVariables.INV_MULTIAXE = item.amount;
+                    break;
+                case Item.ItemType.doubleAxe:
+                    SaveVariables.INV_DOUBLE_AXE = item.amount;
+                    break;
+            }
+        }
+    }
+
+    public void loadPlayerVariables()
+    {
+        //Player Stats
+
+        gold = SaveVariables.PLAYER_GOLD;
+
+        if (SaveVariables.PLAYER_ATTACK > 0) damage = SaveVariables.PLAYER_ATTACK;
+
+        if (SaveVariables.PLAYER_LIFE > 0) maxHealth = SaveVariables.PLAYER_LIFE;
+
+        if (SaveVariables.PLAYER_SPEED > 0) moveSpeed = SaveVariables.PLAYER_SPEED;
+
+        if (SaveVariables.PLAYER_ATTACK_SPEED > 0) attackRate = SaveVariables.PLAYER_ATTACK_SPEED;
+
+        if (SaveVariables.PLAYER_RANGE > 0) coinMagnetRange = SaveVariables.PLAYER_RANGE;
+
+        if (SaveVariables.PLAYER_DASH_RECOVERY > 0) dashRestoreTime = SaveVariables.PLAYER_DASH_RECOVERY;
+
+        if (SaveVariables.PLAYER_DASH_RANGE > 0) dashForce = SaveVariables.PLAYER_DASH_RANGE;
+
+        //Inventory items
+
+        System.Array a = System.Enum.GetValues(typeof(Item.ItemType));
+
+        for (int i = 0; i < a.Length; i++)
+        {
+            switch (a.GetValue(i))
+            {
+                case Item.ItemType.smallPotion:
+                    if(SaveVariables.INV_SMALL_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = SaveVariables.INV_SMALL_POTION });
+                    break;
+
+                case Item.ItemType.bigPotion:
+                    if (SaveVariables.INV_BIG_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.bigPotion, amount = SaveVariables.INV_BIG_POTION });
+                    break;
+
+                case Item.ItemType.shieldPotion:
+                    if (SaveVariables.INV_SHIELD_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.shieldPotion, amount = SaveVariables.INV_SHIELD_POTION });
+                    break;
+
+                case Item.ItemType.basicAxe:
+                    if (SaveVariables.INV_BASIC_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.basicAxe, amount = SaveVariables.INV_BASIC_AXE });
+                    break;
+
+                case Item.ItemType.doubleAxe:
+                    if (SaveVariables.INV_DOUBLE_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.doubleAxe, amount = SaveVariables.INV_DOUBLE_AXE });
+                    break;
+
+                case Item.ItemType.multiAxe:
+                    if (SaveVariables.INV_MULTIAXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.multiAxe, amount = SaveVariables.INV_MULTIAXE });
+                    break;
+            }
+        }
     }
 }

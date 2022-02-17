@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -63,6 +64,28 @@ public class RoomTemplates : MonoBehaviour
 						spawnedBoss = true;
 						roomIndex = i - 3;
 					}
+				}
+			}
+
+			if (!spawnedBoss)
+			{
+				int i = 0;
+				while (!spawnedBoss)
+				{
+					if (i <= rooms.Count)
+					{
+						if (rooms[i].GetComponent<AddRoom>().canSpawnBoss)
+						{
+							Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
+							Instantiate(bossIndicator, rooms[i].transform.position, Quaternion.identity);
+							spawnedBoss = true;
+						}
+						i++;
+                    }
+                    else
+                    {
+						break;
+                    }
 				}
 			}
 		}

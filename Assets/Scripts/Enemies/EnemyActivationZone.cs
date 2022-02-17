@@ -58,7 +58,6 @@ public class EnemyActivationZone : MonoBehaviour
         if (activated && !finished)
         {
             Collider2D[] temp = Physics2D.OverlapBoxAll(transform.position, EnemyAreaSurface, 0);
-            int i = 0;
             int enemyCount = 0;
             foreach (Collider2D enemy in temp)
             {

@@ -84,7 +84,8 @@ public class Ent : Enemy
     void Shoot()
     {
         changeAnimationState("Idle");
-        Instantiate(bullet, firePoint.position, transform.rotation);
+        GameObject bul = Instantiate(bullet, firePoint.position, transform.rotation);
+        bul.GetComponent<EnemyBullet>().damage = damage;
     }
 
     private void OnCollisionStay2D(Collision2D collision)

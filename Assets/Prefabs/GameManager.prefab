@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8469165761278272950}
+  - component: {fileID: 2056240549}
   - component: {fileID: 8469165761278272951}
   - component: {fileID: 8469165761278272949}
-  - component: {fileID: 2056240549}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -33,6 +33,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2056240549
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469165761278272952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 560c3b82543f490499303c7d3b65161d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8469165761278272951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,15 +75,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolBullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}
---- !u!114 &2056240549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8469165761278272952}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 560c3b82543f490499303c7d3b65161d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

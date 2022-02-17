@@ -71,6 +71,18 @@ public class Inventory
         return itemList;
     }
 
+    public Item GetItem(Item.ItemType type)
+    {
+        foreach (Item item in itemList)
+        {
+            if (item.itemType == type)
+            {
+                return item;
+            }
+        }
+        return null;
+    }
+
     public void UseItem(Item item)
     {
         useItemAction(item);

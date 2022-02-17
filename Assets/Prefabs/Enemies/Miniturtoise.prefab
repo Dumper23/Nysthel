@@ -180,4 +180,6 @@ MonoBehaviour:
   range: 2
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
+  bloodStain: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}
   activated: 1
+  dieTime: 10

@@ -14685,7 +14685,7 @@ GameObject:
   - component: {fileID: 2135134602}
   - component: {fileID: 2135134601}
   - component: {fileID: 1402187068}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: PlayerPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15012,31 +15012,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77cdd46504adebd4ca88649cc5777aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usingController: 1
   moveSpeed: 6
   rb: {fileID: 9216989108363573416}
-  anim: {fileID: 9216989108363573419}
+  dashRestoreTime: 3
+  dashForce: 30
+  dashTime: 10
+  walkParticles: {fileID: 1391199669}
+  dashParticles: {fileID: 1123923597}
   damage: 10
   firePoint: {fileID: 9216989107770260182}
   bulletPrefab: {fileID: 8848529324968467858, guid: 99b9fa0d3654df44ea8951569f6e48df, type: 3}
   bulletForce: 10
   animationDelay: 0.4
   attackRate: 0.5
-  cam: {fileID: 0}
+  immunityTime: 1.2
+  crossHair: {fileID: 1522386914}
+  maxHealth: 50
   gold: 0
   coinMagnetRange: 1
   coinMagnetSpeed: 1
-  maxHealth: 50
-  immunityTime: 1.2
-  dashRestoreTime: 3
-  dashForce: 30
-  dashTime: 10
-  smoothFactor: 5
-  healthBar: {fileID: 0}
-  goldText: {fileID: 0}
-  shield: {fileID: 3446346439237802405}
-  crossHair: {fileID: 1522386914}
-  walkParticles: {fileID: 1391199669}
-  dashParticles: {fileID: 1123923597}
   audios:
   - {fileID: 8300000, guid: ad860fe2df277ce4ea1b75ac31cd289a, type: 3}
   - {fileID: 8300000, guid: b644c729c57708347a58b260aebddc29, type: 3}
@@ -15046,11 +15041,16 @@ MonoBehaviour:
   - {fileID: 1817614484}
   - {fileID: 1817614485}
   - {fileID: 1817614486}
-  usingController: 1
+  goldText: {fileID: 0}
+  uiInventory: {fileID: 0}
+  healthBar: {fileID: 0}
+  shield: {fileID: 3446346439237802405}
+  anim: {fileID: 9216989108363573419}
+  cam: {fileID: 0}
+  smoothFactor: 5
   pathRenderer: 0
   ruteFollowed: {fileID: 1402187068}
   timeBetweenPointsInRute: 2
-  uiInventory: {fileID: 0}
 --- !u!50 &9216989108363573416
 Rigidbody2D:
   serializedVersion: 4

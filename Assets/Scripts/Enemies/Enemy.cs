@@ -20,6 +20,8 @@ public abstract class Enemy : MonoBehaviour
     public float range = 2f;
     public GameObject coin;
     public float coinForce = 2f;
+    public GameObject bloodStain;
+    public GameObject bloodParticles;
 
     protected Transform target;
     protected int goldToGive;
@@ -50,6 +52,14 @@ public abstract class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
+            if (bloodStain != null)
+            {
+                Instantiate(bloodStain, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            }
+            if(bloodParticles != null)
+            {
+                Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
+            }
             int g = Random.Range(minGoldToGive, maxGoldToGive);
             if (g < 0) g = 0;
             goldToGive = g;

@@ -171,17 +171,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  damage: 10
+  damage: 5
   maxGoldToGive: 5
-  minGoldToGive: 0
+  minGoldToGive: 1
   moveSpeed: 2
   rb: {fileID: 1526128746178488954}
   anim: {fileID: 1526128746178488950}
   firePoint: {fileID: 1526128745595485273}
   attackRate: 0.23
-  range: 14
+  range: 16
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
+  bloodStain: {fileID: 3203136689453428286, guid: 7f79eedbd2a71e143873db9537b42be1, type: 3}
+  bloodParticles: {fileID: 9221127518733234886, guid: da35429cc908b7e42806ceb344bbecf4, type: 3}
   activated: 0
   angleStep: 33
   bullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}

@@ -63,6 +63,7 @@ public class Fungus : Enemy
         
         GameObject bul = BulletPool.Instance.GetBullet();
         bul.GetComponent<SpriteRenderer>().sprite = bulletSprite;
+        bul.GetComponent<BulletHellBullet>().damage = damage;
         
         bul.transform.position = firePoint.position;
         bul.transform.rotation = firePoint.rotation;

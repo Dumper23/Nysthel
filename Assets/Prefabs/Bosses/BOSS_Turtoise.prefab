@@ -151,6 +151,7 @@ MonoBehaviour:
   range: 20
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 15
+  bloodStain: {fileID: 8870822980127303738, guid: 6c1eb2c79bc69ce45b26ea3e08a0c3f3, type: 3}
   activated: 0
   dashForce: 8
   shotAngleIncrement: 30

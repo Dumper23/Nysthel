@@ -102,18 +102,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  damage: 10
+  damage: 5
   maxGoldToGive: 5
-  minGoldToGive: 0
+  minGoldToGive: 1
   moveSpeed: 1
   rb: {fileID: 8577376506480156901}
   anim: {fileID: 8577376506480156898}
   firePoint: {fileID: 8577376506707570161}
   attackRate: 1
-  range: 14
+  range: 16
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
-  activated: 1
+  bloodStain: {fileID: 8722314626695268416, guid: c4895cea4a451e8438e0298f4cd48810, type: 3}
+  bloodParticles: {fileID: 9221127518733234886, guid: 6d31b4b692e29f4418cd640dae5b44a9, type: 3}
+  activated: 0
   isRanged: 1
   bullet: {fileID: 313272557742413170, guid: 4112c00b35608b745927813b1da445bb, type: 3}
   bulletForce: 10
@@ -190,7 +192,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0
@@ -286,7 +288,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: a7ce9e6e0570259429ddd2814f73d38b, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.2
   m_Pitch: 1.0340626
   Loop: 0

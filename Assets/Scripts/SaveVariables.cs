@@ -22,5 +22,15 @@ public static class SaveVariables
         RANGE_LEVEL = -1,
         DASH_RECOVERY_LEVEL = -1,
         DASH_RANGE_LEVEL = -1;
-        
+
+    public static int
+        INV_SMALL_POTION = -1,
+        INV_BIG_POTION = -1,
+        INV_SHIELD_POTION = -1,
+        INV_MULTIAXE = -1,
+        INV_BASIC_AXE = 1, //Per defecte sempre tindras l'arma base
+        INV_DOUBLE_AXE = -1;
+
+
+
 }
