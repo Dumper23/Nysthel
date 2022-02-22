@@ -1,0 +1,21 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using TMPro;
+
+public class ItemShopAssets : MonoBehaviour
+{
+    public static ItemShopAssets Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    public Sprite HealthPotion;
+    public Sprite BigHealthPotion;
+    public Sprite ShieldPotion;
+    public Sprite GoldPotion;
+    public Sprite TeleportPotion;
+    public Sprite TimePotion;
+}

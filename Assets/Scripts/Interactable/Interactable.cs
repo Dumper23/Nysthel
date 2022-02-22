@@ -10,6 +10,7 @@ public class Interactable : MonoBehaviour
     public GameObject interactionDialog;
     public TextMeshProUGUI text;
     public UiShop uiShop;
+    public UiItemShop uiItemShop;
 
     private Player player;
     private bool inShop = false;
@@ -71,6 +72,16 @@ public class Interactable : MonoBehaviour
                     }
                     break;
 
+                case Interactions.EnterShop:
+                    if (!inShop)
+                    {
+                        uiItemShop.show(player);
+                        inShop = true;
+                        Time.timeScale = 0f;
+                        GameStateManager.Instance.SetState(GameState.Paused);
+                    }
+                    break;
+
                 case Interactions.Save:
                     //Save
                     SaveManager.Instance.SaveGame();
@@ -84,6 +95,7 @@ public class Interactable : MonoBehaviour
             Time.timeScale = 1f;
             GameStateManager.Instance.SetState(GameState.Gameplay);
             uiShop.hide();
+            uiItemShop.hide();
             inShop = false;
         }
     }
@@ -103,6 +115,9 @@ public class Interactable : MonoBehaviour
                     break;
                 case Interactions.EnterBlackSmith:
                     text.SetText("Press X to talk with the BlackSmith");
+                    break;
+                case Interactions.EnterShop:
+                    text.SetText("Press X to talk with the Mercader");
                     break;
                 case Interactions.Save:
                     text.SetText("Press X to save your progress.");
@@ -124,6 +139,7 @@ public class Interactable : MonoBehaviour
             {
                 inShop = false;
                 uiShop.hide();
+                uiItemShop.hide();
                 Time.timeScale = 1f;
                 GameStateManager.Instance.SetState(GameState.Gameplay);
             }

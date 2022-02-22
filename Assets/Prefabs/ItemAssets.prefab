@@ -47,6 +47,9 @@ MonoBehaviour:
   BigPotion: {fileID: 21300000, guid: 2f2096546abb8424e84fa2139beed874, type: 3}
   SmallPotion: {fileID: 21300000, guid: 09bbb691de70c0b4e8ad5ad0b5f48c96, type: 3}
   ShieldPotion: {fileID: 21300000, guid: 4c60a50eb493a3b458c9aad934a4bc3a, type: 3}
+  GoldPotion: {fileID: 21300000, guid: be6e4b5f4f0fff84f9a0a11f32be3f50, type: 3}
+  TimePotion: {fileID: 21300000, guid: c942dd00be3ae514186e1c7098b19cda, type: 3}
+  TeleportPotion: {fileID: 21300000, guid: 8f8b706a54b38c84a9fb610a5124a9ae, type: 3}
   MultiAxe: {fileID: 21300000, guid: e459946222830cb4db9b88a9e33b2ed7, type: 3}
   DoubleAxe: {fileID: 21300000, guid: 8ebbd4c3f28198445a5132b7d5d5bdc7, type: 3}
   BasicAxe: {fileID: 21300000, guid: 1c72d3c3d21a72d4988fe2801c485e22, type: 3}

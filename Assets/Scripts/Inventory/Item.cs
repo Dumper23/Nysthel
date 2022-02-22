@@ -13,7 +13,10 @@ public class Item
         shieldPotion,
         multiAxe,
         doubleAxe,
-        basicAxe
+        basicAxe,
+        goldPotion,
+        teleportPotion,
+        timePotion
     }
 
     public ItemType itemType;
@@ -30,6 +33,9 @@ public class Item
             case ItemType.multiAxe:   return ItemAssets.Instance.MultiAxe;
             case ItemType.doubleAxe:   return ItemAssets.Instance.DoubleAxe;
             case ItemType.basicAxe:   return ItemAssets.Instance.BasicAxe;
+            case ItemType.goldPotion:   return ItemAssets.Instance.GoldPotion;
+            case ItemType.teleportPotion:   return ItemAssets.Instance.TeleportPotion;
+            case ItemType.timePotion:   return ItemAssets.Instance.TimePotion;
         }
     }
 
@@ -41,6 +47,9 @@ public class Item
             case ItemType.smallPotion:
             case ItemType.shieldPotion:
             case ItemType.bigPotion:
+            case ItemType.goldPotion:
+            case ItemType.teleportPotion:
+            case ItemType.timePotion:
                 return true;
             case ItemType.multiAxe:
             case ItemType.doubleAxe:

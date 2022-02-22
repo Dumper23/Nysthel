@@ -67,6 +67,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     [Header("--------------UI And other settings--------------")]
     public TextMeshProUGUI goldText;
+    public TextMeshProUGUI BlackSmithGoldText;
     [SerializeField]
     private UIInventory uiInventory;
     public HealthBar healthBar;
@@ -110,7 +111,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
         healthBar.setMaxHealth(maxHealth);
         currentHealth = maxHealth;
-        goldText.text = gold.ToString();
+        updateGold();
     }
 
     private void OnDestroy()
@@ -583,7 +584,6 @@ public class Player : MonoBehaviour, IShopCustomer
 
     public void BoughtItem(ShopItem.ItemType itemType)
     {
-        ShopItem.AddLevel(itemType);
 
         switch (itemType)
         {
@@ -636,6 +636,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private void updateGold()
     {
         goldText.text = gold.ToString();
+        BlackSmithGoldText.text = gold.ToString();
     }
 
     public bool TrySpendGoldAmount(int goldAmount)
@@ -747,6 +748,31 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_MULTIAXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.multiAxe, amount = SaveVariables.INV_MULTIAXE });
                     break;
             }
+        }
+    }
+
+    public void BoughtItem(ItemShopItem.ItemType itemType)
+    {
+        switch (itemType)
+        {
+            case ItemShopItem.ItemType.smallHealthPotion:
+                inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1});
+                break;
+            case ItemShopItem.ItemType.bigHealthPotion:
+                inventory.addItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
+                break;
+            case ItemShopItem.ItemType.shieldPotion:
+                inventory.addItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                break;
+            case ItemShopItem.ItemType.goldPotion:
+                inventory.addItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
+                break;
+            case ItemShopItem.ItemType.teleportPotion:
+                inventory.addItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
+                break;
+            case ItemShopItem.ItemType.timePotion:
+                inventory.addItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+                break;
         }
     }
 }

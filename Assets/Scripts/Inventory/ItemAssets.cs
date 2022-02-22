@@ -16,6 +16,9 @@ public class ItemAssets : MonoBehaviour
     public Sprite BigPotion;
     public Sprite SmallPotion;
     public Sprite ShieldPotion;
+    public Sprite GoldPotion;
+    public Sprite TimePotion;
+    public Sprite TeleportPotion;
     public Sprite MultiAxe;
     public Sprite DoubleAxe;
     public Sprite BasicAxe;

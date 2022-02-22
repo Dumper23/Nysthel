@@ -15042,6 +15042,7 @@ MonoBehaviour:
   - {fileID: 1817614485}
   - {fileID: 1817614486}
   goldText: {fileID: 0}
+  BlackSmithGoldText: {fileID: 0}
   uiInventory: {fileID: 0}
   healthBar: {fileID: 0}
   shield: {fileID: 3446346439237802405}

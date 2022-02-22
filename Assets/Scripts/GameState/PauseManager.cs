@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 public class PauseManager : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
+
         if(GameStateManager.Instance.CurrentGameState == GameState.Paused)
         {
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].Pause();
@@ -103,9 +105,10 @@ public class PauseManager : MonoBehaviour
 
     public void MainMenu()
     {
-        //Load Main menu
-        //SaveManager.Instance.SaveGame() To save all player prefs of the game 
-        PlayerPrefs.DeleteAll();
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+        Time.timeScale = 1f;
+        SaveManager.Instance.SaveGame();
+        SceneManager.LoadScene("MainMenu");
     }
 
     public void Quit()

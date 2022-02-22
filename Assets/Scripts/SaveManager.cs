@@ -1,95 +1,81 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 using UnityEngine;
 
 public class SaveManager : MonoBehaviour
 {
-
+    private static string path;
     public static SaveManager Instance { get; private set; }
 
     private void Awake()
     {
         Instance = this;
+        path = Application.persistentDataPath + "SaveGame.nsthl";
     }
 
     public void SaveGame()
     {
-        //Player upgrades and gold
-        PlayerPrefs.SetInt("gold", SaveVariables.PLAYER_GOLD);
-        PlayerPrefs.SetInt("attack", SaveVariables.PLAYER_ATTACK);
-        PlayerPrefs.SetInt("life", SaveVariables.PLAYER_LIFE);
-        PlayerPrefs.SetFloat("speed", SaveVariables.PLAYER_SPEED);
-        PlayerPrefs.SetFloat("attackSpeed", SaveVariables.PLAYER_ATTACK_SPEED);
-        PlayerPrefs.SetFloat("range", SaveVariables.PLAYER_RANGE);
-        PlayerPrefs.SetFloat("dashRecovery", SaveVariables.PLAYER_DASH_RECOVERY);
-        PlayerPrefs.SetFloat("dashRange", SaveVariables.PLAYER_DASH_RANGE);
+        BinaryFormatter formatter = new BinaryFormatter();
+        FileStream stream = new FileStream(path, FileMode.Create);
 
-        //World Stats
-        PlayerPrefs.SetInt("maxWorld", SaveVariables.MAX_WORLD);
-        PlayerPrefs.SetInt("currentWorld", SaveVariables.CURRENT_WORLD);
+        SaveData data = new SaveData();
+        data.LoadData();
 
-        //Blacksmith level
-        PlayerPrefs.SetInt("blacksmith", SaveVariables.BLACKSMITH_LEVEL);
+        formatter.Serialize(stream, data);
+        stream.Close();
+    }
 
-        //Upgrade levels
-        PlayerPrefs.SetInt("attackLevel", SaveVariables.ATTACK_LEVEL);
-        PlayerPrefs.SetInt("lifeLevel", SaveVariables.LIFE_LEVEL);
-        PlayerPrefs.SetInt("speedLevel", SaveVariables.SPEED_LEVEL);
-        PlayerPrefs.SetInt("attackSpeedLevel", SaveVariables.ATTACK_SPEED_LEVEL);
-        PlayerPrefs.SetInt("rangeLevel", SaveVariables.RANGE_LEVEL);
-        PlayerPrefs.SetInt("dashRecoveryLevel", SaveVariables.DASH_RECOVERY_LEVEL);
-        PlayerPrefs.SetInt("dashRangeLevel", SaveVariables.DASH_RANGE_LEVEL);
-
-        //Inventory
-        PlayerPrefs.SetInt(Item.ItemType.smallPotion.ToString(), SaveVariables.INV_SMALL_POTION);
-        PlayerPrefs.SetInt(Item.ItemType.bigPotion.ToString(), SaveVariables.INV_BIG_POTION);
-        PlayerPrefs.SetInt(Item.ItemType.shieldPotion.ToString(), SaveVariables.INV_SHIELD_POTION);
-        PlayerPrefs.SetInt(Item.ItemType.basicAxe.ToString(), SaveVariables.INV_BASIC_AXE);
-        PlayerPrefs.SetInt(Item.ItemType.multiAxe.ToString(), SaveVariables.INV_MULTIAXE);
-        PlayerPrefs.SetInt(Item.ItemType.doubleAxe.ToString(), SaveVariables.INV_DOUBLE_AXE);
+    public void DeleteSaveGame()
+    {
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
     }
 
     public void loadGame()
     {
-        try
+        if (File.Exists(path))
         {
-            //Player upgrades and gold
-            SaveVariables.PLAYER_GOLD = PlayerPrefs.GetInt("gold");
-            SaveVariables.PLAYER_ATTACK = PlayerPrefs.GetInt("attack");
-            SaveVariables.PLAYER_LIFE = PlayerPrefs.GetInt("life");
-            SaveVariables.PLAYER_SPEED = PlayerPrefs.GetFloat("speed");
-            SaveVariables.PLAYER_ATTACK_SPEED = PlayerPrefs.GetFloat("attackSpeed");
-            SaveVariables.PLAYER_RANGE = PlayerPrefs.GetFloat("range");
-            SaveVariables.PLAYER_DASH_RECOVERY = PlayerPrefs.GetFloat("dashRecovery");
-            SaveVariables.PLAYER_DASH_RANGE = PlayerPrefs.GetFloat("dashRange");
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileStream stream = new FileStream(path, FileMode.Open);
+            SaveData data = formatter.Deserialize(stream) as SaveData;
+            stream.Close();
+
+            SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;
+            SaveVariables.PLAYER_ATTACK = data.PLAYER_ATTACK;
+            SaveVariables.PLAYER_LIFE = data.PLAYER_LIFE;
+            SaveVariables.PLAYER_SPEED = data.PLAYER_SPEED; 
+            SaveVariables.PLAYER_ATTACK_SPEED = data.PLAYER_ATTACK_SPEED;
+            SaveVariables.PLAYER_RANGE = data.PLAYER_RANGE;
+            SaveVariables.PLAYER_DASH_RECOVERY = data.PLAYER_DASH_RECOVERY;
+            SaveVariables.PLAYER_DASH_RANGE = data.PLAYER_DASH_RANGE;
 
             //World Stats
-            SaveVariables.MAX_WORLD = PlayerPrefs.GetInt("maxWorld");
-            SaveVariables.CURRENT_WORLD = PlayerPrefs.GetInt("currentWorld");
+            SaveVariables.MAX_WORLD = data.MAX_WORLD;
+            SaveVariables.CURRENT_WORLD = data.CURRENT_WORLD;
 
             //Blacksmith level
-            SaveVariables.BLACKSMITH_LEVEL = PlayerPrefs.GetInt("blacksmith");
+            SaveVariables.BLACKSMITH_LEVEL = data.BLACKSMITH_LEVEL;
 
             //Upgrade levels
-            SaveVariables.ATTACK_LEVEL = PlayerPrefs.GetInt("attackLevel");
-            SaveVariables.LIFE_LEVEL = PlayerPrefs.GetInt("lifeLevel");
-            SaveVariables.SPEED_LEVEL = PlayerPrefs.GetInt("speedLevel");
-            SaveVariables.ATTACK_SPEED_LEVEL = PlayerPrefs.GetInt("attackSpeedLevel");
-            SaveVariables.RANGE_LEVEL = PlayerPrefs.GetInt("rangeLevel");
-            SaveVariables.DASH_RECOVERY_LEVEL = PlayerPrefs.GetInt("dashRecoveryLevel");
-            SaveVariables.DASH_RANGE_LEVEL = PlayerPrefs.GetInt("dashRangeLevel");
+            SaveVariables.ATTACK_LEVEL = data.ATTACK_LEVEL;
+            SaveVariables.LIFE_LEVEL = data.LIFE_LEVEL;
+            SaveVariables.SPEED_LEVEL = data.SPEED_LEVEL;
+            SaveVariables.ATTACK_SPEED_LEVEL = data.ATTACK_SPEED_LEVEL;
+            SaveVariables.RANGE_LEVEL = data.RANGE_LEVEL;
+            SaveVariables.DASH_RECOVERY_LEVEL = data.DASH_RECOVERY_LEVEL;
+            SaveVariables.DASH_RANGE_LEVEL = data.DASH_RANGE_LEVEL;
 
             //Inventory
-            SaveVariables.INV_SMALL_POTION = PlayerPrefs.GetInt(Item.ItemType.smallPotion.ToString());
-            SaveVariables.INV_BIG_POTION = PlayerPrefs.GetInt(Item.ItemType.bigPotion.ToString());
-            SaveVariables.INV_SHIELD_POTION = PlayerPrefs.GetInt(Item.ItemType.shieldPotion.ToString());
-            SaveVariables.INV_BASIC_AXE = PlayerPrefs.GetInt(Item.ItemType.basicAxe.ToString());
-            SaveVariables.INV_MULTIAXE= PlayerPrefs.GetInt(Item.ItemType.multiAxe.ToString());
-            SaveVariables.INV_DOUBLE_AXE= PlayerPrefs.GetInt(Item.ItemType.doubleAxe.ToString());
-
-        }catch(PlayerPrefsException e)
-        {
-            Debug.LogError(e);
+            SaveVariables.INV_SMALL_POTION = data.INV_SMALL_POTION;
+            SaveVariables.INV_BIG_POTION = data.INV_BIG_POTION;
+            SaveVariables.INV_SHIELD_POTION = data.INV_SHIELD_POTION;
+            SaveVariables.INV_BASIC_AXE = data.INV_BASIC_AXE;
+            SaveVariables.INV_MULTIAXE = data.INV_MULTIAXE;
+            SaveVariables.INV_DOUBLE_AXE = data.INV_DOUBLE_AXE;
         }
     }
 }
