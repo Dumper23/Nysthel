@@ -13,6 +13,8 @@ public class UiItemShop : MonoBehaviour
     private IShopCustomer shopCustomer;
     private List<Transform> templates = new List<Transform>();
 
+    private int lastItemSelected = 0;
+
     private void Awake()
     {
         container = transform.Find("Container");
@@ -45,9 +47,9 @@ public class UiItemShop : MonoBehaviour
 
         CreateItemButton(ItemShopItem.ItemType.goldPotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.goldPotion), "Gold potion", ItemShopItem.GetCost(ItemShopItem.ItemType.goldPotion), 3);
 
-        CreateItemButton(ItemShopItem.ItemType.teleportPotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.teleportPotion), "Time potion", ItemShopItem.GetCost(ItemShopItem.ItemType.teleportPotion), 4);
+        CreateItemButton(ItemShopItem.ItemType.teleportPotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.teleportPotion), "Teleport potion", ItemShopItem.GetCost(ItemShopItem.ItemType.teleportPotion), 4);
 
-        CreateItemButton(ItemShopItem.ItemType.timePotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.timePotion), "Teleport potion", ItemShopItem.GetCost(ItemShopItem.ItemType.timePotion), 5);
+        CreateItemButton(ItemShopItem.ItemType.timePotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.timePotion), "Time potion", ItemShopItem.GetCost(ItemShopItem.ItemType.timePotion), 5);
 
 
     }
@@ -69,7 +71,7 @@ public class UiItemShop : MonoBehaviour
         shopItemTransform.Find("itemIcon").GetComponent<Image>().sprite = itemSprite;
 
         shopItemTransform.GetComponent<Button>().onClick.AddListener(delegate { TryBuyItem(itemType); });
-        if (positionIndex == 0)
+        if (positionIndex == lastItemSelected)
         {
             EventSystem.current.SetSelectedGameObject(shopItemTransform.gameObject);
         }
@@ -77,7 +79,6 @@ public class UiItemShop : MonoBehaviour
 
     private void TryBuyItem(ItemShopItem.ItemType itemType)
     {
-        
         if (shopCustomer.TrySpendGoldAmount(ItemShopItem.GetCost(itemType)))
         {
             for (int i = 0; i < templates.Count; i++)
@@ -104,15 +105,21 @@ public class UiItemShop : MonoBehaviour
                         break;
                 }
             }
-            shopCustomer.BoughtItem(itemType);
+            lastItemSelected = shopCustomer.BoughtItem(itemType);
+            EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
         }
+    }
+
+    public void setLastItemSelected(int index)
+    {
+        lastItemSelected = index;
     }
 
     public void show(IShopCustomer shopCustomer)
     {
         this.shopCustomer = shopCustomer;
         gameObject.SetActive(true);
-        EventSystem.current.SetSelectedGameObject(templates[0].gameObject);
+        EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
     }
 
     public void hide()

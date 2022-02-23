@@ -122,6 +122,36 @@ public class EnemyActivationZone : MonoBehaviour
         }
     }
 
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (!finished)
+        {
+            if (collision.CompareTag("Player"))
+            {
+                activated = false;
+                if (hasBarriers)
+                {
+                    foreach (GameObject barrier in Barriers)
+                    {
+                        barrier.SetActive(false);
+
+                    }
+                }
+
+                foreach (Collider2D enemy in collisions)
+                {
+                    if (enemy != null)
+                    {
+                        if (enemy.CompareTag("Enemy"))
+                        {
+                            enemy.GetComponent<Enemy>().enemyActivation(activated);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.red;

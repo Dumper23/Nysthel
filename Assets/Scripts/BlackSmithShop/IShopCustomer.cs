@@ -4,8 +4,8 @@ using UnityEngine;
 
 public interface IShopCustomer
 {
-    void BoughtItem(ShopItem.ItemType itemType);
-    void BoughtItem(ItemShopItem.ItemType itemType);
+    int BoughtItem(ShopItem.ItemType itemType);
+    int BoughtItem(ItemShopItem.ItemType itemType);
     bool TrySpendGoldAmount(int goldAmount);
 
     float[] GetStatistics();

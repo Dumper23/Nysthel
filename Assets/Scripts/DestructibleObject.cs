@@ -9,6 +9,7 @@ public class DestructibleObject : MonoBehaviour
     public GameObject coin;
     public float coinForce = 20f;
     public GameObject soundEffect;
+    public ParticleSystem destroyParticles;
 
     private int goldToGive;
 
@@ -23,6 +24,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if(health <= 0)
         {
+            Instantiate(destroyParticles, transform.position, Quaternion.identity);
             for (int i = 0; i <= goldToGive; i++) {
                 GameObject g = Instantiate(coin, transform.position, transform.rotation);
                 g.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);

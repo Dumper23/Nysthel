@@ -16,6 +16,8 @@ public class UIInventory : MonoBehaviour
     private Player player;
     private Item currentItem;
 
+    private int lastITemSelected = 0;
+
     private void Awake()
     {
         container = transform.Find("Container");
@@ -31,7 +33,7 @@ public class UIInventory : MonoBehaviour
                + "(" + SaveVariables.ATTACK_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack: \t\t\t" + player.damage + "\n"
                + "(" + SaveVariables.SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed: \t\t\t" + player.moveSpeed.ToString("F2") + "\n"
                + "(" + SaveVariables.ATTACK_SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed: \t\t" + (1/player.attackRate).ToString("F2") + "\n"
-               + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Range: \t\t\t" + player.coinMagnetRange.ToString("F2") + "\n"
+               + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range: \t\t" + player.coinMagnetRange.ToString("F2") + "\n"
                + "(" + SaveVariables.DASH_RECOVERY_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recovery: \t\t" + player.dashRestoreTime.ToString("F2") + "\n"
                + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range: \t\t" + player.dashForce.ToString("F2");
     }
@@ -71,12 +73,10 @@ public class UIInventory : MonoBehaviour
             itemTemplateRect.gameObject.SetActive(true);
             itemTemplateRect.GetComponent<Button>().onClick.AddListener(delegate { Clicked(item); });
 
-            /*itemTemplateRect.GetComponent<Button_UI>().ClickFunc = () => {
-                // Use item
-                inventory.UseItem(item);
-            };*/
-
-            EventSystem.current.SetSelectedGameObject(itemTemplateRect.gameObject);
+            if (i == lastITemSelected)
+            {
+                EventSystem.current.SetSelectedGameObject(itemTemplateRect.gameObject);
+            }
 
             itemTemplateRect.anchoredPosition = new Vector2(x * cellSize, -y * cellSize);
             Image image = itemTemplateRect.Find("Image").GetComponent<Image>();
@@ -104,6 +104,15 @@ public class UIInventory : MonoBehaviour
 
     private void Clicked(Item item)
     {
+        int i = 0;
+        foreach(Item itm in inventory.getItemList())
+        {
+            if (itm.Equals(item))
+            {
+                lastITemSelected = i;
+            }
+            i++;
+        }
         inventory.UseItem(item);
     }
 

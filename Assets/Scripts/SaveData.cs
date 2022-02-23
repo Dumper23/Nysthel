@@ -31,6 +31,9 @@ public class SaveData
         INV_SMALL_POTION = 0,
         INV_BIG_POTION = 0,
         INV_SHIELD_POTION = 0,
+        INV_GOLD_POTION = 0,
+        INV_TELEPORT_POTION = 0,
+        INV_TIME_POTION = 0,
         INV_MULTIAXE = 0,
         INV_BASIC_AXE = 1, //Per defecte sempre tindras l'arma base
         INV_DOUBLE_AXE = 0;
@@ -67,6 +70,9 @@ public class SaveData
         INV_SMALL_POTION = SaveVariables.INV_SMALL_POTION;
         INV_BIG_POTION = SaveVariables.INV_BIG_POTION;
         INV_SHIELD_POTION = SaveVariables.INV_SHIELD_POTION;
+        INV_GOLD_POTION = SaveVariables.INV_GOLD_POTION;
+        INV_TELEPORT_POTION = SaveVariables.INV_TELEPORT_POTION;
+        INV_TIME_POTION = SaveVariables.INV_TIME_POTION;
         INV_BASIC_AXE = SaveVariables.INV_BASIC_AXE;
         INV_MULTIAXE = SaveVariables.INV_MULTIAXE;
         INV_DOUBLE_AXE = SaveVariables.INV_DOUBLE_AXE;

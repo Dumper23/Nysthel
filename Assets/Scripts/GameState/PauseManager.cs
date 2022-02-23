@@ -34,12 +34,19 @@ public class PauseManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
         {
             GameStateManager.Instance.SetState(GameState.Gameplay);
-            Time.timeScale = 1f;
+            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0.5f;
+            }
             pauseUi.SetActive(false);
             inventoryUi.SetActive(false);
         }
 
-            if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause"))
         {
             EventSystem.current.SetSelectedGameObject(ResumeButton);
             inventoryUi.SetActive(false);
@@ -51,7 +58,14 @@ public class PauseManager : MonoBehaviour
 
             if (newGameState == GameState.Gameplay)
             {
-                Time.timeScale = 1f;
+                if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+                {
+                    Time.timeScale = 1f;
+                }
+                else
+                {
+                    Time.timeScale = 0.5f;
+                }
                 pauseUi.SetActive(false);
             }
             else
@@ -85,7 +99,14 @@ public class PauseManager : MonoBehaviour
 
             if (newGameState == GameState.Gameplay)
             {
-                Time.timeScale = 1f;
+                if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+                {
+                    Time.timeScale = 1f;
+                }
+                else
+                {
+                    Time.timeScale = 0.5f;
+                }
                 inventoryUi.SetActive(false);
             }
             else
@@ -99,7 +120,14 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         GameStateManager.Instance.SetState(GameState.Gameplay);
-        Time.timeScale = 1f;
+        if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+        {
+            Time.timeScale = 1f;
+        }
+        else
+        {
+            Time.timeScale = 0.5f;
+        }
         pauseUi.SetActive(false);
     }
 

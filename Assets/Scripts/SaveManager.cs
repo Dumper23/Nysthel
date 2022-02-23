@@ -73,6 +73,10 @@ public class SaveManager : MonoBehaviour
             SaveVariables.INV_SMALL_POTION = data.INV_SMALL_POTION;
             SaveVariables.INV_BIG_POTION = data.INV_BIG_POTION;
             SaveVariables.INV_SHIELD_POTION = data.INV_SHIELD_POTION;
+            SaveVariables.INV_GOLD_POTION = data.INV_GOLD_POTION;
+            SaveVariables.INV_TELEPORT_POTION = data.INV_TELEPORT_POTION;
+            SaveVariables.INV_TIME_POTION = data.INV_TIME_POTION;
+
             SaveVariables.INV_BASIC_AXE = data.INV_BASIC_AXE;
             SaveVariables.INV_MULTIAXE = data.INV_MULTIAXE;
             SaveVariables.INV_DOUBLE_AXE = data.INV_DOUBLE_AXE;

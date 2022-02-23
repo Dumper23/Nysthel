@@ -92,7 +92,14 @@ public class Interactable : MonoBehaviour
 
         if ((Input.GetButtonDown("Pause") || Input.GetButtonDown("Inventory") || Input.GetButtonDown("Cancel")) && inShop)
         {
-            Time.timeScale = 1f;
+            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+            {
+                Time.timeScale = 1f;
+            }
+            else
+            {
+                Time.timeScale = 0.5f;
+            }
             GameStateManager.Instance.SetState(GameState.Gameplay);
             uiShop.hide();
             uiItemShop.hide();
@@ -108,19 +115,19 @@ public class Interactable : MonoBehaviour
             switch (interaction)
             {
                 case Interactions.GoToVillage:
-                    text.SetText("Press X to go to the Village by 30% of your gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
+                    text.SetText("Press X or E to go to the Village by 30% of your gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
                     break;
                 case Interactions.GoToAdventure:
-                    text.SetText("Press X to go to the Forest");
+                    text.SetText("Press X or E to go to the Forest");
                     break;
                 case Interactions.EnterBlackSmith:
-                    text.SetText("Press X to talk with the BlackSmith");
+                    text.SetText("Press X or E to talk with the BlackSmith");
                     break;
                 case Interactions.EnterShop:
-                    text.SetText("Press X to talk with the Mercader");
+                    text.SetText("Press X or E to talk with the Mercader");
                     break;
                 case Interactions.Save:
-                    text.SetText("Press X to save your progress.");
+                    text.SetText("Press X or E to save your progress.");
                     break;
             }
             
@@ -140,7 +147,14 @@ public class Interactable : MonoBehaviour
                 inShop = false;
                 uiShop.hide();
                 uiItemShop.hide();
-                Time.timeScale = 1f;
+                if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+                {
+                    Time.timeScale = 1f;
+                }
+                else
+                {
+                    Time.timeScale = 0.5f;
+                }
                 GameStateManager.Instance.SetState(GameState.Gameplay);
             }
         }

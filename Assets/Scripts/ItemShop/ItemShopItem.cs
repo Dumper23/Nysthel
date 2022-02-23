@@ -10,8 +10,8 @@ public class ItemShopItem
         bigHealthPotion,
         shieldPotion,
         goldPotion,
-        timePotion,
-        teleportPotion
+        teleportPotion,
+        timePotion
     }
 
     //Falta Balancejar preus
@@ -24,8 +24,8 @@ public class ItemShopItem
             case ItemType.bigHealthPotion: return 10;
             case ItemType.shieldPotion: return 10;
             case ItemType.goldPotion: return 10;
-            case ItemType.timePotion: return 10;
             case ItemType.teleportPotion: return 10;
+            case ItemType.timePotion: return 10;
         }
     }
 
@@ -38,8 +38,8 @@ public class ItemShopItem
             case ItemType.bigHealthPotion: return ItemShopAssets.Instance.BigHealthPotion;
             case ItemType.shieldPotion: return ItemShopAssets.Instance.ShieldPotion;
             case ItemType.goldPotion: return ItemShopAssets.Instance.GoldPotion;
-            case ItemType.timePotion: return ItemShopAssets.Instance.TimePotion;
             case ItemType.teleportPotion: return ItemShopAssets.Instance.TeleportPotion;
+            case ItemType.timePotion: return ItemShopAssets.Instance.TimePotion;
         }
     }
 }

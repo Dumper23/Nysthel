@@ -6,8 +6,6 @@ using TMPro;
 
 public class Player : MonoBehaviour, IShopCustomer
 {
-    public bool usingController = true;
-
     [Header("--------------Movement--------------")]
     public float moveSpeed = 5f;
     public  Rigidbody2D rb;
@@ -16,6 +14,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public float dashTime = 1f;
     public ParticleSystem walkParticles;
     public ParticleSystem dashParticles;
+    public ParticleSystem pickUpParticles;
 
     private Vector2 movement;
     private Vector2 aimPos;
@@ -47,8 +46,12 @@ public class Player : MonoBehaviour, IShopCustomer
     [Header("--------------Player Stats--------------")]
     public int maxHealth = 50;
     public int gold;
+    public int goldMultiplier = 1;
     public float coinMagnetRange = 2f;
     public float coinMagnetSpeed = 1f;
+    public float goldPotionDuration = 30f;
+    public float shieldDuration = 5f;
+    public float timePotionDuration = 3f;
 
     private int currentHealth;
     
@@ -71,19 +74,26 @@ public class Player : MonoBehaviour, IShopCustomer
     [SerializeField]
     private UIInventory uiInventory;
     public HealthBar healthBar;
+    public GameObject goldMultiplierUI;
     public GameObject shield;
+    public GameObject goldRush;
+    public TextMeshProUGUI counterText;
     public Animator anim;
     public Camera cam;
     public float smoothFactor = 5f;
+    public bool timeSlowed = false;
 
+    private bool usingController = true;
     private string currentState;
     private Inventory inventory;
     private bool shielded = false;
+    private bool goldRushed = false;
     private bool basicaxe = true;
     private bool multiaxe = false;
     private bool doubleaxe = false;
+    private float timer = 0.0f;
+    private int seconds = 0;
 
-    
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
     public LineRenderer ruteFollowed;
@@ -141,6 +151,13 @@ public class Player : MonoBehaviour, IShopCustomer
                 posIndex++;
             }
         }
+
+        #region counter
+
+        timer -= Time.deltaTime;
+        seconds = (int)timer % 60;
+        counterText.SetText(seconds + "s");
+        #endregion
 
         //If we are shielded or immune we ignore the collisions with enemies so we can go through them
         if (immune)
@@ -200,6 +217,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
             if (usingController)
             {
+                crossHair.SetActive(true);
                 aimPos.x = Input.GetAxisRaw("HorizontalAim");
                 aimPos.y = Input.GetAxisRaw("VerticalAim");
                 Vector2 tempAim = aimPos;
@@ -308,7 +326,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (collision.transform.tag == "Coin")
         {
-            gold++;
+            gold += (1*goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
             Destroy(collision.gameObject);
@@ -316,6 +334,21 @@ public class Player : MonoBehaviour, IShopCustomer
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
         if (iw != null)
         {
+            pickUpParticles.gameObject.transform.position = collision.transform.position;
+            if (iw.getItem().itemType == Item.ItemType.smallPotion || iw.getItem().itemType == Item.ItemType.bigPotion) {
+                pickUpParticles.startColor = Color.red;
+            }else if (iw.getItem().itemType == Item.ItemType.shieldPotion)
+            {
+                pickUpParticles.startColor = Color.cyan;
+            }else if (iw.getItem().itemType == Item.ItemType.goldPotion)
+            {
+                pickUpParticles.startColor = Color.yellow;
+            }
+            else
+            {
+                pickUpParticles.startColor = new Color(214, 96, 24);
+            }
+            pickUpParticles.Play();
             audioSource[ATTACK_AUDIO].clip = audios[PICKUP_AUDIO];
             audioSource[ATTACK_AUDIO].Play();
             inventory.addItem(iw.getItem());
@@ -504,6 +537,7 @@ public class Player : MonoBehaviour, IShopCustomer
         Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
     }
 
+
     #region Item Usage
     public void UseItem(Item item)
     {
@@ -541,12 +575,61 @@ public class Player : MonoBehaviour, IShopCustomer
                     }
                     break;
                 case Item.ItemType.shieldPotion:
-                    shield.SetActive(true);
-                    immune = true;
-                    Invoke("endShield", 5f);
-                    Invoke("notImmunity", 5f);
-                    shielded = true;
-                    inventory.RemoveItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                    if (!shielded && ! goldRushed && !timeSlowed)
+                    {
+                        shield.SetActive(true);
+                        immune = true;
+                        Invoke("endShield", shieldDuration);
+                        Invoke("notImmunity", shieldDuration);
+                        shielded = true;
+                        seconds = (int)shieldDuration;
+                        timer = (int)shieldDuration;
+                        counterText.gameObject.SetActive(true);
+                        counterText.GetComponent<TextMeshProUGUI>().color = Color.cyan;
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                    }
+                    break;
+
+                case Item.ItemType.goldPotion:
+                    if (!goldRushed && !shielded && !timeSlowed)
+                    {
+                        goldMultiplier = 2;
+                        goldMultiplierUI.SetActive(true);
+                        goldRush.SetActive(true);
+                        goldRushed = true;
+                        seconds = (int)goldPotionDuration;
+                        timer = (int)goldPotionDuration;
+                        counterText.gameObject.SetActive(true);
+                        counterText.GetComponent<TextMeshProUGUI>().color = Color.yellow;
+                        Invoke("endGoldPotion", goldPotionDuration);
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
+                    }
+                    break;
+
+                case Item.ItemType.teleportPotion:
+                    GameObject tpPoint = GameObject.FindGameObjectWithTag("Respawn");
+                    if (tpPoint != null)
+                    {
+                        transform.position = tpPoint.transform.position;
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
+                    }
+                    break;
+
+                case Item.ItemType.timePotion:
+                    if (!timeSlowed && !shielded && !goldRushed) {
+                        timeSlowed = true;
+                        seconds = (int) timePotionDuration;
+                        timer = (int)timePotionDuration;
+
+                        counterText.gameObject.SetActive(true);
+                        counterText.GetComponent<TextMeshProUGUI>().color = Color.black;
+                        Invoke("endTimePotion", timePotionDuration);
+                        moveSpeed = moveSpeed * 2;
+                        attackRate = attackRate / 2;
+                        Time.timeScale = 0.5f;
+
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+                    }
                     break;
             }
             healthBar.setHealth(currentHealth);
@@ -574,17 +657,35 @@ public class Player : MonoBehaviour, IShopCustomer
         }
     }
 
+    private void endTimePotion()
+    {
+        timeSlowed = false;
+        counterText.gameObject.SetActive(false);
+        moveSpeed = moveSpeed / 2;
+        attackRate = attackRate * 2;
+        Time.timeScale = 1f;
+    }
+    private void endGoldPotion()
+    {
+        goldMultiplier = 1;
+        goldRush.SetActive(false);
+        goldMultiplierUI.SetActive(false);
+        counterText.gameObject.SetActive(false);
+    }
+
     #endregion
 
     private void endShield()
     {
         shield.SetActive(false);
         shielded = false;
+        counterText.gameObject.SetActive(false);
     }
 
-    public void BoughtItem(ShopItem.ItemType itemType)
+    //Player Upgrades
+    public int BoughtItem(ShopItem.ItemType itemType)
     {
-
+        int index = 0;
         switch (itemType)
         {
             case ShopItem.ItemType.LifeUpgrade:
@@ -593,44 +694,52 @@ public class Player : MonoBehaviour, IShopCustomer
                 SaveVariables.LIFE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 healthBar.setMaxHealth(maxHealth);
                 currentHealth = maxHealth;
+                index = 0;
                 break;
 
             case ShopItem.ItemType.AttackUpgrade:
                 damage += 5;
                 SaveVariables.PLAYER_ATTACK = damage;
                 SaveVariables.ATTACK_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                index = 1;
                 break;
 
             case ShopItem.ItemType.SpeedUpgrade:
                 moveSpeed += 1;
                 SaveVariables.PLAYER_SPEED = moveSpeed;
                 SaveVariables.SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                index = 2;
                 break;
 
             case ShopItem.ItemType.AttackSpeedUpgrade:
                 attackRate -= 0.05f;
                 SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
                 SaveVariables.ATTACK_SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                index = 3;
                 break;
 
             case ShopItem.ItemType.RangeUpgrade:
                 coinMagnetRange += 0.55f;
                 SaveVariables.PLAYER_RANGE = coinMagnetRange;
                 SaveVariables.RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                index = 4;
                 break;
 
             case ShopItem.ItemType.DashRecoveryUpgrade:
                 dashRestoreTime -= 0.5f;
                 SaveVariables.PLAYER_DASH_RECOVERY = dashRestoreTime;
                 SaveVariables.DASH_RECOVERY_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                index = 5;
                 break;
 
             case ShopItem.ItemType.DashRangeUpgrade:
                 dashForce += 2f;
                 SaveVariables.PLAYER_DASH_RANGE = dashForce;
                 SaveVariables.DASH_RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                index = 6;
                 break;
         }
+        return index;
     }
 
     private void updateGold()
@@ -682,6 +791,15 @@ public class Player : MonoBehaviour, IShopCustomer
                     break;
                 case Item.ItemType.shieldPotion:
                     SaveVariables.INV_SHIELD_POTION = item.amount;
+                    break;
+                case Item.ItemType.goldPotion:
+                    SaveVariables.INV_GOLD_POTION = item.amount;
+                    break;
+                case Item.ItemType.teleportPotion:
+                    SaveVariables.INV_TELEPORT_POTION = item.amount;
+                    break;
+                case Item.ItemType.timePotion:
+                    SaveVariables.INV_TIME_POTION = item.amount;
                     break;
                 case Item.ItemType.basicAxe:
                     SaveVariables.INV_BASIC_AXE = item.amount;
@@ -736,6 +854,18 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_SHIELD_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.shieldPotion, amount = SaveVariables.INV_SHIELD_POTION });
                     break;
 
+                case Item.ItemType.goldPotion:
+                    if (SaveVariables.INV_GOLD_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.goldPotion, amount = SaveVariables.INV_GOLD_POTION });
+                    break;
+
+                case Item.ItemType.teleportPotion:
+                    if (SaveVariables.INV_TELEPORT_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.teleportPotion, amount = SaveVariables.INV_TELEPORT_POTION });
+                    break;
+
+                case Item.ItemType.timePotion:
+                    if (SaveVariables.INV_TIME_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.timePotion, amount = SaveVariables.INV_TIME_POTION });
+                    break;
+
                 case Item.ItemType.basicAxe:
                     if (SaveVariables.INV_BASIC_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.basicAxe, amount = SaveVariables.INV_BASIC_AXE });
                     break;
@@ -751,28 +881,44 @@ public class Player : MonoBehaviour, IShopCustomer
         }
     }
 
-    public void BoughtItem(ItemShopItem.ItemType itemType)
+    public int BoughtItem(ItemShopItem.ItemType itemType)
     {
+        int index = 0;
         switch (itemType)
         {
             case ItemShopItem.ItemType.smallHealthPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1});
+                index = 0;
                 break;
             case ItemShopItem.ItemType.bigHealthPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
+                index = 1;
                 break;
             case ItemShopItem.ItemType.shieldPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                index = 2;
                 break;
             case ItemShopItem.ItemType.goldPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
+                index = 3;
                 break;
             case ItemShopItem.ItemType.teleportPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
+                index = 4;
                 break;
             case ItemShopItem.ItemType.timePotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+                index = 5;
                 break;
         }
+        return index;
     }
+
+    public void usingControllerToggle()
+    {
+        usingController = !usingController;
+    }
+
+   
+
 }

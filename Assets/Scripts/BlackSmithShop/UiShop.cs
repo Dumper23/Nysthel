@@ -19,6 +19,7 @@ public class UiShop : MonoBehaviour
     private int[] itemsShown;
     private int reRollCost;
     private int upgradeShopCost = 200;
+    private int lastItemSelected = 0;
 
     private void Awake()
     {
@@ -110,7 +111,7 @@ public class UiShop : MonoBehaviour
         }
 
         shopItemTransform.GetComponent<Button>().onClick.AddListener(delegate { TryBuyItem(itemType); });
-        if (positionIndex == 0)
+        if (positionIndex == lastItemSelected)
         {
             EventSystem.current.SetSelectedGameObject(shopItemTransform.gameObject);
         }
@@ -151,7 +152,9 @@ public class UiShop : MonoBehaviour
                             break;
                     }
                 }
-                shopCustomer.BoughtItem(itemType);
+                lastItemSelected = shopCustomer.BoughtItem(itemType);
+                EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
+                
                 Transform t = transform.Find("Panel").Find("Statistics");
                 float[] s = shopCustomer.GetStatistics();
                 t.GetComponent<TextMeshProUGUI>().text =
@@ -183,7 +186,8 @@ public class UiShop : MonoBehaviour
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range:\t" + s[6].ToString("F2") +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
-        EventSystem.current.SetSelectedGameObject(templates[0].gameObject);
+
+        EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
     }
 
     public void hide()
