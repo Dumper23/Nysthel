@@ -124,6 +124,7 @@ public class UiItemShop : MonoBehaviour
 
     public void hide()
     {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop = false;
         gameObject.SetActive(false);
     }
 }

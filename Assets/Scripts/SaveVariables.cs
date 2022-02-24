@@ -69,5 +69,30 @@ public static class SaveVariables
         INV_MULTIAXE = 0;
         INV_BASIC_AXE = 1;
         INV_DOUBLE_AXE = 0;
-}
+    }
+
+    public static void clearInventory()
+    {
+        INV_SMALL_POTION = 0;
+        INV_BIG_POTION = 0;
+        INV_SHIELD_POTION = 0;
+        INV_GOLD_POTION = 0;
+        INV_TELEPORT_POTION = 0;
+        INV_TIME_POTION = 0;
+        INV_MULTIAXE = 0;
+        INV_BASIC_AXE = 1;
+        INV_DOUBLE_AXE = 0;
+    }
+
+
+    public static string getCurrentWorld()
+    {
+        switch (CURRENT_WORLD)
+        {
+            case 0:
+                return "Forest";
+            default:
+                return "Village";
+        }
+    }
 }

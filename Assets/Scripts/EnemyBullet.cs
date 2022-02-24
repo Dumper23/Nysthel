@@ -6,12 +6,11 @@ public class EnemyBullet : MonoBehaviour
 {
     public float speed;
     public bool isSeeker = false;
-    
     public float timeAlive = 3f;
-
     public int damage = 10;
 
     private Transform target;
+    private Vector2 moveDir;
     private Rigidbody2D rb;
 
 
@@ -36,8 +35,16 @@ public class EnemyBullet : MonoBehaviour
         {
             rb.velocity = ((target.position - transform.position).normalized * speed);
         }
+        else
+        {
+            transform.Translate(moveDir * speed * Time.deltaTime);
+        }
     }
 
+    public void setMoveDirection(Vector2 v)
+    {
+        moveDir = v;
+    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {

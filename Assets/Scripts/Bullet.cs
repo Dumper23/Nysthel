@@ -8,7 +8,7 @@ public class Bullet : MonoBehaviour
     public float range = 1f;
     public float speed = 1f;
     public GameObject afterDestroySound;
-
+    public GameObject destroyGameObject;
     private int damage = 10;
 
 
@@ -43,22 +43,26 @@ public class Bullet : MonoBehaviour
         if (collision.transform.tag == "Destructible")
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
+            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
         }
 
         if (collision.transform.tag == "Enemy")
         {
             collision.transform.GetComponent<Enemy>().takeDamage(damage);
+            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
         }
 
         if (collision.transform.tag == "Bullet")
         {
             Destroy(collision.gameObject);
+            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
 
         if (collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
+            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }

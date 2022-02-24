@@ -44,12 +44,15 @@ public class Interactable : MonoBehaviour
             switch (interaction)
             {
                 case Interactions.GoToVillage:
-                    if (SaveVariables.PLAYER_GOLD - Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) >= 0)
+                    if (player.gold >= 30)
                     {
-                        SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f);
-                        SaveManager.Instance.SaveGame();
+                        if (player.gold - Mathf.RoundToInt(player.gold * 0.3f) >= 0)
+                        {
+                            SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.3f);
+                            SaveManager.Instance.SaveGame();
 
-                        SceneManager.LoadScene("Village");
+                            SceneManager.LoadScene("Village");
+                        }
                     }
                     //Else fer un Popup per mostrar que no te diners i que no pot viatjar
                     break;
@@ -65,6 +68,7 @@ public class Interactable : MonoBehaviour
                 case Interactions.EnterBlackSmith:
                     if (!inShop)
                     {
+                        player.inShop = true;
                         uiShop.show(player);
                         inShop = true;
                         Time.timeScale = 0f;
@@ -75,6 +79,7 @@ public class Interactable : MonoBehaviour
                 case Interactions.EnterShop:
                     if (!inShop)
                     {
+                        player.inShop = true;
                         uiItemShop.show(player);
                         inShop = true;
                         Time.timeScale = 0f;
@@ -145,6 +150,7 @@ public class Interactable : MonoBehaviour
             if (inShop)
             {
                 inShop = false;
+                player.inShop = false;
                 uiShop.hide();
                 uiItemShop.hide();
                 if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)

@@ -15,6 +15,7 @@ public class EnemyActivationZone : MonoBehaviour
     private bool finished = false;
     private bool hasBarriers = true;
     private Collider2D[] collisions;
+    private Player p;
 
 
     private void Start()
@@ -69,6 +70,7 @@ public class EnemyActivationZone : MonoBehaviour
             if(enemyCount == 0)
             {
                 finished = true;
+                p.inCombat = false;
                 //Avis que ja s'ha acabat la sala
                 GetComponent<AudioSource>().clip = endOfRoom;
                 GetComponent<AudioSource>().Play();
@@ -94,8 +96,10 @@ public class EnemyActivationZone : MonoBehaviour
     {
         if (!finished && !activated)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") && !collision.GetComponent<Player>().inCombat)
             {
+                p = collision.GetComponent<Player>();
+                p.inCombat = true;
                 activated = true;
                 GetComponent<AudioSource>().clip = startOfRoom;
                 GetComponent<AudioSource>().Play();
@@ -126,8 +130,9 @@ public class EnemyActivationZone : MonoBehaviour
     {
         if (!finished)
         {
-            if (collision.CompareTag("Player"))
+            if (collision.CompareTag("Player") && (collision.transform.position - transform.position).magnitude > 35)
             {
+                p.inCombat = false;
                 activated = false;
                 if (hasBarriers)
                 {

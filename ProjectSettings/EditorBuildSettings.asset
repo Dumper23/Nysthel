@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/Scenes/MainMenu.unity
     guid: f0e330508a27abf4ca3303158bb84a00
   - enabled: 1
+    path: Assets/Scenes/SecondChanceChallenge.unity
+    guid: e4de1567176bf4c4aa44f95ab9ed5aa1
+  - enabled: 1
     path: Assets/Scenes/Village.unity
     guid: defc56aee8fd5f34fa3005742059b57d
   - enabled: 1

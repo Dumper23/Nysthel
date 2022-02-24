@@ -535,7 +535,7 @@ MonoBehaviour:
   Barriers:
   - {fileID: 8892868913136953630}
   endOfRoom: {fileID: 8300000, guid: 5d37f34aed7e88c4da92908d9a5d9f09, type: 3}
-  startOfRoom: {fileID: 8300000, guid: aec064d693a57ec4587c4e363e83efba, type: 3}
+  startOfRoom: {fileID: 8300000, guid: dbbf88388f17bb7438e71ae26d0ce8cd, type: 3}
 --- !u!1001 &5163417892968724243
 PrefabInstance:
   m_ObjectHideFlags: 0

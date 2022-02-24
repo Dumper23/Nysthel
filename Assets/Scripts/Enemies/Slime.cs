@@ -92,13 +92,13 @@ public class Slime : Enemy
             go.GetComponent<EnemyBullet>().damage = damage;
             if (j < shotPatterns.Length)
             {
-                r.AddForce(shotPatterns[j].normalized * bulletForce, ForceMode2D.Impulse);
+                r.GetComponent<EnemyBullet>().setMoveDirection(shotPatterns[j].normalized);
                 j++;
             }
             else
             {
                 j = 0;
-                r.AddForce(shotPatterns[j].normalized * bulletForce, ForceMode2D.Impulse);
+                r.GetComponent<EnemyBullet>().setMoveDirection(shotPatterns[j].normalized);
             }
         }
     }

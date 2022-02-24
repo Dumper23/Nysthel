@@ -46,13 +46,22 @@ public class PauseManager : MonoBehaviour
             inventoryUi.SetActive(false);
         }
 
-        if (Input.GetButtonDown("Pause"))
+        if (Input.GetButtonDown("Pause") && !GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop)
         {
+            Debug.Log("Toggle pause");
             EventSystem.current.SetSelectedGameObject(ResumeButton);
             inventoryUi.SetActive(false);
             GameState currentGameState = GameStateManager.Instance.CurrentGameState;
-            GameState newGameState = currentGameState == GameState.Gameplay
-                ? GameState.Paused : GameState.Gameplay;
+            GameState newGameState;
+
+            if (currentGameState == GameState.Paused)
+            {
+                newGameState = GameState.Gameplay;
+            }
+            else
+            {
+                newGameState = GameState.Paused;
+            }
 
             GameStateManager.Instance.SetState(newGameState);
 

@@ -35,6 +35,9 @@ public class Player : MonoBehaviour, IShopCustomer
     public float attackRate = 1f;
     public float immunityTime = 1f;
     public GameObject crossHair;
+    public bool inCombat;
+    public ParticleSystem damageParticles;
+    public GameObject bloodDecal;
 
     private bool attacking = false;
     private float nextFire = 0f;
@@ -52,6 +55,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public float goldPotionDuration = 30f;
     public float shieldDuration = 5f;
     public float timePotionDuration = 3f;
+    public float secondChanceProbability = 0.1f;
 
     private int currentHealth;
     
@@ -65,6 +69,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private const int DASH_AUDIO = 1;
     private const int FOOTSTEP_AUDIO = 2;
     private const int PICKUP_AUDIO = 3;
+    private const int DAMAGE_AUDIO = 4;
 
 
 
@@ -82,6 +87,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public Camera cam;
     public float smoothFactor = 5f;
     public bool timeSlowed = false;
+    public bool inShop = false;
 
     private bool usingController = true;
     private string currentState;
@@ -93,6 +99,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private bool doubleaxe = false;
     private float timer = 0.0f;
     private int seconds = 0;
+    public bool hasSecondChance;
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
@@ -122,6 +129,7 @@ public class Player : MonoBehaviour, IShopCustomer
         healthBar.setMaxHealth(maxHealth);
         currentHealth = maxHealth;
         updateGold();
+        hasSecondChance = false;
     }
 
     private void OnDestroy()
@@ -503,16 +511,16 @@ public class Player : MonoBehaviour, IShopCustomer
         if (!immune)
         {
             currentHealth -= value;
-            immunity();
+            immune = true;
+            shield.SetActive(true);
+            audioSource[3].clip = audios[DAMAGE_AUDIO];
+            audioSource[3].pitch = Random.Range(0.75f, 1.25f);
+            audioSource[3].Play();
+            damageParticles.Play();
+            Instantiate(bloodDecal, transform.position, Quaternion.identity);
+            Invoke("notImmunity", immunityTime);
         }
         healthBar.setHealth(currentHealth);
-    }
-
-    void immunity()
-    {
-        immune = true;
-        shield.SetActive(true);
-        Invoke("notImmunity", immunityTime);
     }
 
     void notImmunity()
@@ -521,14 +529,30 @@ public class Player : MonoBehaviour, IShopCustomer
         immune = false;
     }
 
+    //Fer que estigui 2 segons la cam on ha mort el jugador, que no sigui instant respawn a la aldea
     void die()
     {
         if(currentHealth <= 0)
         {
-            gold -= Mathf.RoundToInt(0.6f * gold);
-            SaveVariables.PLAYER_GOLD = gold;
-            SaveManager.Instance.SaveGame();
-            SceneManager.LoadScene("Village");
+            if(Random.Range(0f, 1f) <= secondChanceProbability)
+            {
+                hasSecondChance = true;
+            }
+
+            if (hasSecondChance)
+            {
+                saveInventory();
+                SaveManager.Instance.SaveGame();
+                SceneManager.LoadScene("SecondChanceChallenge");
+            }
+            else
+            {
+                SaveVariables.clearInventory();
+                gold -= Mathf.RoundToInt(0.6f * gold);
+                SaveVariables.PLAYER_GOLD = gold;
+                SaveManager.Instance.SaveGame();
+                SceneManager.LoadScene("Village");
+            }
         }
     }
 
@@ -745,7 +769,9 @@ public class Player : MonoBehaviour, IShopCustomer
     private void updateGold()
     {
         goldText.text = gold.ToString();
-        BlackSmithGoldText.text = gold.ToString();
+        if (inShop) {
+            BlackSmithGoldText.text = gold.ToString();
+        }
     }
 
     public bool TrySpendGoldAmount(int goldAmount)
