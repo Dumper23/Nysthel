@@ -769,7 +769,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private void updateGold()
     {
         goldText.text = gold.ToString();
-        if (inShop) {
+        if (BlackSmithGoldText != null) {
             BlackSmithGoldText.text = gold.ToString();
         }
     }
@@ -944,7 +944,5 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         usingController = !usingController;
     }
-
-   
-
+    
 }
