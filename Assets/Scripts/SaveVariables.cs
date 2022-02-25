@@ -11,6 +11,8 @@ public static class SaveVariables
     public static float PLAYER_DASH_RANGE = 0;
     public static int PLAYER_LIFE = 0;
 
+    public static bool PLAYER_USING_CONTROLLER = false;
+
     public static int MAX_WORLD = 0;
     public static int CURRENT_WORLD = 0;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
@@ -12,18 +13,26 @@ public class PauseManager : MonoBehaviour
     public GameObject ResumeButton;
     public GameObject Map;
     public Camera minimapCam;
+    public Toggle toggle;
+
+    private void Start()
+    {
+        toggle.isOn = SaveVariables.PLAYER_USING_CONTROLLER;
+    }
 
     void Update()
     {
 
         if(GameStateManager.Instance.CurrentGameState == GameState.Paused)
         {
+            Cursor.visible = true;
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].Pause();
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[1].Pause();
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[2].Pause();
         }
         else
         {
+            Cursor.visible = false;
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].UnPause();
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[1].UnPause();
             GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[2].UnPause();
@@ -48,7 +57,6 @@ public class PauseManager : MonoBehaviour
 
         if (Input.GetButtonDown("Pause") && !GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop)
         {
-            Debug.Log("Toggle pause");
             EventSystem.current.SetSelectedGameObject(ResumeButton);
             inventoryUi.SetActive(false);
             GameState currentGameState = GameStateManager.Instance.CurrentGameState;

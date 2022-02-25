@@ -53,6 +53,8 @@ public class SaveManager : MonoBehaviour
             SaveVariables.PLAYER_DASH_RECOVERY = data.PLAYER_DASH_RECOVERY;
             SaveVariables.PLAYER_DASH_RANGE = data.PLAYER_DASH_RANGE;
 
+            SaveVariables.PLAYER_USING_CONTROLLER = data.PLAYER_USING_CONTROLLER;
+
             //World Stats
             SaveVariables.MAX_WORLD = data.MAX_WORLD;
             SaveVariables.CURRENT_WORLD = data.CURRENT_WORLD;

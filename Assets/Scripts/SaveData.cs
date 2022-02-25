@@ -14,6 +14,8 @@ public class SaveData
     public float PLAYER_DASH_RANGE = 0;
     public int PLAYER_LIFE = 0;
 
+    public bool PLAYER_USING_CONTROLLER = false;
+
     public int MAX_WORLD = 0;
     public int CURRENT_WORLD = 0;
 
@@ -49,6 +51,8 @@ public class SaveData
         PLAYER_RANGE = SaveVariables.PLAYER_RANGE;
         PLAYER_DASH_RECOVERY = SaveVariables.PLAYER_DASH_RECOVERY;
         PLAYER_DASH_RANGE = SaveVariables.PLAYER_DASH_RANGE;
+
+        PLAYER_USING_CONTROLLER = SaveVariables.PLAYER_USING_CONTROLLER;
 
         //World Stats
         MAX_WORLD = SaveVariables.MAX_WORLD;

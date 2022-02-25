@@ -14,7 +14,7 @@ public class Portal : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
             //Add sound of teleport
-            Invoke("ChangeScene", 1.5f);
+            Invoke("ChangeScene", 2f);
         }
     }
 
@@ -32,6 +32,7 @@ public class Portal : MonoBehaviour
         if (isPortalBoss)
         {
             if (SaveVariables.CURRENT_WORLD >= SaveVariables.MAX_WORLD) {
+                //Pujar el nivell del mon per poder accedir a altres mons
                 SaveVariables.MAX_WORLD++;
             }
         }

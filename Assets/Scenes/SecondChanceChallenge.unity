@@ -360,6 +360,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1888473089}
     - target: {fileID: 8469165761278272951, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
+      propertyPath: toggle
+      value: 
+      objectReference: {fileID: 999313463}
+    - target: {fileID: 8469165761278272951, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
       propertyPath: pauseUi
       value: 
       objectReference: {fileID: 999313461}
@@ -635,6 +639,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5009681040455137600, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
   m_PrefabInstance: {fileID: 999313455}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &999313463 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 141817115, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+  m_PrefabInstance: {fileID: 999313455}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1098712011
 GameObject:
   m_ObjectHideFlags: 0

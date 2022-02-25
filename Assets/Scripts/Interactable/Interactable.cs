@@ -61,7 +61,7 @@ public class Interactable : MonoBehaviour
                     SaveManager.Instance.SaveGame();
 
                     //mostrar ui per triar a quin mon anar (dels disponibles: maxWorld) i canviar el current world al mon seleccionat
-                    //De moment només forest
+                    //De moment només forest 
                     SceneManager.LoadScene("Forest");
                     break;
 

@@ -88,6 +88,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public float smoothFactor = 5f;
     public bool timeSlowed = false;
     public bool inShop = false;
+    public GameObject customCursor;
 
     private bool usingController = true;
     private string currentState;
@@ -144,6 +145,18 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Update()
     {
+        if (usingController)
+        {
+            Cursor.visible = false;
+            customCursor.SetActive(false);
+        }
+        else
+        {
+            Cursor.visible = false;
+            customCursor.SetActive(true);
+            Vector2 pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            customCursor.transform.position = pos;
+        }
         //cam.transform.position = Vector3.Lerp(cam.transform.position, new Vector3(transform.position.x, transform.position.y, cam.transform.position.z), smoothFactor/100);
         if (pathRenderer)
         {
@@ -485,7 +498,7 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             if (coin.tag == "Coin")
             {
-                coin.transform.Translate((transform.position - coin.transform.position).normalized * coinMagnetSpeed * Time.fixedDeltaTime);
+                coin.transform.Translate((transform.position - coin.transform.position).normalized * coinMagnetSpeed * Time.deltaTime);
             }
         }
     }
@@ -860,6 +873,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
         if (SaveVariables.PLAYER_DASH_RANGE > 0) dashForce = SaveVariables.PLAYER_DASH_RANGE;
 
+        usingController = SaveVariables.PLAYER_USING_CONTROLLER;
+
         //Inventory items
 
         System.Array a = System.Enum.GetValues(typeof(Item.ItemType));
@@ -943,6 +958,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public void usingControllerToggle()
     {
         usingController = !usingController;
+        SaveVariables.PLAYER_USING_CONTROLLER = usingController;
     }
     
 }
