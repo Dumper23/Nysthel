@@ -14,6 +14,7 @@ public class PauseManager : MonoBehaviour
     public GameObject Map;
     public Camera minimapCam;
     public Toggle toggle;
+    private bool playerDead = false;
 
     private void Start()
     {
@@ -22,20 +23,23 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
-
+        if (FindObjectOfType<Player>().isDead)
+        {
+            this.enabled = false;
+        }
         if(GameStateManager.Instance.CurrentGameState == GameState.Paused)
         {
             Cursor.visible = true;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].Pause();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[1].Pause();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[2].Pause();
+            GameObject.FindObjectOfType<Player>().audioSource[0].Pause();
+            GameObject.FindObjectOfType<Player>().audioSource[1].Pause();
+            GameObject.FindObjectOfType<Player>().audioSource[2].Pause();
         }
         else
         {
             Cursor.visible = false;
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[0].UnPause();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[1].UnPause();
-            GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().audioSource[2].UnPause();
+            GameObject.FindObjectOfType<Player>().audioSource[0].UnPause();
+            GameObject.FindObjectOfType<Player>().audioSource[1].UnPause();
+            GameObject.FindObjectOfType<Player>().audioSource[2].UnPause();
         }
 
             
@@ -43,7 +47,7 @@ public class PauseManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
         {
             GameStateManager.Instance.SetState(GameState.Gameplay);
-            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+            if (!GameObject.FindObjectOfType<Player>().timeSlowed)
             {
                 Time.timeScale = 1f;
             }
@@ -55,7 +59,7 @@ public class PauseManager : MonoBehaviour
             inventoryUi.SetActive(false);
         }
 
-        if (Input.GetButtonDown("Pause") && !GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop)
+        if (Input.GetButtonDown("Pause") && !GameObject.FindObjectOfType<Player>().inShop)
         {
             EventSystem.current.SetSelectedGameObject(ResumeButton);
             inventoryUi.SetActive(false);
@@ -75,7 +79,7 @@ public class PauseManager : MonoBehaviour
 
             if (newGameState == GameState.Gameplay)
             {
-                if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+                if (!GameObject.FindObjectOfType<Player>().timeSlowed)
                 {
                     Time.timeScale = 1f;
                 }
@@ -116,7 +120,7 @@ public class PauseManager : MonoBehaviour
 
             if (newGameState == GameState.Gameplay)
             {
-                if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+                if (!GameObject.FindObjectOfType<Player>().timeSlowed)
                 {
                     Time.timeScale = 1f;
                 }
@@ -137,7 +141,7 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         GameStateManager.Instance.SetState(GameState.Gameplay);
-        if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+        if (!GameObject.FindObjectOfType<Player>().timeSlowed)
         {
             Time.timeScale = 1f;
         }

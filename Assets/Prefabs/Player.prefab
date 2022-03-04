@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 414949795}
   - component: {fileID: 414949794}
   - component: {fileID: 414949792}
-  m_Layer: 3
+  m_Layer: 9
   m_Name: MinimapCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RenderShadows: 1
+  m_RenderShadows: 0
   m_RequiresDepthTextureOption: 2
   m_RequiresOpaqueTextureOption: 2
   m_CameraType: 0
@@ -937,7 +937,7 @@ MonoBehaviour:
   bulletForce: 10
   animationDelay: 0.4
   attackRate: 0.5
-  immunityTime: 1.2
+  immunityTime: 0.6
   crossHair: {fileID: 1522386914}
   inCombat: 0
   damageParticles: {fileID: 9221127519116179009}
@@ -950,7 +950,7 @@ MonoBehaviour:
   goldPotionDuration: 30
   shieldDuration: 5
   timePotionDuration: 4
-  secondChanceProbability: 0.3
+  secondChanceProbability: 0.1
   audios:
   - {fileID: 8300000, guid: ad860fe2df277ce4ea1b75ac31cd289a, type: 3}
   - {fileID: 8300000, guid: b644c729c57708347a58b260aebddc29, type: 3}

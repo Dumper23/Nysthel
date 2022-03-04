@@ -52,6 +52,7 @@ public abstract class Enemy : MonoBehaviour
     {
         if (health <= 0)
         {
+            Statistics.Instance.enemiesKilled += 1;
             if (bloodStain != null)
             {
                 Instantiate(bloodStain, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));

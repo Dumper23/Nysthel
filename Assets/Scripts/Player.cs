@@ -90,7 +90,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public bool inShop = false;
     public GameObject customCursor;
 
-    private bool usingController = true;
+    public bool usingController = false;
     private string currentState;
     private Inventory inventory;
     private bool shielded = false;
@@ -101,6 +101,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private float timer = 0.0f;
     private int seconds = 0;
     public bool hasSecondChance;
+    public bool isDead = false;
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
@@ -126,7 +127,6 @@ public class Player : MonoBehaviour, IShopCustomer
         SaveManager.Instance.loadGame();
 
         loadPlayerVariables();
-
         healthBar.setMaxHealth(maxHealth);
         currentHealth = maxHealth;
         updateGold();
@@ -217,6 +217,7 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             if (Time.time > nextDash && !dashing)
             {
+                Statistics.Instance.dashesDone += 1;
                 audioSource[DASH_AUDIO].clip = audios[1];
                 audioSource[DASH_AUDIO].Play();
                 nextDash = Time.time + dashRestoreTime;
@@ -348,6 +349,7 @@ public class Player : MonoBehaviour, IShopCustomer
         if (collision.transform.tag == "Coin")
         {
             gold += (1*goldMultiplier);
+            Statistics.Instance.goldCollected += (1 * goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
             Destroy(collision.gameObject);
@@ -425,6 +427,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (Time.time > nextFire)
         {
+            Statistics.Instance.attacksDone += 1;
             nextFire = Time.time + attackRate;
             //Ficar un so per a cada arma de moment un per totes
             audioSource[ATTACK_AUDIO].clip = audios[0];
@@ -564,7 +567,10 @@ public class Player : MonoBehaviour, IShopCustomer
                 gold -= Mathf.RoundToInt(0.6f * gold);
                 SaveVariables.PLAYER_GOLD = gold;
                 SaveManager.Instance.SaveGame();
-                SceneManager.LoadScene("Village");
+                isDead = true;
+                Statistics.Instance.showStatistics();
+                Time.timeScale = 0f;
+                GameStateManager.Instance.SetState(GameState.Paused);
             }
         }
     }
@@ -957,8 +963,16 @@ public class Player : MonoBehaviour, IShopCustomer
 
     public void usingControllerToggle()
     {
-        usingController = !usingController;
-        SaveVariables.PLAYER_USING_CONTROLLER = usingController;
+        if (usingController)
+        {
+            usingController = false;
+            SaveVariables.PLAYER_USING_CONTROLLER = false;
+        }
+        else
+        {
+            usingController = true;
+            SaveVariables.PLAYER_USING_CONTROLLER = true;
+        }
     }
     
 }

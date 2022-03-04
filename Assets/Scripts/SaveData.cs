@@ -14,7 +14,7 @@ public class SaveData
     public float PLAYER_DASH_RANGE = 0;
     public int PLAYER_LIFE = 0;
 
-    public bool PLAYER_USING_CONTROLLER = false;
+    public bool PLAYER_USING_CONTROLLER;
 
     public int MAX_WORLD = 0;
     public int CURRENT_WORLD = 0;
