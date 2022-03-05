@@ -161,6 +161,7 @@ MonoBehaviour:
   bullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}
   bulletForce: 10
   villagePortal: {fileID: 3283005098352873175, guid: 3659a202fd5a026429a4bd4a57f703dd, type: 3}
+  audioSource: {fileID: -7164987200410729255}
 --- !u!60 &314309017234547665
 PolygonCollider2D:
   m_ObjectHideFlags: 0
