@@ -59,12 +59,11 @@ public class Bullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if (collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin")
+        if (collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Wood")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
-
 }

@@ -11,6 +11,7 @@ public class BOSS_Turtoise : Enemy
     public GameObject bullet;
     public float bulletForce = 10f;
     public GameObject villagePortal;
+    public AudioSource audioSource;
 
     private float angle = 0f;
     private string[] state;
@@ -47,6 +48,8 @@ public class BOSS_Turtoise : Enemy
     {
         if (activated)
         {
+            if(!audioSource.isPlaying) audioSource.Play();
+
             if (health <= Mathf.RoundToInt(startHealth / 2))
             {
                 phase2 = true;

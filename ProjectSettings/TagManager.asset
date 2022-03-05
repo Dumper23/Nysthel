@@ -16,6 +16,7 @@ TagManager:
   - Interactable
   - EnemyZone
   - BulletHellBullet
+  - Wood
   layers:
   - Default
   - TransparentFX
@@ -30,7 +31,7 @@ TagManager:
   - Interactable
   - EnemyBullet
   - Decoration
-  - 
+  - Farmeable
   - 
   - 
   - 

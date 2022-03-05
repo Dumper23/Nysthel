@@ -3,6 +3,7 @@ using UnityEngine;
 public static class SaveVariables
 {
     public static int PLAYER_GOLD = 0;
+    public static int PLAYER_WOOD = 0;
     public static int PLAYER_ATTACK = 0;
     public static float PLAYER_SPEED = 0;
     public static float PLAYER_ATTACK_SPEED = 0;
@@ -11,7 +12,7 @@ public static class SaveVariables
     public static float PLAYER_DASH_RANGE = 0;
     public static int PLAYER_LIFE = 0;
 
-    public static bool PLAYER_USING_CONTROLLER = false;
+    //public static int PLAYER_USING_CONTROLLER = 0;
 
     public static int MAX_WORLD = 0;
     public static int CURRENT_WORLD = 0;
@@ -40,6 +41,7 @@ public static class SaveVariables
     public static void clearVariables()
     {
         PLAYER_GOLD = 0;
+        PLAYER_WOOD = 0;
         PLAYER_ATTACK = 0;
         PLAYER_SPEED = 0;
         PLAYER_ATTACK_SPEED = 0;
@@ -51,7 +53,6 @@ public static class SaveVariables
         MAX_WORLD = 0;
         CURRENT_WORLD = 0;
 
-  
         BLACKSMITH_LEVEL = 0;
         LIFE_LEVEL = 0;
         ATTACK_LEVEL = 0;

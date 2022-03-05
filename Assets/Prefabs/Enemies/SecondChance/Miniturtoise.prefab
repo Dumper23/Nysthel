@@ -183,4 +183,4 @@ MonoBehaviour:
   bloodStain: {fileID: 8546774708782298221, guid: da7a435a86aa9de4c81c0cc2189041ae, type: 3}
   bloodParticles: {fileID: 0}
   activated: 1
-  dieTime: 10
+  dieTime: 99

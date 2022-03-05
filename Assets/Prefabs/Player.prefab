@@ -944,6 +944,8 @@ MonoBehaviour:
   bloodDecal: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}
   maxHealth: 50
   gold: 0
+  wood: 0
+  woodMultiplier: 1
   goldMultiplier: 1
   coinMagnetRange: 1
   coinMagnetSpeed: 8
@@ -964,6 +966,7 @@ MonoBehaviour:
   - {fileID: 1819069039}
   goldText: {fileID: 0}
   BlackSmithGoldText: {fileID: 0}
+  woodText: {fileID: 0}
   uiInventory: {fileID: 0}
   healthBar: {fileID: 0}
   goldMultiplierUI: {fileID: 0}
@@ -976,7 +979,9 @@ MonoBehaviour:
   timeSlowed: 0
   inShop: 0
   customCursor: {fileID: 1994437210}
+  usingController: 1
   hasSecondChance: 0
+  isDead: 0
   pathRenderer: 0
   ruteFollowed: {fileID: 1402187068}
   timeBetweenPointsInRute: 2

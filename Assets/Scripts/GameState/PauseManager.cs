@@ -14,12 +14,7 @@ public class PauseManager : MonoBehaviour
     public GameObject Map;
     public Camera minimapCam;
     public Toggle toggle;
-    private bool playerDead = false;
 
-    private void Start()
-    {
-        toggle.isOn = SaveVariables.PLAYER_USING_CONTROLLER;
-    }
 
     void Update()
     {
@@ -98,12 +93,12 @@ public class PauseManager : MonoBehaviour
 
         if (Input.GetAxisRaw("Map") != 0)
         {
-            Map.transform.localScale = new Vector3(3, 3, 3);
+            Map.transform.localScale = new Vector3(4, 4, 4);
             minimapCam.orthographicSize = 150;
         }
         else
         {
-            Map.transform.localScale = new Vector3(1, 1, 1);
+            Map.transform.localScale = new Vector3(2, 2, 2);
             minimapCam.orthographicSize = 35;
         }
 
@@ -156,7 +151,7 @@ public class PauseManager : MonoBehaviour
     {
         GameStateManager.Instance.SetState(GameState.Gameplay);
         Time.timeScale = 1f;
-        SaveManager.Instance.SaveGame();
+        //SaveManager.Instance.SaveGame();
         SceneManager.LoadScene("MainMenu");
     }
 
@@ -164,5 +159,19 @@ public class PauseManager : MonoBehaviour
     {
         SaveManager.Instance.SaveGame();
         Application.Quit();
+    }
+
+    public void usingControllerToggle()
+    {
+        if (FindObjectOfType<Player>().usingController)
+        {
+            toggle.isOn = false;
+            FindObjectOfType<Player>().usingController = false;
+        }
+        else
+        {
+            toggle.isOn = true;
+            FindObjectOfType<Player>().usingController = true;
+        }
     }
 }

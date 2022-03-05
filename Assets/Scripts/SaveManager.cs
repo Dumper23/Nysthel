@@ -45,6 +45,7 @@ public class SaveManager : MonoBehaviour
             stream.Close();
 
             SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;
+            SaveVariables.PLAYER_WOOD = data.PLAYER_WOOD;
             SaveVariables.PLAYER_ATTACK = data.PLAYER_ATTACK;
             SaveVariables.PLAYER_LIFE = data.PLAYER_LIFE;
             SaveVariables.PLAYER_SPEED = data.PLAYER_SPEED; 
@@ -53,7 +54,6 @@ public class SaveManager : MonoBehaviour
             SaveVariables.PLAYER_DASH_RECOVERY = data.PLAYER_DASH_RECOVERY;
             SaveVariables.PLAYER_DASH_RANGE = data.PLAYER_DASH_RANGE;
 
-            SaveVariables.PLAYER_USING_CONTROLLER = data.PLAYER_USING_CONTROLLER;
 
             //World Stats
             SaveVariables.MAX_WORLD = data.MAX_WORLD;

@@ -49,6 +49,8 @@ public class Player : MonoBehaviour, IShopCustomer
     [Header("--------------Player Stats--------------")]
     public int maxHealth = 50;
     public int gold;
+    public int wood;
+    public int woodMultiplier = 1;
     public int goldMultiplier = 1;
     public float coinMagnetRange = 2f;
     public float coinMagnetSpeed = 1f;
@@ -76,6 +78,7 @@ public class Player : MonoBehaviour, IShopCustomer
     [Header("--------------UI And other settings--------------")]
     public TextMeshProUGUI goldText;
     public TextMeshProUGUI BlackSmithGoldText;
+    public TextMeshProUGUI woodText;
     [SerializeField]
     private UIInventory uiInventory;
     public HealthBar healthBar;
@@ -130,6 +133,7 @@ public class Player : MonoBehaviour, IShopCustomer
         healthBar.setMaxHealth(maxHealth);
         currentHealth = maxHealth;
         updateGold();
+        woodText.SetText(wood.ToString());
         hasSecondChance = false;
     }
 
@@ -354,6 +358,16 @@ public class Player : MonoBehaviour, IShopCustomer
             SaveVariables.PLAYER_GOLD = gold;
             Destroy(collision.gameObject);
         }
+        if(collision.transform.tag == "Wood")
+        {
+            wood += (1*woodMultiplier);
+            SaveVariables.PLAYER_WOOD += (1 * woodMultiplier);
+            woodText.SetText(wood.ToString());
+            Destroy(collision.gameObject);
+            audioSource[PICKUP_AUDIO].clip = audios[PICKUP_AUDIO];
+            audioSource[PICKUP_AUDIO].Play();
+        }
+
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
         if (iw != null)
         {
@@ -497,9 +511,9 @@ public class Player : MonoBehaviour, IShopCustomer
 
     void coinMagnet(Collider2D[] coins)
     {
-        foreach(Collider2D coin in coins)
+        foreach (Collider2D coin in coins)
         {
-            if (coin.tag == "Coin")
+            if (coin.tag == "Coin" || coin.tag == "Wood")
             {
                 coin.transform.Translate((transform.position - coin.transform.position).normalized * coinMagnetSpeed * Time.deltaTime);
             }
@@ -864,6 +878,7 @@ public class Player : MonoBehaviour, IShopCustomer
         //Player Stats
 
         gold = SaveVariables.PLAYER_GOLD;
+        wood = SaveVariables.PLAYER_WOOD;
 
         if (SaveVariables.PLAYER_ATTACK > 0) damage = SaveVariables.PLAYER_ATTACK;
 
@@ -878,8 +893,6 @@ public class Player : MonoBehaviour, IShopCustomer
         if (SaveVariables.PLAYER_DASH_RECOVERY > 0) dashRestoreTime = SaveVariables.PLAYER_DASH_RECOVERY;
 
         if (SaveVariables.PLAYER_DASH_RANGE > 0) dashForce = SaveVariables.PLAYER_DASH_RANGE;
-
-        usingController = SaveVariables.PLAYER_USING_CONTROLLER;
 
         //Inventory items
 
@@ -959,20 +972,6 @@ public class Player : MonoBehaviour, IShopCustomer
                 break;
         }
         return index;
-    }
-
-    public void usingControllerToggle()
-    {
-        if (usingController)
-        {
-            usingController = false;
-            SaveVariables.PLAYER_USING_CONTROLLER = false;
-        }
-        else
-        {
-            usingController = true;
-            SaveVariables.PLAYER_USING_CONTROLLER = true;
-        }
     }
     
 }

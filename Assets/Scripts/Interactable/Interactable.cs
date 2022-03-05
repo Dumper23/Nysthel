@@ -22,7 +22,8 @@ public class Interactable : MonoBehaviour
         GoToVillage,
         GoToAdventure,
         EnterBlackSmith,
-        Save
+        Save,
+        GoToWoodFarm
     };
 
     private bool inRange = false;
@@ -44,17 +45,27 @@ public class Interactable : MonoBehaviour
             switch (interaction)
             {
                 case Interactions.GoToVillage:
-                    if (player.gold >= 30)
+                    if (SceneManager.GetActiveScene().name != "WoodFarm")
                     {
-                        if (player.gold - Mathf.RoundToInt(player.gold * 0.3f) >= 0)
+                        if (player.gold >= 30)
                         {
-                            SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.3f);
-                            SaveManager.Instance.SaveGame();
+                            if (player.gold - Mathf.RoundToInt(player.gold * 0.3f) >= 0)
+                            {
+                                SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.3f);
+                                SaveManager.Instance.SaveGame();
 
-                            SceneManager.LoadScene("Village");
+                                SceneManager.LoadScene("Village");
+                            }
                         }
+                        //Else fer un Popup per mostrar que no te diners i que no pot viatjar
+
                     }
-                    //Else fer un Popup per mostrar que no te diners i que no pot viatjar
+                    else
+                    {
+                        SaveManager.Instance.SaveGame();
+                        SceneManager.LoadScene("Village");
+                    }
+                    
                     break;
 
                 case Interactions.GoToAdventure:
@@ -88,9 +99,16 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case Interactions.Save:
-                    //Save
                     SaveManager.Instance.SaveGame();
+                    break;
 
+                case Interactions.GoToWoodFarm:
+                    if (SaveVariables.PLAYER_GOLD >= 100)
+                    { 
+                        SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
+                        SaveManager.Instance.SaveGame();
+                        SceneManager.LoadScene("WoodFarm");
+                    }                    
                     break;
             }
         }
@@ -120,7 +138,14 @@ public class Interactable : MonoBehaviour
             switch (interaction)
             {
                 case Interactions.GoToVillage:
-                    text.SetText("Press X or E to go to the Village by 30% of your gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
+                    if (SceneManager.GetActiveScene().name != "WoodFarm")
+                    {
+                        text.SetText("Press X or E to go to the Village by 30% of your gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
+                    }
+                    else
+                    {
+                        text.SetText("Press X or E to return to the Village.");
+                    }
                     break;
                 case Interactions.GoToAdventure:
                     text.SetText("Press X or E to go to the Forest");
@@ -133,6 +158,9 @@ public class Interactable : MonoBehaviour
                     break;
                 case Interactions.Save:
                     text.SetText("Press X or E to save your progress.");
+                    break;
+                case Interactions.GoToWoodFarm:
+                    text.SetText("Press X or E to go to the Wood Farm. (Cost: 100)");
                     break;
             }
             

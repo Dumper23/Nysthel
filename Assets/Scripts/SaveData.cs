@@ -6,6 +6,7 @@ using UnityEngine;
 public class SaveData
 {
     public int PLAYER_GOLD = 0;
+    public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
     public float PLAYER_SPEED = 0;
     public float PLAYER_ATTACK_SPEED = 0;
@@ -13,8 +14,6 @@ public class SaveData
     public float PLAYER_DASH_RECOVERY = 0;
     public float PLAYER_DASH_RANGE = 0;
     public int PLAYER_LIFE = 0;
-
-    public bool PLAYER_USING_CONTROLLER;
 
     public int MAX_WORLD = 0;
     public int CURRENT_WORLD = 0;
@@ -44,6 +43,7 @@ public class SaveData
     {
         //Player upgrades and gold
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
+        PLAYER_WOOD = SaveVariables.PLAYER_WOOD;
         PLAYER_ATTACK = SaveVariables.PLAYER_ATTACK;
         PLAYER_LIFE = SaveVariables.PLAYER_LIFE;
         PLAYER_SPEED = SaveVariables.PLAYER_SPEED;
@@ -51,8 +51,6 @@ public class SaveData
         PLAYER_RANGE = SaveVariables.PLAYER_RANGE;
         PLAYER_DASH_RECOVERY = SaveVariables.PLAYER_DASH_RECOVERY;
         PLAYER_DASH_RANGE = SaveVariables.PLAYER_DASH_RANGE;
-
-        PLAYER_USING_CONTROLLER = SaveVariables.PLAYER_USING_CONTROLLER;
 
         //World Stats
         MAX_WORLD = SaveVariables.MAX_WORLD;

@@ -36,9 +36,7 @@ public class Statistics : MonoBehaviour
 
     private void Update()
     {
-        
         tempTime += Time.deltaTime;
-        timeSpent = (int)tempTime % 60;
     }
 
     public void showStatistics()
@@ -50,7 +48,7 @@ public class Statistics : MonoBehaviour
                   "-Gold collected: " + goldCollected + "\n"
                 + "-Dashes done: " + dashesDone + "\n"
                 + "-Attacks done: " + attacksDone + "\n"
-                + "-Time of the run: " + Mathf.FloorToInt(timeSpent / 60) + "m " + Mathf.RoundToInt(timeSpent - (Mathf.FloorToInt(timeSpent / 60)*60))  + "s\n"
+                + "-Time of the run: " + Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60)*60))  + "s\n"
                 + "-Enemies killed: " + enemiesKilled);
             statisticsUI.SetActive(true);
         }
