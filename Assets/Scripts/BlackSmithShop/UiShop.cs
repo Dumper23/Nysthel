@@ -207,6 +207,14 @@ public class UiShop : MonoBehaviour
         }
     }
 
+    public void exitShop()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop = false;
+        gameObject.SetActive(false);
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+        Time.timeScale = 1f;
+    }
+
     public void ReRoll()
     {
         if (shopCustomer.TrySpendGoldAmount(reRollCost))

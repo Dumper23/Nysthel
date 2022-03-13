@@ -50,7 +50,8 @@ public class UiItemShop : MonoBehaviour
         CreateItemButton(ItemShopItem.ItemType.teleportPotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.teleportPotion), "Teleport potion", ItemShopItem.GetCost(ItemShopItem.ItemType.teleportPotion), 4);
 
         CreateItemButton(ItemShopItem.ItemType.timePotion, ItemShopItem.GetSprite(ItemShopItem.ItemType.timePotion), "Time potion", ItemShopItem.GetCost(ItemShopItem.ItemType.timePotion), 5);
-
+        
+        CreateItemButton(ItemShopItem.ItemType.doubleAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.doubleAxe), "Double axe", ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe), 6);
 
     }
 
@@ -60,7 +61,7 @@ public class UiItemShop : MonoBehaviour
         RectTransform shopItemRectTransform = shopItemTransform.GetComponent<RectTransform>();
         shopItemTransform.gameObject.SetActive(true);
 
-        float shopItemHeight = 120f;
+        float shopItemHeight = 80f;
         shopItemRectTransform.anchoredPosition = new Vector2(0, shopItemTransform.localPosition.y - (shopItemHeight * positionIndex));
 
         shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
@@ -103,6 +104,9 @@ public class UiItemShop : MonoBehaviour
                     case "Time potion":
                         templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.timePotion).ToString());
                         break;
+                    case "Double axe":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe).ToString());
+                        break;
                 }
             }
             lastItemSelected = shopCustomer.BoughtItem(itemType);
@@ -126,5 +130,13 @@ public class UiItemShop : MonoBehaviour
     {
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop = false;
         gameObject.SetActive(false);
+    }
+
+    public void exitShop()
+    {
+        GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop = false;
+        gameObject.SetActive(false);
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+        Time.timeScale = 1f;
     }
 }

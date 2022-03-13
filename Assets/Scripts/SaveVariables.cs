@@ -12,7 +12,19 @@ public static class SaveVariables
     public static float PLAYER_DASH_RANGE = 0;
     public static int PLAYER_LIFE = 0;
 
-    //public static int PLAYER_USING_CONTROLLER = 0;
+    public static int GOLD_STATUE = 0;
+    public static int HOLY_STATUE = 0;
+    public static int CHANCE_STATUE = 0;
+    public static int EMMYR_STATUE = 0;
+    public static int DAMAGE_STATUE = 0;
+    public static int ACTIVATED_STATUES = 0;
+
+    public static int PLAYER_USING_CONTROLLER = 0; //Default controller is mouse
+
+    public static int TALKED_VORDKOR = 0;
+    public static int TALKED_HALLBORG = 0;
+    public static int TALKED_GROMODIN = 0;
+    public static int HAS_EMMYR_ITEM = 0;
 
     public static int MAX_WORLD = 0;
     public static int CURRENT_WORLD = 0;
@@ -49,6 +61,18 @@ public static class SaveVariables
         PLAYER_DASH_RECOVERY = 0;
         PLAYER_DASH_RANGE = 0;
         PLAYER_LIFE = 0;
+
+        GOLD_STATUE = 0;
+        HOLY_STATUE = 0;
+        CHANCE_STATUE = 0;
+        EMMYR_STATUE = 0;
+        DAMAGE_STATUE = 0;
+        ACTIVATED_STATUES = 0;
+
+        TALKED_VORDKOR = 0;
+        TALKED_HALLBORG = 0;
+        TALKED_GROMODIN = 0;
+        HAS_EMMYR_ITEM = 0;
 
         MAX_WORLD = 0;
         CURRENT_WORLD = 0;

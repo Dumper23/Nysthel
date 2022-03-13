@@ -28,6 +28,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     [Header("--------------Combat--------------")]
     public int damage = 10;
+    private int originalDamage;
     public Transform firePoint;
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
@@ -105,6 +106,8 @@ public class Player : MonoBehaviour, IShopCustomer
     private int seconds = 0;
     public bool hasSecondChance;
     public bool isDead = false;
+    private bool goldStatueApplied = false;
+    private bool damageStatueApplied = false;
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
@@ -126,6 +129,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Start()
     {
+        goldStatueApplied = false;
         //Unic LoadGame Que hi ha d'haver ja que carrega totes les variables no només les del jugador
         SaveManager.Instance.loadGame();
 
@@ -135,6 +139,7 @@ public class Player : MonoBehaviour, IShopCustomer
         updateGold();
         woodText.SetText(wood.ToString());
         hasSecondChance = false;
+        originalDamage = 10 + SaveVariables.ATTACK_LEVEL * 5;
     }
 
     private void OnDestroy()
@@ -149,6 +154,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Update()
     {
+        statueStats();
         if (usingController)
         {
             Cursor.visible = false;
@@ -569,7 +575,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 hasSecondChance = true;
             }
 
-            if (hasSecondChance)
+            if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm")
             {
                 saveInventory();
                 SaveManager.Instance.SaveGame();
@@ -577,9 +583,12 @@ public class Player : MonoBehaviour, IShopCustomer
             }
             else
             {
-                SaveVariables.clearInventory();
-                gold -= Mathf.RoundToInt(0.6f * gold);
-                SaveVariables.PLAYER_GOLD = gold;
+                if (SceneManager.GetActiveScene().name != "WoodFarm")
+                {
+                    SaveVariables.clearInventory();
+                    gold -= Mathf.RoundToInt(0.6f * gold);
+                    SaveVariables.PLAYER_GOLD = gold;
+                }
                 SaveManager.Instance.SaveGame();
                 isDead = true;
                 Statistics.Instance.showStatistics();
@@ -592,6 +601,54 @@ public class Player : MonoBehaviour, IShopCustomer
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
+    }
+
+
+    private void statueStats()
+    {
+        if (SaveVariables.DAMAGE_STATUE == 2 && !damageStatueApplied)
+        {
+            damage = originalDamage + (Mathf.RoundToInt((originalDamage) /2));
+            damageStatueApplied = true;
+        }
+        else if (SaveVariables.DAMAGE_STATUE == 1 && damageStatueApplied)
+        {
+            damage = originalDamage;
+            damageStatueApplied = false;
+        }
+
+
+            if (SaveVariables.EMMYR_STATUE == 2)
+        {
+            //Simplement al final del joc checkejar si esta a 1 i habilitar un final o un altre.
+        }
+        if (SaveVariables.GOLD_STATUE == 2 && !goldStatueApplied)
+        {
+            goldMultiplier = goldMultiplier + 1;
+            goldMultiplierUI.GetComponent<TextMeshProUGUI>().SetText("x" + goldMultiplier);
+            goldMultiplierUI.SetActive(true);
+            goldStatueApplied = true;
+        }
+        else if(goldStatueApplied && SaveVariables.GOLD_STATUE == 1)
+        {
+            goldMultiplierUI.SetActive(false);
+            goldMultiplier = goldMultiplier - 1;
+            goldStatueApplied = false;
+        }
+
+        if (SaveVariables.HOLY_STATUE == 2)
+        {
+            //On the start room create more probability for objects
+        }
+
+        if (SaveVariables.CHANCE_STATUE == 2)
+        {
+            secondChanceProbability = 0.3f;
+        }
+        else if(SaveVariables.CHANCE_STATUE == 1)
+        {
+            secondChanceProbability = 0.1f;
+        }
     }
 
 
@@ -650,7 +707,8 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.goldPotion:
                     if (!goldRushed && !shielded && !timeSlowed)
                     {
-                        goldMultiplier = 2;
+                        goldMultiplier = goldMultiplier + 1;
+                        goldMultiplierUI.GetComponent<TextMeshProUGUI>().SetText("x" + goldMultiplier);
                         goldMultiplierUI.SetActive(true);
                         goldRush.SetActive(true);
                         goldRushed = true;
@@ -758,6 +816,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 damage += 5;
                 SaveVariables.PLAYER_ATTACK = damage;
                 SaveVariables.ATTACK_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                originalDamage = damage;
                 index = 1;
                 break;
 
@@ -876,6 +935,14 @@ public class Player : MonoBehaviour, IShopCustomer
     public void loadPlayerVariables()
     {
         //Player Stats
+        if (SaveVariables.PLAYER_USING_CONTROLLER == 0)
+        {
+            usingController = false;
+        }
+        else
+        {
+            usingController = true;
+        }
 
         gold = SaveVariables.PLAYER_GOLD;
         wood = SaveVariables.PLAYER_WOOD;
@@ -969,6 +1036,10 @@ public class Player : MonoBehaviour, IShopCustomer
             case ItemShopItem.ItemType.timePotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
                 index = 5;
+                break;
+            case ItemShopItem.ItemType.doubleAxe:
+                inventory.addItem(new Item { itemType = Item.ItemType.doubleAxe, amount = 1 });
+                index = 6;
                 break;
         }
         return index;

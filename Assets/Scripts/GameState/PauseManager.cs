@@ -167,11 +167,13 @@ public class PauseManager : MonoBehaviour
         {
             toggle.isOn = false;
             FindObjectOfType<Player>().usingController = false;
+            SaveVariables.PLAYER_USING_CONTROLLER = 0;
         }
         else
         {
             toggle.isOn = true;
             FindObjectOfType<Player>().usingController = true;
+            SaveVariables.PLAYER_USING_CONTROLLER = 1;
         }
     }
 }

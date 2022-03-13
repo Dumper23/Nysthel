@@ -5,6 +5,8 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    public int PLAYER_USING_CONTROLLER = 0; //Default controll is mouse
+
     public int PLAYER_GOLD = 0;
     public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
@@ -14,6 +16,18 @@ public class SaveData
     public float PLAYER_DASH_RECOVERY = 0;
     public float PLAYER_DASH_RANGE = 0;
     public int PLAYER_LIFE = 0;
+
+    public int GOLD_STATUE = 0;
+    public int HOLY_STATUE = 0;
+    public int CHANCE_STATUE = 0;
+    public int EMMYR_STATUE = 0;
+    public int DAMAGE_STATUE = 0;
+    public int ACTIVATED_STATUES = 0;
+
+    public int TALKED_VORDKOR = 0;
+    public int TALKED_HALLBORG = 0;
+    public int TALKED_GROMODIN = 0;
+    public int HAS_EMMYR_ITEM = 0;
 
     public int MAX_WORLD = 0;
     public int CURRENT_WORLD = 0;
@@ -41,6 +55,8 @@ public class SaveData
 
     public void LoadData()
     {
+        PLAYER_USING_CONTROLLER = SaveVariables.PLAYER_USING_CONTROLLER;
+
         //Player upgrades and gold
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         PLAYER_WOOD = SaveVariables.PLAYER_WOOD;
@@ -51,6 +67,18 @@ public class SaveData
         PLAYER_RANGE = SaveVariables.PLAYER_RANGE;
         PLAYER_DASH_RECOVERY = SaveVariables.PLAYER_DASH_RECOVERY;
         PLAYER_DASH_RANGE = SaveVariables.PLAYER_DASH_RANGE;
+
+        GOLD_STATUE = SaveVariables.GOLD_STATUE;
+        HOLY_STATUE = SaveVariables.HOLY_STATUE;
+        CHANCE_STATUE = SaveVariables.CHANCE_STATUE;
+        EMMYR_STATUE = SaveVariables.EMMYR_STATUE;
+        DAMAGE_STATUE = SaveVariables.DAMAGE_STATUE;
+        ACTIVATED_STATUES = SaveVariables.ACTIVATED_STATUES;
+
+        TALKED_VORDKOR = SaveVariables.TALKED_VORDKOR;
+        TALKED_HALLBORG = SaveVariables.TALKED_HALLBORG;
+        TALKED_GROMODIN = SaveVariables.TALKED_GROMODIN;
+        HAS_EMMYR_ITEM = SaveVariables.HAS_EMMYR_ITEM;
 
         //World Stats
         MAX_WORLD = SaveVariables.MAX_WORLD;

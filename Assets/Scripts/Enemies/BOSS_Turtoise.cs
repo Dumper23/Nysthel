@@ -12,6 +12,8 @@ public class BOSS_Turtoise : Enemy
     public float bulletForce = 10f;
     public GameObject villagePortal;
     public AudioSource audioSource;
+    public AudioSource screamSource;
+    public AudioClip scream;
 
     private float angle = 0f;
     private string[] state;
@@ -142,6 +144,9 @@ public class BOSS_Turtoise : Enemy
     {
         if (activated && !immune)
         {
+            Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
+            screamSource.clip = scream;
+            screamSource.Play();
             health -= value;
             cState = "shield";
         }
