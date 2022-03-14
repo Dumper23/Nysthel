@@ -22,6 +22,7 @@ public abstract class Enemy : MonoBehaviour
     public float coinForce = 2f;
     public GameObject bloodStain;
     public GameObject bloodParticles;
+    public bool immune = false;
 
     protected Transform target;
     protected int goldToGive;
@@ -37,7 +38,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void takeDamage(int value)
     {
-        if (activated)
+        if (activated && !immune)
         {
             health -= value;
         }
