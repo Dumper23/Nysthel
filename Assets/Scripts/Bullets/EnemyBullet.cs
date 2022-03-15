@@ -8,10 +8,12 @@ public class EnemyBullet : MonoBehaviour
     public bool isSeeker = false;
     public float timeAlive = 3f;
     public int damage = 10;
+    public float timeToWait = 0f;
 
     private Transform target;
     private Vector2 moveDir;
     private Rigidbody2D rb;
+    private bool readyToMove = false;
 
 
     private void Start()
@@ -27,18 +29,25 @@ public class EnemyBullet : MonoBehaviour
         
     }
 
-
-
     void Update()
     {
         if (isSeeker)
         {
-            rb.velocity = ((target.position - transform.position).normalized * speed);
+            Invoke("readyToMoveToggle", timeToWait);
+            if (readyToMove)
+            {
+                rb.velocity = ((target.position - transform.position).normalized * speed);
+            }
         }
         else
         {
             transform.Translate(moveDir * speed * Time.deltaTime);
         }
+    }
+
+    private void readyToMoveToggle()
+    {
+        readyToMove = true;
     }
 
     public void setMoveDirection(Vector2 v)

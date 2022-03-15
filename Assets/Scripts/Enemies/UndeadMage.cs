@@ -7,8 +7,10 @@ public class UndeadMage : Enemy
     public GameObject undeadMinion;
     [Range(1, 4)]
     public int minionQuantity;
+    public int maxMinionSpawned = 24;
 
     private SpriteRenderer sprite;
+    private int minionsSpawned = 0;
 
     void Start()
     {
@@ -20,6 +22,8 @@ public class UndeadMage : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
+            minionsSpawned = FindObjectsOfType<Undead>().Length;
+
             die();
             Seek();
 
@@ -35,7 +39,9 @@ public class UndeadMage : Enemy
             if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range)
             {
                 nextShot = Time.time + attackRate;
-                Spawn();
+                if (minionsSpawned < maxMinionSpawned) {
+                    Spawn();
+                }
             }
         }
     }

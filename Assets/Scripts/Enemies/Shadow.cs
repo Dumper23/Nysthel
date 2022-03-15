@@ -5,27 +5,31 @@ using UnityEngine;
 public class Shadow : Enemy
 {
     public float timeHidden = 3f;
-    private SpriteRenderer sprite;
+    public GameObject bulletSeek;
+    public GameObject bullet;
+    public GameObject eyeLight;
+
+    [Range(0f, 1f)]
+    public float seekerProbability = 0.5f;
+
 
     void Start()
     {
-        sprite = GetComponent<SpriteRenderer>();
         target = FindObjectOfType<Player>().transform;
         anim.Play("Idle");
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
             if (target.position.x > transform.position.x)
             {
-                sprite.flipX = false;
+                transform.localScale = new Vector3(1, 1, 1);
             }
             else
             {
-                sprite.flipX = true;
+                transform.localScale = new Vector3(-1, 1, 1);
             }
 
             if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range && !immune)
@@ -45,11 +49,27 @@ public class Shadow : Enemy
     private void Hide()
     {
         anim.Play("Hide");
+        eyeLight.SetActive(false);
         Invoke("Shoot", 0.4f);
     }
 
     private void Shoot()
     {
+        
+        if (Random.Range(0f, 1f) > seekerProbability) {
+            EnemyBullet b = (Instantiate(bulletSeek, transform.position - new Vector3(0, -0.2f, 0), Quaternion.identity) as GameObject).GetComponent<EnemyBullet>();
+            b.damage = 15;
+            b.speed = 5;
+            b.isSeeker = true;
+        }
+        else
+        {
+            EnemyBullet b = (Instantiate(bullet, transform.position - new Vector3(0, -0.2f, 0), Quaternion.identity) as GameObject).GetComponent<EnemyBullet>();
+            b.damage = 25;
+            b.speed = 8;
+            b.isSeeker = false;
+            b.setMoveDirection((target.position - transform.position).normalized);
+        }
 
         anim.Play("Hiden");
         immune = true;
@@ -65,6 +85,7 @@ public class Shadow : Enemy
 
     private void idleAnim()
     {
+        eyeLight.SetActive(true);
         anim.Play("Idle");
     }
 
