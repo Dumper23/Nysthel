@@ -52,14 +52,23 @@ public class Bullet : MonoBehaviour
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);
         }
 
-        if (collision.transform.tag == "Bullet")
+        if ((collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet"))
         {
-            Destroy(collision.gameObject);
-            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            
+            if (SaveVariables.HOLY_STATUE != 2)
+            {
+                Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+            }
+            else
+            {
+                Destroy(collision.gameObject);
+                Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+                Instantiate(afterDestroySound, transform.position, Quaternion.identity);
+                Destroy(this.gameObject);
+            }
         }
 
-        if (collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Wood")
+        if (collision.transform.tag != "Bullet" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Wood")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);

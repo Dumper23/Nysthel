@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 849811918729276015}
   - component: {fileID: 7257774832609497136}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Trail
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -157,9 +157,9 @@ GameObject:
   m_Component:
   - component: {fileID: 8891369020324193806}
   - component: {fileID: 2176264415514702206}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: Sprite
-  m_TagString: Untagged
+  m_TagString: PlayerBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -244,7 +244,7 @@ GameObject:
   - component: {fileID: 3849730002283103051}
   - component: {fileID: 4731168604586217855}
   - component: {fileID: 1138208720597245217}
-  m_Layer: 0
+  m_Layer: 14
   m_Name: shockwave
   m_TagString: PlayerBullet
   m_Icon: {fileID: 0}

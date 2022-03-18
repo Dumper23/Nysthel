@@ -19,6 +19,7 @@ public class EnemyBullet : MonoBehaviour
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("EnemyBullet"), true);
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Decoration"), LayerMask.NameToLayer("EnemyBullet"), true);
         if (isSeeker)
         {
             target = GameObject.FindGameObjectWithTag("Player").transform;
@@ -63,14 +64,9 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(collision.transform.tag == "PlayerBullet")
+        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet" || collision.transform.tag == "Enemy" || collision.transform.tag == "PlayerBullet")
         {
-            Destroy(gameObject);
-        }
-
-        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet" || collision.transform.tag == "Enemy")
-        {
-            Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
+            Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
         else if(collision.transform.tag == "Destructible")
         {
@@ -78,14 +74,6 @@ public class EnemyBullet : MonoBehaviour
             Destroy(gameObject);
         }
         else
-        {
-            Destroy(gameObject);
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.tag == "PlayerBullet")
         {
             Destroy(gameObject);
         }

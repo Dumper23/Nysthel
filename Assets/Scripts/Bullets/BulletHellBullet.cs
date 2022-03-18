@@ -47,7 +47,7 @@ public class BulletHellBullet : MonoBehaviour
             Destroy();
         }
 
-        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet")
+        if (collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet" || collision.transform.tag == "PlayerBullet")
         {
             Physics2D.IgnoreCollision(collision.collider, GetComponent<Collider2D>());
         }
@@ -65,14 +65,6 @@ public class BulletHellBullet : MonoBehaviour
             Destroy();
         }
         else
-        {
-            Destroy();
-        }
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.transform.tag == "PlayerBullet")
         {
             Destroy();
         }

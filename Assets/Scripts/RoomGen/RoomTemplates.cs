@@ -1,11 +1,9 @@
-﻿
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
 {
-
 	public GameObject[] bottomRooms;
 	public GameObject[] topRooms;
 	public GameObject[] leftRooms;
@@ -17,7 +15,6 @@ public class RoomTemplates : MonoBehaviour
 
 	public float waitTime;
 
-	
 	public GameObject boss;
 	public GameObject bossIndicator;
 	public GameObject[] bossBarriers;
@@ -29,7 +26,6 @@ public class RoomTemplates : MonoBehaviour
 
 	void Update()
 	{
-
 		if (waitTime <= 0 && spawnedBoss == false)
 		{
 			for (int i = 0; i < rooms.Count; i++)

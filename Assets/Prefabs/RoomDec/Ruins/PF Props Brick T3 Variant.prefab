@@ -69,11 +69,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750450, guid: 92a9322ee3bba184f91fbebe53b69bd9, type: 3}
       propertyPath: m_SortingOrder
-      value: 14
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750455, guid: 92a9322ee3bba184f91fbebe53b69bd9, type: 3}
       propertyPath: m_Name
-      value: PF Props Brick T3
+      value: PF Props Brick T3 Variant
       objectReference: {fileID: 0}
     - target: {fileID: 7947911505737750455, guid: 92a9322ee3bba184f91fbebe53b69bd9, type: 3}
       propertyPath: m_Layer

@@ -118,6 +118,8 @@ public static class SaveVariables
         {
             case 0:
                 return "Forest";
+            case 1:
+                return "Ruins";
             default:
                 return "Village";
         }

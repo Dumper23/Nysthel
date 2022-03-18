@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class Interactable : MonoBehaviour
@@ -35,6 +36,8 @@ public class Interactable : MonoBehaviour
     };
 
     private bool inRange = false;
+    public GameObject mapSelectionUi;
+
 
     private void Update()
     {
@@ -81,7 +84,11 @@ public class Interactable : MonoBehaviour
 
                     //mostrar ui per triar a quin mon anar (dels disponibles: maxWorld) i canviar el current world al mon seleccionat
                     //De moment només forest 
-                    SceneManager.LoadScene("Forest");
+                    mapSelectionUi.SetActive(true);
+                    inShop = true;
+                    EventSystem.current.SetSelectedGameObject(mapSelectionUi.transform.GetChild(1).gameObject);
+                    GameStateManager.Instance.SetState(GameState.Paused);
+                    Time.timeScale = 0f;
                     break;
 
                 case Interactions.EnterBlackSmith:
@@ -156,9 +163,9 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case Interactions.EstatuaBendicion:
-                    if(player.wood >= 2500 && SaveVariables.HOLY_STATUE == 0)
+                    if(player.wood >= 5000 && SaveVariables.HOLY_STATUE == 0)
                     {
-                        SaveVariables.PLAYER_WOOD -= 2500;
+                        SaveVariables.PLAYER_WOOD -= 5000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
 
@@ -359,6 +366,10 @@ public class Interactable : MonoBehaviour
             GameStateManager.Instance.SetState(GameState.Gameplay);
             uiShop.hide();
             uiItemShop.hide();
+            if (mapSelectionUi != null)
+            {
+                mapSelectionUi.SetActive(false);
+            }
             inShop = false;
         }
     }
@@ -381,7 +392,7 @@ public class Interactable : MonoBehaviour
                     }
                     break;
                 case Interactions.GoToAdventure:
-                    text.SetText("Press X or E to go to the Forest. It's not a safe place!");
+                    text.SetText("Press X or E to select a destination!");
                     break;
                 case Interactions.EnterBlackSmith:
                     text.SetText("Press X or E to talk with the BlackSmith");
@@ -396,7 +407,7 @@ public class Interactable : MonoBehaviour
                     text.SetText("Press X or E to go to the Wood Farm. It's not a safe place! (Cost: 100)");
                     break;
                 case Interactions.EstatuaBendicion:
-                    text.SetText("Holy Statue, more random items will spawn at the start room (press to Activate or Desactivate)");
+                    text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
                     if (SaveVariables.HOLY_STATUE == 0)
                         text.SetText("Press X or E to build the Holy Statue! (2500 wood)");
                     break;
@@ -438,6 +449,11 @@ public class Interactable : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (mapSelectionUi != null)
+            {
+                mapSelectionUi.SetActive(false);
+                inShop = false;
+            }
             this.enabled = true;
             interactionDialog.SetActive(false);
             inRange = false;

@@ -147,12 +147,13 @@ MonoBehaviour:
   anim: {fileID: 2918943423871706557}
   firePoint: {fileID: 0}
   attackRate: 1
-  range: 10
+  range: 20
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
   bloodStain: {fileID: 8546774708782298221, guid: 9140c14a6df08b14eb629b4d2ed0b384, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: e271c766f1679824c8a0dbb8b354b088, type: 3}
-  activated: 1
+  immune: 0
+  activated: 0
 --- !u!70 &2918943423871706529
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

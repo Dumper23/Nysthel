@@ -14,6 +14,7 @@ public class BOSS_Turtoise : Enemy
     public AudioSource audioSource;
     public AudioSource screamSource;
     public AudioClip scream;
+    public GameObject levelCompletedUi;
 
     private float angle = 0f;
     private string[] state;
@@ -22,9 +23,9 @@ public class BOSS_Turtoise : Enemy
     private Vector2 moveDir;
     private float nextTurtle = 0f;
 
-    private bool immune = false;
     private bool phase2 = false;
     private bool shot = false;
+
 
 
     private void Start()
@@ -61,6 +62,7 @@ public class BOSS_Turtoise : Enemy
             if (health <= 0)
             {
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
+                Instantiate(levelCompletedUi);
                 die();
             }
 

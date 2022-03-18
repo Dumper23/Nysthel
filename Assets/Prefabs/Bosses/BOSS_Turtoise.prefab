@@ -155,6 +155,7 @@ MonoBehaviour:
   coinForce: 15
   bloodStain: {fileID: 8870822980127303738, guid: 6c1eb2c79bc69ce45b26ea3e08a0c3f3, type: 3}
   bloodParticles: {fileID: 2847033719132464291, guid: 33258756367c86a40a4bc6a997560f2c, type: 3}
+  immune: 0
   activated: 0
   dashForce: 8
   shotAngleIncrement: 30
@@ -165,6 +166,7 @@ MonoBehaviour:
   audioSource: {fileID: -7164987200410729255}
   screamSource: {fileID: 3897020908957003600}
   scream: {fileID: 8300000, guid: dbbf88388f17bb7438e71ae26d0ce8cd, type: 3}
+  levelCompletedUi: {fileID: 9126201878243218139, guid: 9aa83989f36925c48b78de029186b99e, type: 3}
 --- !u!60 &314309017234547665
 PolygonCollider2D:
   m_ObjectHideFlags: 0

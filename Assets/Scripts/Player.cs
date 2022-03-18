@@ -129,6 +129,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Start()
     {
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+        Time.timeScale = 1f;
         goldStatueApplied = false;
         //Unic LoadGame Que hi ha d'haver ja que carrega totes les variables no només les del jugador
         SaveManager.Instance.loadGame();
