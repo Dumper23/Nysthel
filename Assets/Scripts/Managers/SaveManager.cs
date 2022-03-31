@@ -34,7 +34,7 @@ public class SaveManager : MonoBehaviour
             File.Delete(path);
         }
     }
-
+    
     public void loadGame()
     {
         if (File.Exists(path))
@@ -97,6 +97,7 @@ public class SaveManager : MonoBehaviour
             SaveVariables.INV_BASIC_AXE = data.INV_BASIC_AXE;
             SaveVariables.INV_MULTIAXE = data.INV_MULTIAXE;
             SaveVariables.INV_DOUBLE_AXE = data.INV_DOUBLE_AXE;
+            SaveVariables.INV_BLOOD_AXE = data.INV_BLOOD_AXE;
         }
     }
 }

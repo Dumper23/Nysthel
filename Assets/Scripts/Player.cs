@@ -46,6 +46,13 @@ public class Player : MonoBehaviour, IShopCustomer
     private Vector2 lookDir;
     private Vector3 directionToShoot;
 
+    [Header("--------------weapon config--------------")]
+    public int blodyAxeDamageIncrement = 5;
+    public float bloodyAxeRateIncrement = 0.5f;
+    public float doubleAxeRateIncrement = 0.75f;
+    public float multiAxeRateIncrement = 1.5f;
+
+    public GameObject bloodyBulletPrefab;
 
     [Header("--------------Player Stats--------------")]
     public int maxHealth = 50;
@@ -102,6 +109,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private bool basicaxe = true;
     private bool multiaxe = false;
     private bool doubleaxe = false;
+    private bool bloodyaxe = false;
     private float timer = 0.0f;
     private int seconds = 0;
     public bool hasSecondChance;
@@ -450,7 +458,22 @@ public class Player : MonoBehaviour, IShopCustomer
         if (Time.time > nextFire)
         {
             Statistics.Instance.attacksDone += 1;
-            nextFire = Time.time + attackRate;
+
+            //Diferent time attack settup
+            if (bloodyaxe)
+            {
+                nextFire = Time.time + attackRate + bloodyAxeRateIncrement;
+            }else if (multiaxe)
+            {
+                nextFire = Time.time + attackRate + multiAxeRateIncrement;
+            }else if (doubleaxe)
+            {
+                nextFire = Time.time + attackRate + doubleAxeRateIncrement;
+            }
+            else
+            {
+                nextFire = Time.time + attackRate;
+            }
             //Ficar un so per a cada arma de moment un per totes
             audioSource[ATTACK_AUDIO].clip = audios[0];
             audioSource[ATTACK_AUDIO].Play();
@@ -500,6 +523,15 @@ public class Player : MonoBehaviour, IShopCustomer
                 
 
                 Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.setDirection(directionToShoot);
+                bullet.setDamage(damage);
+            }else if (bloodyaxe)
+            {
+                directionToShoot = (firePoint.position - transform.position).normalized;
+                attacking = true;
+                Invoke("stopAttacking", animationDelay);
+
+                Bullet bullet = Instantiate(bloodyBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
                 bullet.setDamage(damage);
             }
@@ -758,17 +790,26 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.multiAxe:
                     if (doubleaxe)doubleaxe = false;
                     if (basicaxe) basicaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
                     multiaxe = true;
                     break;
                 case Item.ItemType.doubleAxe:
                     if (multiaxe) multiaxe = false;
                     if (basicaxe) basicaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
                     doubleaxe = true;
                     break;
                 case Item.ItemType.basicAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
                     basicaxe = true;
+                    break;
+                case Item.ItemType.bloodAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (doubleaxe) doubleaxe = false;
+                    if (basicaxe) basicaxe = false;
+                    bloodyaxe = true;
                     break;
             }
         }
@@ -930,6 +971,9 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.doubleAxe:
                     SaveVariables.INV_DOUBLE_AXE = item.amount;
                     break;
+                case Item.ItemType.bloodAxe:
+                    SaveVariables.INV_BLOOD_AXE = item.amount;
+                    break;
             }
         }
     }
@@ -1006,6 +1050,10 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.multiAxe:
                     if (SaveVariables.INV_MULTIAXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.multiAxe, amount = SaveVariables.INV_MULTIAXE });
                     break;
+
+                case Item.ItemType.bloodAxe:
+                    if (SaveVariables.INV_BLOOD_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = SaveVariables.INV_BLOOD_AXE });
+                    break;
             }
         }
     }
@@ -1042,9 +1090,12 @@ public class Player : MonoBehaviour, IShopCustomer
             case ItemShopItem.ItemType.doubleAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.doubleAxe, amount = 1 });
                 index = 6;
+                break; 
+            case ItemShopItem.ItemType.bloodAxe:
+                inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = 1 });
+                index = 7;
                 break;
         }
         return index;
     }
-    
 }

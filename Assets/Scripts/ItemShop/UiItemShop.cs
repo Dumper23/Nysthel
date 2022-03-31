@@ -53,6 +53,8 @@ public class UiItemShop : MonoBehaviour
         
         CreateItemButton(ItemShopItem.ItemType.doubleAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.doubleAxe), "Double axe", ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe), 6);
 
+        CreateItemButton(ItemShopItem.ItemType.bloodAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.bloodAxe), "Bloody axe", ItemShopItem.GetCost(ItemShopItem.ItemType.bloodAxe), 7);
+
     }
 
     private void CreateItemButton(ItemShopItem.ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
@@ -106,6 +108,9 @@ public class UiItemShop : MonoBehaviour
                         break;
                     case "Double axe":
                         templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe).ToString());
+                        break;
+                    case "Bloody axe":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.bloodAxe).ToString());
                         break;
                 }
             }

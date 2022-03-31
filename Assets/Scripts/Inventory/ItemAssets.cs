@@ -22,4 +22,5 @@ public class ItemAssets : MonoBehaviour
     public Sprite MultiAxe;
     public Sprite DoubleAxe;
     public Sprite BasicAxe;
+    public Sprite BloodAxe;
 }

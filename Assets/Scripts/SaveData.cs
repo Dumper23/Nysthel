@@ -51,7 +51,8 @@ public class SaveData
         INV_TIME_POTION = 0,
         INV_MULTIAXE = 0,
         INV_BASIC_AXE = 1, //Per defecte sempre tindras l'arma base
-        INV_DOUBLE_AXE = 0;
+        INV_DOUBLE_AXE = 0,
+        INV_BLOOD_AXE = 0;
 
     public void LoadData()
     {
@@ -106,6 +107,7 @@ public class SaveData
         INV_BASIC_AXE = SaveVariables.INV_BASIC_AXE;
         INV_MULTIAXE = SaveVariables.INV_MULTIAXE;
         INV_DOUBLE_AXE = SaveVariables.INV_DOUBLE_AXE;
+        INV_BLOOD_AXE = SaveVariables.INV_BLOOD_AXE;
     }
 
 }

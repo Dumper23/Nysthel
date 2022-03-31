@@ -12,7 +12,8 @@ public class ItemShopItem
         goldPotion,
         teleportPotion,
         timePotion,
-        doubleAxe
+        doubleAxe,
+        bloodAxe
     }
 
     //Falta Balancejar preus
@@ -28,6 +29,7 @@ public class ItemShopItem
             case ItemType.teleportPotion: return 10;
             case ItemType.timePotion: return 10;
             case ItemType.doubleAxe: return 10;
+            case ItemType.bloodAxe: return 10;
         }
     }
 
@@ -43,6 +45,7 @@ public class ItemShopItem
             case ItemType.teleportPotion: return ItemShopAssets.Instance.TeleportPotion;
             case ItemType.timePotion: return ItemShopAssets.Instance.TimePotion;
             case ItemType.doubleAxe: return ItemShopAssets.Instance.DoubleAxe;
+            case ItemType.bloodAxe: return ItemShopAssets.Instance.BloodyAxe;
         }
     }
 }
