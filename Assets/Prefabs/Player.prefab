@@ -942,6 +942,11 @@ MonoBehaviour:
   inCombat: 0
   damageParticles: {fileID: 9221127519116179009}
   bloodDecal: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}
+  blodyAxeDamageIncrement: 5
+  bloodyAxeRateIncrement: 0.5
+  doubleAxeRateIncrement: 0.75
+  multiAxeRateIncrement: 1.5
+  bloodyBulletPrefab: {fileID: 8848529324968467858, guid: 40b1e9f5715435947a5801a9db13b0a3, type: 3}
   maxHealth: 50
   gold: 0
   wood: 0

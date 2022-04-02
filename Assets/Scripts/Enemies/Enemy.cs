@@ -81,7 +81,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool Seek()
     {
         bool inRange = false;
-        if (activated)
+        if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
             if (Vector3.Magnitude(target.position - transform.position) < range)
             {

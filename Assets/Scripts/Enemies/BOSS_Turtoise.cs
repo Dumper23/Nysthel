@@ -49,7 +49,7 @@ public class BOSS_Turtoise : Enemy
 
     private void Update()
     {
-        if (activated)
+        if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
             if(!audioSource.isPlaying) audioSource.Play();
 
