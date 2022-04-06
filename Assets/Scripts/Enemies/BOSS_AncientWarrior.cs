@@ -72,7 +72,7 @@ public class BOSS_AncientWarrior : Enemy
                 die();
             }
 
-            if (health < originalHealth / 2)
+            if (health <= originalHealth / 2)
             {
                 s.color = new Color(255, 0, 0);
                 moveSpeed = 0.25f;
@@ -92,10 +92,16 @@ public class BOSS_AncientWarrior : Enemy
                         }
                         dash();
                         shooting();
+                        if (!inAction)
+                        {
+                            Invoke("ChangeState", rangedAttackDuration);
+                            inAction = true;
+                        }
                         break;
 
                     case "spikes":
                         immune = false;
+                        shooting();
                         spikeAttack();
                         shooting();
                         break;

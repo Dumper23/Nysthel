@@ -278,7 +278,7 @@ MonoBehaviour:
   bloodStain: {fileID: 8870822980127303738, guid: 6c1eb2c79bc69ce45b26ea3e08a0c3f3, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: e271c766f1679824c8a0dbb8b354b088, type: 3}
   immune: 0
-  activated: 0
+  activated: 1
   rangedAttackDuration: 2
   undeadAttackDuration: 4
   spikesAttackDuration: 1
