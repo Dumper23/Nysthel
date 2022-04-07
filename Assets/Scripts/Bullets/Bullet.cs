@@ -9,7 +9,13 @@ public class Bullet : MonoBehaviour
     public float speed = 1f;
     public GameObject afterDestroySound;
     public GameObject destroyGameObject;
+    public Transform centerOfSeeking;
+    public bool isSeeker = false;
+    public float seekRange = 2f;
+    public LayerMask enemyLayer;
+
     private int damage = 10;
+    
 
 
     private Vector2 moveDir;
@@ -20,7 +26,32 @@ public class Bullet : MonoBehaviour
 
     private void Update()
     {
-        transform.Translate(moveDir * speed * Time.deltaTime);
+        if (isSeeker){
+            GameObject closestEnemy = null;
+            float closestDistance = 999f;
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(centerOfSeeking.position, seekRange, enemyLayer);
+            if (enemies.Length > 0)
+            {
+                foreach (Collider2D enemy in enemies)
+                {
+                    if (Mathf.Abs((enemy.transform.position - this.transform.position).magnitude) < closestDistance)
+                    {
+                        closestDistance = (enemy.transform.position - this.transform.position).magnitude;
+                        closestEnemy = enemy.gameObject;
+                    }
+                }
+                transform.Translate((closestEnemy.transform.position - transform.position) * speed * Time.deltaTime);
+            }
+            else
+            {
+                transform.Translate(moveDir * speed * Time.deltaTime);
+            }
+            
+        }
+        else
+        {
+            transform.Translate(moveDir * speed * Time.deltaTime);
+        }
     }
 
     public void setDirection(Vector2 dir)
@@ -74,5 +105,10 @@ public class Bullet : MonoBehaviour
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(centerOfSeeking.position, seekRange);
     }
 }

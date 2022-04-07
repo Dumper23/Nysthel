@@ -50,9 +50,13 @@ public class Player : MonoBehaviour, IShopCustomer
     public int blodyAxeDamageIncrement = 5;
     public float bloodyAxeRateIncrement = 0.5f;
     public float doubleAxeRateIncrement = 0.75f;
+    public float seekAxeRateIncrement = 0.5f;
+
     public float multiAxeRateIncrement = 1.5f;
 
     public GameObject bloodyBulletPrefab;
+    public GameObject seekBulletPrefab;
+
 
     [Header("--------------Player Stats--------------")]
     public int maxHealth = 50;
@@ -110,6 +114,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private bool multiaxe = false;
     private bool doubleaxe = false;
     private bool bloodyaxe = false;
+    private bool seekaxe = false;
     private float timer = 0.0f;
     private int seconds = 0;
     public bool hasSecondChance;
@@ -451,8 +456,6 @@ public class Player : MonoBehaviour, IShopCustomer
         }
     }
 
-    
-
     void Shoot()
     {
         if (Time.time > nextFire)
@@ -469,6 +472,8 @@ public class Player : MonoBehaviour, IShopCustomer
             }else if (doubleaxe)
             {
                 nextFire = Time.time + attackRate + doubleAxeRateIncrement;
+            }else if (seekaxe){
+                nextFire = Time.time + attackRate + seekAxeRateIncrement;
             }
             else
             {
@@ -534,6 +539,16 @@ public class Player : MonoBehaviour, IShopCustomer
                 Bullet bullet = Instantiate(bloodyBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
                 bullet.setDamage(damage);
+            }else if (seekaxe)
+            {
+                directionToShoot = (firePoint.position - transform.position).normalized;
+                attacking = true;
+                Invoke("stopAttacking", animationDelay);
+
+                Bullet bullet = Instantiate(seekBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.setDirection(directionToShoot);
+                bullet.setDamage(damage);
+                bullet.isSeeker = true;
             }
         }
     }
@@ -791,25 +806,36 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe)doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
+                    if (seekaxe) seekaxe = false;
                     multiaxe = true;
                     break;
                 case Item.ItemType.doubleAxe:
                     if (multiaxe) multiaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
+                    if (seekaxe) seekaxe = false;
                     doubleaxe = true;
                     break;
                 case Item.ItemType.basicAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
+                    if (seekaxe) seekaxe = false;
                     basicaxe = true;
                     break;
                 case Item.ItemType.bloodAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
+                    if (seekaxe) seekaxe = false;
                     bloodyaxe = true;
+                    break;
+                case Item.ItemType.seekAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (doubleaxe) doubleaxe = false;
+                    if (basicaxe) basicaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
+                    seekaxe = true;
                     break;
             }
         }
@@ -974,6 +1000,9 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.bloodAxe:
                     SaveVariables.INV_BLOOD_AXE = item.amount;
                     break;
+                case Item.ItemType.seekAxe:
+                    SaveVariables.INV_SEEK_AXE = item.amount;
+                    break;
             }
         }
     }
@@ -1054,6 +1083,10 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.bloodAxe:
                     if (SaveVariables.INV_BLOOD_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = SaveVariables.INV_BLOOD_AXE });
                     break;
+
+                case Item.ItemType.seekAxe:
+                    if (SaveVariables.INV_SEEK_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.seekAxe, amount = SaveVariables.INV_SEEK_AXE });
+                    break;
             }
         }
     }
@@ -1094,6 +1127,10 @@ public class Player : MonoBehaviour, IShopCustomer
             case ItemShopItem.ItemType.bloodAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = 1 });
                 index = 7;
+                break;
+            case ItemShopItem.ItemType.seekAxe:
+                inventory.addItem(new Item { itemType = Item.ItemType.seekAxe, amount = 1 });
+                index = 8;
                 break;
         }
         return index;

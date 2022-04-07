@@ -15,6 +15,7 @@ public class Item
         doubleAxe,
         basicAxe,
         bloodAxe,
+        seekAxe,
         goldPotion,
         teleportPotion,
         timePotion
@@ -35,6 +36,7 @@ public class Item
             case ItemType.doubleAxe:   return ItemAssets.Instance.DoubleAxe;
             case ItemType.basicAxe:   return ItemAssets.Instance.BasicAxe;
             case ItemType.bloodAxe:   return ItemAssets.Instance.BloodAxe;
+            case ItemType.seekAxe:   return ItemAssets.Instance.SeekAxe;
             case ItemType.goldPotion:   return ItemAssets.Instance.GoldPotion;
             case ItemType.teleportPotion:   return ItemAssets.Instance.TeleportPotion;
             case ItemType.timePotion:   return ItemAssets.Instance.TimePotion;
@@ -57,6 +59,7 @@ public class Item
             case ItemType.doubleAxe:
             case ItemType.basicAxe:
             case ItemType.bloodAxe:
+            case ItemType.seekAxe:
                 return false;
         }
     }

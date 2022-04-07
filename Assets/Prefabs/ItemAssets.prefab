@@ -53,3 +53,5 @@ MonoBehaviour:
   MultiAxe: {fileID: 21300000, guid: e459946222830cb4db9b88a9e33b2ed7, type: 3}
   DoubleAxe: {fileID: 21300000, guid: 8ebbd4c3f28198445a5132b7d5d5bdc7, type: 3}
   BasicAxe: {fileID: 21300000, guid: 1c72d3c3d21a72d4988fe2801c485e22, type: 3}
+  BloodAxe: {fileID: 21300000, guid: dd28d1692b0afe14983dd788a3d0b8b9, type: 3}
+  SeekAxe: {fileID: 21300000, guid: ffe4c12dfc860234b95096947df7cb45, type: 3}

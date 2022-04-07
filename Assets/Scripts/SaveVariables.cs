@@ -49,7 +49,8 @@ public static class SaveVariables
         INV_MULTIAXE = 0,
         INV_BASIC_AXE = 1, //Per defecte sempre tindras l'arma base
         INV_DOUBLE_AXE = 0,
-        INV_BLOOD_AXE = 0;
+        INV_BLOOD_AXE = 0,
+        INV_SEEK_AXE = 0;
 
     public static void clearVariables()
     {
@@ -98,6 +99,7 @@ public static class SaveVariables
         INV_BASIC_AXE = 1;
         INV_DOUBLE_AXE = 0;
         INV_BLOOD_AXE = 0;
+        INV_SEEK_AXE = 0;
     }
 
     public static void clearInventory()
@@ -112,6 +114,7 @@ public static class SaveVariables
         INV_BASIC_AXE = 1;
         INV_DOUBLE_AXE = 0;
         INV_BLOOD_AXE = 0;
+        INV_SEEK_AXE = 0;
     }
 
 

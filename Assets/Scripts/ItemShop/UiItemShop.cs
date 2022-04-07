@@ -54,6 +54,8 @@ public class UiItemShop : MonoBehaviour
         CreateItemButton(ItemShopItem.ItemType.doubleAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.doubleAxe), "Double axe", ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe), 6);
 
         CreateItemButton(ItemShopItem.ItemType.bloodAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.bloodAxe), "Bloody axe", ItemShopItem.GetCost(ItemShopItem.ItemType.bloodAxe), 7);
+        
+        CreateItemButton(ItemShopItem.ItemType.seekAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.seekAxe), "Seek axe", ItemShopItem.GetCost(ItemShopItem.ItemType.seekAxe), 8);
 
     }
 
@@ -111,6 +113,9 @@ public class UiItemShop : MonoBehaviour
                         break;
                     case "Bloody axe":
                         templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.bloodAxe).ToString());
+                        break;
+                    case "Seek axe":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.seekAxe).ToString());
                         break;
                 }
             }

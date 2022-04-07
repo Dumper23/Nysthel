@@ -20,4 +20,5 @@ public class ItemShopAssets : MonoBehaviour
     public Sprite TimePotion;
     public Sprite DoubleAxe;
     public Sprite BloodyAxe;
+    public Sprite SeekAxe;
 }
