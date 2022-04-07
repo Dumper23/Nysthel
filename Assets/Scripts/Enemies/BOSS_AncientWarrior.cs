@@ -31,6 +31,8 @@ public class BOSS_AncientWarrior : Enemy
     private bool undeadSpawning = false;
     private bool dashing = false;
     private Vector3 prevPlayerPos;
+    private bool secondFase = false;
+    private bool changeDone = false;
 
     private SpriteRenderer s;
 
@@ -72,9 +74,9 @@ public class BOSS_AncientWarrior : Enemy
                 die();
             }
 
-            if (health <= originalHealth / 2)
+            if (health >= originalHealth / 2)
             {
-                s.color = new Color(255, 0, 0);
+                s.color = new Color(20, 0, 0);
                 moveSpeed = 0.25f;
                 switch (cState)
                 {
@@ -125,6 +127,7 @@ public class BOSS_AncientWarrior : Enemy
             }
             else
             {
+                moveSpeed = 0.05f;
                 switch (cState)
                 {
                     case "idle":
@@ -179,6 +182,30 @@ public class BOSS_AncientWarrior : Enemy
         spiking = false;
         undeadSpawning = false;
         dashing = false;
+     
+
+        switch (cState)
+        {
+            case "idle":
+                changeAnimationState("Idle");
+                break;
+
+            case "dash":
+                changeAnimationState("Idle");
+                break;
+
+            case "spikes":
+                changeAnimationState("SpikeAttack");
+                break;
+
+            case "shot":
+                changeAnimationState("DeathSoulAttack");
+                break;
+            case "undead":
+                changeAnimationState("2ndFase");
+                break;
+        }
+        
     }
 
     private void undead()
@@ -188,9 +215,7 @@ public class BOSS_AncientWarrior : Enemy
         {
             nextUndead = Time.time + undeadRate;
             Instantiate(undeadPrefab, spawnPoints[Random.Range(0, spawnPoints.Length-1)].transform.position, Quaternion.identity);
-        }
-
-        
+        }        
     }
 
     private void shooting() { 
@@ -246,7 +271,7 @@ public class BOSS_AncientWarrior : Enemy
         dashing = true;
         if (dashing)
         {
-            transform.Translate((prevPlayerPos - transform.position).normalized * moveSpeed * 10 * Time.fixedDeltaTime);
+            transform.Translate((prevPlayerPos - transform.position).normalized * moveSpeed * 0.5f * 10 * Time.fixedDeltaTime);
             if (!inAction)
             {
                 Invoke("ChangeState", dashDuration);

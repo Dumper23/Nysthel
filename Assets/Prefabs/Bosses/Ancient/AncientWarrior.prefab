@@ -24,8 +24,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6074704294677178124}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.4173, y: -0.000000059605, z: 0}
+  m_LocalScale: {x: 4.4173, y: 4.4173, z: 4.4173}
   m_Children: []
   m_Father: {fileID: 7439475397799872316}
   m_RootOrder: 1
@@ -54,8 +54,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6196097535689196579}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 4.4173, z: 0}
+  m_LocalScale: {x: 4.4173, y: 4.4173, z: 4.4173}
   m_Children: []
   m_Father: {fileID: 7439475397799872316}
   m_RootOrder: 2
@@ -84,8 +84,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7053409290978198004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -4.4173, y: -0.000000059605, z: 0}
+  m_LocalScale: {x: 4.4173, y: 4.4173, z: 4.4173}
   m_Children: []
   m_Father: {fileID: 7439475397799872316}
   m_RootOrder: 4
@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 7439475397799872318}
   - component: {fileID: 7439475397799872319}
   - component: {fileID: 7439475397799872320}
-  - component: {fileID: 1219778752}
+  - component: {fileID: 5193985086302080644}
   m_Layer: 8
   m_Name: AncientWarrior
   m_TagString: Enemy
@@ -150,7 +150,7 @@ Transform:
   m_GameObject: {fileID: 7439475397799872321}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -24.32, y: -0.54, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7439475397322913326}
   - {fileID: 3151425987221613814}
@@ -200,7 +200,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 29
-  m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 27673df63f0c122448ea97b13f3bf9a8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -272,7 +272,7 @@ MonoBehaviour:
   anim: {fileID: 7439475397799872319}
   firePoint: {fileID: 7439475397322913326}
   attackRate: 1
-  range: 15
+  range: 30
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
   bloodStain: {fileID: 8870822980127303738, guid: 6c1eb2c79bc69ce45b26ea3e08a0c3f3, type: 3}
@@ -295,8 +295,8 @@ MonoBehaviour:
   spikeLocation: {fileID: 8534236154328881671, guid: 0abd0db4d7c110447826a42481e35549, type: 3}
   bulletPrefab: {fileID: 313272557742413170, guid: c38aa8f41152cbc498dd8bb90c7de183, type: 3}
   undeadPrefab: {fileID: 2918943423871706559, guid: 74b561d46c4afba4c86201b6d9fb527a, type: 3}
---- !u!58 &1219778752
-CircleCollider2D:
+--- !u!60 &5193985086302080644
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -309,8 +309,53 @@ CircleCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Radius: 0.5
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 8, y: 8}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 2.84375, y: -1.9375}
+      - {x: 2.875, y: -1.78125}
+      - {x: 2.8125, y: -1.3125}
+      - {x: 2.5, y: -0.375}
+      - {x: 2.96875, y: 0.0625}
+      - {x: 3.34375, y: 0.4375}
+      - {x: 3.40625, y: 1.15625}
+      - {x: 3.40625, y: 1.6875}
+      - {x: 3.0625, y: 2.3125}
+      - {x: 2.6875, y: 2.59375}
+      - {x: 2.5, y: 2.71875}
+      - {x: 1.84375, y: 3.09375}
+      - {x: 1.34375, y: 3.6875}
+      - {x: 1.09375, y: 3.8125}
+      - {x: -0.0625, y: 3.8125}
+      - {x: -0.53125, y: 3.75}
+      - {x: -0.9375, y: 3.5}
+      - {x: -2.15625, y: 3.5}
+      - {x: -2.34375, y: 3.46875}
+      - {x: -2.78125, y: 3.1875}
+      - {x: -3.03125, y: 2.96875}
+      - {x: -3.15625, y: 2.625}
+      - {x: -3.15625, y: 1.625}
+      - {x: -2.90625, y: 0.78125}
+      - {x: -2.875, y: -1.28125}
+      - {x: -2.71875, y: -1.5625}
+      - {x: -2.3125, y: -1.875}
+      - {x: -2.125, y: -1.9375}
+      - {x: -1.5625, y: -1.9375}
+      - {x: -0.9375, y: -2.46875}
+      - {x: -0.25, y: -3.125}
+      - {x: -0.03125, y: -3.25}
+      - {x: 0.71875, y: -3.25}
+      - {x: 1.1875, y: -3.125}
+      - {x: 2, y: -2.6875}
+      - {x: 2.53125, y: -2.25}
 --- !u!1 &8502452771841280284
 GameObject:
   m_ObjectHideFlags: 0
@@ -335,8 +380,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8502452771841280284}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -1, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: -4.4173, z: 0}
+  m_LocalScale: {x: 4.4173, y: 4.4173, z: 4.4173}
   m_Children: []
   m_Father: {fileID: 7439475397799872316}
   m_RootOrder: 3

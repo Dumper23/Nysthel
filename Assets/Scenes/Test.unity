@@ -11453,11 +11453,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7439475397799872316, guid: 59d028dee229b4d4b8f8e5a8c2135262, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -9.26
+      value: -11.4
       objectReference: {fileID: 0}
     - target: {fileID: 7439475397799872316, guid: 59d028dee229b4d4b8f8e5a8c2135262, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.82
+      value: 1.87
       objectReference: {fileID: 0}
     - target: {fileID: 7439475397799872316, guid: 59d028dee229b4d4b8f8e5a8c2135262, type: 3}
       propertyPath: m_LocalPosition.z
@@ -11491,6 +11491,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7439475397799872319, guid: 59d028dee229b4d4b8f8e5a8c2135262, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7b2b93cc90a25e943b279baa19d73f37, type: 2}
     - target: {fileID: 7439475397799872321, guid: 59d028dee229b4d4b8f8e5a8c2135262, type: 3}
       propertyPath: m_Name
       value: AncientWarrior

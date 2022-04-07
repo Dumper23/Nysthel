@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item:
-    itemType: 6
+    itemType: 7
     amount: 1
 --- !u!212 &7339297275649829772
 SpriteRenderer:
