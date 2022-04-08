@@ -51019,7 +51019,7 @@ MonoBehaviour:
   - {fileID: 1693322892}
   - {fileID: 1669799372}
   - {fileID: 1739441904}
-  respawnTime: 8
+  respawnTime: 4
   Enemies:
   - {fileID: 3653892466106664209, guid: aa3c23b1f8fe0b747801237228be51a1, type: 3}
   - {fileID: 1526128746178488945, guid: 9511a80ab1e01b34abcbc8b257c3ec4d, type: 3}
@@ -53304,6 +53304,7 @@ MonoBehaviour:
   text: {fileID: 894649805}
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
+  mapSelectionUi: {fileID: 0}
 --- !u!4 &2064863153 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3400599094703470952, guid: cff94006c240ba34b9dcebdc05adf6f8, type: 3}

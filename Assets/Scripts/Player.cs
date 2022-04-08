@@ -721,6 +721,7 @@ public class Player : MonoBehaviour, IShopCustomer
                             currentHealth += 10;
                         }
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1 });
+                        SaveVariables.INV_SMALL_POTION--;
                     }
                     break;
                 case Item.ItemType.bigPotion:

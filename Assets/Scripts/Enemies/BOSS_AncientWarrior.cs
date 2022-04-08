@@ -10,6 +10,7 @@ public class BOSS_AncientWarrior : Enemy
     public float dashDuration = 1.5f;
     public float undeadRate = 1.5f;
     public GameObject[] spawnPoints;
+    public GameObject[] bulletSpawnPoints;
     public GameObject villagePortal;
     public GameObject levelCompletedUi;
 
@@ -74,7 +75,7 @@ public class BOSS_AncientWarrior : Enemy
                 die();
             }
 
-            if (health >= originalHealth / 2)
+            if (health <= originalHealth / 2)
             {
                 s.color = new Color(20, 0, 0);
                 moveSpeed = 0.25f;
@@ -83,17 +84,16 @@ public class BOSS_AncientWarrior : Enemy
                     case "idle":
                         immune = false;
                         shooting();
-                        spikeAttack();
                         break;
 
                     case "dash":
                         immune = false;
+                        dash();
+                        shooting();
                         if (!dashing)
                         {
                             prevPlayerPos = target.position;
                         }
-                        dash();
-                        shooting();
                         if (!inAction)
                         {
                             Invoke("ChangeState", rangedAttackDuration);
@@ -105,7 +105,6 @@ public class BOSS_AncientWarrior : Enemy
                         immune = false;
                         shooting();
                         spikeAttack();
-                        shooting();
                         break;
 
                     case "shot":
@@ -121,7 +120,7 @@ public class BOSS_AncientWarrior : Enemy
                     case "undead":
                         immune = false;
                         undead();
-                        spikeAttack();
+                        shooting();
                         break;
                 }
             }
@@ -221,8 +220,16 @@ public class BOSS_AncientWarrior : Enemy
     private void shooting() { 
         if (Time.time > nextShot)
         {
-            nextShot = Time.time + attackRate;
-            Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            if (health <= originalHealth / 2)
+            {
+                nextShot = Time.time + attackRate/2;
+                Instantiate(bulletPrefab, bulletSpawnPoints[Random.Range(0, bulletSpawnPoints.Length)].transform.position, Quaternion.identity);
+            }
+            else
+            {
+                nextShot = Time.time + attackRate;
+                Instantiate(bulletPrefab, bulletSpawnPoints[Random.Range(0, bulletSpawnPoints.Length)].transform.position, Quaternion.identity);
+            }
         }
         
     }

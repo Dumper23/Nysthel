@@ -945,8 +945,10 @@ MonoBehaviour:
   blodyAxeDamageIncrement: 5
   bloodyAxeRateIncrement: 0.5
   doubleAxeRateIncrement: 0.75
+  seekAxeRateIncrement: 0.75
   multiAxeRateIncrement: 1.5
   bloodyBulletPrefab: {fileID: 8848529324968467858, guid: 40b1e9f5715435947a5801a9db13b0a3, type: 3}
+  seekBulletPrefab: {fileID: 5645509953090509460, guid: b9af8d9816783364dbc2ee88ac3dbeaf, type: 3}
   maxHealth: 50
   gold: 0
   wood: 0
