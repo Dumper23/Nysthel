@@ -6,6 +6,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using TMPro;
 
 public class UIInventory : MonoBehaviour
 {
@@ -13,8 +14,12 @@ public class UIInventory : MonoBehaviour
     private Transform container;
     private Transform itemTemplate;
     private Transform statistics;
+    private Transform weaponEquiped;
+    private Transform itemStatistics;
     private Player player;
     private Item currentItem;
+    private TextMeshProUGUI itemStatsText;
+    
 
     private int lastITemSelected = 0;
 
@@ -23,6 +28,9 @@ public class UIInventory : MonoBehaviour
         container = transform.Find("Container");
         itemTemplate = container.Find("ItemTemplate");
         statistics = transform.Find("Statistics");
+        weaponEquiped = transform.Find("WE");
+        itemStatistics = transform.Find("itemStatistics");
+        itemStatsText = itemStatistics.Find("stats").GetComponent<TextMeshProUGUI>();
         container.parent.gameObject.SetActive(false);
     }
 
@@ -70,27 +78,38 @@ public class UIInventory : MonoBehaviour
         foreach(Item item in inventory.getItemList())
         {
             RectTransform itemTemplateRect = Instantiate(itemTemplate, container).GetComponent<RectTransform>();
+            GameObject a = new GameObject();
+            a.name = item.itemType.ToString();
+            Instantiate(a, itemTemplateRect);
             itemTemplateRect.gameObject.SetActive(true);
             itemTemplateRect.GetComponent<Button>().onClick.AddListener(delegate { Clicked(item); });
 
-            if (i == lastITemSelected)
-            {
-                EventSystem.current.SetSelectedGameObject(itemTemplateRect.gameObject);
-            }
+            
 
             itemTemplateRect.anchoredPosition = new Vector2(x * cellSize, -y * cellSize);
             Image image = itemTemplateRect.Find("Image").GetComponent<Image>();
             image.sprite = item.GetSprite();
             TextMeshProUGUI uiText = itemTemplateRect.Find("AmountText").GetComponent<TextMeshProUGUI>();
-
+            
             if (item.amount > 1){
-                uiText.SetText(item.amount.ToString());
+                if (item.isStackable())
+                {
+                    uiText.SetText(item.amount.ToString());
+                }
+                else
+                {
+                    uiText.SetText("");
+                }
             }
             else
             {
                 uiText.SetText("");
             }
-            
+
+            if (i == lastITemSelected)
+            {
+                EventSystem.current.SetSelectedGameObject(itemTemplateRect.gameObject);
+            }
 
             x++;
             if (x > 4)
@@ -102,6 +121,46 @@ public class UIInventory : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        foreach (Item item in inventory.getItemList())
+        {
+            switch (item.itemType)
+            {
+            case Item.ItemType.basicAxe:
+                if (SaveVariables.INV_BASIC_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
+            case Item.ItemType.bloodAxe:
+                if (SaveVariables.INV_BLOOD_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                    
+                break;
+            case Item.ItemType.multiAxe:
+                if (SaveVariables.INV_MULTIAXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
+            case Item.ItemType.doubleAxe:
+                if (SaveVariables.INV_DOUBLE_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
+            case Item.ItemType.seekAxe:
+                if (SaveVariables.INV_SEEK_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
+            }
+        }
+    }
     private void Clicked(Item item)
     {
         int i = 0;
@@ -114,6 +173,7 @@ public class UIInventory : MonoBehaviour
             i++;
         }
         inventory.UseItem(item);
+        inventory.OnItemListChange += Inventory_OnItemListChanged;
     }
 
     public void navigationRefresh()
@@ -124,6 +184,7 @@ public class UIInventory : MonoBehaviour
             EventSystem.current.SetSelectedGameObject(temp);
         }
     }
+
 
     public static void updateText(Item item)
     {

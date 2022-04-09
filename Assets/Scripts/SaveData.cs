@@ -50,7 +50,7 @@ public class SaveData
         INV_TELEPORT_POTION = 0,
         INV_TIME_POTION = 0,
         INV_MULTIAXE = 0,
-        INV_BASIC_AXE = 1, //Per defecte sempre tindras l'arma base
+        INV_BASIC_AXE = 2, //Per defecte sempre tindras l'arma base
         INV_DOUBLE_AXE = 0,
         INV_BLOOD_AXE = 0,
         INV_SEEK_AXE = 0;

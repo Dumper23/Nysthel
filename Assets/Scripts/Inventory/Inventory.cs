@@ -36,7 +36,18 @@ public class Inventory
         }
         else
         {
-            itemList.Add(item);
+            bool itemAlreadyInInventory = false;
+            foreach (Item inventoryItem in itemList)
+            {
+                if (inventoryItem.itemType == item.itemType)
+                {
+                    itemAlreadyInInventory = true;
+                }
+            }
+            if (!itemAlreadyInInventory)
+            {
+                itemList.Add(item);
+            }
         }
         OnItemListChange?.Invoke(this, EventArgs.Empty);
     }

@@ -285,12 +285,70 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1744962638, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
   m_PrefabInstance: {fileID: 259779298}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 259779300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dbe429b0a5fee6644934d0643bbb9b11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &259779300 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8469165761278272952, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
+  m_PrefabInstance: {fileID: 259779298}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &259779301
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 259779300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40cd2f7aa905e84448ee2be7121d53e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PLAYER_GOLD: 0
+  PLAYER_WOOD: 0
+  PLAYER_ATTACK: 0
+  PLAYER_SPEED: 0
+  PLAYER_ATTACK_SPEED: 0
+  PLAYER_RANGE: 0
+  PLAYER_DASH_RECOVERY: 0
+  PLAYER_DASH_RANGE: 0
+  PLAYER_LIFE: 0
+  PLAYER_USING_CONTROLLER: 0
+  GOLD_STATUE: 0
+  HOLY_STATUE: 0
+  CHANCE_STATUE: 0
+  EMMYR_STATUE: 0
+  DAMAGE_STATUE: 0
+  ACTIVATED_STATUES: 0
+  TALKED_VORDKOR: 0
+  TALKED_HALLBORG: 0
+  TALKED_GROMODIN: 0
+  HAS_EMMYR_ITEM: 0
+  MAX_WORLD: 0
+  CURRENT_WORLD: 0
+  BLACKSMITH_LEVEL: 0
+  LIFE_LEVEL: 0
+  ATTACK_LEVEL: 0
+  SPEED_LEVEL: 0
+  ATTACK_SPEED_LEVEL: 0
+  RANGE_LEVEL: 0
+  DASH_RECOVERY_LEVEL: 0
+  DASH_RANGE_LEVEL: 0
+  INV_SMALL_POTION: 0
+  INV_BIG_POTION: 0
+  INV_SHIELD_POTION: 0
+  INV_GOLD_POTION: 0
+  INV_TELEPORT_POTION: 0
+  INV_TIME_POTION: 0
+  INV_MULTIAXE: 0
+  INV_BASIC_AXE: 1
+  INV_DOUBLE_AXE: 0
+  INV_BLOOD_AXE: 0
+  INV_SEEK_AXE: 0
 --- !u!1 &282153878 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 282153878, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
@@ -757,7 +815,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8469165761278272951, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
   m_PrefabInstance: {fileID: 259779298}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 259779300}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 397808d1e109e854ea9bce82cc0ddbdb, type: 3}

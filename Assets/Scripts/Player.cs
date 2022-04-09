@@ -736,6 +736,7 @@ public class Player : MonoBehaviour, IShopCustomer
                             currentHealth += 20;
                         }
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
+                        SaveVariables.INV_BIG_POTION--;
                     }
                     break;
                 case Item.ItemType.shieldPotion:
@@ -751,6 +752,7 @@ public class Player : MonoBehaviour, IShopCustomer
                         counterText.gameObject.SetActive(true);
                         counterText.GetComponent<TextMeshProUGUI>().color = Color.cyan;
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                        SaveVariables.INV_SHIELD_POTION--;
                     }
                     break;
 
@@ -768,6 +770,7 @@ public class Player : MonoBehaviour, IShopCustomer
                         counterText.GetComponent<TextMeshProUGUI>().color = Color.yellow;
                         Invoke("endGoldPotion", goldPotionDuration);
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
+                        SaveVariables.INV_GOLD_POTION--;
                     }
                     break;
 
@@ -777,6 +780,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     {
                         transform.position = tpPoint.transform.position;
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
+                        SaveVariables.INV_TELEPORT_POTION--;
                     }
                     break;
 
@@ -794,6 +798,7 @@ public class Player : MonoBehaviour, IShopCustomer
                         Time.timeScale = 0.5f;
 
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+                        SaveVariables.INV_TIME_POTION--;
                     }
                     break;
             }
@@ -809,6 +814,11 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
                     multiaxe = true;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    SaveVariables.INV_MULTIAXE = 2;
                     break;
                 case Item.ItemType.doubleAxe:
                     if (multiaxe) multiaxe = false;
@@ -816,6 +826,11 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
                     doubleaxe = true;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    SaveVariables.INV_DOUBLE_AXE = 2;
                     break;
                 case Item.ItemType.basicAxe:
                     if (multiaxe) multiaxe = false;
@@ -823,6 +838,11 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
                     basicaxe = true;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    SaveVariables.INV_BASIC_AXE = 2;
                     break;
                 case Item.ItemType.bloodAxe:
                     if (multiaxe) multiaxe = false;
@@ -830,6 +850,11 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (basicaxe) basicaxe = false;
                     if (seekaxe) seekaxe = false;
                     bloodyaxe = true;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    SaveVariables.INV_BLOOD_AXE = 2;
                     break;
                 case Item.ItemType.seekAxe:
                     if (multiaxe) multiaxe = false;
@@ -837,6 +862,11 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     seekaxe = true;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    SaveVariables.INV_SEEK_AXE = 2;
                     break;
             }
         }
@@ -989,21 +1019,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.timePotion:
                     SaveVariables.INV_TIME_POTION = item.amount;
                     break;
-                case Item.ItemType.basicAxe:
-                    SaveVariables.INV_BASIC_AXE = item.amount;
-                    break;
-                case Item.ItemType.multiAxe:
-                    SaveVariables.INV_MULTIAXE = item.amount;
-                    break;
-                case Item.ItemType.doubleAxe:
-                    SaveVariables.INV_DOUBLE_AXE = item.amount;
-                    break;
-                case Item.ItemType.bloodAxe:
-                    SaveVariables.INV_BLOOD_AXE = item.amount;
-                    break;
-                case Item.ItemType.seekAxe:
-                    SaveVariables.INV_SEEK_AXE = item.amount;
-                    break;
+                
             }
         }
     }
@@ -1043,6 +1059,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
         for (int i = 0; i < a.Length; i++)
         {
+            Item it;
             switch (a.GetValue(i))
             {
                 case Item.ItemType.smallPotion:
@@ -1070,23 +1087,33 @@ public class Player : MonoBehaviour, IShopCustomer
                     break;
 
                 case Item.ItemType.basicAxe:
-                    if (SaveVariables.INV_BASIC_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.basicAxe, amount = SaveVariables.INV_BASIC_AXE });
+                    it = new Item { itemType = Item.ItemType.basicAxe, amount = SaveVariables.INV_BASIC_AXE };
+                    if (SaveVariables.INV_BASIC_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_BASIC_AXE == 2) UseItem(it);
                     break;
 
                 case Item.ItemType.doubleAxe:
-                    if (SaveVariables.INV_DOUBLE_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.doubleAxe, amount = SaveVariables.INV_DOUBLE_AXE });
+                    it = new Item { itemType = Item.ItemType.doubleAxe, amount = SaveVariables.INV_DOUBLE_AXE };
+                    if (SaveVariables.INV_DOUBLE_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) UseItem(it);
                     break;
 
                 case Item.ItemType.multiAxe:
-                    if (SaveVariables.INV_MULTIAXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.multiAxe, amount = SaveVariables.INV_MULTIAXE });
+                    it = new Item { itemType = Item.ItemType.multiAxe, amount = SaveVariables.INV_MULTIAXE };
+                    if (SaveVariables.INV_MULTIAXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_MULTIAXE == 2) UseItem(it);
                     break;
 
                 case Item.ItemType.bloodAxe:
-                    if (SaveVariables.INV_BLOOD_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = SaveVariables.INV_BLOOD_AXE });
+                    it = new Item { itemType = Item.ItemType.bloodAxe, amount = SaveVariables.INV_BLOOD_AXE };
+                    if (SaveVariables.INV_BLOOD_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_BLOOD_AXE == 2) UseItem(it);
                     break;
 
                 case Item.ItemType.seekAxe:
-                    if (SaveVariables.INV_SEEK_AXE > 0) inventory.addItem(new Item { itemType = Item.ItemType.seekAxe, amount = SaveVariables.INV_SEEK_AXE });
+                    it = new Item { itemType = Item.ItemType.seekAxe, amount = SaveVariables.INV_SEEK_AXE };
+                    if (SaveVariables.INV_SEEK_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_SEEK_AXE == 2) UseItem(it);
                     break;
             }
         }

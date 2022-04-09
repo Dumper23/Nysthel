@@ -800,6 +800,26 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5009681040145767587, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009681040145767587, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009681040145767587, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009681040145767589, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009681040157670132, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5009681040240260064, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -887,6 +907,14 @@ PrefabInstance:
     - target: {fileID: 5009681040240260068, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_Name
       value: CanvasCombat
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009681040272538098, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009681040832401075, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
