@@ -15,10 +15,9 @@ public class UIInventory : MonoBehaviour
     private Transform itemTemplate;
     private Transform statistics;
     private Transform weaponEquiped;
-    private Transform itemStatistics;
     private Player player;
     private Item currentItem;
-    private TextMeshProUGUI itemStatsText;
+
     
 
     private int lastITemSelected = 0;
@@ -29,8 +28,6 @@ public class UIInventory : MonoBehaviour
         itemTemplate = container.Find("ItemTemplate");
         statistics = transform.Find("Statistics");
         weaponEquiped = transform.Find("WE");
-        itemStatistics = transform.Find("itemStatistics");
-        itemStatsText = itemStatistics.Find("stats").GetComponent<TextMeshProUGUI>();
         container.parent.gameObject.SetActive(false);
     }
 

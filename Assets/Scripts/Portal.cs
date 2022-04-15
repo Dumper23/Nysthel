@@ -31,9 +31,14 @@ public class Portal : MonoBehaviour
     {
         if (isPortalBoss)
         {
-            if (SaveVariables.CURRENT_WORLD >= SaveVariables.MAX_WORLD) {
-                //Pujar el nivell del mon per poder accedir a altres mons
-                SaveVariables.MAX_WORLD++;
+            //Pujar el nivell del mon per poder accedir a altres mons
+            if (SceneManager.GetActiveScene().name == "Forest")
+            {
+                SaveVariables.MAX_WORLD = 1;
+            }
+            else if (SceneManager.GetActiveScene().name == "Ruins")
+            {
+                SaveVariables.MAX_WORLD = 2;
             }
         }
 
