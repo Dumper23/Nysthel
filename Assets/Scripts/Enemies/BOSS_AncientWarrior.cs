@@ -75,7 +75,7 @@ public class BOSS_AncientWarrior : Enemy
                 die();
             }
 
-            if (health <= originalHealth / 2)
+            if (health <= originalHealth / 1.5f)
             {
                 s.color = new Color(20, 0, 0);
                 moveSpeed = 0.25f;
