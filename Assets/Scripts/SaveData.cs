@@ -5,6 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public class SaveData
 {
+    public int TUTORIAL_DONE = 0;
     public int PLAYER_USING_CONTROLLER = 0; //Default controll is mouse
 
     public int PLAYER_GOLD = 0;
@@ -57,6 +58,8 @@ public class SaveData
 
     public void LoadData()
     {
+        TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;
+
         PLAYER_USING_CONTROLLER = SaveVariables.PLAYER_USING_CONTROLLER;
 
         //Player upgrades and gold

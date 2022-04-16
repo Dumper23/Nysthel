@@ -13,7 +13,14 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
-        SceneManager.LoadScene("Village");
+        if (SaveVariables.TUTORIAL_DONE == 1)
+        {
+            SceneManager.LoadScene("Village");
+        }
+        else
+        {
+            SceneManager.LoadScene("Tutorial");
+        }
     }
 
     public void DeleteSavedGame()

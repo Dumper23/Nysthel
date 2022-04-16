@@ -45,6 +45,7 @@ public class SaveManager : MonoBehaviour
             stream.Close();
 
             SaveVariables.PLAYER_USING_CONTROLLER = data.PLAYER_USING_CONTROLLER;
+            SaveVariables.TUTORIAL_DONE = data.TUTORIAL_DONE;
 
             //Player Stats
             SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;

@@ -2,6 +2,8 @@ using UnityEngine;
 
 public static class SaveVariables
 {
+    public static int TUTORIAL_DONE = 0;
+
     public static int PLAYER_GOLD = 0;
     public static int PLAYER_WOOD = 0;
     public static int PLAYER_ATTACK = 0;

@@ -7,7 +7,8 @@ public class FarmingManager : MonoBehaviour
     public GameObject[] resourcesToSpawn;
     public Transform[] points;
     public int respawnTime = 4;
-    public GameObject[] Enemies;
+    public GameObject[] EnemiesW1;
+    public GameObject[] EnemiesW2;
     public float spawnRadius;
     public float minEnemyRate = 10f;
     public float maxEnemyRate = 30f;
@@ -75,7 +76,14 @@ public class FarmingManager : MonoBehaviour
             Invoke("reSpawn", enemyRate);
             spawned = true;
             Vector2 randPos = Random.insideUnitCircle * spawnRadius;
-            Instantiate(Enemies[Random.Range(0, Enemies.Length)], randPos, Quaternion.identity);
+            if (SaveVariables.MAX_WORLD == 0)
+            {
+                Instantiate(EnemiesW1[Random.Range(0, EnemiesW1.Length)], randPos, Quaternion.identity);
+            }
+            else if (SaveVariables.MAX_WORLD == 1)
+            {
+                Instantiate(EnemiesW2[Random.Range(0, EnemiesW2.Length)], randPos, Quaternion.identity);
+            }
         }
     }
 

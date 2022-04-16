@@ -51020,10 +51020,15 @@ MonoBehaviour:
   - {fileID: 1669799372}
   - {fileID: 1739441904}
   respawnTime: 4
-  Enemies:
-  - {fileID: 3653892466106664209, guid: aa3c23b1f8fe0b747801237228be51a1, type: 3}
-  - {fileID: 1526128746178488945, guid: 9511a80ab1e01b34abcbc8b257c3ec4d, type: 3}
+  EnemiesW1:
   - {fileID: 983220726935600615, guid: 2f39ed5c845ba354ebd28ece6f2a2094, type: 3}
+  - {fileID: 3653892466106664209, guid: aa3c23b1f8fe0b747801237228be51a1, type: 3}
+  - {fileID: 8577376506480156897, guid: bd26a98a42319e648b8160d3ab813054, type: 3}
+  EnemiesW2:
+  - {fileID: 3105389083354774773, guid: f45b3102df8ac4f46a0554fe9e365170, type: 3}
+  - {fileID: 2918943423871706559, guid: ae804731ceab98047a8c4dc570adb2f3, type: 3}
+  - {fileID: 8577376506480156897, guid: 7cdeb9376ef0624418798234f79e4445, type: 3}
+  - {fileID: 7248503250335689261, guid: 693d9e1dd7f9e9a4cad6f1d8bd20f91d, type: 3}
   spawnRadius: 7.66
   minEnemyRate: 8
   maxEnemyRate: 35

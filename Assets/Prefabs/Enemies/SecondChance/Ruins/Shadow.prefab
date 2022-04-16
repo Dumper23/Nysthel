@@ -318,7 +318,7 @@ MonoBehaviour:
   health: 50
   damage: 15
   maxGoldToGive: 0
-  minGoldToGive: 10
+  minGoldToGive: 0
   moveSpeed: 0.2
   rb: {fileID: 7248503250335689256}
   anim: {fileID: 7248503250335689262}
