@@ -53,6 +53,17 @@ public class LevelToLoadManager : MonoBehaviour
     {
         GameStateManager.Instance.SetState(GameState.Gameplay);
         Time.timeScale = 1f;
-        SceneManager.LoadScene(levelName);
+        switch (levelName)
+        {
+            case "Forest":
+                SaveVariables.CURRENT_WORLD = 0;
+                break;
+            case "Ruins":
+                SaveVariables.CURRENT_WORLD = 1;
+                break;
+        }
+        SaveManager.Instance.SaveGame();
+        SceneManager.UnloadSceneAsync("Village");
+        SceneManager.LoadSceneAsync(levelName);
     }
 }

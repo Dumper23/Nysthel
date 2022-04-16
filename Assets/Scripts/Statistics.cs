@@ -58,6 +58,7 @@ public class Statistics : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameStateManager.Instance.SetState(GameState.Gameplay);
-        SceneManager.LoadScene("Village");
+        SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
+        SceneManager.LoadSceneAsync("Village");
     }
 }

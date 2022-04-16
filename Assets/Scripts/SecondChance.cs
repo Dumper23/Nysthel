@@ -6,7 +6,9 @@ using UnityEngine.SceneManagement;
 
 public class SecondChance : MonoBehaviour
 {
-    public GameObject[] Enemies;
+    public GameObject[] EnemiesW1;
+    public GameObject[] EnemiesW2;
+
     public float spawnRadius;
     public TextMeshProUGUI counterText;
     public float timer = 60f;
@@ -37,7 +39,13 @@ public class SecondChance : MonoBehaviour
             Invoke("reSpawn", enemyRate);
             spawned = true;
             Vector2 randPos = Random.insideUnitCircle * spawnRadius;
-            Instantiate(Enemies[Random.Range(0, Enemies.Length)], randPos, Quaternion.identity);
+            if (SaveVariables.CURRENT_WORLD == 0)
+            {
+                Instantiate(EnemiesW1[Random.Range(0, EnemiesW1.Length)], randPos, Quaternion.identity);
+            }else if (SaveVariables.CURRENT_WORLD == 1)
+            {
+                Instantiate(EnemiesW2[Random.Range(0, EnemiesW2.Length)], randPos, Quaternion.identity);
+            }
         }
         
     }

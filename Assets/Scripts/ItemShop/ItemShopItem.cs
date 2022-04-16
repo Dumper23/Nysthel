@@ -23,15 +23,15 @@ public class ItemShopItem
         switch (itemType)
         {
             default:
-            case ItemType.smallHealthPotion: return 10;
-            case ItemType.bigHealthPotion: return 10;
-            case ItemType.shieldPotion: return 10;
-            case ItemType.goldPotion: return 10;
-            case ItemType.teleportPotion: return 10;
-            case ItemType.timePotion: return 10;
-            case ItemType.doubleAxe: return 10;
-            case ItemType.bloodAxe: return 10;
-            case ItemType.seekAxe: return 10;
+            case ItemType.smallHealthPotion: return 40;
+            case ItemType.bigHealthPotion: return 90;
+            case ItemType.shieldPotion: return 30;
+            case ItemType.goldPotion: return 110;
+            case ItemType.teleportPotion: return 200;
+            case ItemType.timePotion: return 130;
+            case ItemType.doubleAxe: return 1500;
+            case ItemType.bloodAxe: return 1000;
+            case ItemType.seekAxe: return 1500;
         }
     }
 

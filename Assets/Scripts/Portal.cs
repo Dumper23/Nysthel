@@ -34,16 +34,18 @@ public class Portal : MonoBehaviour
             //Pujar el nivell del mon per poder accedir a altres mons
             if (SceneManager.GetActiveScene().name == "Forest")
             {
+                SceneManager.UnloadSceneAsync("Forest");
                 SaveVariables.MAX_WORLD = 1;
             }
             else if (SceneManager.GetActiveScene().name == "Ruins")
             {
+                SceneManager.UnloadSceneAsync("Ruins");
                 SaveVariables.MAX_WORLD = 2;
             }
         }
 
         SaveManager.Instance.SaveGame();
 
-        SceneManager.LoadScene(SceneToLoad);
+        SceneManager.LoadSceneAsync(SceneToLoad);
     }
 }

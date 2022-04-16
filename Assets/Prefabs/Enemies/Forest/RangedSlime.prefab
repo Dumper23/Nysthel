@@ -110,11 +110,12 @@ MonoBehaviour:
   anim: {fileID: 8577376506480156898}
   firePoint: {fileID: 8577376506707570161}
   attackRate: 1
-  range: 16
+  range: 50
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 2
   bloodStain: {fileID: 8722314626695268416, guid: c4895cea4a451e8438e0298f4cd48810, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: 6d31b4b692e29f4418cd640dae5b44a9, type: 3}
+  immune: 0
   activated: 0
   isRanged: 1
   bullet: {fileID: 313272557742413170, guid: 4112c00b35608b745927813b1da445bb, type: 3}
