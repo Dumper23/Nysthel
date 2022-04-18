@@ -6,13 +6,31 @@ using UnityEngine.SceneManagement;
 public class VillageLevelLoader : MonoBehaviour
 {
     public string levelToLoad = "Forest";
+    public bool isEndOfTutorial = false;
+    public GameObject blackOut;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Player"))
         {
-            //We will need to check wich level to go or create different exits but for now we go to the forest (1st lvl)
-            SceneManager.LoadScene(levelToLoad);
+            if (isEndOfTutorial)
+            {
+                SaveVariables.TUTORIAL_DONE = 1;
+                SaveManager.Instance.SaveGame();
+                blackOut.GetComponent<Animator>().Play("FadeOut");
+                Invoke("changeScene", 3f);
+            }
+            else
+            {
+                SceneManager.LoadScene(levelToLoad);
+            }
+
+           
         }
+    }
+
+    void changeScene()
+    {
+        SceneManager.LoadScene(levelToLoad);
     }
 }

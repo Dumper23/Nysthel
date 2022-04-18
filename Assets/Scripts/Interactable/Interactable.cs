@@ -325,7 +325,7 @@ public class Interactable : MonoBehaviour
                         s[0] = "???: Hey You!";
                         s[1] = "???: Yes yes, the redheaded viking girl!";
                         s[2] = "???: Over here, in the forest!";
-                        s[3] = "???: I'm an Ent, my tribe is very furious with you because you are allways cutting trees!";
+                        s[3] = "???: I'm an Ent, my tribe is very furious with you because you are always cutting trees!";
                         s[4] = "Ent: But don't worry, I'm not angry with you.";
                         s[5] = "Ent: I was in Izhester and I saw everything. It was terrifying!";
                         s[6] = "Ent: After the attack, I entered the aftermath of the village and I found this.";

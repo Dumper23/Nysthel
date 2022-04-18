@@ -14,13 +14,13 @@ public class MainMenu : MonoBehaviour
     public void PlayGame()
     {
         //Ara esta modo testeo, s'ha de posar == 1 per a que funcioni i et porti al tuto
-        if (SaveVariables.TUTORIAL_DONE == 0)
+        if (SaveVariables.TUTORIAL_DONE == 1)
         {
             SceneManager.LoadScene("Village");
         }
         else
         {
-            SceneManager.LoadScene("Tutorial");
+            SceneManager.LoadScene("Cinematic1");
         }
     }
 

@@ -1470,6 +1470,7 @@ MonoBehaviour:
   - {fileID: 5817438639818112088, guid: 285632fae1eed554183b5492916e603a, type: 3}
   - {fileID: 5817438639818112088, guid: 61c47dce1a0a68e438907b02bba4c1e5, type: 3}
   - {fileID: 709600645080228910, guid: 40dd00ca8e2ab614ca046131e8fc9c70, type: 3}
+  - {fileID: 4628287310003068626, guid: b3f6c2df760a1f14f9e059d761a75dac, type: 3}
   topRooms:
   - {fileID: 5009513754754368552, guid: 3ea2e11283df6d4488dfa32fac4bb10c, type: 3}
   - {fileID: 4628287310003068626, guid: 437febe75e8db434abc898579c84628a, type: 3}
@@ -1480,6 +1481,7 @@ MonoBehaviour:
   - {fileID: 6591375978921173778, guid: d7beff2f5afb9db419fd2bd0d37d8cee, type: 3}
   - {fileID: 5009513754754368552, guid: 1b85d06cab3290c4983fe7fddf048ec4, type: 3}
   - {fileID: 6591375978921173778, guid: 582fabd641b25c7438309532206ed509, type: 3}
+  - {fileID: 4628287310003068626, guid: b3f6c2df760a1f14f9e059d761a75dac, type: 3}
   leftRooms:
   - {fileID: 1886537104467705648, guid: 9bb5df30317fe5644ae7e3d2fb6796db, type: 3}
   - {fileID: 2231108673109297705, guid: 20fd8ba4c9212224aa59245759a4449b, type: 3}
@@ -1491,6 +1493,7 @@ MonoBehaviour:
   - {fileID: 1886537104467705648, guid: 5838a2837289a834a88b2ce4e4c71f2b, type: 3}
   - {fileID: 5817438639818112088, guid: 285632fae1eed554183b5492916e603a, type: 3}
   - {fileID: 5817438639818112088, guid: 61c47dce1a0a68e438907b02bba4c1e5, type: 3}
+  - {fileID: 2231108673109297705, guid: a7bd182424fbd264c81968a2470acf58, type: 3}
   rightRooms:
   - {fileID: 6388647105814232348, guid: 140078b3c0a379f4d992cb2c40e612e0, type: 3}
   - {fileID: 2231108673109297705, guid: 20fd8ba4c9212224aa59245759a4449b, type: 3}
@@ -1502,6 +1505,7 @@ MonoBehaviour:
   - {fileID: 6388647105814232348, guid: b57556b4d0cab4d4cbf48e20bb0b78d2, type: 3}
   - {fileID: 709600645080228910, guid: 40dd00ca8e2ab614ca046131e8fc9c70, type: 3}
   - {fileID: 6591375978921173778, guid: 582fabd641b25c7438309532206ed509, type: 3}
+  - {fileID: 2231108673109297705, guid: a7bd182424fbd264c81968a2470acf58, type: 3}
   closedRoom: {fileID: 6718945802850103674, guid: 73c505196cda32243aff9f92f06f5f5f, type: 3}
   rooms: []
   waitTime: 4
