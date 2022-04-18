@@ -8,6 +8,8 @@ public class VillageLevelLoader : MonoBehaviour
     public string levelToLoad = "Forest";
     public bool isEndOfTutorial = false;
     public GameObject blackOut;
+    public GameObject text;
+    public float timeToChange = 3f;
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -16,9 +18,10 @@ public class VillageLevelLoader : MonoBehaviour
             if (isEndOfTutorial)
             {
                 SaveVariables.TUTORIAL_DONE = 1;
-                SaveManager.Instance.SaveGame();
+                
                 blackOut.GetComponent<Animator>().Play("FadeOut");
-                Invoke("changeScene", 3f);
+                text.GetComponent<Animator>().Play("fadeInText");
+                Invoke("changeScene", timeToChange);
             }
             else
             {
@@ -31,6 +34,7 @@ public class VillageLevelLoader : MonoBehaviour
 
     void changeScene()
     {
+        SaveManager.Instance.SaveGame();
         SceneManager.LoadScene(levelToLoad);
     }
 }

@@ -296,7 +296,7 @@ public class Interactable : MonoBehaviour
                     {
                         string[] s = new string[12];
                         s[0] = "???: Hello Nysthel, finally awake!";
-                        s[1] = "???: You've been sleeping for a long time, things have changed a lot around here, let me bring you up to date.";
+                        s[1] = "???: You've been sleeping for a long time, things have changed a lot around here since we found you in the ground after the attack, let me bring you up to date.";
                         s[2] = "???: The village we lived in, Izhester, was completely destroyed by Ulrus, a feared giant called the Burning King.";
                         s[3] = "???: And now, we've been forced to create this camp until things get a little better for us.";
                         s[4] = "???: The battle in Izhester was very hard, I'm so sorry about Emmyr...";

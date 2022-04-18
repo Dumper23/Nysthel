@@ -84,6 +84,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private const int FOOTSTEP_AUDIO = 2;
     private const int PICKUP_AUDIO = 3;
     private const int DAMAGE_AUDIO = 4;
+    private const int COIN_AUDIO = 5;
 
 
 
@@ -378,6 +379,8 @@ public class Player : MonoBehaviour, IShopCustomer
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
             Destroy(collision.gameObject);
+            audioSource[PICKUP_AUDIO].clip = audios[COIN_AUDIO];
+            audioSource[PICKUP_AUDIO].Play();
         }
         if(collision.transform.tag == "Wood")
         {
@@ -395,21 +398,52 @@ public class Player : MonoBehaviour, IShopCustomer
             pickUpParticles.gameObject.transform.position = collision.transform.position;
             if (iw.getItem().itemType == Item.ItemType.smallPotion || iw.getItem().itemType == Item.ItemType.bigPotion) {
                 pickUpParticles.startColor = Color.red;
-            }else if (iw.getItem().itemType == Item.ItemType.shieldPotion)
+            } else if (iw.getItem().itemType == Item.ItemType.shieldPotion)
             {
                 pickUpParticles.startColor = Color.cyan;
-            }else if (iw.getItem().itemType == Item.ItemType.goldPotion)
+            } else if (iw.getItem().itemType == Item.ItemType.goldPotion)
             {
                 pickUpParticles.startColor = Color.yellow;
             }
+            else if(iw.getItem().itemType == Item.ItemType.timePotion)
+            {
+                pickUpParticles.startColor = new Color(0, 0, 0);
+            }
+            else if (iw.getItem().itemType == Item.ItemType.teleportPotion)
+            {
+                pickUpParticles.startColor = Color.magenta;
+            }
             else
             {
-                pickUpParticles.startColor = new Color(214, 96, 24);
+                pickUpParticles.startColor = new Color(255, 255, 255);
             }
+
             pickUpParticles.Play();
             audioSource[ATTACK_AUDIO].clip = audios[PICKUP_AUDIO];
             audioSource[ATTACK_AUDIO].Play();
             inventory.addItem(iw.getItem());
+
+            switch (iw.getItem().itemType) {
+                case Item.ItemType.smallPotion:
+                    SaveVariables.INV_SMALL_POTION += iw.getItem().amount;
+                    break;
+                case Item.ItemType.bigPotion:
+                    SaveVariables.INV_BIG_POTION += iw.getItem().amount;
+                    break;
+                case Item.ItemType.shieldPotion:
+                    SaveVariables.INV_SHIELD_POTION += iw.getItem().amount;
+                    break;
+                case Item.ItemType.goldPotion:
+                    SaveVariables.INV_GOLD_POTION += iw.getItem().amount;
+                    break;
+                case Item.ItemType.timePotion:
+                    SaveVariables.INV_TIME_POTION += iw.getItem().amount;
+                    break;
+                case Item.ItemType.teleportPotion:
+                    SaveVariables.INV_TELEPORT_POTION += iw.getItem().amount;
+                    break;
+            }
+
             iw.destroySelf();
         }
     }
