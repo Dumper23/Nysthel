@@ -12,9 +12,11 @@ public class Interactable : MonoBehaviour
     public TextMeshProUGUI text;
     public UiShop uiShop;
     public UiItemShop uiItemShop;
+    public GameObject marker;
 
     private Player player;
     private bool inShop = false;
+    private bool playerIn = false;
 
     public enum Interactions
     {
@@ -41,6 +43,10 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
+        if (playerIn && !inShop)
+        {
+            interactionDialog.SetActive(true);
+        }
         if (inRange && Input.GetButtonDown("Interact"))
         {
             SaveVariables.PLAYER_LIFE = player.maxHealth;
@@ -99,6 +105,7 @@ public class Interactable : MonoBehaviour
                             player.inShop = true;
                             uiShop.show(player);
                             inShop = true;
+                            interactionDialog.SetActive(false);
                             Time.timeScale = 0f;
                             GameStateManager.Instance.SetState(GameState.Paused);
                         }
@@ -113,7 +120,7 @@ public class Interactable : MonoBehaviour
                         s[4] = "Hallborg: Since we are not in Izhester I'll need some gold to buy new tools, so if you find gold you can bring it to me and I'll " +
                             "help you get stronger.";
                         SaveVariables.TALKED_HALLBORG = 1;
-                        FindObjectOfType<DialogSystem>().startDialog(s);
+                        FindObjectOfType<DialogSystem>().startDialog(s, this);
                         interactionDialog.SetActive(false);
                         this.enabled = false;
                     }
@@ -129,6 +136,11 @@ public class Interactable : MonoBehaviour
                             inShop = true;
                             Time.timeScale = 0f;
                             GameStateManager.Instance.SetState(GameState.Paused);
+                            interactionDialog.SetActive(false);
+                        }
+                        else
+                        {
+                            interactionDialog.SetActive(true);
                         }
                     }
                     else
@@ -143,7 +155,7 @@ public class Interactable : MonoBehaviour
                         s[6] = "Gromodin: But I'm not going to explain you what every item does, you will have to buy them and try them.";
 
                         SaveVariables.TALKED_GROMODIN = 1;
-                        FindObjectOfType<DialogSystem>().startDialog(s);
+                        FindObjectOfType<DialogSystem>().startDialog(s, this);
                         interactionDialog.SetActive(false);
                         this.enabled = false;
                     }
@@ -309,9 +321,9 @@ public class Interactable : MonoBehaviour
                         s[11] = "Vordkor: And Nysthel... Good luck, you'll need it.";
 
                         SaveVariables.TALKED_VORDKOR = 1;
-                        FindObjectOfType<DialogSystem>().startDialog(s);
-                        interactionDialog.SetActive(false);
-                        this.enabled = false;
+                        FindObjectOfType<DialogSystem>().startDialog(s, null);
+                        Destroy(marker);
+                        Destroy(this.gameObject);
                     }
                     else
                     {
@@ -334,7 +346,7 @@ public class Interactable : MonoBehaviour
                         s[9] = "* You Obtained: Emmyr's Soul*";
                         s[10] = "Ent: Please, don't tell anyone I have been here, or they will kill me.";
 
-                        FindObjectOfType<DialogSystem>().startDialog(s);
+                        FindObjectOfType<DialogSystem>().startDialog(s, this);
                         interactionDialog.SetActive(false);
                         this.enabled = false;
 
@@ -345,7 +357,7 @@ public class Interactable : MonoBehaviour
                         string[] s = new string[1];
                         s[0] = "Ent: Shhhtt!! I'm a tree. Trees don't talk.";
 
-                        FindObjectOfType<DialogSystem>().startDialog(s);
+                        FindObjectOfType<DialogSystem>().startDialog(s, this);
                         interactionDialog.SetActive(false);
                         this.enabled = false;
                     }
@@ -378,6 +390,7 @@ public class Interactable : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            playerIn = true;
             player = collision.GetComponent<Player>();
             switch (interaction)
             {
@@ -445,10 +458,16 @@ public class Interactable : MonoBehaviour
         }
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
+            playerIn = false;
             if (mapSelectionUi != null)
             {
                 mapSelectionUi.SetActive(false);

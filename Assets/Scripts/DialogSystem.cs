@@ -14,7 +14,7 @@ public class DialogSystem : MonoBehaviour
 
     private float originialSpeed;
     private int index;
-
+    private Interactable interactable;
 
     void Start()
     {
@@ -66,6 +66,11 @@ public class DialogSystem : MonoBehaviour
             continueButton.SetActive(false);
             GameStateManager.Instance.SetState(GameState.Gameplay);
             FindObjectOfType<PauseManager>().enabled = true;
+            if (interactable != null)
+            {
+                interactable.enabled = true;
+                interactable.interactionDialog.SetActive(true);
+            }
             foreach (AudioSource a in FindObjectOfType<Player>().GetComponents<AudioSource>())
             {
                 a.enabled = true;
@@ -74,10 +79,11 @@ public class DialogSystem : MonoBehaviour
         }
     }
 
-    public void startDialog(string[] s)
+    public void startDialog(string[] s, Interactable interactable)
     {
         index = 0;
         sentences = new string[s.Length + 1];
+        this.interactable = interactable;
         for (int i = 0; i < sentences.Length; i++)
         {
             sentences[i] = "";

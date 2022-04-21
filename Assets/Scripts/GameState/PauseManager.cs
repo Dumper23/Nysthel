@@ -15,26 +15,32 @@ public class PauseManager : MonoBehaviour
     public Camera minimapCam;
     public Toggle toggle;
 
+    private Player player;
+
+    private void Start()
+    {
+        player = FindObjectOfType<Player>();
+    }
 
     void Update()
     {
-        if (FindObjectOfType<Player>().isDead)
+        if (player.isDead)
         {
             this.enabled = false;
         }
         if(GameStateManager.Instance.CurrentGameState == GameState.Paused)
         {
             Cursor.visible = true;
-            GameObject.FindObjectOfType<Player>().audioSource[0].Pause();
-            GameObject.FindObjectOfType<Player>().audioSource[1].Pause();
-            GameObject.FindObjectOfType<Player>().audioSource[2].Pause();
+            player.audioSource[0].Pause();
+            player.audioSource[1].Pause();
+            player.audioSource[2].Pause();
         }
         else
         {
             Cursor.visible = false;
-            GameObject.FindObjectOfType<Player>().audioSource[0].UnPause();
-            GameObject.FindObjectOfType<Player>().audioSource[1].UnPause();
-            GameObject.FindObjectOfType<Player>().audioSource[2].UnPause();
+            player.audioSource[0].UnPause();
+            player.audioSource[1].UnPause();
+            player.audioSource[2].UnPause();
         }
 
             
@@ -42,7 +48,7 @@ public class PauseManager : MonoBehaviour
         if (Input.GetButtonDown("Cancel"))
         {
             GameStateManager.Instance.SetState(GameState.Gameplay);
-            if (!GameObject.FindObjectOfType<Player>().timeSlowed)
+            if (!player.timeSlowed)
             {
                 Time.timeScale = 1f;
             }
@@ -54,7 +60,7 @@ public class PauseManager : MonoBehaviour
             inventoryUi.SetActive(false);
         }
 
-        if (Input.GetButtonDown("Pause") && !GameObject.FindObjectOfType<Player>().inShop)
+        if (Input.GetButtonDown("Pause") && !player.inShop)
         {
             EventSystem.current.SetSelectedGameObject(ResumeButton);
             inventoryUi.SetActive(false);
@@ -74,7 +80,7 @@ public class PauseManager : MonoBehaviour
 
             if (newGameState == GameState.Gameplay)
             {
-                if (!GameObject.FindObjectOfType<Player>().timeSlowed)
+                if (!player.timeSlowed)
                 {
                     Time.timeScale = 1f;
                 }
@@ -115,7 +121,7 @@ public class PauseManager : MonoBehaviour
 
             if (newGameState == GameState.Gameplay)
             {
-                if (!GameObject.FindObjectOfType<Player>().timeSlowed)
+                if (!player.timeSlowed)
                 {
                     Time.timeScale = 1f;
                 }
@@ -136,7 +142,7 @@ public class PauseManager : MonoBehaviour
     public void Resume()
     {
         GameStateManager.Instance.SetState(GameState.Gameplay);
-        if (!GameObject.FindObjectOfType<Player>().timeSlowed)
+        if (!player.timeSlowed)
         {
             Time.timeScale = 1f;
         }
@@ -157,22 +163,24 @@ public class PauseManager : MonoBehaviour
 
     public void Quit()
     {
-        SaveManager.Instance.SaveGame();
+        //SaveManager.Instance.SaveGame();
+        //Show a dialog to confirm to exit the game and advising that the progress not saved will be lost
+
         Application.Quit();
     }
 
     public void usingControllerToggle()
     {
-        if (FindObjectOfType<Player>().usingController)
+        if (player.usingController)
         {
             toggle.isOn = false;
-            FindObjectOfType<Player>().usingController = false;
+            player.usingController = false;
             SaveVariables.PLAYER_USING_CONTROLLER = 0;
         }
         else
         {
             toggle.isOn = true;
-            FindObjectOfType<Player>().usingController = true;
+            player.usingController = true;
             SaveVariables.PLAYER_USING_CONTROLLER = 1;
         }
     }
