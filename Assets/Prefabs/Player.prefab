@@ -972,6 +972,7 @@ MonoBehaviour:
   - {fileID: 1817614485}
   - {fileID: 1817614486}
   - {fileID: 1819069039}
+  coinSound: {fileID: 8017809112979578920, guid: b10de29fd73ff9e43abeb426dd565be4, type: 3}
   goldText: {fileID: 0}
   BlackSmithGoldText: {fileID: 0}
   woodText: {fileID: 0}

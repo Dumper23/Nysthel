@@ -78,13 +78,13 @@ public class Player : MonoBehaviour, IShopCustomer
     [Header("--------------Audio--------------")]
     public List<AudioClip> audios;
     public List<AudioSource> audioSource;
+    public GameObject coinSound;
 
     private const int ATTACK_AUDIO = 0;
     private const int DASH_AUDIO = 1;
     private const int FOOTSTEP_AUDIO = 2;
     private const int PICKUP_AUDIO = 3;
     private const int DAMAGE_AUDIO = 4;
-    private const int COIN_AUDIO = 5;
 
 
 
@@ -378,9 +378,8 @@ public class Player : MonoBehaviour, IShopCustomer
             Statistics.Instance.goldCollected += (1 * goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
+            Instantiate(coinSound);
             Destroy(collision.gameObject);
-            audioSource[PICKUP_AUDIO].clip = audios[COIN_AUDIO];
-            audioSource[PICKUP_AUDIO].Play();
         }
         if(collision.transform.tag == "Wood")
         {
