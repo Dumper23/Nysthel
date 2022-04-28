@@ -18,6 +18,7 @@ TagManager:
   - BulletHellBullet
   - Wood
   - CompleteLevel
+  - Chest
   layers:
   - Default
   - TransparentFX

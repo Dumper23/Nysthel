@@ -1482,6 +1482,7 @@ MonoBehaviour:
   - {fileID: 5009513754754368552, guid: 1b85d06cab3290c4983fe7fddf048ec4, type: 3}
   - {fileID: 6591375978921173778, guid: 582fabd641b25c7438309532206ed509, type: 3}
   - {fileID: 4628287310003068626, guid: b3f6c2df760a1f14f9e059d761a75dac, type: 3}
+  - {fileID: 5009513754754368552, guid: 620088bedb74c8b44a4f6a42adaefe4b, type: 3}
   leftRooms:
   - {fileID: 1886537104467705648, guid: 9bb5df30317fe5644ae7e3d2fb6796db, type: 3}
   - {fileID: 2231108673109297705, guid: 20fd8ba4c9212224aa59245759a4449b, type: 3}
@@ -1506,6 +1507,7 @@ MonoBehaviour:
   - {fileID: 709600645080228910, guid: 40dd00ca8e2ab614ca046131e8fc9c70, type: 3}
   - {fileID: 6591375978921173778, guid: 582fabd641b25c7438309532206ed509, type: 3}
   - {fileID: 2231108673109297705, guid: a7bd182424fbd264c81968a2470acf58, type: 3}
+  - {fileID: 6388647105814232348, guid: 4dfc9fb666777c9438ddc7adad46536f, type: 3}
   closedRoom: {fileID: 6718945802850103674, guid: 73c505196cda32243aff9f92f06f5f5f, type: 3}
   rooms: []
   waitTime: 4
