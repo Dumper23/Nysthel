@@ -19,6 +19,8 @@ TagManager:
   - Wood
   - CompleteLevel
   - Chest
+  - Coin2
+  - Coin3
   layers:
   - Default
   - TransparentFX
