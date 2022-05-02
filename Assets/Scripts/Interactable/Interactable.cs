@@ -86,32 +86,24 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case Interactions.OpenChest:
-                    Debug.Log("Open");
                     Chest chest = GetComponentInParent<Chest>();
                     if(chest != null)
                     {
-                        if (!chest.opened)
-                        {
-                            if (chest.objectToGive != null)
-                            {
-                                Instantiate(chest.objectToGive[Random.Range(0, chest.objectToGive.Length)], transform.position, Quaternion.identity);
-                            }
-                            chest.opened = true;
-                            chest.anim.Play("chestOpen");
-                        }
-                        
                         if (chest.hasMoney)
                         {
-                            if (Random.Range(0f, 1f) < chest.breakingProbability)
+                            if (chest.opened)
                             {
-                                Instantiate(chest.destruction);
-                                Instantiate(chest.destructionParticles, transform.position, Quaternion.identity);
-                                Destroy(chest.gameObject);
-                            }
-                            else
-                            {
-                                Instantiate(chest.chestWinSound);
-                                chest.moneyQuantity += Random.Range(1, 10);
+                                if (Random.Range(0f, 1f) < chest.breakingProbability)
+                                {
+                                    Instantiate(chest.destruction);
+                                    Instantiate(chest.destructionParticles, transform.position, Quaternion.identity);
+                                    Destroy(chest.gameObject);
+                                }
+                                else
+                                {
+                                    Instantiate(chest.chestWinSound);
+                                    chest.moneyQuantity += Random.Range(chest.minCoinStep, chest.maxCoinStep);
+                                }
                             }
                         }
                         else
@@ -120,6 +112,18 @@ public class Interactable : MonoBehaviour
                             Instantiate(chest.destructionParticles, transform.position, Quaternion.identity);
                             Destroy(chest.gameObject);
                         }
+
+                        if (!chest.opened)
+                        {
+                            if (chest.hasObject)
+                            {
+                                Instantiate(chest.objectToGive[Random.Range(0, chest.objectToGive.Length)], transform.position, Quaternion.identity);
+                            }
+                            chest.opened = true;
+                            chest.anim.Play("chestOpen");
+                        }
+                        
+                        
                     }
                     break;
 

@@ -189,6 +189,7 @@ MonoBehaviour:
   bloodStain: {fileID: 8722314626695268416, guid: c4895cea4a451e8438e0298f4cd48810, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: 6d31b4b692e29f4418cd640dae5b44a9, type: 3}
   immune: 0
+  damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 1
   isRanged: 1
   bullet: {fileID: 313272557742413170, guid: ad76d891dbf842348ba0353df743b637, type: 3}

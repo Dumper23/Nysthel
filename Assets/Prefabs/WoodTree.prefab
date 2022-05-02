@@ -160,8 +160,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyParticles: {fileID: 5666712459616409812, guid: d4f8516db1123744887366aecc470ad9, type: 3}
   wood: {fileID: 189114144111310478, guid: ff35b2c1282c2cf419652bbbd350c94a, type: 3}
-  maxWood: 40
-  minWood: 30
+  maxWood: 100
+  minWood: 50
   woodForce: 10
   hitsToDestroy: 3
   destroySound: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}

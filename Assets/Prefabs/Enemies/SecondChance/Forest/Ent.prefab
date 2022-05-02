@@ -133,6 +133,8 @@ MonoBehaviour:
   coinForce: 5
   bloodStain: {fileID: 8546774708782298221, guid: da7a435a86aa9de4c81c0cc2189041ae, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: 1fa862c0e67f21d4fac9d849a3822c94, type: 3}
+  immune: 0
+  damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 1
   isRanged: 0
   bullet: {fileID: 0}

@@ -372,6 +372,7 @@ MonoBehaviour:
   bloodStain: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}
   bloodParticles: {fileID: 2847033719132464291, guid: 33258756367c86a40a4bc6a997560f2c, type: 3}
   immune: 0
+  damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 1
   undeadMinion: {fileID: 2918943423871706559, guid: 74b561d46c4afba4c86201b6d9fb527a, type: 3}
   minionQuantity: 4

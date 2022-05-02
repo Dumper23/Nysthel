@@ -12757,7 +12757,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
       propertyPath: objectToGive.Array.size
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
       propertyPath: objectToGive.Array.data[0]
@@ -12766,15 +12766,35 @@ PrefabInstance:
     - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
       propertyPath: objectToGive.Array.data[1]
       value: 
-      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
     - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
       propertyPath: objectToGive.Array.data[2]
       value: 
-      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
     - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
       propertyPath: objectToGive.Array.data[3]
       value: 
+      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+    - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
+      propertyPath: objectToGive.Array.data[4]
+      value: 
+      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+    - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
+      propertyPath: objectToGive.Array.data[5]
+      value: 
+      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+    - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
+      propertyPath: objectToGive.Array.data[6]
+      value: 
       objectReference: {fileID: 7417661980947710850, guid: e4a787911f7b6c444a3b8bed548f3e95, type: 3}
+    - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
+      propertyPath: objectToGive.Array.data[7]
+      value: 
+      objectReference: {fileID: 7417661980947710850, guid: e4a787911f7b6c444a3b8bed548f3e95, type: 3}
+    - target: {fileID: 467433358947671467, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
+      propertyPath: objectToGive.Array.data[8]
+      value: 
+      objectReference: {fileID: 2918943423871706559, guid: ae804731ceab98047a8c4dc570adb2f3, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b4a80f9dd12b35641b2d1c597f466886, type: 3}
 --- !u!4 &975897646173292159 stripped
@@ -12807,7 +12827,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.size
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[0]
@@ -12816,19 +12836,35 @@ PrefabInstance:
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[1]
       value: 
-      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
+      objectReference: {fileID: 7417661980947710850, guid: e4a787911f7b6c444a3b8bed548f3e95, type: 3}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[2]
       value: 
-      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[3]
       value: 
-      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[5]
+      value: 
+      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[6]
+      value: 
+      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[7]
+      value: 
+      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[8]
+      value: 
+      objectReference: {fileID: 2918943423871706559, guid: ae804731ceab98047a8c4dc570adb2f3, type: 3}
     - target: {fileID: 381001037469439240, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: m_Name
       value: Chest
@@ -12909,7 +12945,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.size
-      value: 4
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[0]
@@ -12918,19 +12954,35 @@ PrefabInstance:
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[1]
       value: 
-      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
+      objectReference: {fileID: 7417661980947710850, guid: e4a787911f7b6c444a3b8bed548f3e95, type: 3}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[2]
       value: 
-      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[3]
       value: 
-      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+      objectReference: {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
     - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: objectToGive.Array.data[4]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[5]
+      value: 
+      objectReference: {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[6]
+      value: 
+      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[7]
+      value: 
+      objectReference: {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+    - target: {fileID: 381001037469439234, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
+      propertyPath: objectToGive.Array.data[8]
+      value: 
+      objectReference: {fileID: 2918943423871706559, guid: ae804731ceab98047a8c4dc570adb2f3, type: 3}
     - target: {fileID: 381001037469439240, guid: b685e5419b048384a8fddd577f2d284d, type: 3}
       propertyPath: m_Name
       value: Chest (1)

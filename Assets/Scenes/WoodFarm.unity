@@ -51030,7 +51030,7 @@ MonoBehaviour:
   - {fileID: 8577376506480156897, guid: 7cdeb9376ef0624418798234f79e4445, type: 3}
   - {fileID: 7248503250335689261, guid: 693d9e1dd7f9e9a4cad6f1d8bd20f91d, type: 3}
   spawnRadius: 7.66
-  minEnemyRate: 9
+  minEnemyRate: 12
   maxEnemyRate: 35
 --- !u!1001 &1612888572
 PrefabInstance:

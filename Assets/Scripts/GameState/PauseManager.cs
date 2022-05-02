@@ -14,8 +14,10 @@ public class PauseManager : MonoBehaviour
     public GameObject Map;
     public Camera minimapCam;
     public Toggle toggle;
+    public GameObject QuitAdvertise;
 
     private Player player;
+    private bool quit = false;
 
     private void Start()
     {
@@ -24,6 +26,20 @@ public class PauseManager : MonoBehaviour
 
     void Update()
     {
+        if (quit)
+        {
+            if (Input.GetButtonUp("Interact"))
+            {
+                Debug.Log("Quit");
+                Application.Quit();
+            }
+            if (Input.GetButtonUp("Cancel") || Input.GetKeyUp(KeyCode.Escape))
+            {
+                quit = false;
+                QuitAdvertise.SetActive(false);
+            }
+        }
+
         if (player.isDead)
         {
             this.enabled = false;
@@ -165,8 +181,18 @@ public class PauseManager : MonoBehaviour
     {
         //SaveManager.Instance.SaveGame();
         //Show a dialog to confirm to exit the game and advising that the progress not saved will be lost
+        
+        pauseUi.SetActive(false);
+        QuitAdvertise.SetActive(true);
+        GameStateManager.Instance.SetState(GameState.Gameplay);
+        Time.timeScale = 1;
+        Invoke("setQuit", 0.5f);
+    }
 
-        Application.Quit();
+    void setQuit()
+    {
+        
+        quit = true;
     }
 
     public void usingControllerToggle()

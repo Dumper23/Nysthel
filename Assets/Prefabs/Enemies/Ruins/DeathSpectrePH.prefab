@@ -103,6 +103,7 @@ MonoBehaviour:
   bloodStain: {fileID: 4253468341987095879, guid: d23d9580df0405841b5baaa0a525179c, type: 3}
   bloodParticles: {fileID: 3845195260188331717, guid: 1b131c4f1a44d5d408e50f0afc12cb3d, type: 3}
   immune: 0
+  damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 0
   meleeAttackRange: 4
   bullet: {fileID: 313272557742413170, guid: c38aa8f41152cbc498dd8bb90c7de183, type: 3}

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -23,6 +24,7 @@ public abstract class Enemy : MonoBehaviour
     public GameObject bloodStain;
     public GameObject bloodParticles;
     public bool immune = false;
+    public GameObject damageNumbers;
 
     protected Transform target;
     protected int goldToGive;
@@ -38,9 +40,21 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void takeDamage(int value)
     {
+        GameObject go = Instantiate(damageNumbers, transform.position, Quaternion.identity) as GameObject;
+
         if (activated && !immune)
         {
+            if (go != null)
+            {
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- " + value);
+            }
             health -= value;
+        }else if (immune)
+        {
+            if (go != null)
+            {
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- 0");
+            }
         }
     }
 

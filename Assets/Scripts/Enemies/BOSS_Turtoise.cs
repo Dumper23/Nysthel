@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class BOSS_Turtoise : Enemy
@@ -144,13 +145,28 @@ public class BOSS_Turtoise : Enemy
     
     public override void takeDamage(int value)
     {
+        GameObject go = Instantiate(damageNumbers, transform.position, Quaternion.identity) as GameObject;
+
+
         if (activated && !immune)
         {
+            if (go != null)
+            {
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- " + value);
+            }
             Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
             screamSource.clip = scream;
             screamSource.Play();
             health -= value;
             cState = "shield";
+        }
+
+        if (immune)
+        {
+            if (go != null)
+            {
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- 0");
+            }
         }
     }
 

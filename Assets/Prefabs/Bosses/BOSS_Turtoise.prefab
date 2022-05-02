@@ -143,19 +143,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 80
   damage: 20
-  maxGoldToGive: 200
-  minGoldToGive: 100
+  maxGoldToGive: 100
+  minGoldToGive: 50
   moveSpeed: 2
   rb: {fileID: 8446597804094068537}
   anim: {fileID: 8446597804094068536}
   firePoint: {fileID: 8446597804247384151}
   attackRate: 0.3
   range: 20
-  coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
+  coin: {fileID: 5899310037350252981, guid: af1ed36c3ba680c4a9642aba3378d084, type: 3}
   coinForce: 15
   bloodStain: {fileID: 8870822980127303738, guid: 6c1eb2c79bc69ce45b26ea3e08a0c3f3, type: 3}
   bloodParticles: {fileID: 2847033719132464291, guid: 33258756367c86a40a4bc6a997560f2c, type: 3}
   immune: 0
+  damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 0
   dashForce: 8
   shotAngleIncrement: 30

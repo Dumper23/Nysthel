@@ -10,6 +10,7 @@ public class Chest : MonoBehaviour
     public Color colorOfText = new Color(0,0,0,255);
     public bool opened;
     public bool hasMoney = false;
+    public bool hasObject = true;
     public GameObject destruction;
     public ParticleSystem destructionParticles;
     public GameObject coinType;
@@ -21,6 +22,10 @@ public class Chest : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public bool givePrize = false;
     public GameObject chestWinSound;
+    [Range(0, 50)]
+    public int minCoinStep = 0;
+    [Range(0, 50)]
+    public int maxCoinStep = 10;
 
     public Image h1;
     public Image h2;
@@ -34,6 +39,10 @@ public class Chest : MonoBehaviour
         anim = GetComponent<Animator>();
         moneyText.enabled = false;
         moneyText.color = colorOfText;
+        if(objectToGive == null || objectToGive.Length <= 0)
+        {
+            hasObject = false;
+        }
     }
 
     private void Update()
@@ -88,7 +97,7 @@ public class Chest : MonoBehaviour
                 hp--;
                 Destroy(collision.gameObject);
                 immune = true;
-                Invoke("vulnerable",0.5f);
+                Invoke("vulnerable",0.25f);
             }
         }
     }

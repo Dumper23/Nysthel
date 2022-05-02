@@ -381,7 +381,25 @@ public class Player : MonoBehaviour, IShopCustomer
             Instantiate(coinSound);
             Destroy(collision.gameObject);
         }
-        if(collision.transform.tag == "Wood")
+        if (collision.transform.tag == "Coin2")
+        {
+            gold += (3 * goldMultiplier);
+            Statistics.Instance.goldCollected += (3 * goldMultiplier);
+            updateGold();
+            SaveVariables.PLAYER_GOLD = gold;
+            Instantiate(coinSound);
+            Destroy(collision.gameObject);
+        }
+        if (collision.transform.tag == "Coin3")
+        {
+            gold += (5 * goldMultiplier);
+            Statistics.Instance.goldCollected += (5 * goldMultiplier);
+            updateGold();
+            SaveVariables.PLAYER_GOLD = gold;
+            Instantiate(coinSound);
+            Destroy(collision.gameObject);
+        }
+        if (collision.transform.tag == "Wood")
         {
             wood += (1*woodMultiplier);
             SaveVariables.PLAYER_WOOD += (1 * woodMultiplier);
@@ -441,6 +459,23 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.teleportPotion:
                     SaveVariables.INV_TELEPORT_POTION += iw.getItem().amount;
                     break;
+                case Item.ItemType.basicAxe:
+                    SaveVariables.INV_BASIC_AXE = iw.getItem().amount;
+                    break;
+                case Item.ItemType.seekAxe:
+                    SaveVariables.INV_SEEK_AXE = iw.getItem().amount;
+                    break;
+                case Item.ItemType.bloodAxe:
+                    SaveVariables.INV_BLOOD_AXE = iw.getItem().amount;
+                    break;
+                case Item.ItemType.multiAxe:
+                    SaveVariables.INV_MULTIAXE = iw.getItem().amount;
+                    break;
+                case Item.ItemType.doubleAxe:
+                    SaveVariables.INV_DOUBLE_AXE = iw.getItem().amount;
+                    break;
+
+
             }
 
             iw.destroySelf();
@@ -601,7 +636,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         foreach (Collider2D coin in coins)
         {
-            if (coin.tag == "Coin" || coin.tag == "Wood")
+            if (coin.tag == "Coin" || coin.tag == "Wood" || coin.tag == "Coin2" || coin.tag == "Coin3")
             {
                 coin.transform.Translate((transform.position - coin.transform.position).normalized * coinMagnetSpeed * Time.deltaTime);
             }
