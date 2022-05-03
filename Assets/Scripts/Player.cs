@@ -606,7 +606,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(bloodyBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(damage);
+                bullet.setDamage(Mathf.RoundToInt(damage*1.3f));
             }else if (seekaxe)
             {
                 directionToShoot = (firePoint.position - transform.position).normalized;

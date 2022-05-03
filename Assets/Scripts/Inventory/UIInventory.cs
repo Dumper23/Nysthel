@@ -14,6 +14,7 @@ public class UIInventory : MonoBehaviour
     private Transform itemTemplate;
     private Transform statistics;
     private Transform weaponEquiped;
+    private Transform itemSpecs;
     private Player player;
     private Item currentItem;
 
@@ -27,6 +28,7 @@ public class UIInventory : MonoBehaviour
         itemTemplate = container.Find("ItemTemplate");
         statistics = transform.Find("Statistics");
         weaponEquiped = transform.Find("WE");
+        itemSpecs = transform.Find("itemSpecs");
         container.parent.gameObject.SetActive(false);
     }
 
@@ -76,8 +78,9 @@ public class UIInventory : MonoBehaviour
         {
             RectTransform itemTemplateRect = Instantiate(itemTemplate, container).GetComponent<RectTransform>();
             GameObject a = new GameObject();
-            a.name = item.itemType.ToString();
-            Instantiate(a, itemTemplateRect);
+
+            GameObject temp = Instantiate(a, itemTemplateRect) as GameObject;
+            temp.name = item.itemType.ToString();
             itemTemplateRect.gameObject.SetActive(true);
             itemTemplateRect.GetComponent<Button>().onClick.AddListener(delegate { Clicked(item); });
 
@@ -157,6 +160,11 @@ public class UIInventory : MonoBehaviour
                 break;
             }
         }
+
+        if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
+        {
+            showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(4).name);
+        }
     }
     private void Clicked(Item item)
     {
@@ -182,6 +190,58 @@ public class UIInventory : MonoBehaviour
         }
     }
 
+    private void showItemInfo(string itemSelected)
+    {
+        TextMeshProUGUI desc = itemSpecs.Find("description").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI name = itemSpecs.Find("name").GetComponent<TextMeshProUGUI>();
+        switch (itemSelected)
+        {
+            case "smallPotion":
+                desc.text = "+10 hp";
+                name.text = "Small potion";
+                break;
+            case "bigPotion":
+                desc.text = "+20 hp";
+                name.text = "Big potion";
+                break;
+            case "shieldPotion":
+                desc.text = "Immune for 6s, but disables dash during its duration";
+                name.text = "Shield potion";
+                break;
+            case "goldPotion":
+                desc.text = "x2 gold during 30s";
+                name.text = "Gold potion";
+                break;
+            case "timePotion":
+                desc.text = "Slows time but not for Nysthel";
+                name.text = "Time potion";
+                break;
+            case "teleportPotion":
+                desc.text = "Teleports Nysthel to the starting room";
+                name.text = "Teleport potion";
+                break;
+            case "basicAxe":
+                desc.text = "DMG = x1\nSPD = 5";
+                name.text = "Emmyr's Axe";
+                break;
+            case "bloodAxe":
+                desc.text = "DMG = x1.3\nSPD = 2";
+                name.text = "Bloody Axe";
+                break;
+            case "doubleAxe":
+                desc.text = "DMG = x1\nSPD = 3";
+                name.text = "Double Axe";
+                break;
+            case "multiAxe":
+                desc.text = "DMG = x1\nSPD = 1";
+                name.text = "Multi Axe";
+                break;
+            case "seekAxe":
+                desc.text = "DMG = x1\nSPD = 3";
+                name.text = "Messenger Axe";
+                break;
+        }
+    }
 
     public static void updateText(Item item)
     {
