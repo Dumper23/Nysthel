@@ -41,8 +41,8 @@ Camera:
   m_GameObject: {fileID: 414949791}
   m_Enabled: 1
   serializedVersion: 2
-  m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
+  m_ClearFlags: 2
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -944,7 +944,7 @@ MonoBehaviour:
   bloodDecal: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}
   blodyAxeDamageIncrement: 5
   bloodyAxeRateIncrement: 0.5
-  doubleAxeRateIncrement: 0.75
+  doubleAxeRateIncrement: 0.5
   seekAxeRateIncrement: 0.75
   multiAxeRateIncrement: 1.5
   bloodyBulletPrefab: {fileID: 8848529324968467858, guid: 40b1e9f5715435947a5801a9db13b0a3, type: 3}

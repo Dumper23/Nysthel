@@ -532,6 +532,38 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 414949791, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949792, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_VolumeLayerMask.m_Bits
+      value: 512
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949792, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_RequiresDepthTextureOption
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949792, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_RequiresOpaqueTextureOption
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949794, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_ClearFlags
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949794, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_BackGroundColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949794, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_BackGroundColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 414949794, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_BackGroundColor.r
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9216989108363573412, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
       propertyPath: m_Name
       value: Player

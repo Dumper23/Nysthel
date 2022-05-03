@@ -582,7 +582,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81447d2fa3e59684d95e0fce9bd7e8d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectToGive: []
+  objectToGive:
+  - {fileID: 7339297275649829773, guid: 54129f8286b8f3f4e805c9626fdf2fad, type: 3}
+  - {fileID: 7417661980947710850, guid: e4a787911f7b6c444a3b8bed548f3e95, type: 3}
+  - {fileID: 641147816450181120, guid: 77695e9c403d2634c88dcb91511a2a64, type: 3}
+  - {fileID: 6832777191723053652, guid: 82268c579873d70448ebcb5fed7ad715, type: 3}
+  - {fileID: 7417661980947710850, guid: e4a787911f7b6c444a3b8bed548f3e95, type: 3}
   colorOfText: {r: 0.70980394, g: 0, b: 1, a: 1}
   opened: 0
   hasMoney: 1
