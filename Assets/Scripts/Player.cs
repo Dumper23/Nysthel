@@ -213,6 +213,9 @@ public class Player : MonoBehaviour, IShopCustomer
             {
                 Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
             }
+            else {
+                Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
+            }
         }
         else
         {
@@ -606,7 +609,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(bloodyBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(Mathf.RoundToInt(damage*1.3f));
+                bullet.setDamage(damage + 6);
             }else if (seekaxe)
             {
                 directionToShoot = (firePoint.position - transform.position).normalized;
@@ -615,7 +618,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(seekBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(damage);
+                bullet.setDamage(damage + 3);
                 bullet.isSeeker = true;
             }
         }
@@ -666,6 +669,7 @@ public class Player : MonoBehaviour, IShopCustomer
             currentHealth -= value;
             immune = true;
             shield.SetActive(true);
+            shielded = true;
             audioSource[3].clip = audios[DAMAGE_AUDIO];
             audioSource[3].pitch = Random.Range(0.75f, 1.25f);
             audioSource[3].Play();
@@ -680,6 +684,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         shield.SetActive(false);
         immune = false;
+        shielded = false;
     }
 
     //Fer que estigui 2 segons la cam on ha mort el jugador, que no sigui instant respawn a la aldea
@@ -808,7 +813,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     }
                     break;
                 case Item.ItemType.shieldPotion:
-                    if (!shielded && ! goldRushed && !timeSlowed)
+                    if (!shielded && !goldRushed && !timeSlowed)
                     {
                         shield.SetActive(true);
                         immune = true;

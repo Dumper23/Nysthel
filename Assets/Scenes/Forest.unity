@@ -199,6 +199,10 @@ MonoBehaviour:
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
   marker: {fileID: 0}
+  chests: []
+  chestSpawnPoint: []
+  chestDetection: {fileID: 0}
+  chestShopPrice: 50
   mapSelectionUi: {fileID: 0}
 --- !u!1001 &259779298
 PrefabInstance:
@@ -681,7 +685,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 24063
+    m_Bits: 65023
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1854,5 +1858,13 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7825975399317790419, guid: de8bd21dd2800b34b96f0435e0aa52b4, type: 3}
+      propertyPath: bottomRooms.Array.size
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7825975399317790419, guid: de8bd21dd2800b34b96f0435e0aa52b4, type: 3}
+      propertyPath: bottomRooms.Array.data[9]
+      value: 
+      objectReference: {fileID: 4905744688523282348, guid: d3e8573a4ffc1f944a95c72ffe68074e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de8bd21dd2800b34b96f0435e0aa52b4, type: 3}

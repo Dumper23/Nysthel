@@ -212,7 +212,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 34
   m_TargetDisplay: 0
 --- !u!114 &467433358448871017
 MonoBehaviour:
@@ -477,7 +477,7 @@ GameObject:
   - component: {fileID: 467433358947671467}
   - component: {fileID: 467433358947671465}
   - component: {fileID: 467433358947671461}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: ChestDiamond
   m_TagString: Chest
   m_Icon: {fileID: 0}
@@ -539,7 +539,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 33
   m_Sprite: {fileID: -478010214341573852, guid: 63c6c4f6ef1b4624aa5050118452195f, type: 3}
   m_Color: {r: 0.71055603, g: 0, b: 1, a: 1}
   m_FlipX: 0
@@ -698,6 +698,10 @@ MonoBehaviour:
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
   marker: {fileID: 0}
+  chests: []
+  chestSpawnPoint: []
+  chestDetection: {fileID: 0}
+  chestShopPrice: 50
   mapSelectionUi: {fileID: 0}
 --- !u!61 &467433359276182039
 BoxCollider2D:

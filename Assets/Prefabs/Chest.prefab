@@ -137,7 +137,7 @@ Canvas:
   m_SortingBucketNormalizedSize: 0
   m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 34
   m_TargetDisplay: 0
 --- !u!114 &381001036973133504
 MonoBehaviour:
@@ -268,7 +268,7 @@ GameObject:
   - component: {fileID: 381001037469439234}
   - component: {fileID: 381001037469439232}
   - component: {fileID: 381001037469439244}
-  m_Layer: 10
+  m_Layer: 15
   m_Name: Chest
   m_TagString: Chest
   m_Icon: {fileID: 0}
@@ -330,7 +330,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 6
+  m_SortingOrder: 33
   m_Sprite: {fileID: -440494653427370565, guid: 63c6c4f6ef1b4624aa5050118452195f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -381,7 +381,7 @@ MonoBehaviour:
   destruction: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}
   destructionParticles: {fileID: 5666712459616409814, guid: d4f8516db1123744887366aecc470ad9, type: 3}
   coinType: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
-  breakingProbability: 0.1
+  breakingProbability: 0.09
   anim: {fileID: 0}
   moneyQuantity: 10
   moneyText: {fileID: 381001037780986387}
@@ -698,6 +698,10 @@ MonoBehaviour:
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
   marker: {fileID: 0}
+  chests: []
+  chestSpawnPoint: []
+  chestDetection: {fileID: 0}
+  chestShopPrice: 50
   mapSelectionUi: {fileID: 0}
 --- !u!61 &381001038293271230
 BoxCollider2D:

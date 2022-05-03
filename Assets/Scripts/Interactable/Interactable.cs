@@ -13,6 +13,10 @@ public class Interactable : MonoBehaviour
     public UiShop uiShop;
     public UiItemShop uiItemShop;
     public GameObject marker;
+    public GameObject[] chests;
+    public GameObject[] chestSpawnPoint;
+    public Collider2D chestDetection;
+    public int chestShopPrice = 50;
 
     private Player player;
     private bool inShop = false;
@@ -34,7 +38,8 @@ public class Interactable : MonoBehaviour
         EstatuaEmmyr,
         EstatuaDamage,
         EstatuaSecondChance,
-        EstatuaBendicion
+        EstatuaBendicion,
+        ChestShop,
     };
 
     private bool inRange = false;
@@ -124,6 +129,23 @@ public class Interactable : MonoBehaviour
                         }
                         
                         
+                    }
+                    break;
+
+                case Interactions.ChestShop:
+                    if (!chestDetection.IsTouchingLayers(LayerMask.NameToLayer("chest")))
+                    {
+                        if (player.gold - chestShopPrice >= 0)
+                        {
+                            player.gold -= chestShopPrice;
+                            player.goldText.SetText(player.gold.ToString());
+                            if (chestSpawnPoint.Length > 0 && chests.Length > 0)
+                            {
+                                Instantiate(chests[Random.Range(0, chests.Length)], chestSpawnPoint[0].transform.position, Quaternion.identity);
+                                Instantiate(chests[Random.Range(0, chests.Length)], chestSpawnPoint[1].transform.position, Quaternion.identity);
+                                Instantiate(chests[Random.Range(0, chests.Length)], chestSpawnPoint[2].transform.position, Quaternion.identity);
+                            }
+                        }
                     }
                     break;
 
@@ -514,6 +536,9 @@ public class Interactable : MonoBehaviour
                         break;
                     case Interactions.TalkToGoodEnt:
                         text.SetText("Press X or E to talk with the Good Ent!");
+                        break;
+                    case Interactions.ChestShop:
+                        text.SetText("Press X or E to buy 3 random gold Chests by " + chestShopPrice + " gold");
                         break;
                 }
             }

@@ -161,9 +161,11 @@ public class UIInventory : MonoBehaviour
             }
         }
 
-        if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
-        {
-            showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(4).name);
+        if (EventSystem.current.currentSelectedGameObject != null) {
+            if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
+            {
+                showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(4).name);
+            }
         }
     }
     private void Clicked(Item item)
@@ -225,7 +227,7 @@ public class UIInventory : MonoBehaviour
                 name.text = "Emmyr's Axe";
                 break;
             case "bloodAxe":
-                desc.text = "DMG = x1.3\nSPD = 2";
+                desc.text = "DMG = +6\nSPD = 2";
                 name.text = "Bloody Axe";
                 break;
             case "doubleAxe":
@@ -237,14 +239,9 @@ public class UIInventory : MonoBehaviour
                 name.text = "Multi Axe";
                 break;
             case "seekAxe":
-                desc.text = "DMG = x1\nSPD = 3";
+                desc.text = "DMG = +3\nSPD = 3";
                 name.text = "Messenger Axe";
                 break;
         }
-    }
-
-    public static void updateText(Item item)
-    {
-
     }
 }
