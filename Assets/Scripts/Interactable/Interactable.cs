@@ -124,6 +124,7 @@ public class Interactable : MonoBehaviour
                             {
                                 Instantiate(chest.objectToGive[Random.Range(0, chest.objectToGive.Length)], transform.position, Quaternion.identity);
                             }
+                            Instantiate(chest.chestOpenSound);
                             chest.opened = true;
                             chest.anim.Play("chestOpen");
                         }
@@ -137,6 +138,7 @@ public class Interactable : MonoBehaviour
                     {
                         if (player.gold - chestShopPrice >= 0)
                         {
+                            player.feedBackScreenPanel.GetComponent<Animator>().Play("SaveScreen");
                             player.gold -= chestShopPrice;
                             player.goldText.SetText(player.gold.ToString());
                             if (chestSpawnPoint.Length > 0 && chests.Length > 0)
@@ -238,6 +240,7 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case Interactions.Save:
+                    player.feedBackScreenPanel.GetComponent<Animator>().Play("SaveScreen");
                     SaveManager.Instance.SaveGame();
                     break;
 
@@ -481,7 +484,7 @@ public class Interactable : MonoBehaviour
                     case Interactions.GoToVillage:
                         if (SceneManager.GetActiveScene().name != "WoodFarm")
                         {
-                            text.SetText("Press X or E to go to the Village by 30% of your gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
+                            text.SetText("Press X or E to go to the Village by 30% of your gold, you need to have at least 30 gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
                         }
                         else
                         {

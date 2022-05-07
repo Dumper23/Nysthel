@@ -2816,6 +2816,10 @@ PrefabInstance:
       propertyPath: goldMultiplierUI
       value: 
       objectReference: {fileID: 1693414618}
+    - target: {fileID: 9216989108363573423, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: feedBackScreenPanel
+      value: 
+      objectReference: {fileID: 1693414621}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
 --- !u!20 &532256497 stripped
@@ -51455,6 +51459,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1b7af7841beefb444918a30afeab8ca8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1693414621 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 444060748213410632, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+  m_PrefabInstance: {fileID: 1693414613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &1693414633 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5009681040455137614, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
@@ -53310,6 +53319,10 @@ MonoBehaviour:
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
   marker: {fileID: 0}
+  chests: []
+  chestSpawnPoint: []
+  chestDetection: {fileID: 0}
+  chestShopPrice: 50
   mapSelectionUi: {fileID: 0}
 --- !u!4 &2064863153 stripped
 Transform:

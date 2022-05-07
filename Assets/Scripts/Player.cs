@@ -33,7 +33,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public GameObject bulletPrefab;
     public float bulletForce = 20f;
     public float animationDelay = 0.4f;
-    public float attackRate = 1f;
+    public float attackRate = 0.9f;
     public float immunityTime = 1f;
     public GameObject crossHair;
     public bool inCombat;
@@ -47,13 +47,19 @@ public class Player : MonoBehaviour, IShopCustomer
     private Vector3 directionToShoot;
 
     [Header("--------------weapon config--------------")]
-    public int blodyAxeDamageIncrement = 5;
-    public float bloodyAxeRateIncrement = 0.5f;
-    public float doubleAxeRateIncrement = 0.75f;
-    public float seekAxeRateIncrement = 0.5f;
+    
+    //Fire Rate
+    public float bloodyAxeRateIncrement = 0.2f;
+    public float doubleAxeRateIncrement = 0.44f;
+    public float seekAxeRateIncrement = 0.3f;
+    public float multiAxeRateIncrement = 1f;
+    public float basicAxeRateIncrement = 0.15f;
 
-    public float multiAxeRateIncrement = 1.5f;
-
+    //Damage
+    public int bloodyAxeDamageIncrement = 15;
+    public int seekAxeDamageIncrement = 10;
+   
+    //Bullet Config
     public GameObject bloodyBulletPrefab;
     public GameObject seekBulletPrefab;
 
@@ -105,6 +111,8 @@ public class Player : MonoBehaviour, IShopCustomer
     public bool timeSlowed = false;
     public bool inShop = false;
     public GameObject customCursor;
+    public TextMeshProUGUI dpsDebugger;
+    public GameObject feedBackScreenPanel;
 
     public bool usingController = false;
     private string currentState;
@@ -529,6 +537,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
     void Shoot()
     {
+        int tempDamage = 0;
+        int DPSdamage = 0;
         if (Time.time > nextFire)
         {
             Statistics.Instance.attacksDone += 1;
@@ -536,20 +546,33 @@ public class Player : MonoBehaviour, IShopCustomer
             //Diferent time attack settup
             if (bloodyaxe)
             {
+                tempDamage = damage + bloodyAxeDamageIncrement;
+                DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + bloodyAxeRateIncrement;
             }else if (multiaxe)
             {
+                tempDamage = damage;
+                DPSdamage = tempDamage * 4;
                 nextFire = Time.time + attackRate + multiAxeRateIncrement;
             }else if (doubleaxe)
             {
+                tempDamage = damage;
+                DPSdamage = tempDamage * 2;
                 nextFire = Time.time + attackRate + doubleAxeRateIncrement;
             }else if (seekaxe){
+                tempDamage = damage + seekAxeDamageIncrement;
+                DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + seekAxeRateIncrement;
             }
             else
             {
-                nextFire = Time.time + attackRate;
+                tempDamage = damage;
+                DPSdamage = tempDamage;
+                nextFire = Time.time + attackRate + basicAxeRateIncrement;
             }
+
+            //dps.SetText("Max DPS: " + Mathf.RoundToInt(DPSdamage * (1 / (nextFire - Time.time))));
+            //Debug.Log("Max DPS: " + tempDamage * (1 / (nextFire - Time.time)));
             //Ficar un so per a cada arma de moment un per totes
             audioSource[ATTACK_AUDIO].clip = audios[0];
             audioSource[ATTACK_AUDIO].Play();
@@ -577,7 +600,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     float tempRot = startRotation - angleIncrease * i;
                     Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                     bullet.setDirection(new Vector2(Mathf.Cos(tempRot * Mathf.Deg2Rad), Mathf.Sin(tempRot * Mathf.Deg2Rad)));
-                    bullet.setDamage(damage);
+                    bullet.setDamage(tempDamage);
                 }
             }
             else if (doubleaxe)
@@ -589,7 +612,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(damage);
+                bullet.setDamage(tempDamage);
             }
             else if (basicaxe)
             {
@@ -600,7 +623,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(damage);
+                bullet.setDamage(tempDamage);
             }else if (bloodyaxe)
             {
                 directionToShoot = (firePoint.position - transform.position).normalized;
@@ -609,7 +632,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(bloodyBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(damage + 6);
+                bullet.setDamage(tempDamage);
             }else if (seekaxe)
             {
                 directionToShoot = (firePoint.position - transform.position).normalized;
@@ -618,7 +641,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 Bullet bullet = Instantiate(seekBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
-                bullet.setDamage(damage + 3);
+                bullet.setDamage(tempDamage);
                 bullet.isSeeker = true;
             }
         }
@@ -632,6 +655,7 @@ public class Player : MonoBehaviour, IShopCustomer
         Invoke("stopAttacking", animationDelay);
 
         Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+        bullet.setDamage(damage);
         bullet.setDirection(directionToShoot);
     }
 
@@ -666,6 +690,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (!immune)
         {
+            feedBackScreenPanel.GetComponent<Animator>().Play("DamageAnimation");
             currentHealth -= value;
             immune = true;
             shield.SetActive(true);
@@ -977,7 +1002,7 @@ public class Player : MonoBehaviour, IShopCustomer
         switch (itemType)
         {
             case ShopItem.ItemType.LifeUpgrade:
-                maxHealth += 10;
+                maxHealth += (int) ShopItem.GetImprovementQuantity(ShopItem.ItemType.LifeUpgrade);
                 SaveVariables.PLAYER_LIFE = maxHealth;
                 SaveVariables.LIFE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 healthBar.setMaxHealth(maxHealth);
@@ -986,7 +1011,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 break;
 
             case ShopItem.ItemType.AttackUpgrade:
-                damage += 5;
+                damage += (int)ShopItem.GetImprovementQuantity(ShopItem.ItemType.AttackUpgrade);
                 SaveVariables.PLAYER_ATTACK = damage;
                 SaveVariables.ATTACK_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 originalDamage = damage;
@@ -994,35 +1019,35 @@ public class Player : MonoBehaviour, IShopCustomer
                 break;
 
             case ShopItem.ItemType.SpeedUpgrade:
-                moveSpeed += 1;
+                moveSpeed += ShopItem.GetImprovementQuantity(ShopItem.ItemType.SpeedUpgrade);
                 SaveVariables.PLAYER_SPEED = moveSpeed;
                 SaveVariables.SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 index = 2;
                 break;
 
             case ShopItem.ItemType.AttackSpeedUpgrade:
-                attackRate -= 0.05f;
+                attackRate -= ShopItem.GetImprovementQuantity(ShopItem.ItemType.AttackSpeedUpgrade);
                 SaveVariables.PLAYER_ATTACK_SPEED = attackRate;
                 SaveVariables.ATTACK_SPEED_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 index = 3;
                 break;
 
             case ShopItem.ItemType.RangeUpgrade:
-                coinMagnetRange += 0.55f;
+                coinMagnetRange += ShopItem.GetImprovementQuantity(ShopItem.ItemType.RangeUpgrade);
                 SaveVariables.PLAYER_RANGE = coinMagnetRange;
                 SaveVariables.RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 index = 4;
                 break;
 
             case ShopItem.ItemType.DashRecoveryUpgrade:
-                dashRestoreTime -= 0.5f;
+                dashRestoreTime -= ShopItem.GetImprovementQuantity(ShopItem.ItemType.DashRecoveryUpgrade);
                 SaveVariables.PLAYER_DASH_RECOVERY = dashRestoreTime;
                 SaveVariables.DASH_RECOVERY_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 index = 5;
                 break;
 
             case ShopItem.ItemType.DashRangeUpgrade:
-                dashForce += 2f;
+                dashForce += ShopItem.GetImprovementQuantity(ShopItem.ItemType.DashRangeUpgrade);
                 SaveVariables.PLAYER_DASH_RANGE = dashForce;
                 SaveVariables.DASH_RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 index = 6;

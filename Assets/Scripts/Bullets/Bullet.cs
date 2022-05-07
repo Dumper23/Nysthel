@@ -99,7 +99,7 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        if (collision.transform.tag != "Bullet" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Wood")
+        if (collision.transform.tag != "Bullet" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Coin2" && collision.transform.tag != "Coin3" && collision.transform.tag != "Wood")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);

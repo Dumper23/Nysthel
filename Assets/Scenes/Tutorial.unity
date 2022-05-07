@@ -360,7 +360,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000014424, y: 22}
+  m_AnchoredPosition: {x: 1, y: 0}
   m_SizeDelta: {x: 877.3537, y: 120.0347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &59068606
@@ -383,7 +383,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Nysthel:'
+  m_text: "Nysthel:\n\t\t\t     Ulrus\n                                            
+    Ulrus's"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6839,7 +6840,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &340616740
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6933,7 +6934,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000014424, y: 0}
+  m_AnchoredPosition: {x: 3, y: 0}
   m_SizeDelta: {x: 877.3537, y: 120.0347}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &342840456
@@ -6957,7 +6958,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_text: '              EMMYR, my love, what did they do to you. I swear I''m going
-    to kill Ulrus!'
+    to kill         ! From now on, all my energy will be used to go to            
+    castle and kill him!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7158,7 +7160,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.67944217, y: 0.9290333}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -7169,7 +7171,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.3318768, y: 2.2980213}
+  m_Size: {x: 3.5243678, y: 7.5394354}
   m_EdgeRadius: 0
 --- !u!114 &367483510
 MonoBehaviour:
@@ -109155,6 +109157,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5009681040455137600, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
   m_PrefabInstance: {fileID: 1997054664}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1997054674 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 444060748213410632, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+  m_PrefabInstance: {fileID: 1997054664}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2001470484
 GameObject:
   m_ObjectHideFlags: 0
@@ -110136,6 +110143,10 @@ PrefabInstance:
       propertyPath: BlackSmithGoldText
       value: 
       objectReference: {fileID: 1997054667}
+    - target: {fileID: 9216989108363573423, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: feedBackScreenPanel
+      value: 
+      objectReference: {fileID: 1997054674}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
 --- !u!1001 &3978244743594303837

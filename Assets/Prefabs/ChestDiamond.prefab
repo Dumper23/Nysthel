@@ -601,6 +601,7 @@ MonoBehaviour:
   moneyText: {fileID: 467433358719722170}
   givePrize: 0
   chestWinSound: {fileID: 5407610303130217986, guid: cf9a888041b24d846b66ef1e3c6222f2, type: 3}
+  chestOpenSound: {fileID: 6475727649210309087, guid: 80169b9ee485bcc47886441da8065ae5, type: 3}
   minCoinStep: 1
   maxCoinStep: 10
   h1: {fileID: 467433357613835651}

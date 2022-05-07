@@ -22,6 +22,7 @@ public class Chest : MonoBehaviour
     public TextMeshProUGUI moneyText;
     public bool givePrize = false;
     public GameObject chestWinSound;
+    public GameObject chestOpenSound;
     [Range(0, 50)]
     public int minCoinStep = 0;
     [Range(0, 50)]

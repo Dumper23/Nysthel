@@ -222,7 +222,7 @@ MonoBehaviour:
   destroyGameObject: {fileID: 4544862734716389051, guid: 8b8ea4754e164a04ab023bca08e54492, type: 3}
   centerOfSeeking: {fileID: 5760340240190218504}
   isSeeker: 1
-  seekRange: 2
+  seekRange: 3
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256

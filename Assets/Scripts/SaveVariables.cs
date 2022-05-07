@@ -56,6 +56,8 @@ public static class SaveVariables
 
     public static void clearVariables()
     {
+        TUTORIAL_DONE = 0;
+
         PLAYER_GOLD = 0;
         PLAYER_WOOD = 0;
         PLAYER_ATTACK = 0;

@@ -47,7 +47,14 @@ public class UiShop : MonoBehaviour
 
     private void GenerateUI()
     {
-        minItemsShown = ShopAssets.Instance.BlackSmithLevel + 1;
+        if (ShopAssets.Instance.BlackSmithLevel == 10)
+        {
+            minItemsShown = 99;
+        }
+        else
+        {
+            minItemsShown = ShopAssets.Instance.BlackSmithLevel + 1;
+        }
         reRollCost = (ShopAssets.Instance.BlackSmithLevel+1) * 50;
         rerollGold.text = reRollCost.ToString();
         itemsShown = new int[minItemsShown];
@@ -162,7 +169,7 @@ public class UiShop : MonoBehaviour
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Health:\t\t" + s[1] +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack:\t\t\t" + s[0] +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed:\t\t\t" + s[2].ToString("F2") +
-                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
+                    "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:\t" + s[3].ToString("F2") +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range:\t" + s[6].ToString("F2") +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
@@ -182,7 +189,7 @@ public class UiShop : MonoBehaviour
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Health:\t\t" + s[1] +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack:\t\t\t" + s[0] +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed:\t\t\t" + s[2].ToString("F2") +
-            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:\t" + s[3].ToString("F2") + " (attacks/s)" +
+            "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:\t" + s[3].ToString("F2") +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range:\t" + s[6].ToString("F2") +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
@@ -198,12 +205,11 @@ public class UiShop : MonoBehaviour
 
     public void UpgradeShop()
     {
-        if (shopCustomer.TrySpendGoldAmount(upgradeShopCost))
+        if (SaveVariables.BLACKSMITH_LEVEL < 10 && shopCustomer.TrySpendGoldAmount(upgradeShopCost))
         {
             ShopAssets.Instance.BlackSmithLevel++;
             SaveVariables.BLACKSMITH_LEVEL = ShopAssets.Instance.BlackSmithLevel;
             GenerateUI();
-
         }
     }
 

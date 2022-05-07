@@ -40,21 +40,7 @@ public class ShopItem
         }
     }
 
-    //Falta Balancejar Nivell maxim
-    public static int GetMaxLevel(ItemType itemType)
-    {
-        switch (itemType)
-        {
-            default:
-            case ItemType.LifeUpgrade: return 10;
-            case ItemType.AttackUpgrade: return 5;
-            case ItemType.SpeedUpgrade: return 2;
-            case ItemType.AttackSpeedUpgrade: return 5;
-            case ItemType.RangeUpgrade: return 5;
-            case ItemType.DashRecoveryUpgrade: return 3;
-            case ItemType.DashRangeUpgrade: return 5;
-        }
-    }
+    
 
     public static int GetCurrentLevel(ItemType itemType)
     {
@@ -162,6 +148,38 @@ public class ShopItem
 
         }
     }
+
+    //Falta Balancejar Nivell maxim
+    public static int GetMaxLevel(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.LifeUpgrade: return 10;
+            case ItemType.AttackUpgrade: return 5;
+            case ItemType.SpeedUpgrade: return 2;
+            case ItemType.AttackSpeedUpgrade: return 5;
+            case ItemType.RangeUpgrade: return 5;
+            case ItemType.DashRecoveryUpgrade: return 3;
+            case ItemType.DashRangeUpgrade: return 5;
+        }
+    }
+
+    public static float GetImprovementQuantity(ItemType itemType)
+    {
+        switch (itemType)
+        {
+            default:
+            case ItemType.LifeUpgrade: return 10f;
+            case ItemType.AttackUpgrade: return 5f;
+            case ItemType.SpeedUpgrade: return 1f;
+            case ItemType.AttackSpeedUpgrade: return 0.1f;
+            case ItemType.RangeUpgrade: return 0.55f;
+            case ItemType.DashRecoveryUpgrade: return 0.5f;
+            case ItemType.DashRangeUpgrade: return 2f;
+        }
+    }
+
 
     public static Sprite GetSprite(ItemType itemType)
     {

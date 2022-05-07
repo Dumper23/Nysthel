@@ -72,7 +72,7 @@ Camera:
   m_AllowMSAA: 1
   m_AllowDynamicResolution: 0
   m_ForceIntoRT: 0
-  m_OcclusionCulling: 1
+  m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
 --- !u!114 &414949792
@@ -88,8 +88,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_RenderShadows: 0
-  m_RequiresDepthTextureOption: 2
-  m_RequiresOpaqueTextureOption: 2
+  m_RequiresDepthTextureOption: 0
+  m_RequiresOpaqueTextureOption: 0
   m_CameraType: 0
   m_Cameras: []
   m_RendererIndex: -1
@@ -103,7 +103,7 @@ MonoBehaviour:
   m_StopNaN: 0
   m_Dithering: 0
   m_ClearDepth: 1
-  m_AllowXRRendering: 1
+  m_AllowXRRendering: 0
   m_RequiresDepthTexture: 0
   m_RequiresColorTexture: 0
   m_Version: 2
@@ -936,17 +936,19 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8848529324968467858, guid: 99b9fa0d3654df44ea8951569f6e48df, type: 3}
   bulletForce: 10
   animationDelay: 0.4
-  attackRate: 0.5
+  attackRate: 0.75
   immunityTime: 0.6
   crossHair: {fileID: 1522386914}
   inCombat: 0
   damageParticles: {fileID: 9221127519116179009}
   bloodDecal: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}
-  blodyAxeDamageIncrement: 5
-  bloodyAxeRateIncrement: 0.5
-  doubleAxeRateIncrement: 0.5
-  seekAxeRateIncrement: 0.75
-  multiAxeRateIncrement: 1.5
+  bloodyAxeRateIncrement: 0.2
+  doubleAxeRateIncrement: 0.44
+  seekAxeRateIncrement: 0.3
+  multiAxeRateIncrement: 1
+  basicAxeRateIncrement: 0.15
+  bloodyAxeDamageIncrement: 15
+  seekAxeDamageIncrement: 8
   bloodyBulletPrefab: {fileID: 8848529324968467858, guid: 40b1e9f5715435947a5801a9db13b0a3, type: 3}
   seekBulletPrefab: {fileID: 5645509953090509460, guid: b9af8d9816783364dbc2ee88ac3dbeaf, type: 3}
   maxHealth: 50
@@ -988,6 +990,8 @@ MonoBehaviour:
   timeSlowed: 0
   inShop: 0
   customCursor: {fileID: 1994437210}
+  dpsDebugger: {fileID: 0}
+  feedBackScreenPanel: {fileID: 0}
   usingController: 1
   hasSecondChance: 0
   isDead: 0
