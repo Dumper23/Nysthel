@@ -13,6 +13,9 @@ public class Interactable : MonoBehaviour
     public UiShop uiShop;
     public UiItemShop uiItemShop;
     public GameObject marker;
+    public GameObject mapSelectionUi;
+
+    [Header("--------Chest Shop----------")]
     public GameObject[] chests;
     public GameObject[] chestSpawnPoint;
     public Collider2D chestDetection;
@@ -43,7 +46,7 @@ public class Interactable : MonoBehaviour
     };
 
     private bool inRange = false;
-    public GameObject mapSelectionUi;
+    
 
     private void Update()
     {
