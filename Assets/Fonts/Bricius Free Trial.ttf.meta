@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 382e886eea57285458cadaa6929a388e
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Bricius
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: 081ad8a780ec5d9478f14fb323512049, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
