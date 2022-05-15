@@ -432,7 +432,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -454, y: 33}
+  m_AnchoredPosition: {x: -440, y: 26}
   m_SizeDelta: {x: 172.6245, y: 86.8999}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &109495553
@@ -7616,7 +7616,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: This is          relaxing in the river, little did she know about the attack
+  m_text: This is         relaxing in the river, little did she know about the attack
     that was going to take place in Izhester.
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8aace40644dc34a40b844e81bb145ac4, type: 2}
@@ -7656,7 +7656,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 50
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -103900,7 +103900,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2, y: 20}
+  m_AnchoredPosition: {x: 16, y: 24}
   m_SizeDelta: {x: 1389.6855, y: 190.4795}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1261434565
@@ -105242,7 +105242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 16, y: -4}
   m_SizeDelta: {x: 1389.6855, y: 190.4795}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1555370835
@@ -105265,7 +105265,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '          , was a very peaceful village once upon time. It''s inhabitant
+  m_text: '        , was a very peaceful village once upon time. It''s inhabitant
     were dwarf vikings!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8aace40644dc34a40b844e81bb145ac4, type: 2}
@@ -105305,7 +105305,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 55
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
@@ -109489,7 +109489,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -5, y: 0}
+  m_AnchoredPosition: {x: -5, y: -6}
   m_SizeDelta: {x: 1373.7039, y: 190.4795}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2113214622
@@ -109512,8 +109512,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: '                            came after the fireball attack, destroying
-    and killing everything without mercy.'
+  m_text: '                        came after the fireball attack, destroying and
+    killing everything without mercy.'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8aace40644dc34a40b844e81bb145ac4, type: 2}
   m_sharedMaterial: {fileID: -7501091212084840320, guid: 8aace40644dc34a40b844e81bb145ac4, type: 2}
@@ -109552,7 +109552,7 @@ MonoBehaviour:
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
-  m_lineSpacing: 0
+  m_lineSpacing: 50
   m_lineSpacingMax: 0
   m_paragraphSpacing: 0
   m_charWidthMaxAdj: 0
