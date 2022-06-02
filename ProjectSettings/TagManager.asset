@@ -21,6 +21,7 @@ TagManager:
   - Chest
   - Coin2
   - Coin3
+  - mirror
   layers:
   - Default
   - TransparentFX

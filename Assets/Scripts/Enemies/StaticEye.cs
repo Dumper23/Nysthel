@@ -1,0 +1,117 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class StaticEye : MonoBehaviour
+{
+    public float defDistance = 100f;
+    public LineRenderer lineRenderer;
+    public int damage = 10;
+    public bool rebote = false;
+    public bool rotate = false;
+    public float rotationSpeed = 15f;
+    public ParticleSystem hitParticles;
+    public GameObject hitLight;
+
+    private Rotating rotation;
+
+    private void Start()
+    {
+        if (rotate)
+        {
+            rotation = gameObject.AddComponent<Rotating>();
+            rotation.center = this.transform;
+            rotation.rotationSpeed = rotationSpeed;
+        }
+    }
+
+    private void Update()
+    {
+        
+        shootLaser();
+    }
+
+    private void shootLaser()
+    {
+        if (Physics2D.Raycast(transform.position, transform.right))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right);
+            Vector3 pos = hit.point;
+            if (hit.transform.tag == "mirror" && rebote)
+            {
+                Vector2 dir = Vector2.Reflect(transform.right, hit.normal);
+                if (Physics2D.Raycast(pos, ((Vector2)pos + dir.normalized * defDistance)))
+                {
+                    RaycastHit2D hit2 = Physics2D.Raycast(pos, ((Vector2)pos + dir.normalized * defDistance));
+                    Vector3 pos2 = hit2.point;
+                    if (hit2.transform.tag == "mirror" && rebote)
+                    {
+                        Vector2 dir2 = Vector2.Reflect(pos2 - pos, hit2.normal);
+                        if (Physics2D.Raycast(pos2, ((Vector2)pos2 + dir2.normalized * defDistance)))
+                        {
+                            RaycastHit2D hit3 = Physics2D.Raycast(pos2, ((Vector2)pos2 + dir2.normalized * defDistance));
+
+                            drawRay(transform.position, pos, ((Vector2)pos + dir.normalized * hit2.distance), ((Vector2)pos2 + dir2.normalized * hit3.distance));
+                            if (hit3.transform.tag == "Player")
+                            {
+                                if (hit3.transform.GetComponent<Player>())
+                                {
+                                    hit3.transform.GetComponent<Player>().takeDamage(damage / 3);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            if (hit2.transform.tag == "Player")
+                            {
+                                if (hit2.transform.GetComponent<Player>())
+                                {
+                                    hit2.transform.GetComponent<Player>().takeDamage(damage / 2);
+                                }
+                            }
+                            drawRay(transform.position, pos, ((Vector2)pos + dir.normalized * hit2.distance));
+                        }
+                    }
+                }
+                
+            }
+            else
+            {
+                hitParticles.transform.position = pos;
+                hitLight.transform.position = pos;
+                drawRay(transform.position, pos);
+            }
+            if (hit && hit.transform.tag == "Player")
+            {
+                if (hit.transform.GetComponent<Player>())
+                {
+                    hit.transform.GetComponent<Player>().takeDamage(damage);
+                }
+            }
+
+        }
+    }
+
+    private void drawRay(Vector2 startPos, Vector2 endPos)
+    {
+        lineRenderer.positionCount = 2;
+        lineRenderer.SetPosition(0, startPos);
+        lineRenderer.SetPosition(1, endPos);
+    }
+
+    private void drawRay(Vector2 startPos, Vector2 pos1, Vector2 endPos)
+    {
+        lineRenderer.positionCount = 3;
+        lineRenderer.SetPosition(0, startPos);
+        lineRenderer.SetPosition(1, pos1);
+        lineRenderer.SetPosition(2, endPos);
+    }
+    private void drawRay(Vector2 startPos, Vector2 pos1, Vector2 pos2, Vector2 endPos)
+    {
+        lineRenderer.positionCount = 4;
+        lineRenderer.SetPosition(0, startPos);
+        lineRenderer.SetPosition(1, pos1);
+        lineRenderer.SetPosition(2, pos2);
+        lineRenderer.SetPosition(3, endPos);
+    }
+}

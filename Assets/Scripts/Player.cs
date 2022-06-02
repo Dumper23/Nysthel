@@ -130,6 +130,8 @@ public class Player : MonoBehaviour, IShopCustomer
     public bool isDead = false;
     private bool goldStatueApplied = false;
     private bool damageStatueApplied = false;
+    private float timeToStep = 0.2f;
+    private float timePassedStep = 0;
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
@@ -290,13 +292,30 @@ public class Player : MonoBehaviour, IShopCustomer
                 aimPos.y = mPos.y;
             }
 
-            if(movement.magnitude == 0)
+            if(movement.x != 0 || movement.y != 0)
+            {
+            }
+            else
             {
                 walkParticles.Play();
-                audioSource[FOOTSTEP_AUDIO].clip = audios[2];
-                audioSource[FOOTSTEP_AUDIO].Play();
+
             }
-            
+
+            if (movement.magnitude != 0)
+            {
+                
+                timePassedStep += Time.deltaTime;
+                if (timePassedStep > timeToStep)
+                {
+                    timePassedStep = 0;
+                    
+                    audioSource[FOOTSTEP_AUDIO].loop = false;
+                    audioSource[FOOTSTEP_AUDIO].clip = audios[2];
+                    audioSource[FOOTSTEP_AUDIO].Play();
+                }
+            }
+
+
             if (aimPos.magnitude <= 0)
             {
                 playerMovement(movement);
