@@ -252,7 +252,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
         if ((Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift)) && !shielded)
         {
-            if (Time.time > nextDash && !dashing)
+            if (Time.time > nextDash && !dashing && movement != Vector2.zero)
             {
                 Statistics.Instance.dashesDone += 1;
                 audioSource[DASH_AUDIO].clip = audios[1];
@@ -389,7 +389,8 @@ public class Player : MonoBehaviour, IShopCustomer
             Statistics.Instance.goldCollected += (1 * goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
-            Instantiate(coinSound);
+            coinSound.name = "CoinSounding";
+            Instantiate(coinSound, transform);
             Destroy(collision.gameObject);
         }
         if (collision.transform.tag == "Coin2")
@@ -398,7 +399,8 @@ public class Player : MonoBehaviour, IShopCustomer
             Statistics.Instance.goldCollected += (3 * goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
-            Instantiate(coinSound);
+            coinSound.name = "CoinSounding";
+            Instantiate(coinSound, transform);
             Destroy(collision.gameObject);
         }
         if (collision.transform.tag == "Coin3")
@@ -407,7 +409,8 @@ public class Player : MonoBehaviour, IShopCustomer
             Statistics.Instance.goldCollected += (5 * goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
-            Instantiate(coinSound);
+            coinSound.name = "CoinSounding";
+            Instantiate(coinSound, transform);
             Destroy(collision.gameObject);
         }
         if (collision.transform.tag == "Wood")

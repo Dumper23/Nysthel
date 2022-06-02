@@ -6,6 +6,7 @@ using UnityEngine.SceneManagement;
 public class LevelToLoadManager : MonoBehaviour
 {
     public GameObject[] worlds;
+    public GameObject loadingScreen;
 
     private void Start()
     {
@@ -21,7 +22,7 @@ public class LevelToLoadManager : MonoBehaviour
             case 1:
                 worlds[0].SetActive(true);
                 worlds[1].SetActive(true);
-                worlds[2].SetActive(false);
+                worlds[2].SetActive(true);
                 worlds[3].SetActive(false);
                 worlds[4].SetActive(false);
                 break;
@@ -51,6 +52,7 @@ public class LevelToLoadManager : MonoBehaviour
 
     public void loadNewLevel(string levelName)
     {
+        loadingScreen.SetActive(true);
         GameStateManager.Instance.SetState(GameState.Gameplay);
         Time.timeScale = 1f;
         switch (levelName)
@@ -60,6 +62,9 @@ public class LevelToLoadManager : MonoBehaviour
                 break;
             case "Ruins":
                 SaveVariables.CURRENT_WORLD = 1;
+                break;
+            case "Mines":
+                SaveVariables.CURRENT_WORLD = 2;
                 break;
         }
         SaveManager.Instance.SaveGame();

@@ -71,7 +71,7 @@ public class BOSS_AncientWarrior : Enemy
             if (health <= 0)
             {
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
-                Instantiate(levelCompletedUi);
+                Instantiate(levelCompletedUi, target);
                 die();
             }
 

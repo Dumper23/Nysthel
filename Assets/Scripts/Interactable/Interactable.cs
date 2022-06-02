@@ -14,6 +14,7 @@ public class Interactable : MonoBehaviour
     public UiItemShop uiItemShop;
     public GameObject marker;
     public GameObject mapSelectionUi;
+    public GameObject loadingScreen;
 
     [Header("--------Chest Shop----------")]
     public GameObject[] chests;
@@ -47,7 +48,10 @@ public class Interactable : MonoBehaviour
 
     private bool inRange = false;
     
-
+    public void setInShop(bool b)
+    {
+        inShop = b;
+    }
     private void Update()
     {
         if (playerIn && !inShop && interactionDialog != null)
@@ -76,6 +80,7 @@ public class Interactable : MonoBehaviour
                         {
                             if (player.gold - Mathf.RoundToInt(player.gold * 0.3f) >= 0)
                             {
+                                loadingScreen.SetActive(true);
                                 SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.3f);
                                 SaveManager.Instance.SaveGame();
 
@@ -87,6 +92,7 @@ public class Interactable : MonoBehaviour
                     }
                     else
                     {
+                        loadingScreen.SetActive(true);
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("Village");
                     }
@@ -109,14 +115,14 @@ public class Interactable : MonoBehaviour
                                 }
                                 else
                                 {
-                                    Instantiate(chest.chestWinSound);
+                                    Instantiate(chest.chestWinSound, transform);
                                     chest.moneyQuantity += Random.Range(chest.minCoinStep, chest.maxCoinStep);
                                 }
                             }
                         }
                         else
                         {
-                            Instantiate(chest.destruction);
+                            Instantiate(chest.destruction, transform);
                             Instantiate(chest.destructionParticles, transform.position, Quaternion.identity);
                             Destroy(chest.gameObject);
                         }
@@ -127,7 +133,7 @@ public class Interactable : MonoBehaviour
                             {
                                 Instantiate(chest.objectToGive[Random.Range(0, chest.objectToGive.Length)], transform.position, Quaternion.identity);
                             }
-                            Instantiate(chest.chestOpenSound);
+                            Instantiate(chest.chestOpenSound, transform);
                             chest.opened = true;
                             chest.anim.Play("chestOpen");
                         }
@@ -141,7 +147,7 @@ public class Interactable : MonoBehaviour
                     {
                         if (player.gold - chestShopPrice >= 0)
                         {
-                            player.feedBackScreenPanel.GetComponent<Animator>().Play("SaveScreen");
+                            player.feedBackScreenPanel.GetComponent<Animator>().Play("goldSpentScreen");
                             player.gold -= chestShopPrice;
                             player.goldText.SetText(player.gold.ToString());
                             if (chestSpawnPoint.Length > 0 && chests.Length > 0)
@@ -249,7 +255,8 @@ public class Interactable : MonoBehaviour
 
                 case Interactions.GoToWoodFarm:
                     if (SaveVariables.PLAYER_GOLD >= 100)
-                    { 
+                    {
+                        loadingScreen.SetActive(true);
                         SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("WoodFarm");

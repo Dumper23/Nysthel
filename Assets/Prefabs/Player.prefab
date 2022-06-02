@@ -954,7 +954,7 @@ MonoBehaviour:
   maxHealth: 50
   gold: 0
   wood: 0
-  woodMultiplier: 1
+  woodMultiplier: 5
   goldMultiplier: 1
   coinMagnetRange: 1
   coinMagnetSpeed: 8

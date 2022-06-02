@@ -32,11 +32,17 @@ public class Farmeable : MonoBehaviour
             aud.Play();
             if (FindObjectOfType<Player>().transform.position.x >= transform.position.x)
             {
-                animator.Play("Hit");
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || !animator.GetCurrentAnimatorStateInfo(0).IsName("HitRight"))
+                {
+                    animator.Play("Hit");
+                }
             }
             else
             {
-                animator.Play("HitRight");
+                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || !animator.GetCurrentAnimatorStateInfo(0).IsName("HitRight"))
+                {
+                    animator.Play("HitRight");
+                }
             }
 
             if (hitsToDestroy > 0)
@@ -58,11 +64,13 @@ public class Farmeable : MonoBehaviour
             dead = true;
             if (FindObjectOfType<Player>().transform.position.x >= transform.position.x)
             {
+                animator.StopPlayback();
                 animator.Play("DieLeft");
                 pos = transform.position + new Vector3(-2, 0, 0);
             }
             else
             {
+                animator.StopPlayback();
                 animator.Play("DieRight");
                 pos = transform.position + new Vector3(2, 0, 0);
             }

@@ -82,7 +82,7 @@ public class Chest : MonoBehaviour
                 GameObject go = Instantiate(coinType, transform.position, Quaternion.identity);
                 go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
             }
-            Instantiate(destruction);
+            Instantiate(destruction, transform.position, Quaternion.identity);
             Instantiate(destructionParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }

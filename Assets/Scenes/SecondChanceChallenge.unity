@@ -3949,7 +3949,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 111978628, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 141817115, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_IsOn
@@ -4058,6 +4058,14 @@ PrefabInstance:
     - target: {fileID: 1461295406267249665, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: onValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: usingControllerToggle
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657666025023756232, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1657666025023756232, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3692172532188516158, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -4331,6 +4339,11 @@ GameObject:
 --- !u!1 &999313465 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6332523809339244160, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+  m_PrefabInstance: {fileID: 999313455}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &999313466 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7388138447752483153, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
   m_PrefabInstance: {fileID: 999313455}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &1098712011
@@ -69907,6 +69920,7 @@ MonoBehaviour:
   counterText: {fileID: 1098712013}
   timer: 60
   enemyRate: 2
+  loadingScreen: {fileID: 999313466}
 --- !u!82 &4367077266537421325
 AudioSource:
   m_ObjectHideFlags: 0

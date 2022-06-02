@@ -78,8 +78,10 @@ public class UIInventory : MonoBehaviour
         {
             RectTransform itemTemplateRect = Instantiate(itemTemplate, container).GetComponent<RectTransform>();
             GameObject a = new GameObject();
+            a.name = "TempItem";
+            a.transform.parent = itemTemplateRect.transform;
 
-            GameObject temp = Instantiate(a, itemTemplateRect) as GameObject;
+            GameObject temp = Instantiate(a, itemTemplateRect.transform);
             temp.name = item.itemType.ToString();
             itemTemplateRect.gameObject.SetActive(true);
             itemTemplateRect.GetComponent<Button>().onClick.AddListener(delegate { Clicked(item); });

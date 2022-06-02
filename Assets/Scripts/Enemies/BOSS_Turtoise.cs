@@ -63,7 +63,7 @@ public class BOSS_Turtoise : Enemy
             if (health <= 0)
             {
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
-                Instantiate(levelCompletedUi);
+                Instantiate(levelCompletedUi, target);
                 die();
             }
 

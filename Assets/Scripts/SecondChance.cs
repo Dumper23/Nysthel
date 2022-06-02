@@ -13,6 +13,7 @@ public class SecondChance : MonoBehaviour
     public TextMeshProUGUI counterText;
     public float timer = 60f;
     public float enemyRate = 1f;
+    public GameObject loadingScreen;
     
     private int seconds;
     private bool spawned = false;
@@ -30,6 +31,7 @@ public class SecondChance : MonoBehaviour
 
         if(seconds <= 0)
         {
+            loadingScreen.SetActive(true);
             SaveManager.Instance.SaveGame();
             SceneManager.LoadScene(SaveVariables.getCurrentWorld());
         }

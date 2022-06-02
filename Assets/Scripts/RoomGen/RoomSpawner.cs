@@ -69,6 +69,7 @@ public class RoomSpawner : MonoBehaviour
 				if (!other.GetComponent<RoomSpawner>().spawned && other.transform.name != "Destroyer")
 				{
 					GameObject go = Instantiate(new GameObject(), transform.position, Quaternion.identity);
+					go.transform.name = "closedRoom";
 					go.AddComponent<ClosedRooms>();
 				}
 			}

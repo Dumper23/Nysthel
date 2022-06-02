@@ -12,6 +12,7 @@ public class UiItemShop : MonoBehaviour
     private Transform shopItemTemplate;
     private IShopCustomer shopCustomer;
     private List<Transform> templates = new List<Transform>();
+    public Interactable shopInteractable;
 
     private int lastItemSelected = 0;
 
@@ -144,9 +145,15 @@ public class UiItemShop : MonoBehaviour
 
     public void exitShop()
     {
+        Invoke("endShop", 0.1f);
         GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().inShop = false;
         gameObject.SetActive(false);
         GameStateManager.Instance.SetState(GameState.Gameplay);
         Time.timeScale = 1f;
+    }
+
+    private void endShop()
+    {
+        shopInteractable.setInShop(false);
     }
 }

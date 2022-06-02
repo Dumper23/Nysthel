@@ -1117,6 +1117,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1741451748785260950, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
   m_PrefabInstance: {fileID: 1487035330}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1487035343 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7388138447752483153, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+  m_PrefabInstance: {fileID: 1487035330}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1826661335
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1397,6 +1402,10 @@ PrefabInstance:
       propertyPath: text
       value: 
       objectReference: {fileID: 1487035341}
+    - target: {fileID: 177872446661719611, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
+      propertyPath: loadingScreen
+      value: 
+      objectReference: {fileID: 1487035343}
     - target: {fileID: 177872446661719611, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
       propertyPath: interactionDialog
       value: 
