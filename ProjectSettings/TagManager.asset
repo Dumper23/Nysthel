@@ -22,6 +22,7 @@ TagManager:
   - Coin2
   - Coin3
   - mirror
+  - sparring
   layers:
   - Default
   - TransparentFX

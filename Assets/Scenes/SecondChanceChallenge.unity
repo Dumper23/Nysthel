@@ -4807,6 +4807,17 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1451965741 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8469165761278272949, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
+  m_PrefabInstance: {fileID: 811373873}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a805d8f8ce6791b4589964145156519a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1499973964
 GameObject:
   m_ObjectHideFlags: 0
@@ -69916,6 +69927,15 @@ MonoBehaviour:
   - {fileID: 8577376506480156897, guid: 9adc1cdf6eca6dd4bb2b3bb675f64bd3, type: 3}
   - {fileID: 7248503250335689261, guid: 693d9e1dd7f9e9a4cad6f1d8bd20f91d, type: 3}
   - {fileID: 2918943423871706559, guid: ae804731ceab98047a8c4dc570adb2f3, type: 3}
+  EnemiesW3:
+  - {fileID: 122981791967876195, guid: e32c5c9d9434600498df3e400e88d4c3, type: 3}
+  - {fileID: 8294126062491554364, guid: c03c5622bb24abe4f9395931b54e17da, type: 3}
+  - {fileID: 7558771150749535050, guid: b4b02f52d5045a845962ecb2a79f1478, type: 3}
+  - {fileID: 1161605426653598049, guid: 92287f402ff418e4192107831bec852c, type: 3}
+  bulletW1: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}
+  bulletW2: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}
+  bulletW3: {fileID: 7762566823937263451, guid: 617c6d15a77a6c14a9978b29f48f7374, type: 3}
+  bp: {fileID: 1451965741}
   spawnRadius: 13
   counterText: {fileID: 1098712013}
   timer: 60

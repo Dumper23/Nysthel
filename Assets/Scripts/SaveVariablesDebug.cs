@@ -56,6 +56,9 @@ public class SaveVariablesDebug : MonoBehaviour
     public int INV_DOUBLE_AXE = 0;
     public int INV_BLOOD_AXE = 0;
     public int INV_SEEK_AXE = 0;
+    public int INV_BATTLE_AXE = 0;
+    public int INV_NYSTHEL_AXE = 0;
+    public int INV_TRUE_AXE = 0;
 
     private void Update()
     {
@@ -108,5 +111,8 @@ public class SaveVariablesDebug : MonoBehaviour
         INV_DOUBLE_AXE = SaveVariables.INV_DOUBLE_AXE;
         INV_BLOOD_AXE = SaveVariables.INV_BLOOD_AXE;
         INV_SEEK_AXE = SaveVariables.INV_SEEK_AXE;
+        INV_BATTLE_AXE = SaveVariables.INV_BATTLE_AXE;
+        INV_NYSTHEL_AXE = SaveVariables.INV_NYSTHEL_AXE;
+        INV_TRUE_AXE = SaveVariables.INV_TRUE_AXE;
 }
 }

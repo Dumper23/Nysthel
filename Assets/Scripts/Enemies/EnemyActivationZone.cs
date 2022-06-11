@@ -47,9 +47,17 @@ public class EnemyActivationZone : MonoBehaviour
         {
             if (enemy.CompareTag("Enemy"))
             {
-                enemy.GetComponent<Enemy>().enemyActivation(activated);
-                collisions[i] = enemy;
-                i++;
+                if (enemy.GetComponent<Enemy>())
+                {
+                    enemy.GetComponent<Enemy>().enemyActivation(activated);
+                    collisions[i] = enemy;
+                    i++;
+                }else if (enemy.GetComponent<StaticEye>())
+                {
+                    enemy.GetComponent<StaticEye>().activated = true;
+                    collisions[i] = enemy;
+                    i++;
+                }
             }
         }
     }
@@ -116,9 +124,13 @@ public class EnemyActivationZone : MonoBehaviour
                 {
                     if (enemy != null)
                     {
-                        if (enemy.CompareTag("Enemy"))
+                        if (enemy.GetComponent<Enemy>())
                         {
                             enemy.GetComponent<Enemy>().enemyActivation(activated);
+                        }
+                        else if (enemy.GetComponent<StaticEye>())
+                        {
+                            enemy.GetComponent<StaticEye>().activated = true;
                         }
                     }
                 }
@@ -147,9 +159,13 @@ public class EnemyActivationZone : MonoBehaviour
                 {
                     if (enemy != null)
                     {
-                        if (enemy.CompareTag("Enemy"))
+                        if (enemy.GetComponent<Enemy>())
                         {
                             enemy.GetComponent<Enemy>().enemyActivation(activated);
+                        }
+                        else if (enemy.GetComponent<StaticEye>())
+                        {
+                            enemy.GetComponent<StaticEye>().activated = true;
                         }
                     }
                 }

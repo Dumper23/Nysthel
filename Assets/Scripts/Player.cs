@@ -54,14 +54,31 @@ public class Player : MonoBehaviour, IShopCustomer
     public float seekAxeRateIncrement = 0.3f;
     public float multiAxeRateIncrement = 1f;
     public float basicAxeRateIncrement = 0.15f;
+    public float battleAxeRateIncrement = 0.15f;    //Falta setejar
+    public float nysthelAxeRateIncrement = 0.15f;   //Falta setejar
+    public float trueAxeRateIncrement = 0.15f;      //Falta setejar
+
+    public float timeToShotBattle = 1f;
+    public GameObject battleCircleLoad;
+    public GameObject battleCircleLoadMaximum;
+
+    private int bulletsToShoot = 0;
+    private bool battlePressing = false;
 
     //Damage
     public int bloodyAxeDamageIncrement = 15;
     public int seekAxeDamageIncrement = 10;
+    public int battleAxeDamageIncrement = 10;
+    public int nysthelAxeDamageIncrement = 10;
+    public int trueAxeDamageIncrement = 10;
+    public int doubleAxeDamageIncrement = 5;
    
     //Bullet Config
     public GameObject bloodyBulletPrefab;
     public GameObject seekBulletPrefab;
+    public GameObject battleBulletPrefab;
+    public GameObject nysthelBulletPrefab;
+    public GameObject trueBulletPrefab;
 
 
     [Header("--------------Player Stats--------------")]
@@ -113,8 +130,9 @@ public class Player : MonoBehaviour, IShopCustomer
     public GameObject customCursor;
     public TextMeshProUGUI dpsDebugger;
     public GameObject feedBackScreenPanel;
-
+    public bool dpsDebug = false;
     public bool usingController = false;
+    
     private string currentState;
     private Inventory inventory;
     private bool shielded = false;
@@ -124,6 +142,9 @@ public class Player : MonoBehaviour, IShopCustomer
     private bool doubleaxe = false;
     private bool bloodyaxe = false;
     private bool seekaxe = false;
+    private bool battleaxe = false;
+    private bool nysthelaxe = false;
+    private bool trueaxe = false;
     private float timer = 0.0f;
     private int seconds = 0;
     public bool hasSecondChance;
@@ -140,7 +161,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private int posIndex = 0;
     private float nextPoint = 0;
-    
+    private float battleTimePressed = 0;
    
 
     private void Awake()
@@ -153,6 +174,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Start()
     {
+        battleCircleLoad.SetActive(false);
+        battleCircleLoadMaximum.SetActive(false);
         GameStateManager.Instance.SetState(GameState.Gameplay);
         Time.timeScale = 1f;
         goldStatueApplied = false;
@@ -332,7 +355,56 @@ public class Player : MonoBehaviour, IShopCustomer
 
             if (Input.GetButton("Attack"))
             {
-                Shoot();
+                if (battleaxe)
+                {
+                    battleCircleLoad.SetActive(true);
+                    battleCircleLoadMaximum.SetActive(true);
+                    battleCircleLoad.transform.localScale = new Vector3(1,1,1);
+                    battlePressing = true;
+                    battleTimePressed += Time.deltaTime;
+
+                    if (battleTimePressed > 0.5f && battleTimePressed < 1f)
+                    {
+                        battleCircleLoad.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                        bulletsToShoot = 2;
+                    }
+                    else if (battleTimePressed > 1f && battleTimePressed <1.5f)
+                    {
+                        battleCircleLoad.transform.localScale = new Vector3(2f, 2f, 2f);
+                        bulletsToShoot = 3;
+                    }
+                    else if (battleTimePressed > 1.5f && battleTimePressed < 3f)
+                    {
+                        battleCircleLoad.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+                        bulletsToShoot = 4;
+                    }
+                    else if (battleTimePressed > 3f)
+                    {
+                        battleCircleLoad.transform.localScale = new Vector3(3f, 3f, 3f);
+                        bulletsToShoot = 7;
+                    }
+                    else
+                    {
+                        bulletsToShoot = 1;
+                    }
+                }
+                else
+                {
+                    Shoot();
+                }
+            }
+            else
+            {
+                if (battleaxe && battleTimePressed > 0)
+                {
+                    battleCircleLoad.transform.localScale = new Vector3(1f, 1f, 1f);
+                    battleCircleLoad.SetActive(false);
+                    battleCircleLoadMaximum.SetActive(false);
+                    Shoot();
+                    bulletsToShoot = 0;
+                    battleTimePressed = 0;
+                }
+                
             }
         }
         #endregion
@@ -507,8 +579,15 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.doubleAxe:
                     SaveVariables.INV_DOUBLE_AXE = iw.getItem().amount;
                     break;
-
-
+                case Item.ItemType.battleAxe:
+                    SaveVariables.INV_BATTLE_AXE = iw.getItem().amount;
+                    break;
+                case Item.ItemType.nysthelAxe:
+                    SaveVariables.INV_NYSTHEL_AXE = iw.getItem().amount;
+                    break;
+                case Item.ItemType.trueAxe:
+                    SaveVariables.INV_TRUE_AXE = iw.getItem().amount;
+                    break;
             }
 
             iw.destroySelf();
@@ -586,6 +665,24 @@ public class Player : MonoBehaviour, IShopCustomer
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + seekAxeRateIncrement;
             }
+            else if (battleaxe)
+            {
+                tempDamage = damage + battleAxeDamageIncrement;
+                DPSdamage = tempDamage;
+                nextFire = Time.time + attackRate + battleAxeRateIncrement;
+            }
+            else if (nysthelaxe)
+            {
+                tempDamage = damage + nysthelAxeDamageIncrement;
+                DPSdamage = tempDamage;
+                nextFire = Time.time + attackRate + nysthelAxeRateIncrement;
+            }
+            else if (trueaxe)
+            {
+                tempDamage = damage + trueAxeDamageIncrement;
+                DPSdamage = tempDamage;
+                nextFire = Time.time + attackRate + trueAxeRateIncrement;
+            }
             else
             {
                 tempDamage = damage;
@@ -593,8 +690,16 @@ public class Player : MonoBehaviour, IShopCustomer
                 nextFire = Time.time + attackRate + basicAxeRateIncrement;
             }
 
-            //dps.SetText("Max DPS: " + Mathf.RoundToInt(DPSdamage * (1 / (nextFire - Time.time))));
-            //Debug.Log("Max DPS: " + tempDamage * (1 / (nextFire - Time.time)));
+            if (dpsDebug) 
+            {
+                dpsDebugger.gameObject.SetActive(true);
+                dpsDebugger.SetText("Max DPS: " + Mathf.RoundToInt(DPSdamage * (1 / (nextFire - Time.time))));
+                //Debug.Log("Max DPS: " + tempDamage * (1 / (nextFire - Time.time)));
+            }
+            else
+            {
+                dpsDebugger.gameObject.SetActive(false);
+            }
             //Ficar un so per a cada arma de moment un per totes
             audioSource[ATTACK_AUDIO].clip = audios[0];
             audioSource[ATTACK_AUDIO].Play();
@@ -666,7 +771,46 @@ public class Player : MonoBehaviour, IShopCustomer
                 bullet.setDamage(tempDamage);
                 bullet.isSeeker = true;
             }
+            else if (battleaxe)
+            {
+                for (int i = 0; i < bulletsToShoot; i++)
+                {
+                    Invoke("battleBullets", 0.25f * i);
+                }
+                bulletsToShoot = 0;
+            }
+            else if (nysthelaxe)
+            {
+                directionToShoot = (firePoint.position - transform.position).normalized;
+                attacking = true;
+                Invoke("stopAttacking", animationDelay);
+
+                Bullet bullet = Instantiate(nysthelBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.setDirection(directionToShoot);
+                bullet.setDamage(tempDamage);
+            }
+            else if (trueaxe)
+            {
+                directionToShoot = (firePoint.position - transform.position).normalized;
+                attacking = true;
+                Invoke("stopAttacking", animationDelay);
+
+                Bullet bullet = Instantiate(trueBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+                bullet.setDirection(directionToShoot);
+                bullet.setDamage(tempDamage);
+            }
         }
+    }
+
+    private void battleBullets()
+    {
+        directionToShoot = (firePoint.position - transform.position).normalized;
+        attacking = true;
+        Invoke("stopAttacking", animationDelay);
+        Bullet bullet = Instantiate(battleBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
+        bullet.setDirection(directionToShoot);
+        bullet.setDamage(damage + battleAxeDamageIncrement);
+        bullet.isSeeker = true;
     }
 
     private void generateSecondBullet()
@@ -677,7 +821,7 @@ public class Player : MonoBehaviour, IShopCustomer
         Invoke("stopAttacking", animationDelay);
 
         Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
-        bullet.setDamage(damage);
+        bullet.setDamage(damage + doubleAxeDamageIncrement);
         bullet.setDirection(directionToShoot);
     }
 
@@ -933,11 +1077,17 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (trueaxe) trueaxe = false;
                     multiaxe = true;
                     if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
                     if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
                     if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
                     if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_MULTIAXE = 2;
                     break;
                 case Item.ItemType.doubleAxe:
@@ -945,11 +1095,17 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (trueaxe) trueaxe = false;
                     doubleaxe = true;
                     if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
                     if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
                     if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
                     if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_DOUBLE_AXE = 2;
                     break;
                 case Item.ItemType.basicAxe:
@@ -957,11 +1113,17 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (trueaxe) trueaxe = false;
                     basicaxe = true;
                     if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
                     if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
                     if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
                     if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_BASIC_AXE = 2;
                     break;
                 case Item.ItemType.bloodAxe:
@@ -969,11 +1131,17 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (seekaxe) seekaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (trueaxe) trueaxe = false;
                     bloodyaxe = true;
                     if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
                     if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
                     if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
                     if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_BLOOD_AXE = 2;
                     break;
                 case Item.ItemType.seekAxe:
@@ -981,12 +1149,72 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (trueaxe) trueaxe = false;
                     seekaxe = true;
                     if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
                     if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
                     if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
                     if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_SEEK_AXE = 2;
+                    break;
+                case Item.ItemType.battleAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (doubleaxe) doubleaxe = false;
+                    if (basicaxe) basicaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
+                    if (seekaxe) seekaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (trueaxe) trueaxe = false;
+                    battleaxe = true;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
+                    SaveVariables.INV_BATTLE_AXE = 2;
+                    break;
+                case Item.ItemType.nysthelAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (doubleaxe) doubleaxe = false;
+                    if (basicaxe) basicaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (seekaxe) seekaxe = false;
+                    if (trueaxe) trueaxe = false;
+                    nysthelaxe = true;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
+                    SaveVariables.INV_NYSTHEL_AXE = 2;
+                    break;
+                case Item.ItemType.trueAxe:
+                    if (multiaxe) multiaxe = false;
+                    if (doubleaxe) doubleaxe = false;
+                    if (basicaxe) basicaxe = false;
+                    if (bloodyaxe) bloodyaxe = false;
+                    if (battleaxe) battleaxe = false;
+                    if (nysthelaxe) nysthelaxe = false;
+                    if (seekaxe) seekaxe = false;
+                    trueaxe = true;
+                    if (SaveVariables.INV_DOUBLE_AXE == 2) SaveVariables.INV_DOUBLE_AXE = 1;
+                    if (SaveVariables.INV_BASIC_AXE == 2) SaveVariables.INV_BASIC_AXE = 1;
+                    if (SaveVariables.INV_BLOOD_AXE == 2) SaveVariables.INV_BLOOD_AXE = 1;
+                    if (SaveVariables.INV_MULTIAXE == 2) SaveVariables.INV_MULTIAXE = 1;
+                    if (SaveVariables.INV_BATTLE_AXE == 2) SaveVariables.INV_BATTLE_AXE = 1;
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) SaveVariables.INV_NYSTHEL_AXE = 1;
+                    if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
+                    SaveVariables.INV_TRUE_AXE = 2;
                     break;
             }
         }
@@ -1234,6 +1462,24 @@ public class Player : MonoBehaviour, IShopCustomer
                     it = new Item { itemType = Item.ItemType.seekAxe, amount = SaveVariables.INV_SEEK_AXE };
                     if (SaveVariables.INV_SEEK_AXE > 0) inventory.addItem(it);
                     if (SaveVariables.INV_SEEK_AXE == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.battleAxe:
+                    it = new Item { itemType = Item.ItemType.battleAxe, amount = SaveVariables.INV_BATTLE_AXE };
+                    if (SaveVariables.INV_BATTLE_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_BATTLE_AXE == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.nysthelAxe:
+                    it = new Item { itemType = Item.ItemType.nysthelAxe, amount = SaveVariables.INV_NYSTHEL_AXE };
+                    if (SaveVariables.INV_NYSTHEL_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_NYSTHEL_AXE == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.trueAxe:
+                    it = new Item { itemType = Item.ItemType.trueAxe, amount = SaveVariables.INV_TRUE_AXE };
+                    if (SaveVariables.INV_TRUE_AXE > 0) inventory.addItem(it);
+                    if (SaveVariables.INV_TRUE_AXE == 2) UseItem(it);
                     break;
             }
         }

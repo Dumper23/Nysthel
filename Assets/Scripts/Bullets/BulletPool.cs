@@ -5,9 +5,9 @@ using UnityEngine;
 public class BulletPool : MonoBehaviour
 {
     public static BulletPool Instance;
+    public GameObject poolBullet;
 
     [SerializeField]
-    private GameObject poolBullet;
     private bool notEnoughBullets = true;
 
     private List<GameObject> bullets;

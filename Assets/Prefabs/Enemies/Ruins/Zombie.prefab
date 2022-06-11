@@ -94,7 +94,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2918943423871706559}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -140,8 +140,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 30
   damage: 10
-  maxGoldToGive: 0
-  minGoldToGive: 0
+  maxGoldToGive: 2
+  minGoldToGive: 2
   moveSpeed: 0.35
   rb: {fileID: 2918943423871706556}
   anim: {fileID: 2918943423871706557}

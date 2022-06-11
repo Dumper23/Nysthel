@@ -145,7 +145,7 @@ public class BOSS_Turtoise : Enemy
     
     public override void takeDamage(int value)
     {
-        GameObject go = Instantiate(damageNumbers, transform.position, Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), 0), Quaternion.identity) as GameObject;
 
 
         if (activated && !immune)

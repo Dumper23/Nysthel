@@ -330,7 +330,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 33
+  m_SortingOrder: 4
   m_Sprite: {fileID: -440494653427370565, guid: 63c6c4f6ef1b4624aa5050118452195f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -704,11 +704,12 @@ MonoBehaviour:
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
   marker: {fileID: 0}
+  mapSelectionUi: {fileID: 0}
+  loadingScreen: {fileID: 0}
   chests: []
   chestSpawnPoint: []
   chestDetection: {fileID: 0}
   chestShopPrice: 50
-  mapSelectionUi: {fileID: 0}
 --- !u!61 &381001038293271230
 BoxCollider2D:
   m_ObjectHideFlags: 0

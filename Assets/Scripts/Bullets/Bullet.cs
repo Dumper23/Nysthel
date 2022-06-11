@@ -13,6 +13,7 @@ public class Bullet : MonoBehaviour
     public bool isSeeker = false;
     public float seekRange = 2f;
     public LayerMask enemyLayer;
+    public bool isTrueBullet = false;
 
     private int damage = 10;
     
@@ -77,10 +78,13 @@ public class Bullet : MonoBehaviour
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);
         }
 
-        if (collision.transform.tag == "Enemy")
+        if (collision.transform.tag == "Enemy" || collision.transform.tag == "sparring")
         {
-            collision.transform.GetComponent<Enemy>().takeDamage(damage);
-            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            if (collision.transform.GetComponent<Enemy>())
+            {
+                collision.transform.GetComponent<Enemy>().takeDamage(damage);
+                Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            }
         }
 
         if ((collision.transform.tag == "Bullet" || collision.transform.tag == "BulletHellBullet"))
@@ -103,12 +107,18 @@ public class Bullet : MonoBehaviour
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);
-            Destroy(gameObject);
+            if (!isTrueBullet)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 
     private void OnDrawGizmos()
     {
-        Gizmos.DrawWireSphere(centerOfSeeking.position, seekRange);
+        if (centerOfSeeking != null)
+        {
+            Gizmos.DrawWireSphere(centerOfSeeking.position, seekRange);
+        }
     }
 }

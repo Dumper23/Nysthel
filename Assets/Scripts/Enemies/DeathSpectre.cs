@@ -10,16 +10,16 @@ public class DeathSpectre : Enemy
     public float meleeAttackDelay = 0.35f;
     public float treshold = 0.3f;
     public GameObject meleeAttackEffect;
+    public bool isRanged = true;
+    public CircleCollider2D cCollider;
 
     private float xScale = 1, yScale = 1;
     private float xOffset = 0.39f;
     private bool isAttacking = false;
-    private CircleCollider2D cCollider;
 
     void Start()
     {
         target = FindObjectOfType<Player>().transform;
-        cCollider = GetComponent<CircleCollider2D>();
     }
 
     void Update()
@@ -41,15 +41,22 @@ public class DeathSpectre : Enemy
 
                 if ((target.position - transform.position).magnitude > meleeAttackRange)    //Ranged
                 {
-                    if (Time.time > nextShot)
+                    if (isRanged)
                     {
-                        nextShot = Time.time + attackRate;
-                        isAttacking = true;
-                        anim.Play("rangedAttack");
-                        Invoke("shoot", 0.75f);
-                        cCollider.offset = new Vector2(0, 0);
-                        xScale = 1;
-                        yScale = 1;
+                        if (Time.time > nextShot)
+                        {
+                            nextShot = Time.time + attackRate;
+                            isAttacking = true;
+                            anim.Play("rangedAttack");
+                            Invoke("shoot", 0.75f);
+                            cCollider.offset = new Vector2(0, 0);
+                            xScale = 1;
+                            yScale = 1;
+                        }
+                    }
+                    else
+                    {
+                        Seek();
                     }
                 }
                 else //Melee
@@ -79,6 +86,7 @@ public class DeathSpectre : Enemy
                     anim.Play("Walk");
                     xScale = 1;
                     yScale = 1;
+                    cCollider.offset = new Vector2(0, 0);
                 }
             }
             else
@@ -87,12 +95,12 @@ public class DeathSpectre : Enemy
                 xScale = 1;
                 yScale = 1;
                 isAttacking = false;
-                cCollider.offset = new Vector2(0, 0);
             }
 
 
             if (!isAttacking)
             {
+                cCollider.offset = new Vector2(0, 0);
                 Seek();
             }
 

@@ -42,8 +42,12 @@ public class Portal : MonoBehaviour
                 SceneManager.UnloadSceneAsync("Ruins");
                 SaveVariables.MAX_WORLD = 2;
             }
+            else if (SceneManager.GetActiveScene().name == "Mines")
+            {
+                SceneManager.UnloadSceneAsync("Mines");
+                SaveVariables.MAX_WORLD = 3;
+            }
         }
-
         SaveManager.Instance.SaveGame();
 
         SceneManager.LoadSceneAsync(SceneToLoad);

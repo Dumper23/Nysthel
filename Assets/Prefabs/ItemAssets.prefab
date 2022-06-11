@@ -55,3 +55,6 @@ MonoBehaviour:
   BasicAxe: {fileID: 21300000, guid: 1c72d3c3d21a72d4988fe2801c485e22, type: 3}
   BloodAxe: {fileID: 21300000, guid: dd28d1692b0afe14983dd788a3d0b8b9, type: 3}
   SeekAxe: {fileID: 21300000, guid: ffe4c12dfc860234b95096947df7cb45, type: 3}
+  battleAxe: {fileID: 21300000, guid: a4faf28f72cbd5646aa59a23e74278a3, type: 3}
+  nysthelAxe: {fileID: 21300000, guid: e7de2b4ad2b745f4abfd27c78533505a, type: 3}
+  trueAxe: {fileID: 21300000, guid: 2c633dde22051c340ac46e397277d3c2, type: 3}

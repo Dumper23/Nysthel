@@ -539,7 +539,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 33
+  m_SortingOrder: 4
   m_Sprite: {fileID: -478010214341573852, guid: 63c6c4f6ef1b4624aa5050118452195f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -595,15 +595,15 @@ MonoBehaviour:
   destruction: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}
   destructionParticles: {fileID: 5666712459616409814, guid: d4f8516db1123744887366aecc470ad9, type: 3}
   coinType: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
-  breakingProbability: 0.04
+  breakingProbability: 0.03
   anim: {fileID: 0}
   moneyQuantity: 10
   moneyText: {fileID: 467433358719722170}
   givePrize: 0
   chestWinSound: {fileID: 5407610303130217986, guid: cf9a888041b24d846b66ef1e3c6222f2, type: 3}
   chestOpenSound: {fileID: 6475727649210309087, guid: 80169b9ee485bcc47886441da8065ae5, type: 3}
-  minCoinStep: 1
-  maxCoinStep: 10
+  minCoinStep: 5
+  maxCoinStep: 20
   h1: {fileID: 467433357613835651}
   h2: {fileID: 467433358345025656}
   h3: {fileID: 467433358899141340}
@@ -704,11 +704,12 @@ MonoBehaviour:
   uiShop: {fileID: 0}
   uiItemShop: {fileID: 0}
   marker: {fileID: 0}
+  mapSelectionUi: {fileID: 0}
+  loadingScreen: {fileID: 0}
   chests: []
   chestSpawnPoint: []
   chestDetection: {fileID: 0}
   chestShopPrice: 50
-  mapSelectionUi: {fileID: 0}
 --- !u!61 &467433359276182039
 BoxCollider2D:
   m_ObjectHideFlags: 0

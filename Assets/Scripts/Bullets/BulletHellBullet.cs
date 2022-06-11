@@ -6,6 +6,7 @@ public class BulletHellBullet : MonoBehaviour
 {
     public int damage = 5;
     public float speed;
+    public bool isGhost = false;
 
     private Vector2 moveDir;
 
@@ -66,7 +67,10 @@ public class BulletHellBullet : MonoBehaviour
         }
         else
         {
-            Destroy();
+            if (!isGhost)
+            {
+                Destroy();
+            }
         }
     }
 }

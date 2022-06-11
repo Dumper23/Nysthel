@@ -39,8 +39,8 @@ public class UIInventory : MonoBehaviour
                + "(" + SaveVariables.LIFE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Life: \t\t\t" + player.maxHealth + "\n"
                + "(" + SaveVariables.ATTACK_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack: \t\t\t" + player.damage + "\n"
                + "(" + SaveVariables.SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed: \t\t\t" + player.moveSpeed.ToString("F2") + "\n"
-               + "(" + SaveVariables.ATTACK_SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed: \t\t" + (1/player.attackRate).ToString("F2") + "\n"
-               + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range: \t\t" + player.coinMagnetRange.ToString("F2") + "\n"
+               + "(" + SaveVariables.ATTACK_SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed: \t\t\t" + (1/player.attackRate).ToString("F2") + "\n"
+               + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range: \t\t\t" + player.coinMagnetRange.ToString("F2") + "\n"
                + "(" + SaveVariables.DASH_RECOVERY_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recovery: \t\t" + player.dashRestoreTime.ToString("F2") + "\n"
                + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range: \t\t\t" + player.dashForce.ToString("F2");
     }
@@ -160,6 +160,24 @@ public class UIInventory : MonoBehaviour
                     weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
                 }
                 break;
+            case Item.ItemType.battleAxe:
+                if (SaveVariables.INV_BATTLE_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
+            case Item.ItemType.nysthelAxe:
+                if (SaveVariables.INV_NYSTHEL_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
+            case Item.ItemType.trueAxe:
+                if (SaveVariables.INV_TRUE_AXE == 2)
+                {
+                    weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                }
+                break;
             }
         }
 
@@ -243,6 +261,18 @@ public class UIInventory : MonoBehaviour
             case "seekAxe":
                 desc.text = "DMG = +3\nSPD = 3";
                 name.text = "Messenger Axe";
+                break;
+            case "battleAxe":
+                desc.text = "DMG = +1\nSPD = 1";
+                name.text = "Advanced battle Axe";
+                break;
+            case "nysthelAxe":
+                desc.text = "DMG = +9\nSPD = 4";
+                name.text = "Messenger Axe";
+                break;
+            case "trueAxe":
+                desc.text = "DMG = +20\nSPD = -2";
+                name.text = "True dwarf Axe";
                 break;
         }
     }

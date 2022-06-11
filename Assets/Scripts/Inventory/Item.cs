@@ -18,7 +18,10 @@ public class Item
         seekAxe,
         goldPotion,
         teleportPotion,
-        timePotion
+        timePotion,
+        battleAxe,
+        nysthelAxe,
+        trueAxe,
     }
 
     public ItemType itemType;
@@ -40,6 +43,10 @@ public class Item
             case ItemType.goldPotion:   return ItemAssets.Instance.GoldPotion;
             case ItemType.teleportPotion:   return ItemAssets.Instance.TeleportPotion;
             case ItemType.timePotion:   return ItemAssets.Instance.TimePotion;
+            case ItemType.battleAxe: return ItemAssets.Instance.battleAxe;
+            case ItemType.nysthelAxe: return ItemAssets.Instance.nysthelAxe;
+            case ItemType.trueAxe: return ItemAssets.Instance.trueAxe;
+
         }
     }
 
@@ -60,6 +67,9 @@ public class Item
             case ItemType.basicAxe:
             case ItemType.bloodAxe:
             case ItemType.seekAxe:
+            case ItemType.battleAxe:
+            case ItemType.nysthelAxe:
+            case ItemType.trueAxe:
                 return false;
         }
     }

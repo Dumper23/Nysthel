@@ -52,7 +52,10 @@ public static class SaveVariables
         INV_BASIC_AXE = 2, //Per defecte sempre tindras l'arma base i equipada
         INV_DOUBLE_AXE = 0,
         INV_BLOOD_AXE = 0,
-        INV_SEEK_AXE = 0;
+        INV_SEEK_AXE = 0,
+        INV_BATTLE_AXE = 0,
+        INV_NYSTHEL_AXE = 0,
+        INV_TRUE_AXE = 0;
 
     public static void clearVariables()
     {
@@ -104,6 +107,9 @@ public static class SaveVariables
         INV_DOUBLE_AXE = 0;
         INV_BLOOD_AXE = 0;
         INV_SEEK_AXE = 0;
+        INV_BATTLE_AXE = 0;
+        INV_NYSTHEL_AXE = 0;
+        INV_TRUE_AXE = 0;
     }
 
     public static void clearInventory()
@@ -130,6 +136,8 @@ public static class SaveVariables
                 return "Forest";
             case 1:
                 return "Ruins";
+            case 2:
+                return "Mines";
             default:
                 return "Village";
         }

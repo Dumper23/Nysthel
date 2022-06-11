@@ -100,6 +100,9 @@ public class SaveManager : MonoBehaviour
             SaveVariables.INV_DOUBLE_AXE = data.INV_DOUBLE_AXE;
             SaveVariables.INV_BLOOD_AXE = data.INV_BLOOD_AXE;
             SaveVariables.INV_SEEK_AXE = data.INV_SEEK_AXE;
+            SaveVariables.INV_BATTLE_AXE = data.INV_BATTLE_AXE;
+            SaveVariables.INV_NYSTHEL_AXE = data.INV_NYSTHEL_AXE;
+            SaveVariables.INV_TRUE_AXE = data.INV_TRUE_AXE;
         }
     }
 }

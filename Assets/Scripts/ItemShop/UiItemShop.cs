@@ -58,6 +58,12 @@ public class UiItemShop : MonoBehaviour
         
         CreateItemButton(ItemShopItem.ItemType.seekAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.seekAxe), "Seek axe", ItemShopItem.GetCost(ItemShopItem.ItemType.seekAxe), 8);
 
+        CreateItemButton(ItemShopItem.ItemType.battleAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.battleAxe), "Advanced battle axe", ItemShopItem.GetCost(ItemShopItem.ItemType.battleAxe), 9);
+
+        CreateItemButton(ItemShopItem.ItemType.nysthelAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.nysthelAxe), "Nysthel axe", ItemShopItem.GetCost(ItemShopItem.ItemType.nysthelAxe), 10);
+
+        CreateItemButton(ItemShopItem.ItemType.trueAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.trueAxe), "True dwarf axe", ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe), 11);
+
     }
 
     private void CreateItemButton(ItemShopItem.ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
@@ -67,8 +73,15 @@ public class UiItemShop : MonoBehaviour
         shopItemTransform.gameObject.SetActive(true);
 
         float shopItemHeight = 80f;
-        shopItemRectTransform.anchoredPosition = new Vector2(0, shopItemTransform.localPosition.y - (shopItemHeight * positionIndex));
+        if (positionIndex < 6)
+        {
+            shopItemRectTransform.anchoredPosition = new Vector2(shopItemTransform.localPosition.x, shopItemTransform.localPosition.y - (shopItemHeight * positionIndex));
+        }
+        else
+        {
+            shopItemRectTransform.anchoredPosition = new Vector2(350, shopItemTransform.localPosition.y - (shopItemHeight * (positionIndex - 6)));
 
+        }
         shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
         shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
 
@@ -117,6 +130,15 @@ public class UiItemShop : MonoBehaviour
                         break;
                     case "Seek axe":
                         templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.seekAxe).ToString());
+                        break;
+                    case "Advanced battle axe":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.battleAxe).ToString());
+                        break;
+                    case "Nysthel axe":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.nysthelAxe).ToString());
+                        break;
+                    case "True dwarf axe":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe).ToString());
                         break;
                 }
             }

@@ -21,7 +21,7 @@ public class DestroyAfterTime : MonoBehaviour
 
     private void Update()
     {
-        if (transform.CompareTag("Coin"))
+        if (transform.CompareTag("Coin") || transform.CompareTag("Coin2") || transform.CompareTag("Coin3"))
         {
             if (Time.time >= (startTime + timeToDestroy) - 0.4 * timeToDestroy)
             {

@@ -2,11 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class StaticEye : MonoBehaviour
+public class StaticEye : Enemy
 {
     public float defDistance = 100f;
     public LineRenderer lineRenderer;
-    public int damage = 10;
     public bool rebote = false;
     public bool rotate = false;
     public float rotationSpeed = 15f;
@@ -22,24 +21,32 @@ public class StaticEye : MonoBehaviour
             rotation = gameObject.AddComponent<Rotating>();
             rotation.center = this.transform;
             rotation.rotationSpeed = rotationSpeed;
+            rotation.enabled = false;
         }
     }
 
     private void Update()
     {
-        
-        shootLaser();
+        if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
+        {
+            if (rotate)
+            {
+                rotation.enabled = true;
+            }
+            die();
+            shootLaser();
+        }
     }
 
     private void shootLaser()
     {
-        if (Physics2D.Raycast(transform.position, transform.right))
+        if (Physics2D.Raycast(firePoint.position, firePoint.right))
         {
-            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right);
+            RaycastHit2D hit = Physics2D.Raycast(firePoint.position, firePoint.right);
             Vector3 pos = hit.point;
             if (hit.transform.tag == "mirror" && rebote)
             {
-                Vector2 dir = Vector2.Reflect(transform.right, hit.normal);
+                Vector2 dir = Vector2.Reflect(firePoint.right, hit.normal);
                 if (Physics2D.Raycast(pos, ((Vector2)pos + dir.normalized * defDistance)))
                 {
                     RaycastHit2D hit2 = Physics2D.Raycast(pos, ((Vector2)pos + dir.normalized * defDistance));
@@ -51,7 +58,7 @@ public class StaticEye : MonoBehaviour
                         {
                             RaycastHit2D hit3 = Physics2D.Raycast(pos2, ((Vector2)pos2 + dir2.normalized * defDistance));
 
-                            drawRay(transform.position, pos, ((Vector2)pos + dir.normalized * hit2.distance), ((Vector2)pos2 + dir2.normalized * hit3.distance));
+                            drawRay(firePoint.position, pos, ((Vector2)pos + dir.normalized * hit2.distance), ((Vector2)pos2 + dir2.normalized * hit3.distance));
                             if (hit3.transform.tag == "Player")
                             {
                                 if (hit3.transform.GetComponent<Player>())
@@ -69,7 +76,7 @@ public class StaticEye : MonoBehaviour
                                     hit2.transform.GetComponent<Player>().takeDamage(damage / 2);
                                 }
                             }
-                            drawRay(transform.position, pos, ((Vector2)pos + dir.normalized * hit2.distance));
+                            drawRay(firePoint.position, pos, ((Vector2)pos + dir.normalized * hit2.distance));
                         }
                     }
                 }
@@ -79,7 +86,7 @@ public class StaticEye : MonoBehaviour
             {
                 hitParticles.transform.position = pos;
                 hitLight.transform.position = pos;
-                drawRay(transform.position, pos);
+                drawRay(firePoint.position, pos);
             }
             if (hit && hit.transform.tag == "Player")
             {

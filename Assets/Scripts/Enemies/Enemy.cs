@@ -40,7 +40,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void takeDamage(int value)
     {
-        GameObject go = Instantiate(damageNumbers, transform.position, Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f),0), Quaternion.identity) as GameObject;
 
         if (activated && !immune)
         {
@@ -97,7 +97,7 @@ public abstract class Enemy : MonoBehaviour
         bool inRange = false;
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
-            if (Vector3.Magnitude(target.position - transform.position) < range)
+            if (Mathf.Abs((target.position - transform.position).magnitude) <= range)
             {
                 inRange = true;
                 transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
@@ -141,7 +141,10 @@ public abstract class Enemy : MonoBehaviour
             }
             else
             {
-                collision.transform.GetComponent<Player>().takeDamage(damage);
+                if (this.transform.tag != "sparring")
+                {
+                    collision.transform.GetComponent<Player>().takeDamage(damage);
+                }
             }
         }
     }

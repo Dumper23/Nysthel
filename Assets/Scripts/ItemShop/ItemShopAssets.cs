@@ -21,4 +21,7 @@ public class ItemShopAssets : MonoBehaviour
     public Sprite DoubleAxe;
     public Sprite BloodyAxe;
     public Sprite SeekAxe;
+    public Sprite battleAxe;
+    public Sprite nysthelAxe;
+    public Sprite trueAxe;
 }

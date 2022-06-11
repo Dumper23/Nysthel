@@ -24,4 +24,7 @@ public class ItemAssets : MonoBehaviour
     public Sprite BasicAxe;
     public Sprite BloodAxe;
     public Sprite SeekAxe;
+    public Sprite battleAxe;
+    public Sprite nysthelAxe;
+    public Sprite trueAxe;
 }
