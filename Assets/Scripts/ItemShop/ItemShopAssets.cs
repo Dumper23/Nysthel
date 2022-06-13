@@ -24,4 +24,5 @@ public class ItemShopAssets : MonoBehaviour
     public Sprite battleAxe;
     public Sprite nysthelAxe;
     public Sprite trueAxe;
+    public Sprite shield;
 }

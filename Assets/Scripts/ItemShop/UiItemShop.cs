@@ -63,6 +63,8 @@ public class UiItemShop : MonoBehaviour
         CreateItemButton(ItemShopItem.ItemType.nysthelAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.nysthelAxe), "Nysthel axe", ItemShopItem.GetCost(ItemShopItem.ItemType.nysthelAxe), 10);
 
         CreateItemButton(ItemShopItem.ItemType.trueAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.trueAxe), "True dwarf axe", ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe), 11);
+        
+        CreateItemButton(ItemShopItem.ItemType.shield, ItemShopItem.GetSprite(ItemShopItem.ItemType.shield), "Shield", ItemShopItem.GetCost(ItemShopItem.ItemType.shield), 12);
 
     }
 
@@ -139,6 +141,9 @@ public class UiItemShop : MonoBehaviour
                         break;
                     case "True dwarf axe":
                         templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe).ToString());
+                        break;
+                    case "Shield":
+                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.shield).ToString());
                         break;
                 }
             }

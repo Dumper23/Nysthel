@@ -22,6 +22,7 @@ public class Item
         battleAxe,
         nysthelAxe,
         trueAxe,
+        shield
     }
 
     public ItemType itemType;
@@ -46,6 +47,7 @@ public class Item
             case ItemType.battleAxe: return ItemAssets.Instance.battleAxe;
             case ItemType.nysthelAxe: return ItemAssets.Instance.nysthelAxe;
             case ItemType.trueAxe: return ItemAssets.Instance.trueAxe;
+            case ItemType.shield: return ItemAssets.Instance.shield;
 
         }
     }
@@ -61,6 +63,7 @@ public class Item
             case ItemType.goldPotion:
             case ItemType.teleportPotion:
             case ItemType.timePotion:
+            case ItemType.shield:
                 return true;
             case ItemType.multiAxe:
             case ItemType.doubleAxe:

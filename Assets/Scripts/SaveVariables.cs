@@ -7,6 +7,7 @@ public static class SaveVariables
     public static int PLAYER_GOLD = 0;
     public static int PLAYER_WOOD = 0;
     public static int PLAYER_ATTACK = 0;
+    public static int PLAYER_DEFENSE = 0;
     public static float PLAYER_SPEED = 0;
     public static float PLAYER_ATTACK_SPEED = 0;
     public static float PLAYER_RANGE = 0;
@@ -64,6 +65,7 @@ public static class SaveVariables
         PLAYER_GOLD = 0;
         PLAYER_WOOD = 0;
         PLAYER_ATTACK = 0;
+        PLAYER_DEFENSE = 0;
         PLAYER_SPEED = 0;
         PLAYER_ATTACK_SPEED = 0;
         PLAYER_RANGE = 0;

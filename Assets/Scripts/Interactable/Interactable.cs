@@ -63,6 +63,7 @@ public class Interactable : MonoBehaviour
         {
             SaveVariables.PLAYER_LIFE = player.maxHealth;
             SaveVariables.PLAYER_ATTACK = player.damage;
+            SaveVariables.PLAYER_DEFENSE = player.defense;
             SaveVariables.PLAYER_SPEED = player.moveSpeed;
             SaveVariables.PLAYER_ATTACK_SPEED = player.attackRate;
             SaveVariables.PLAYER_RANGE = player.coinMagnetRange;
@@ -189,7 +190,7 @@ public class Interactable : MonoBehaviour
                     {
                         string[] s = new string[5];
                         s[0] = "Hallborg: Hey Nysthel! I'm glad to see you are again with us.";
-                        s[1] = "Hallborg: Do you remember me? I'm the blacksmith of Izhester, you used to play with my swords when you where young.";
+                        s[1] = "Hallborg: Do you remember me? I'm the blacksmith of Izhester, you used to play with my swords when you were young.";
                         s[2] = "Hallborg: I know that you want revenge, it's not going to be easy but I'm with you. Ulrus shouldn't get away without paying for what he did!";
                         s[3] = "Hallborg: I can improve your equipement and help you improve your skills!";
                         s[4] = "Hallborg: Since we are not in Izhester I'll need some gold to buy new tools, so if you find gold you can bring it to me and I'll " +
@@ -233,7 +234,7 @@ public class Interactable : MonoBehaviour
                         s[0] = "Gromodin: Hello dear customer! Do you see all this stuff?";
                         s[1] = "Gromodin: Well, it can be all yours by a modest price, it's the cheapest mercancy you will find in the area!";
                         s[2] = "Gromodin: Oh...";
-                        s[3] = "Gromodin: It's you Nisthel...";
+                        s[3] = "Gromodin: It's you Nysthel...";
                         s[4] = "Gromodin: Great...";
                         s[5] = "Gromodin: I guess you could have a little discount for being part of this camp...";
                         s[6] = "Gromodin: But I'm not going to explain you what every item does, you will have to buy them and try them.";

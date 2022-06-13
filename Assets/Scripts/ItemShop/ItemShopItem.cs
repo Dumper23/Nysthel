@@ -17,7 +17,8 @@ public class ItemShopItem
         seekAxe,
         battleAxe,
         nysthelAxe,
-        trueAxe
+        trueAxe,
+        shield
     }
 
     //Falta Balancejar preus
@@ -38,6 +39,7 @@ public class ItemShopItem
             case ItemType.battleAxe: return 3000;
             case ItemType.nysthelAxe: return 2500;
             case ItemType.trueAxe: return 3000;
+            case ItemType.shield: return 250;
         }
     }
 
@@ -58,6 +60,7 @@ public class ItemShopItem
             case ItemType.battleAxe: return ItemShopAssets.Instance.battleAxe;
             case ItemType.nysthelAxe: return ItemShopAssets.Instance.nysthelAxe;
             case ItemType.trueAxe: return ItemShopAssets.Instance.trueAxe;
+            case ItemType.shield: return ItemShopAssets.Instance.shield;
         }
     }
 }

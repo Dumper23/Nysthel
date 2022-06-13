@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class UIInventory : MonoBehaviour
 {
+    public TextMeshProUGUI infoName, description, defenseText;
+
     private Inventory inventory;
     private Transform container;
     private Transform itemTemplate;
@@ -34,6 +36,7 @@ public class UIInventory : MonoBehaviour
 
     private void OnEnable()
     {
+        defenseText.SetText(SaveVariables.PLAYER_DEFENSE.ToString());
         TextMeshProUGUI t = statistics.Find("stats").GetComponent<TextMeshProUGUI>();
         t.text = "Nysthel Statistics:\n"
                + "(" + SaveVariables.LIFE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Life: \t\t\t" + player.maxHealth + "\n"
@@ -42,7 +45,8 @@ public class UIInventory : MonoBehaviour
                + "(" + SaveVariables.ATTACK_SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed: \t\t\t" + (1/player.attackRate).ToString("F2") + "\n"
                + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range: \t\t\t" + player.coinMagnetRange.ToString("F2") + "\n"
                + "(" + SaveVariables.DASH_RECOVERY_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recovery: \t\t" + player.dashRestoreTime.ToString("F2") + "\n"
-               + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range: \t\t\t" + player.dashForce.ToString("F2");
+               + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range: \t\t\t" + player.dashForce.ToString("F2") + "\n"
+               + "Defense: " + SaveVariables.PLAYER_DEFENSE+"% of damage blocked";
     }
 
     public void setPlayer(Player player)
@@ -184,7 +188,7 @@ public class UIInventory : MonoBehaviour
         if (EventSystem.current.currentSelectedGameObject != null) {
             if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
             {
-                showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(4).name);
+                showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(5).name);
             }
         }
     }
@@ -195,7 +199,17 @@ public class UIInventory : MonoBehaviour
         {
             if (itm.Equals(item))
             {
-                lastITemSelected = i;
+                if (item.isStackable() && item.amount <= 1)
+                {
+                    if (i - 1 >= 0)
+                    {
+                        lastITemSelected = i - 1;
+                    }
+                    else
+                    {
+                        lastITemSelected = i + 1;
+                    }
+                }
             }
             i++;
         }
@@ -214,65 +228,63 @@ public class UIInventory : MonoBehaviour
 
     private void showItemInfo(string itemSelected)
     {
-        TextMeshProUGUI desc = itemSpecs.Find("description").GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI name = itemSpecs.Find("name").GetComponent<TextMeshProUGUI>();
         switch (itemSelected)
         {
             case "smallPotion":
-                desc.text = "+10 hp";
-                name.text = "Small potion";
+                description.text = "+10 hp";
+                infoName.text = "Small potion";
                 break;
             case "bigPotion":
-                desc.text = "+20 hp";
-                name.text = "Big potion";
+                description.text = "+20 hp";
+                infoName.text = "Big potion";
                 break;
             case "shieldPotion":
-                desc.text = "Immune for 6s, but disables dash during its duration";
-                name.text = "Shield potion";
+                description.text = "Immune for 6s, but disables dash during its duration";
+                infoName.text = "Shield potion";
                 break;
             case "goldPotion":
-                desc.text = "x2 gold during 30s";
-                name.text = "Gold potion";
+                description.text = "x2 gold during 30s";
+                infoName.text = "Gold potion";
                 break;
             case "timePotion":
-                desc.text = "Slows time but not for Nysthel";
-                name.text = "Time potion";
+                description.text = "Slows time but not for Nysthel";
+                infoName.text = "Time potion";
                 break;
             case "teleportPotion":
-                desc.text = "Teleports Nysthel to the starting room";
-                name.text = "Teleport potion";
+                description.text = "Teleports Nysthel to the starting room";
+                infoName.text = "Teleport potion";
                 break;
             case "basicAxe":
-                desc.text = "DMG = x1\nSPD = 5";
-                name.text = "Emmyr's Axe";
+                description.text = "DMG = +0\nSPD = 3";
+                infoName.text = "Emmyr's Axe";
                 break;
             case "bloodAxe":
-                desc.text = "DMG = +6\nSPD = 2";
-                name.text = "Bloody Axe";
+                description.text = "DMG = +15\nSPD = 2";
+                infoName.text = "Bloody Axe";
                 break;
             case "doubleAxe":
-                desc.text = "DMG = x1\nSPD = 3";
-                name.text = "Double Axe";
+                description.text = "DMG = +2.5\nSPD = 3";
+                infoName.text = "Double Axe";
                 break;
             case "multiAxe":
-                desc.text = "DMG = x1\nSPD = 1";
-                name.text = "Multi Axe";
+                description.text = "DMG = +0\nSPD = 1";
+                infoName.text = "Multi Axe";
                 break;
             case "seekAxe":
-                desc.text = "DMG = +3\nSPD = 3";
-                name.text = "Messenger Axe";
+                description.text = "DMG = +10\nSPD = 3";
+                infoName.text = "Messenger Axe";
                 break;
             case "battleAxe":
-                desc.text = "DMG = +1\nSPD = 1";
-                name.text = "Advanced battle Axe";
+                description.text = "DMG = +5\nSPD = 1";
+                infoName.text = "Advanced battle Axe";
                 break;
             case "nysthelAxe":
-                desc.text = "DMG = +9\nSPD = 4";
-                name.text = "Messenger Axe";
+                description.text = "DMG = +20\nSPD = 4";
+                infoName.text = "Messenger Axe";
                 break;
             case "trueAxe":
-                desc.text = "DMG = +20\nSPD = -2";
-                name.text = "True dwarf Axe";
+                description.text = "DMG = +50\nSPD = -2";
+                infoName.text = "True dwarf Axe";
                 break;
         }
     }

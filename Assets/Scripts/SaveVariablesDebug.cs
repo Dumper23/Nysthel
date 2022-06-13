@@ -8,6 +8,7 @@ public class SaveVariablesDebug : MonoBehaviour
     public int PLAYER_GOLD = 0;
     public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
+    public int PLAYER_DEFENSE = 0;
     public float PLAYER_SPEED = 0;
     public float PLAYER_ATTACK_SPEED = 0;
     public float PLAYER_RANGE = 0;
@@ -65,6 +66,7 @@ public class SaveVariablesDebug : MonoBehaviour
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         PLAYER_WOOD = SaveVariables.PLAYER_WOOD;
         PLAYER_ATTACK = SaveVariables.PLAYER_ATTACK;
+        PLAYER_DEFENSE = SaveVariables.PLAYER_DEFENSE;
         PLAYER_SPEED = SaveVariables.PLAYER_SPEED;
         PLAYER_ATTACK_SPEED = SaveVariables.PLAYER_ATTACK_SPEED;
         PLAYER_RANGE = SaveVariables.PLAYER_RANGE;

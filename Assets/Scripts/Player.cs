@@ -28,6 +28,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     [Header("--------------Combat--------------")]
     public int damage = 10;
+    public int defense = 0;
     private int originalDamage;
     public Transform firePoint;
     public GameObject bulletPrefab;
@@ -588,6 +589,9 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.trueAxe:
                     SaveVariables.INV_TRUE_AXE = iw.getItem().amount;
                     break;
+                case Item.ItemType.shield:
+                    SaveVariables.PLAYER_DEFENSE = iw.getItem().amount;
+                    break;
             }
 
             iw.destroySelf();
@@ -857,7 +861,7 @@ public class Player : MonoBehaviour, IShopCustomer
         if (!immune)
         {
             feedBackScreenPanel.GetComponent<Animator>().Play("DamageAnimation");
-            currentHealth -= value;
+            currentHealth -= Mathf.RoundToInt(value - ((defense / 100f) * value));
             immune = true;
             shield.SetActive(true);
             shielded = true;
@@ -1389,6 +1393,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
         if (SaveVariables.PLAYER_ATTACK > 0) damage = SaveVariables.PLAYER_ATTACK;
 
+        if (SaveVariables.PLAYER_DEFENSE > 0) defense = SaveVariables.PLAYER_DEFENSE;
+
         if (SaveVariables.PLAYER_LIFE > 0) maxHealth = SaveVariables.PLAYER_LIFE;
 
         if (SaveVariables.PLAYER_SPEED > 0) moveSpeed = SaveVariables.PLAYER_SPEED;
@@ -1525,6 +1531,23 @@ public class Player : MonoBehaviour, IShopCustomer
             case ItemShopItem.ItemType.seekAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.seekAxe, amount = 1 });
                 index = 8;
+                break;
+            case ItemShopItem.ItemType.battleAxe:
+                inventory.addItem(new Item { itemType = Item.ItemType.battleAxe, amount = 1 });
+                index = 9;
+                break;
+            case ItemShopItem.ItemType.nysthelAxe:
+                inventory.addItem(new Item { itemType = Item.ItemType.nysthelAxe, amount = 1 });
+                index = 10;
+                break;
+            case ItemShopItem.ItemType.trueAxe:
+                inventory.addItem(new Item { itemType = Item.ItemType.trueAxe, amount = 1 });
+                index = 11;
+                break;
+            case ItemShopItem.ItemType.shield:
+                defense++;
+                SaveVariables.PLAYER_DEFENSE++;
+                index = 12;
                 break;
         }
         return index;

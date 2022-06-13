@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 5
-  maxGoldToGive: 3
+  maxGoldToGive: 6
   coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
   coinForce: 5
   soundEffect: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}

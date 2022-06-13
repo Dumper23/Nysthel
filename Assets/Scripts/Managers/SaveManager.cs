@@ -51,6 +51,7 @@ public class SaveManager : MonoBehaviour
             SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;
             SaveVariables.PLAYER_WOOD = data.PLAYER_WOOD;
             SaveVariables.PLAYER_ATTACK = data.PLAYER_ATTACK;
+            SaveVariables.PLAYER_DEFENSE = data.PLAYER_DEFENSE;
             SaveVariables.PLAYER_LIFE = data.PLAYER_LIFE;
             SaveVariables.PLAYER_SPEED = data.PLAYER_SPEED; 
             SaveVariables.PLAYER_ATTACK_SPEED = data.PLAYER_ATTACK_SPEED;
