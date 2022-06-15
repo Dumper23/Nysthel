@@ -13,6 +13,7 @@ public class VillageLevelLoader : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        Debug.Log("hola");
         if(collision.CompareTag("Player"))
         {
             if (isEndOfTutorial)
@@ -25,7 +26,7 @@ public class VillageLevelLoader : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene(levelToLoad);
+                changeScene();
             }
 
            

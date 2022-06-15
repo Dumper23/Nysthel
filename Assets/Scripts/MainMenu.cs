@@ -8,12 +8,13 @@ public class MainMenu : MonoBehaviour
 
     private void Start()
     {
+        SaveManager.Instance.loadGame();
         Cursor.visible = true;
     }
 
     public void PlayGame()
     {
-        if (SaveVariables.TUTORIAL_DONE == 1)
+        if (SaveVariables.TUTORIAL_DONE != 0)
         {
             SceneManager.LoadScene("Village");
         }

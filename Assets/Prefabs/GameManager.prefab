@@ -771,11 +771,11 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Are you sure you want to quit the game?
+  m_text: 'Are you sure you want to continue?
 
 
-    All the progress not saved
-    will be lost!'
+    All the progress not saved will
+    be lost!'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -939,6 +939,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   poolBullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}
+  notEnoughBullets: 1
 --- !u!82 &1744962639
 AudioSource:
   m_ObjectHideFlags: 0

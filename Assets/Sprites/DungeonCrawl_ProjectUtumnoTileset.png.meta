@@ -1,0 +1,981 @@
+fileFormatVersion: 2
+guid: 695948b48fcf7bc4fa9e508ada78a626
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1037296469814155091
+    second: DungeonCrawl_ProjectUtumnoTileset_0
+  - first:
+      213: -505245453289762646
+    second: DungeonCrawl_ProjectUtumnoTileset_1
+  - first:
+      213: 4343118188143980377
+    second: DungeonCrawl_ProjectUtumnoTileset_2
+  - first:
+      213: 5228023189303964927
+    second: DungeonCrawl_ProjectUtumnoTileset_3
+  - first:
+      213: 2560975184589437578
+    second: DungeonCrawl_ProjectUtumnoTileset_5
+  - first:
+      213: -3739885481993734661
+    second: DungeonCrawl_ProjectUtumnoTileset_6
+  - first:
+      213: 6176318427269710297
+    second: DungeonCrawl_ProjectUtumnoTileset_7
+  - first:
+      213: 5415127124787707379
+    second: DungeonCrawl_ProjectUtumnoTileset_8
+  - first:
+      213: -5650759296199628849
+    second: DungeonCrawl_ProjectUtumnoTileset_9
+  - first:
+      213: 1492099798812989668
+    second: DungeonCrawl_ProjectUtumnoTileset_10
+  - first:
+      213: -1193433921905930493
+    second: DungeonCrawl_ProjectUtumnoTileset_11
+  - first:
+      213: 8269360547612398338
+    second: DungeonCrawl_ProjectUtumnoTileset_12
+  - first:
+      213: -6060783836476032756
+    second: DungeonCrawl_ProjectUtumnoTileset_13
+  - first:
+      213: -4611712107416772561
+    second: DungeonCrawl_ProjectUtumnoTileset_14
+  - first:
+      213: 6588969613672732733
+    second: DungeonCrawl_ProjectUtumnoTileset_15
+  - first:
+      213: 2952050004651361287
+    second: DungeonCrawl_ProjectUtumnoTileset_16
+  - first:
+      213: 6249143136956149315
+    second: DungeonCrawl_ProjectUtumnoTileset_17
+  - first:
+      213: -5461585014863623445
+    second: DungeonCrawl_ProjectUtumnoTileset_18
+  - first:
+      213: -6386360602735462264
+    second: DungeonCrawl_ProjectUtumnoTileset_19
+  - first:
+      213: -3472012479201453868
+    second: DungeonCrawl_ProjectUtumnoTileset_20
+  - first:
+      213: 8604909641235651322
+    second: DungeonCrawl_ProjectUtumnoTileset_21
+  - first:
+      213: 1599597539604030723
+    second: DungeonCrawl_ProjectUtumnoTileset_22
+  - first:
+      213: 7590780091938602748
+    second: DungeonCrawl_ProjectUtumnoTileset_23
+  - first:
+      213: 986368261298500379
+    second: DungeonCrawl_ProjectUtumnoTileset_24
+  - first:
+      213: -2839485748649012787
+    second: DungeonCrawl_ProjectUtumnoTileset_25
+  - first:
+      213: 4757888623203014917
+    second: DungeonCrawl_ProjectUtumnoTileset_26
+  - first:
+      213: -6541461643426364400
+    second: DungeonCrawl_ProjectUtumnoTileset_27
+  - first:
+      213: 5384158367621398233
+    second: DungeonCrawl_ProjectUtumnoTileset_28
+  - first:
+      213: -7076370997560295099
+    second: DungeonCrawl_ProjectUtumnoTileset_29
+  - first:
+      213: 4652548462646433403
+    second: DungeonCrawl_ProjectUtumnoTileset_30
+  - first:
+      213: -619271932211188607
+    second: DungeonCrawl_ProjectUtumnoTileset_31
+  - first:
+      213: -5339079136319740953
+    second: DungeonCrawl_ProjectUtumnoTileset_32
+  - first:
+      213: -8557714627225778752
+    second: DungeonCrawl_ProjectUtumnoTileset_33
+  - first:
+      213: 7513422621102198873
+    second: DungeonCrawl_ProjectUtumnoTileset_34
+  - first:
+      213: -548175835551116786
+    second: DungeonCrawl_ProjectUtumnoTileset_35
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_0
+      rect:
+        serializedVersion: 2
+        x: 387
+        y: 1472
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3571a0ab4a7356e00800000000000000
+      internalID: 1037296469814155091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_1
+      rect:
+        serializedVersion: 2
+        x: 710
+        y: 1248
+        width: 23
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa05848efe10df8f0800000000000000
+      internalID: -505245453289762646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_2
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1216
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95f2cd53bfad54c30800000000000000
+      internalID: 4343118188143980377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_3
+      rect:
+        serializedVersion: 2
+        x: 165
+        y: 1248
+        width: 22
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff4b7f3346bad8840800000000000000
+      internalID: 5228023189303964927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_4
+      rect:
+        serializedVersion: 2
+        x: 132
+        y: 1249
+        width: 23
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c7ac7fde0d23fa90800000000000000
+      internalID: -7281426630625679420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_5
+      rect:
+        serializedVersion: 2
+        x: 98
+        y: 1440
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8a3b0c9c596a8320800000000000000
+      internalID: 2560975184589437578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_6
+      rect:
+        serializedVersion: 2
+        x: 357
+        y: 1345
+        width: 24
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf57f1908f1491cc0800000000000000
+      internalID: -3739885481993734661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_7
+      rect:
+        serializedVersion: 2
+        x: 806
+        y: 1344
+        width: 22
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d14c15d2e0b6b550800000000000000
+      internalID: 6176318427269710297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_8
+      rect:
+        serializedVersion: 2
+        x: 869
+        y: 1440
+        width: 25
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fdbd8eed65662b40800000000000000
+      internalID: 5415127124787707379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_9
+      rect:
+        serializedVersion: 2
+        x: 1889
+        y: 1280
+        width: 30
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc7e8ceeb587491b0800000000000000
+      internalID: -5650759296199628849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_10
+      rect:
+        serializedVersion: 2
+        x: 1764
+        y: 1281
+        width: 25
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e81ead8cd005b410800000000000000
+      internalID: 1492099798812989668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_11
+      rect:
+        serializedVersion: 2
+        x: 1154
+        y: 1217
+        width: 26
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30f45edcb22107fe0800000000000000
+      internalID: -1193433921905930493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_12
+      rect:
+        serializedVersion: 2
+        x: 963
+        y: 1343
+        width: 26
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2031118ea9ba2c270800000000000000
+      internalID: 8269360547612398338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_13
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 1344
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c09ba6e4635c3eba0800000000000000
+      internalID: -6060783836476032756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_14
+      rect:
+        serializedVersion: 2
+        x: 1091
+        y: 1345
+        width: 29
+        height: 31
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f202e0fa548efffb0800000000000000
+      internalID: -4611712107416772561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_15
+      rect:
+        serializedVersion: 2
+        x: 1120
+        y: 1344
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d385eca24f8b07b50800000000000000
+      internalID: 6588969613672732733
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_16
+      rect:
+        serializedVersion: 2
+        x: 1569
+        y: 1280
+        width: 29
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7044f6ea6d9c7f820800000000000000
+      internalID: 2952050004651361287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_17
+      rect:
+        serializedVersion: 2
+        x: 2017
+        y: 1280
+        width: 28
+        height: 33
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34e67dcd29a69b650800000000000000
+      internalID: 6249143136956149315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_18
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 64
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bea057e9d5d8434b0800000000000000
+      internalID: -5461585014863623445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_19
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 160
+        width: 27
+        height: 32
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 88837624ed61f57a0800000000000000
+      internalID: -6386360602735462264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_20
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 1344
+        width: 30
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d85971bb0fe0dfc0800000000000000
+      internalID: -3472012479201453868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_21
+      rect:
+        serializedVersion: 2
+        x: 643
+        y: 1280
+        width: 27
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: afa5f2a5ab7ca6770800000000000000
+      internalID: 8604909641235651322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_22
+      rect:
+        serializedVersion: 2
+        x: 900
+        y: 1248
+        width: 27
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 305efabbc79e23610800000000000000
+      internalID: 1599597539604030723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_23
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 1248
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfe7b14a64ed75960800000000000000
+      internalID: 7590780091938602748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_24
+      rect:
+        serializedVersion: 2
+        x: 992
+        y: 1248
+        width: 32
+        height: 30
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b13ba6825b840bd00800000000000000
+      internalID: 986368261298500379
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_25
+      rect:
+        serializedVersion: 2
+        x: 1504
+        y: 1344
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc1ddfe71ce1898d0800000000000000
+      internalID: -2839485748649012787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_26
+      rect:
+        serializedVersion: 2
+        x: 1536
+        y: 1344
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50953e29e7a670240800000000000000
+      internalID: 4757888623203014917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_27
+      rect:
+        serializedVersion: 2
+        x: 1568
+        y: 1344
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0148abf1b4f0835a0800000000000000
+      internalID: -6541461643426364400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_28
+      rect:
+        serializedVersion: 2
+        x: 1632
+        y: 1344
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9de3584428f58ba40800000000000000
+      internalID: 5384158367621398233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_29
+      rect:
+        serializedVersion: 2
+        x: 1600
+        y: 1344
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 541ca87e11eabcd90800000000000000
+      internalID: -7076370997560295099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_30
+      rect:
+        serializedVersion: 2
+        x: 1664
+        y: 1344
+        width: 31
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7694503d2c219040800000000000000
+      internalID: 4652548462646433403
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_31
+      rect:
+        serializedVersion: 2
+        x: 640
+        y: 1344
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18cae2d6577e767f0800000000000000
+      internalID: -619271932211188607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_32
+      rect:
+        serializedVersion: 2
+        x: 453
+        y: 1345
+        width: 25
+        height: 31
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e366fb20d7c7e5b0800000000000000
+      internalID: -5339079136319740953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_33
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 1344
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c50b0323e3ec3980800000000000000
+      internalID: -8557714627225778752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_34
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 1344
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9505e2ae01a054860800000000000000
+      internalID: 7513422621102198873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: DungeonCrawl_ProjectUtumnoTileset_35
+      rect:
+        serializedVersion: 2
+        x: 384
+        y: 1344
+        width: 32
+        height: 32
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e02d58f5bfc7468f0800000000000000
+      internalID: -548175835551116786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -13,7 +13,8 @@ public abstract class Enemy : MonoBehaviour
     public int maxGoldToGive = 5;
     public int minGoldToGive = 0;
     public float moveSpeed = 2f;
-    
+    public int startHealth;
+
     public Rigidbody2D rb;
     public Animator anim;
     public Transform firePoint;
@@ -30,7 +31,7 @@ public abstract class Enemy : MonoBehaviour
     protected int goldToGive;
     protected string currentState;
     protected float nextShot = 0f;
-    protected int startHealth;
+    
     public bool activated = false;
 
     private void Start()
@@ -100,7 +101,7 @@ public abstract class Enemy : MonoBehaviour
             if (Mathf.Abs((target.position - transform.position).magnitude) <= range)
             {
                 inRange = true;
-                transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.fixedDeltaTime);
+                transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.deltaTime);
                 changeAnimationState("Walk");
             }
             else

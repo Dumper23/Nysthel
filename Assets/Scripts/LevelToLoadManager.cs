@@ -19,13 +19,15 @@ public class LevelToLoadManager : MonoBehaviour
                 worlds[3].SetActive(false);
                 worlds[4].SetActive(false);
                 break;
+
             case 1:
                 worlds[0].SetActive(true);
                 worlds[1].SetActive(true);
-                worlds[2].SetActive(true);
+                worlds[2].SetActive(false);
                 worlds[3].SetActive(false);
                 worlds[4].SetActive(false);
                 break;
+
             case 2:
                 worlds[0].SetActive(true);
                 worlds[1].SetActive(true);
@@ -33,6 +35,7 @@ public class LevelToLoadManager : MonoBehaviour
                 worlds[3].SetActive(false);
                 worlds[4].SetActive(false);
                 break;
+
             case 3:
                 worlds[0].SetActive(true);
                 worlds[1].SetActive(true);
@@ -40,6 +43,7 @@ public class LevelToLoadManager : MonoBehaviour
                 worlds[3].SetActive(true);
                 worlds[4].SetActive(false);
                 break;
+
             case 4:
                 worlds[0].SetActive(true);
                 worlds[1].SetActive(true);
@@ -60,11 +64,21 @@ public class LevelToLoadManager : MonoBehaviour
             case "Forest":
                 SaveVariables.CURRENT_WORLD = 0;
                 break;
+
             case "Ruins":
                 SaveVariables.CURRENT_WORLD = 1;
                 break;
+
             case "Mines":
                 SaveVariables.CURRENT_WORLD = 2;
+                break;
+
+            case "Walls":
+                SaveVariables.CURRENT_WORLD = 3;
+                break;
+
+            case "Castle":
+                SaveVariables.CURRENT_WORLD = 4;
                 break;
         }
         SaveManager.Instance.SaveGame();

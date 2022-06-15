@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/WoodFarm.unity
     guid: 95c52f90f1e11e246912d2177a5dd6af
   - enabled: 1
+    path: Assets/Scenes/GoldRush.unity
+    guid: 6596224e5470f6b49ab2977d2a6c50ac
+  - enabled: 1
     path: Assets/Scenes/Village.unity
     guid: defc56aee8fd5f34fa3005742059b57d
   - enabled: 1

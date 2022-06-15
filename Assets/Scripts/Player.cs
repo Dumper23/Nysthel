@@ -8,7 +8,8 @@ public class Player : MonoBehaviour, IShopCustomer
 {
     [Header("--------------Movement--------------")]
     public float moveSpeed = 5f;
-    public  Rigidbody2D rb;
+
+    public Rigidbody2D rb;
     public float dashRestoreTime = 3f;
     public float dashForce = 10f;
     public float dashTime = 1f;
@@ -28,6 +29,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     [Header("--------------Combat--------------")]
     public int damage = 10;
+
     public int defense = 0;
     private int originalDamage;
     public Transform firePoint;
@@ -48,9 +50,8 @@ public class Player : MonoBehaviour, IShopCustomer
     private Vector3 directionToShoot;
 
     [Header("--------------weapon config--------------")]
-    
-    //Fire Rate
     public float bloodyAxeRateIncrement = 0.2f;
+
     public float doubleAxeRateIncrement = 0.44f;
     public float seekAxeRateIncrement = 0.3f;
     public float multiAxeRateIncrement = 1f;
@@ -68,22 +69,24 @@ public class Player : MonoBehaviour, IShopCustomer
 
     //Damage
     public int bloodyAxeDamageIncrement = 15;
+
     public int seekAxeDamageIncrement = 10;
     public int battleAxeDamageIncrement = 10;
     public int nysthelAxeDamageIncrement = 10;
     public int trueAxeDamageIncrement = 10;
     public int doubleAxeDamageIncrement = 5;
-   
+
     //Bullet Config
     public GameObject bloodyBulletPrefab;
+
     public GameObject seekBulletPrefab;
     public GameObject battleBulletPrefab;
     public GameObject nysthelBulletPrefab;
     public GameObject trueBulletPrefab;
 
-
     [Header("--------------Player Stats--------------")]
     public int maxHealth = 50;
+
     public int gold;
     public int wood;
     public int woodMultiplier = 1;
@@ -96,11 +99,10 @@ public class Player : MonoBehaviour, IShopCustomer
     public float secondChanceProbability = 0.1f;
 
     private int currentHealth;
-    
-
 
     [Header("--------------Audio--------------")]
     public List<AudioClip> audios;
+
     public List<AudioSource> audioSource;
     public GameObject coinSound;
 
@@ -110,14 +112,15 @@ public class Player : MonoBehaviour, IShopCustomer
     private const int PICKUP_AUDIO = 3;
     private const int DAMAGE_AUDIO = 4;
 
-
-
     [Header("--------------UI And other settings--------------")]
     public TextMeshProUGUI goldText;
+
     public TextMeshProUGUI BlackSmithGoldText;
     public TextMeshProUGUI woodText;
+
     [SerializeField]
     private UIInventory uiInventory;
+
     public HealthBar healthBar;
     public GameObject goldMultiplierUI;
     public GameObject shield;
@@ -133,7 +136,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public GameObject feedBackScreenPanel;
     public bool dpsDebug = false;
     public bool usingController = false;
-    
+
     private string currentState;
     private Inventory inventory;
     private bool shielded = false;
@@ -157,13 +160,13 @@ public class Player : MonoBehaviour, IShopCustomer
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
+
     public LineRenderer ruteFollowed;
     public float timeBetweenPointsInRute = 2f;
 
     private int posIndex = 0;
     private float nextPoint = 0;
     private float battleTimePressed = 0;
-   
 
     private void Awake()
     {
@@ -238,7 +241,8 @@ public class Player : MonoBehaviour, IShopCustomer
         timer -= Time.deltaTime;
         seconds = (int)timer % 60;
         counterText.SetText(seconds + "s");
-        #endregion
+
+        #endregion counter
 
         //If we are shielded or immune we ignore the collisions with enemies so we can go through them
         if (immune)
@@ -247,7 +251,8 @@ public class Player : MonoBehaviour, IShopCustomer
             {
                 Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
             }
-            else {
+            else
+            {
                 Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), true);
             }
         }
@@ -256,7 +261,6 @@ public class Player : MonoBehaviour, IShopCustomer
             Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("Player"), false);
         }
 
-        
         if (aimPos.magnitude != 0)
         {
             crossHair.transform.position = transform.position + new Vector3(aimPos.x, aimPos.y);
@@ -291,7 +295,7 @@ public class Player : MonoBehaviour, IShopCustomer
             }
         }
 
-        #endregion
+        #endregion Dash
 
         #region Movement and Attack
 
@@ -316,29 +320,26 @@ public class Player : MonoBehaviour, IShopCustomer
                 aimPos.y = mPos.y;
             }
 
-            if(movement.x != 0 || movement.y != 0)
+            if (movement.x != 0 || movement.y != 0)
             {
             }
             else
             {
                 walkParticles.Play();
-
             }
 
             if (movement.magnitude != 0)
             {
-                
                 timePassedStep += Time.deltaTime;
                 if (timePassedStep > timeToStep)
                 {
                     timePassedStep = 0;
-                    
+
                     audioSource[FOOTSTEP_AUDIO].loop = false;
                     audioSource[FOOTSTEP_AUDIO].clip = audios[2];
                     audioSource[FOOTSTEP_AUDIO].Play();
                 }
             }
-
 
             if (aimPos.magnitude <= 0)
             {
@@ -360,7 +361,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 {
                     battleCircleLoad.SetActive(true);
                     battleCircleLoadMaximum.SetActive(true);
-                    battleCircleLoad.transform.localScale = new Vector3(1,1,1);
+                    battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
                     battlePressing = true;
                     battleTimePressed += Time.deltaTime;
 
@@ -369,7 +370,7 @@ public class Player : MonoBehaviour, IShopCustomer
                         battleCircleLoad.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
                         bulletsToShoot = 2;
                     }
-                    else if (battleTimePressed > 1f && battleTimePressed <1.5f)
+                    else if (battleTimePressed > 1f && battleTimePressed < 1.5f)
                     {
                         battleCircleLoad.transform.localScale = new Vector3(2f, 2f, 2f);
                         bulletsToShoot = 3;
@@ -405,10 +406,10 @@ public class Player : MonoBehaviour, IShopCustomer
                     bulletsToShoot = 0;
                     battleTimePressed = 0;
                 }
-                
             }
         }
-        #endregion
+
+        #endregion Movement and Attack
     }
 
     //We are checking if the player is moving or not
@@ -418,7 +419,7 @@ public class Player : MonoBehaviour, IShopCustomer
         curentSpeed = dist.magnitude / Time.deltaTime;
         lastUpdatePos = transform.position;
 
-        if(curentSpeed > 0.1)
+        if (curentSpeed > 0.1)
         {
             return true;
         }
@@ -426,11 +427,10 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             return false;
         }
-
     }
 
     //We constraint the position of an object to create a circular constrained movement
-    Vector2 GetConstrainedPosition(Vector2 midPoint, Vector2 endPoint)
+    private Vector2 GetConstrainedPosition(Vector2 midPoint, Vector2 endPoint)
     {
         //get the length of the line
         float dist = Vector2.Distance(midPoint, endPoint);
@@ -461,7 +461,6 @@ public class Player : MonoBehaviour, IShopCustomer
         }
         else
         {
-            
             dashParticles.Play();
             rb.MovePosition(rb.position + (dashSpeed * Time.fixedDeltaTime));
             dashSpeed *= 0.9f;
@@ -477,7 +476,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (collision.transform.tag == "Coin")
         {
-            gold += (1*goldMultiplier);
+            gold += (1 * goldMultiplier);
             Statistics.Instance.goldCollected += (1 * goldMultiplier);
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
@@ -507,7 +506,7 @@ public class Player : MonoBehaviour, IShopCustomer
         }
         if (collision.transform.tag == "Wood")
         {
-            wood += (1*woodMultiplier);
+            wood += (1 * woodMultiplier);
             SaveVariables.PLAYER_WOOD += (1 * woodMultiplier);
             woodText.SetText(wood.ToString());
             Destroy(collision.gameObject);
@@ -519,16 +518,19 @@ public class Player : MonoBehaviour, IShopCustomer
         if (iw != null)
         {
             pickUpParticles.gameObject.transform.position = collision.transform.position;
-            if (iw.getItem().itemType == Item.ItemType.smallPotion || iw.getItem().itemType == Item.ItemType.bigPotion) {
+            if (iw.getItem().itemType == Item.ItemType.smallPotion || iw.getItem().itemType == Item.ItemType.bigPotion)
+            {
                 pickUpParticles.startColor = Color.red;
-            } else if (iw.getItem().itemType == Item.ItemType.shieldPotion)
+            }
+            else if (iw.getItem().itemType == Item.ItemType.shieldPotion)
             {
                 pickUpParticles.startColor = Color.cyan;
-            } else if (iw.getItem().itemType == Item.ItemType.goldPotion)
+            }
+            else if (iw.getItem().itemType == Item.ItemType.goldPotion)
             {
                 pickUpParticles.startColor = Color.yellow;
             }
-            else if(iw.getItem().itemType == Item.ItemType.timePotion)
+            else if (iw.getItem().itemType == Item.ItemType.timePotion)
             {
                 pickUpParticles.startColor = new Color(0, 0, 0);
             }
@@ -546,49 +548,64 @@ public class Player : MonoBehaviour, IShopCustomer
             audioSource[ATTACK_AUDIO].Play();
             inventory.addItem(iw.getItem());
 
-            switch (iw.getItem().itemType) {
+            switch (iw.getItem().itemType)
+            {
                 case Item.ItemType.smallPotion:
                     SaveVariables.INV_SMALL_POTION += iw.getItem().amount;
                     break;
+
                 case Item.ItemType.bigPotion:
                     SaveVariables.INV_BIG_POTION += iw.getItem().amount;
                     break;
+
                 case Item.ItemType.shieldPotion:
                     SaveVariables.INV_SHIELD_POTION += iw.getItem().amount;
                     break;
+
                 case Item.ItemType.goldPotion:
                     SaveVariables.INV_GOLD_POTION += iw.getItem().amount;
                     break;
+
                 case Item.ItemType.timePotion:
                     SaveVariables.INV_TIME_POTION += iw.getItem().amount;
                     break;
+
                 case Item.ItemType.teleportPotion:
                     SaveVariables.INV_TELEPORT_POTION += iw.getItem().amount;
                     break;
+
                 case Item.ItemType.basicAxe:
                     SaveVariables.INV_BASIC_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.seekAxe:
                     SaveVariables.INV_SEEK_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.bloodAxe:
                     SaveVariables.INV_BLOOD_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.multiAxe:
                     SaveVariables.INV_MULTIAXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.doubleAxe:
                     SaveVariables.INV_DOUBLE_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.battleAxe:
                     SaveVariables.INV_BATTLE_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.nysthelAxe:
                     SaveVariables.INV_NYSTHEL_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.trueAxe:
                     SaveVariables.INV_TRUE_AXE = iw.getItem().amount;
                     break;
+
                 case Item.ItemType.shield:
                     SaveVariables.PLAYER_DEFENSE = iw.getItem().amount;
                     break;
@@ -603,7 +620,7 @@ public class Player : MonoBehaviour, IShopCustomer
         return immune;
     }
 
-    void playerMovement(Vector2 dir)
+    private void playerMovement(Vector2 dir)
     {
         if (checkMovement())
         {
@@ -634,13 +651,14 @@ public class Player : MonoBehaviour, IShopCustomer
             {
                 changeAnimationState("Nysthel_walk");
             }
-        }else if (!attacking)
+        }
+        else if (!attacking)
         {
             changeAnimationState("Nysthel_idle");
         }
     }
 
-    void Shoot()
+    private void Shoot()
     {
         int tempDamage = 0;
         int DPSdamage = 0;
@@ -654,17 +672,21 @@ public class Player : MonoBehaviour, IShopCustomer
                 tempDamage = damage + bloodyAxeDamageIncrement;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + bloodyAxeRateIncrement;
-            }else if (multiaxe)
+            }
+            else if (multiaxe)
             {
                 tempDamage = damage;
                 DPSdamage = tempDamage * 4;
                 nextFire = Time.time + attackRate + multiAxeRateIncrement;
-            }else if (doubleaxe)
+            }
+            else if (doubleaxe)
             {
                 tempDamage = damage;
                 DPSdamage = tempDamage * 2;
                 nextFire = Time.time + attackRate + doubleAxeRateIncrement;
-            }else if (seekaxe){
+            }
+            else if (seekaxe)
+            {
                 tempDamage = damage + seekAxeDamageIncrement;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + seekAxeRateIncrement;
@@ -694,7 +716,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 nextFire = Time.time + attackRate + basicAxeRateIncrement;
             }
 
-            if (dpsDebug) 
+            if (dpsDebug)
             {
                 dpsDebugger.gameObject.SetActive(true);
                 dpsDebugger.SetText("Max DPS: " + Mathf.RoundToInt(DPSdamage * (1 / (nextFire - Time.time))));
@@ -719,7 +741,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
             if (multiaxe)
             {
-                lookDir =  firePoint.position - transform.position;
+                lookDir = firePoint.position - transform.position;
                 float angleSpread = 45;
                 int numberOfProjectiles = 3;
                 float facingRotation = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg;
@@ -750,12 +772,12 @@ public class Player : MonoBehaviour, IShopCustomer
                 directionToShoot = (firePoint.position - transform.position).normalized;
                 attacking = true;
                 Invoke("stopAttacking", animationDelay);
-                
 
                 Bullet bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
                 bullet.setDamage(tempDamage);
-            }else if (bloodyaxe)
+            }
+            else if (bloodyaxe)
             {
                 directionToShoot = (firePoint.position - transform.position).normalized;
                 attacking = true;
@@ -764,7 +786,8 @@ public class Player : MonoBehaviour, IShopCustomer
                 Bullet bullet = Instantiate(bloodyBulletPrefab, firePoint.position, Quaternion.identity).GetComponent<Bullet>();
                 bullet.setDirection(directionToShoot);
                 bullet.setDamage(tempDamage);
-            }else if (seekaxe)
+            }
+            else if (seekaxe)
             {
                 directionToShoot = (firePoint.position - transform.position).normalized;
                 attacking = true;
@@ -829,7 +852,7 @@ public class Player : MonoBehaviour, IShopCustomer
         bullet.setDirection(directionToShoot);
     }
 
-    void coinMagnet(Collider2D[] coins)
+    private void coinMagnet(Collider2D[] coins)
     {
         foreach (Collider2D coin in coins)
         {
@@ -840,7 +863,7 @@ public class Player : MonoBehaviour, IShopCustomer
         }
     }
 
-    void stopAttacking()
+    private void stopAttacking()
     {
         attacking = false;
     }
@@ -864,7 +887,7 @@ public class Player : MonoBehaviour, IShopCustomer
             currentHealth -= Mathf.RoundToInt(value - ((defense / 100f) * value));
             immune = true;
             shield.SetActive(true);
-            shielded = true;
+            //shielded = true;
             audioSource[3].clip = audios[DAMAGE_AUDIO];
             audioSource[3].pitch = Random.Range(0.75f, 1.25f);
             audioSource[3].Play();
@@ -875,7 +898,7 @@ public class Player : MonoBehaviour, IShopCustomer
         healthBar.setHealth(currentHealth);
     }
 
-    void notImmunity()
+    private void notImmunity()
     {
         shield.SetActive(false);
         immune = false;
@@ -883,11 +906,11 @@ public class Player : MonoBehaviour, IShopCustomer
     }
 
     //Fer que estigui 2 segons la cam on ha mort el jugador, que no sigui instant respawn a la aldea
-    void die()
+    private void die()
     {
-        if(currentHealth <= 0)
+        if (currentHealth <= 0)
         {
-            if(Random.Range(0f, 1f) <= secondChanceProbability)
+            if (Random.Range(0f, 1f) <= secondChanceProbability)
             {
                 hasSecondChance = true;
             }
@@ -900,7 +923,7 @@ public class Player : MonoBehaviour, IShopCustomer
             }
             else
             {
-                if (SceneManager.GetActiveScene().name != "WoodFarm")
+                if (SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
                 {
                     SaveVariables.clearInventory();
                     gold -= Mathf.RoundToInt(0.6f * gold);
@@ -920,12 +943,11 @@ public class Player : MonoBehaviour, IShopCustomer
         Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
     }
 
-
     private void statueStats()
     {
         if (SaveVariables.DAMAGE_STATUE == 2 && !damageStatueApplied)
         {
-            damage = originalDamage + (Mathf.RoundToInt((originalDamage) /2));
+            damage = originalDamage + (Mathf.RoundToInt((originalDamage) / 2));
             damageStatueApplied = true;
         }
         else if (SaveVariables.DAMAGE_STATUE == 1 && damageStatueApplied)
@@ -934,8 +956,7 @@ public class Player : MonoBehaviour, IShopCustomer
             damageStatueApplied = false;
         }
 
-
-            if (SaveVariables.EMMYR_STATUE == 2)
+        if (SaveVariables.EMMYR_STATUE == 2)
         {
             //Simplement al final del joc checkejar si esta a 1 i habilitar un final o un altre.
         }
@@ -946,7 +967,7 @@ public class Player : MonoBehaviour, IShopCustomer
             goldMultiplierUI.SetActive(true);
             goldStatueApplied = true;
         }
-        else if(goldStatueApplied && SaveVariables.GOLD_STATUE == 1)
+        else if (goldStatueApplied && SaveVariables.GOLD_STATUE == 1)
         {
             goldMultiplierUI.SetActive(false);
             goldMultiplier = goldMultiplier - 1;
@@ -962,14 +983,14 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             secondChanceProbability = 0.3f;
         }
-        else if(SaveVariables.CHANCE_STATUE == 1)
+        else if (SaveVariables.CHANCE_STATUE == 1)
         {
             secondChanceProbability = 0.1f;
         }
     }
 
-
     #region Item Usage
+
     public void UseItem(Item item)
     {
         if (item.isStackable())
@@ -992,6 +1013,7 @@ public class Player : MonoBehaviour, IShopCustomer
                         SaveVariables.INV_SMALL_POTION--;
                     }
                     break;
+
                 case Item.ItemType.bigPotion:
                     if (currentHealth < maxHealth)
                     {
@@ -1007,6 +1029,7 @@ public class Player : MonoBehaviour, IShopCustomer
                         SaveVariables.INV_BIG_POTION--;
                     }
                     break;
+
                 case Item.ItemType.shieldPotion:
                     if (!shielded && !goldRushed && !timeSlowed)
                     {
@@ -1053,9 +1076,10 @@ public class Player : MonoBehaviour, IShopCustomer
                     break;
 
                 case Item.ItemType.timePotion:
-                    if (!timeSlowed && !shielded && !goldRushed) {
+                    if (!timeSlowed && !shielded && !goldRushed)
+                    {
                         timeSlowed = true;
-                        seconds = (int) timePotionDuration;
+                        seconds = (int)timePotionDuration;
                         timer = (int)timePotionDuration;
 
                         counterText.gameObject.SetActive(true);
@@ -1077,7 +1101,7 @@ public class Player : MonoBehaviour, IShopCustomer
             switch (item.itemType)
             {
                 case Item.ItemType.multiAxe:
-                    if (doubleaxe)doubleaxe = false;
+                    if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
@@ -1094,6 +1118,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_MULTIAXE = 2;
                     break;
+
                 case Item.ItemType.doubleAxe:
                     if (multiaxe) multiaxe = false;
                     if (basicaxe) basicaxe = false;
@@ -1112,6 +1137,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_DOUBLE_AXE = 2;
                     break;
+
                 case Item.ItemType.basicAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
@@ -1130,6 +1156,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_BASIC_AXE = 2;
                     break;
+
                 case Item.ItemType.bloodAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
@@ -1148,6 +1175,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_BLOOD_AXE = 2;
                     break;
+
                 case Item.ItemType.seekAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
@@ -1166,6 +1194,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_SEEK_AXE = 2;
                     break;
+
                 case Item.ItemType.battleAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
@@ -1184,6 +1213,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_BATTLE_AXE = 2;
                     break;
+
                 case Item.ItemType.nysthelAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
@@ -1202,6 +1232,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE == 2) SaveVariables.INV_TRUE_AXE = 1;
                     SaveVariables.INV_NYSTHEL_AXE = 2;
                     break;
+
                 case Item.ItemType.trueAxe:
                     if (multiaxe) multiaxe = false;
                     if (doubleaxe) doubleaxe = false;
@@ -1232,15 +1263,17 @@ public class Player : MonoBehaviour, IShopCustomer
         attackRate = attackRate * 2;
         Time.timeScale = 1f;
     }
+
     private void endGoldPotion()
     {
         goldMultiplier = 1;
+        goldRushed = false;
         goldRush.SetActive(false);
         goldMultiplierUI.SetActive(false);
         counterText.gameObject.SetActive(false);
     }
 
-    #endregion
+    #endregion Item Usage
 
     private void endShield()
     {
@@ -1256,7 +1289,7 @@ public class Player : MonoBehaviour, IShopCustomer
         switch (itemType)
         {
             case ShopItem.ItemType.LifeUpgrade:
-                maxHealth += (int) ShopItem.GetImprovementQuantity(ShopItem.ItemType.LifeUpgrade);
+                maxHealth += (int)ShopItem.GetImprovementQuantity(ShopItem.ItemType.LifeUpgrade);
                 SaveVariables.PLAYER_LIFE = maxHealth;
                 SaveVariables.LIFE_LEVEL = ShopItem.GetCurrentLevel(itemType);
                 healthBar.setMaxHealth(maxHealth);
@@ -1313,14 +1346,15 @@ public class Player : MonoBehaviour, IShopCustomer
     private void updateGold()
     {
         goldText.text = gold.ToString();
-        if (BlackSmithGoldText != null) {
+        if (BlackSmithGoldText != null)
+        {
             BlackSmithGoldText.text = gold.ToString();
         }
     }
 
     public bool TrySpendGoldAmount(int goldAmount)
     {
-        if(gold >= goldAmount)
+        if (gold >= goldAmount)
         {
             gold -= goldAmount;
             updateGold();
@@ -1340,11 +1374,11 @@ public class Player : MonoBehaviour, IShopCustomer
         s[0] = damage;
         s[1] = maxHealth;
         s[2] = moveSpeed;
-        s[3] = (1/attackRate);
+        s[3] = (1 / attackRate);
         s[4] = dashRestoreTime;
         s[5] = dashForce;
         s[6] = coinMagnetRange;
-        return s;    
+        return s;
     }
 
     public void saveInventory()
@@ -1356,22 +1390,26 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.smallPotion:
                     SaveVariables.INV_SMALL_POTION = item.amount;
                     break;
+
                 case Item.ItemType.bigPotion:
                     SaveVariables.INV_BIG_POTION = item.amount;
                     break;
+
                 case Item.ItemType.shieldPotion:
                     SaveVariables.INV_SHIELD_POTION = item.amount;
                     break;
+
                 case Item.ItemType.goldPotion:
                     SaveVariables.INV_GOLD_POTION = item.amount;
                     break;
+
                 case Item.ItemType.teleportPotion:
                     SaveVariables.INV_TELEPORT_POTION = item.amount;
                     break;
+
                 case Item.ItemType.timePotion:
                     SaveVariables.INV_TIME_POTION = item.amount;
                     break;
-                
             }
         }
     }
@@ -1417,7 +1455,7 @@ public class Player : MonoBehaviour, IShopCustomer
             switch (a.GetValue(i))
             {
                 case Item.ItemType.smallPotion:
-                    if(SaveVariables.INV_SMALL_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = SaveVariables.INV_SMALL_POTION });
+                    if (SaveVariables.INV_SMALL_POTION > 0) inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = SaveVariables.INV_SMALL_POTION });
                     break;
 
                 case Item.ItemType.bigPotion:
@@ -1497,53 +1535,65 @@ public class Player : MonoBehaviour, IShopCustomer
         switch (itemType)
         {
             case ItemShopItem.ItemType.smallHealthPotion:
-                inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1});
+                inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1 });
                 index = 0;
                 break;
+
             case ItemShopItem.ItemType.bigHealthPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
                 index = 1;
                 break;
+
             case ItemShopItem.ItemType.shieldPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
                 index = 2;
                 break;
+
             case ItemShopItem.ItemType.goldPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
                 index = 3;
                 break;
+
             case ItemShopItem.ItemType.teleportPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
                 index = 4;
                 break;
+
             case ItemShopItem.ItemType.timePotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
                 index = 5;
                 break;
+
             case ItemShopItem.ItemType.doubleAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.doubleAxe, amount = 1 });
                 index = 6;
-                break; 
+                break;
+
             case ItemShopItem.ItemType.bloodAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = 1 });
                 index = 7;
                 break;
+
             case ItemShopItem.ItemType.seekAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.seekAxe, amount = 1 });
                 index = 8;
                 break;
+
             case ItemShopItem.ItemType.battleAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.battleAxe, amount = 1 });
                 index = 9;
                 break;
+
             case ItemShopItem.ItemType.nysthelAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.nysthelAxe, amount = 1 });
                 index = 10;
                 break;
+
             case ItemShopItem.ItemType.trueAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.trueAxe, amount = 1 });
                 index = 11;
                 break;
+
             case ItemShopItem.ItemType.shield:
                 defense++;
                 SaveVariables.PLAYER_DEFENSE++;

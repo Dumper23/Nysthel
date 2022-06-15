@@ -29,4 +29,12 @@ public class Undead : Enemy
             Seek();
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "Enemy")
+        {
+            Debug.Log("xocant");
+        }
+    }
 }

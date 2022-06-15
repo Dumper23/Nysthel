@@ -33,8 +33,8 @@ public class ItemShopItem
             case ItemType.goldPotion: return 110;
             case ItemType.teleportPotion: return 200;
             case ItemType.timePotion: return 130;
-            case ItemType.doubleAxe: return 1000;
-            case ItemType.bloodAxe: return 1500;
+            case ItemType.doubleAxe: return 500;
+            case ItemType.bloodAxe: return 1200;
             case ItemType.seekAxe: return 2000;
             case ItemType.battleAxe: return 3000;
             case ItemType.nysthelAxe: return 2500;

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SaveVariablesDebug : MonoBehaviour
 {
+    public int TUTORIAL_DONE = 0;
+
     [Header("--------------------------Player Stats--------------------------")]
     public int PLAYER_GOLD = 0;
     public int PLAYER_WOOD = 0;
@@ -64,6 +66,7 @@ public class SaveVariablesDebug : MonoBehaviour
     private void Update()
     {
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
+        TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;
         PLAYER_WOOD = SaveVariables.PLAYER_WOOD;
         PLAYER_ATTACK = SaveVariables.PLAYER_ATTACK;
         PLAYER_DEFENSE = SaveVariables.PLAYER_DEFENSE;

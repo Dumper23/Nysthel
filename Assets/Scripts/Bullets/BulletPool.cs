@@ -44,6 +44,19 @@ public class BulletPool : MonoBehaviour
         return null;
     }
 
+    public int getActiveBulletCount()
+    {
+        int activeBullets = 0;
+        foreach(GameObject bullet in bullets)
+        {
+            if (bullet.activeInHierarchy)
+            {
+                activeBullets++;
+            }
+        }
+        return activeBullets;
+    }
+
 
 
 }

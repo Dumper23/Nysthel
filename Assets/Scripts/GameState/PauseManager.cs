@@ -7,7 +7,6 @@ using UnityEngine.UI;
 
 public class PauseManager : MonoBehaviour
 {
-
     public GameObject inventoryUi;
     public GameObject pauseUi;
     public GameObject ResumeButton;
@@ -17,25 +16,46 @@ public class PauseManager : MonoBehaviour
     public GameObject QuitAdvertise;
 
     private Player player;
-    private bool quit = false;
+    public bool quit = false;
+    public bool menu = false;
 
     private void Start()
     {
         player = FindObjectOfType<Player>();
     }
 
-    void Update()
+    private void Update()
     {
         if (quit)
         {
+            GameStateManager.Instance.SetState(GameState.Paused);
             if (Input.GetButtonUp("Interact"))
             {
-                Debug.Log("Quit");
+                GameStateManager.Instance.SetState(GameState.Gameplay);
+                Time.timeScale = 1f;
                 Application.Quit();
             }
             if (Input.GetButtonUp("Cancel") || Input.GetKeyUp(KeyCode.Escape))
             {
+                GameStateManager.Instance.SetState(GameState.Gameplay);
                 quit = false;
+                QuitAdvertise.SetActive(false);
+            }
+        }
+        if (menu)
+        {
+            GameStateManager.Instance.SetState(GameState.Paused);
+
+            if (Input.GetButtonUp("Interact"))
+            {
+                GameStateManager.Instance.SetState(GameState.Gameplay);
+                Time.timeScale = 1f;
+                SceneManager.LoadScene("MainMenu");
+            }
+            if (Input.GetButtonUp("Cancel") || Input.GetKeyUp(KeyCode.Escape))
+            {
+                GameStateManager.Instance.SetState(GameState.Gameplay);
+                menu = false;
                 QuitAdvertise.SetActive(false);
             }
         }
@@ -44,7 +64,7 @@ public class PauseManager : MonoBehaviour
         {
             this.enabled = false;
         }
-        if(GameStateManager.Instance.CurrentGameState == GameState.Paused)
+        if (GameStateManager.Instance.CurrentGameState == GameState.Paused)
         {
             Cursor.visible = true;
             player.audioSource[0].Pause();
@@ -59,8 +79,6 @@ public class PauseManager : MonoBehaviour
             player.audioSource[2].UnPause();
         }
 
-            
-
         if (Input.GetButtonDown("Cancel"))
         {
             GameStateManager.Instance.SetState(GameState.Gameplay);
@@ -73,6 +91,7 @@ public class PauseManager : MonoBehaviour
                 Time.timeScale = 0.5f;
             }
             pauseUi.SetActive(false);
+            QuitAdvertise.SetActive(false);
             inventoryUi.SetActive(false);
         }
 
@@ -105,6 +124,7 @@ public class PauseManager : MonoBehaviour
                     Time.timeScale = 0.5f;
                 }
                 pauseUi.SetActive(false);
+                QuitAdvertise.SetActive(false);
             }
             else
             {
@@ -127,6 +147,7 @@ public class PauseManager : MonoBehaviour
         if (Input.GetButtonDown("Inventory"))
         {
             pauseUi.SetActive(false);
+            QuitAdvertise.SetActive(false);
             inventoryUi.GetComponent<UIInventory>().navigationRefresh();
 
             GameState currentGameState = GameStateManager.Instance.CurrentGameState;
@@ -167,32 +188,37 @@ public class PauseManager : MonoBehaviour
             Time.timeScale = 0.5f;
         }
         pauseUi.SetActive(false);
+        QuitAdvertise.SetActive(false);
     }
 
     public void MainMenu()
     {
-        GameStateManager.Instance.SetState(GameState.Gameplay);
-        Time.timeScale = 1f;
-        //SaveManager.Instance.SaveGame();
-        SceneManager.LoadScene("MainMenu");
+        pauseUi.SetActive(false);
+        QuitAdvertise.SetActive(true);
+        GameStateManager.Instance.SetState(GameState.Paused);
+        Time.timeScale = 1;
+        Invoke("setMenu", 0.3f);
     }
 
     public void Quit()
     {
-        //SaveManager.Instance.SaveGame();
-        //Show a dialog to confirm to exit the game and advising that the progress not saved will be lost
-        
         pauseUi.SetActive(false);
         QuitAdvertise.SetActive(true);
-        GameStateManager.Instance.SetState(GameState.Gameplay);
+        GameStateManager.Instance.SetState(GameState.Paused);
         Time.timeScale = 1;
-        Invoke("setQuit", 0.5f);
+        Invoke("setQuit", 0.3f);
     }
 
-    void setQuit()
+    private void setQuit()
     {
-        
+        menu = false;
         quit = true;
+    }
+
+    private void setMenu()
+    {
+        quit = false;
+        menu = true;
     }
 
     public void usingControllerToggle()

@@ -35,7 +35,6 @@ public class Interactable : MonoBehaviour
         EnterBlackSmith,
         Save,
         GoToWoodFarm,
-
         TalkToStatueRestaurator,
         TalkToGoodEnt,
         EstatuaOr,
@@ -44,6 +43,7 @@ public class Interactable : MonoBehaviour
         EstatuaSecondChance,
         EstatuaBendicion,
         ChestShop,
+        GoToGoldRush,
     };
 
     private bool inRange = false;
@@ -140,6 +140,16 @@ public class Interactable : MonoBehaviour
                         }
                         
                         
+                    }
+                    break;
+
+                case Interactions.GoToGoldRush:
+                    if (SaveVariables.PLAYER_GOLD >= 100)
+                    {
+                        loadingScreen.SetActive(true);
+                        SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
+                        SaveManager.Instance.SaveGame();
+                        SceneManager.LoadScene("GoldRush");
                     }
                     break;
 
@@ -519,6 +529,9 @@ public class Interactable : MonoBehaviour
                         break;
                     case Interactions.GoToWoodFarm:
                         text.SetText("Press X or E to go to the Wood Farm. It's not a safe place! (Cost: 100)");
+                        break;
+                    case Interactions.GoToGoldRush:
+                        text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 500)");
                         break;
                     case Interactions.EstatuaBendicion:
                         text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
