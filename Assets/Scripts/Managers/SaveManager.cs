@@ -34,7 +34,7 @@ public class SaveManager : MonoBehaviour
             File.Delete(path);
         }
     }
-    
+
     public void loadGame()
     {
         if (File.Exists(path))
@@ -53,7 +53,7 @@ public class SaveManager : MonoBehaviour
             SaveVariables.PLAYER_ATTACK = data.PLAYER_ATTACK;
             SaveVariables.PLAYER_DEFENSE = data.PLAYER_DEFENSE;
             SaveVariables.PLAYER_LIFE = data.PLAYER_LIFE;
-            SaveVariables.PLAYER_SPEED = data.PLAYER_SPEED; 
+            SaveVariables.PLAYER_SPEED = data.PLAYER_SPEED;
             SaveVariables.PLAYER_ATTACK_SPEED = data.PLAYER_ATTACK_SPEED;
             SaveVariables.PLAYER_RANGE = data.PLAYER_RANGE;
             SaveVariables.PLAYER_DASH_RECOVERY = data.PLAYER_DASH_RECOVERY;

@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class Item
 {
-   public enum ItemType
+    public enum ItemType
     {
         smallPotion,
         bigPotion,
@@ -27,28 +27,28 @@ public class Item
 
     public ItemType itemType;
     public int amount;
+    public int positionInventory;
 
     public Sprite GetSprite()
     {
         switch (itemType)
         {
             default:
-            case ItemType.smallPotion:    return ItemAssets.Instance.SmallPotion;
-            case ItemType.bigPotion:   return ItemAssets.Instance.BigPotion;
-            case ItemType.shieldPotion:   return ItemAssets.Instance.ShieldPotion;
-            case ItemType.multiAxe:   return ItemAssets.Instance.MultiAxe;
-            case ItemType.doubleAxe:   return ItemAssets.Instance.DoubleAxe;
-            case ItemType.basicAxe:   return ItemAssets.Instance.BasicAxe;
-            case ItemType.bloodAxe:   return ItemAssets.Instance.BloodAxe;
-            case ItemType.seekAxe:   return ItemAssets.Instance.SeekAxe;
-            case ItemType.goldPotion:   return ItemAssets.Instance.GoldPotion;
-            case ItemType.teleportPotion:   return ItemAssets.Instance.TeleportPotion;
-            case ItemType.timePotion:   return ItemAssets.Instance.TimePotion;
+            case ItemType.smallPotion: return ItemAssets.Instance.SmallPotion;
+            case ItemType.bigPotion: return ItemAssets.Instance.BigPotion;
+            case ItemType.shieldPotion: return ItemAssets.Instance.ShieldPotion;
+            case ItemType.multiAxe: return ItemAssets.Instance.MultiAxe;
+            case ItemType.doubleAxe: return ItemAssets.Instance.DoubleAxe;
+            case ItemType.basicAxe: return ItemAssets.Instance.BasicAxe;
+            case ItemType.bloodAxe: return ItemAssets.Instance.BloodAxe;
+            case ItemType.seekAxe: return ItemAssets.Instance.SeekAxe;
+            case ItemType.goldPotion: return ItemAssets.Instance.GoldPotion;
+            case ItemType.teleportPotion: return ItemAssets.Instance.TeleportPotion;
+            case ItemType.timePotion: return ItemAssets.Instance.TimePotion;
             case ItemType.battleAxe: return ItemAssets.Instance.battleAxe;
             case ItemType.nysthelAxe: return ItemAssets.Instance.nysthelAxe;
             case ItemType.trueAxe: return ItemAssets.Instance.trueAxe;
             case ItemType.shield: return ItemAssets.Instance.shield;
-
         }
     }
 
@@ -65,6 +65,7 @@ public class Item
             case ItemType.timePotion:
             case ItemType.shield:
                 return true;
+
             case ItemType.multiAxe:
             case ItemType.doubleAxe:
             case ItemType.basicAxe:

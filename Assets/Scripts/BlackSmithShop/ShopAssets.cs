@@ -15,7 +15,7 @@ public class ShopAssets : MonoBehaviour
 
     private void Update()
     {
-        level.text = "Blacksmith level: " + BlackSmithLevel.ToString() + " / 10";
+        level.text = "Blacksmith level: " + BlackSmithLevel.ToString() + " / 6";
     }
 
     public int BlackSmithLevel;
