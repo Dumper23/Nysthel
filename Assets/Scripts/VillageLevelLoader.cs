@@ -13,13 +13,12 @@ public class VillageLevelLoader : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log("hola");
-        if(collision.CompareTag("Player"))
+        if (collision.CompareTag("Player"))
         {
             if (isEndOfTutorial)
             {
                 SaveVariables.TUTORIAL_DONE = 1;
-                
+
                 blackOut.GetComponent<Animator>().Play("FadeOut");
                 text.GetComponent<Animator>().Play("fadeInText");
                 Invoke("changeScene", timeToChange);
@@ -28,12 +27,10 @@ public class VillageLevelLoader : MonoBehaviour
             {
                 changeScene();
             }
-
-           
         }
     }
 
-    void changeScene()
+    private void changeScene()
     {
         SaveManager.Instance.SaveGame();
         SceneManager.LoadScene(levelToLoad);
