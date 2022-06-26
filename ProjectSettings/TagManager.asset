@@ -23,6 +23,8 @@ TagManager:
   - Coin3
   - mirror
   - sparring
+  - waypoint
+  - LoadingScreen
   layers:
   - Default
   - TransparentFX

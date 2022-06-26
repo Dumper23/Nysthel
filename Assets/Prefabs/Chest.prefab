@@ -386,6 +386,9 @@ MonoBehaviour:
   destruction: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}
   destructionParticles: {fileID: 5666712459616409814, guid: d4f8516db1123744887366aecc470ad9, type: 3}
   coinType: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
+  coinType2: {fileID: 5899310037350252981, guid: 063b5d615be86ab4da0761478065ef37, type: 3}
+  coinType3: {fileID: 5899310037350252981, guid: 63064e1ff76320b42bb5a8496572567b, type: 3}
+  moneyConvertion: 1
   breakingProbability: 0.09
   anim: {fileID: 0}
   moneyQuantity: 10

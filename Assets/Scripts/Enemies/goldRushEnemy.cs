@@ -54,29 +54,34 @@ public class goldRushEnemy : Enemy
         }
         if (level < Mathf.RoundToInt(sprites.Count * 0.15f))
         {
-            levelText.color = Color.white;
+            levelText.faceColor = new Color32(255, 0, 209, 255);
             coin = coin1;
         }
-        if (level >= Mathf.RoundToInt(sprites.Count * 0.15f) && level < Mathf.RoundToInt(sprites.Count * 0.5f))
+        if (level >= Mathf.RoundToInt(sprites.Count * 0.15f) && level < Mathf.RoundToInt(sprites.Count * 0.35f))
         {
-            levelText.color = Color.cyan;
+            levelText.faceColor = new Color32(0, 251, 255, 255);
             coin = coin1;
+        }
+        if (level >= Mathf.RoundToInt(sprites.Count * 0.35f) && level < Mathf.RoundToInt(sprites.Count * 0.5f))
+        {
+            levelText.faceColor = new Color32(0, 61, 250, 255);
+            coin = coin2;
         }
         if (level >= Mathf.RoundToInt(sprites.Count * 0.5f) && level < Mathf.RoundToInt(sprites.Count * 0.75f))
         {
-            levelText.color = Color.blue;
+            levelText.faceColor = new Color32(255, 147, 0, 255);
             coin = coin2;
             restartCoins = Mathf.RoundToInt(sprites.Count * 0.5f);
         }
         if (level >= Mathf.RoundToInt(sprites.Count * 0.75f) && level < sprites.Count)
         {
-            levelText.color = Color.yellow;
+            levelText.faceColor = new Color32(255, 241, 0, 255);
             coin = coin3;
             restartCoins = Mathf.RoundToInt(sprites.Count * 0.75f);
         }
         if (level >= sprites.Count)
         {
-            levelText.color = Color.red;
+            levelText.faceColor = new Color32(255, 0, 0, 255);
             coin = coin3;
         }
     }
@@ -136,10 +141,12 @@ public class goldRushEnemy : Enemy
                 }
             }
             timesDead++;
-            if (timesDead % 3 == 0)
+            if (timesDead % 2 == 0)
             {
                 level++;
+                damage++;
             }
+            //waveZoneManager.Instance.enemiesKilled++;
             gameObject.SetActive(false);
         }
     }

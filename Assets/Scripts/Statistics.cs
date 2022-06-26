@@ -9,6 +9,7 @@ public class Statistics : MonoBehaviour
 {
     [HideInInspector]
     public int goldCollected, dashesDone, attacksDone, enemiesKilled;
+
     [HideInInspector]
     public float timeSpent;
 
@@ -17,6 +18,7 @@ public class Statistics : MonoBehaviour
     public TextMeshProUGUI statisticsText;
     public GameObject statisticsUI;
     public GameObject button;
+    public GameObject loadingScreen;
 
     public static Statistics Instance { get; private set; }
 
@@ -48,7 +50,7 @@ public class Statistics : MonoBehaviour
                   "-Gold collected: " + goldCollected + "\n"
                 + "-Dashes done: " + dashesDone + "\n"
                 + "-Attacks done: " + attacksDone + "\n"
-                + "-Time of the run: " + Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60)*60))  + "s\n"
+                + "-Time of the run: " + Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60) * 60)) + "s\n"
                 + "-Enemies killed: " + enemiesKilled);
             statisticsUI.SetActive(true);
         }
@@ -58,6 +60,7 @@ public class Statistics : MonoBehaviour
     {
         Time.timeScale = 1f;
         GameStateManager.Instance.SetState(GameState.Gameplay);
+        loadingScreen.SetActive(true);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadSceneAsync("Village");
     }

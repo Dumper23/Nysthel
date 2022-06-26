@@ -5,7 +5,6 @@ using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
 [RequireComponent(typeof(Animator))]
-
 public abstract class Enemy : MonoBehaviour
 {
     public int health = 20;
@@ -31,7 +30,7 @@ public abstract class Enemy : MonoBehaviour
     protected int goldToGive;
     protected string currentState;
     protected float nextShot = 0f;
-    
+
     public bool activated = false;
 
     private void Start()
@@ -41,7 +40,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void takeDamage(int value)
     {
-        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f),0), Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), 0), Quaternion.identity) as GameObject;
 
         if (activated && !immune)
         {
@@ -50,7 +49,8 @@ public abstract class Enemy : MonoBehaviour
                 go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- " + value);
             }
             health -= value;
-        }else if (immune)
+        }
+        else if (immune)
         {
             if (go != null)
             {
@@ -73,7 +73,7 @@ public abstract class Enemy : MonoBehaviour
             {
                 Instantiate(bloodStain, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
             }
-            if(bloodParticles != null)
+            if (bloodParticles != null)
             {
                 Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
             }
@@ -86,7 +86,6 @@ public abstract class Enemy : MonoBehaviour
                 {
                     GameObject go = Instantiate(coin, transform.position, Quaternion.identity);
                     go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
-
                 }
             }
             Destroy(gameObject);
@@ -112,6 +111,7 @@ public abstract class Enemy : MonoBehaviour
         }
         return inRange;
     }
+
     protected void changeAnimationState(string newState)
     {
         //We avoid playing the same animation multiple times

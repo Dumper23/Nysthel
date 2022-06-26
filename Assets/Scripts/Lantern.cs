@@ -12,7 +12,14 @@ public class Lantern : MonoBehaviour
 
     private void LateUpdate()
     {
-        Vector3 targetPosition = Target.position + Offset;
-        transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, SmoothTime);
+        if (Target != null)
+        {
+            Vector3 targetPosition = Target.position + Offset;
+            transform.position = Vector3.SmoothDamp(transform.position, targetPosition, ref velocity, SmoothTime);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

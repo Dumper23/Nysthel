@@ -47,9 +47,15 @@ public class Portal : MonoBehaviour
                 SceneManager.UnloadSceneAsync("Mines");
                 SaveVariables.MAX_WORLD = 3;
             }
+            else if (SceneManager.GetActiveScene().name == "Walls")
+            {
+                SceneManager.UnloadSceneAsync("Walls");
+                SaveVariables.MAX_WORLD = 4;
+            }
         }
         SaveManager.Instance.SaveGame();
-
+        GameStateManager.Instance.SetState(GameState.Paused);
+        GameObject.FindGameObjectWithTag("LoadingScreen").transform.GetChild(0).gameObject.SetActive(true);
         SceneManager.LoadSceneAsync(SceneToLoad);
     }
 }

@@ -15,7 +15,6 @@ public class EnemyBullet : MonoBehaviour
     private Rigidbody2D rb;
     private bool readyToMove = false;
 
-
     private void Start()
     {
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("EnemyBullet"), true);
@@ -27,10 +26,9 @@ public class EnemyBullet : MonoBehaviour
 
         Destroy(gameObject, timeAlive);
         rb = GetComponent<Rigidbody2D>();
-        
     }
 
-    void Update()
+    private void Update()
     {
         if (isSeeker)
         {
@@ -68,7 +66,7 @@ public class EnemyBullet : MonoBehaviour
         {
             Physics2D.IgnoreCollision(collision.gameObject.GetComponent<Collider2D>(), GetComponent<Collider2D>());
         }
-        else if(collision.transform.tag == "Destructible")
+        else if (collision.transform.tag == "Destructible")
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
             Destroy(gameObject);

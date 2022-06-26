@@ -5,14 +5,13 @@ using UnityEngine;
 
 public class waveZoneManager : MonoBehaviour
 {
-
     public List<Transform> spawnPoints = new List<Transform>();
     public float timeToSpawn = 0.5f;
     public int enemyLimit = 20;
     public TextMeshProUGUI timer;
     public Transform prizeSpawnPoint;
     public List<GameObject> prizes = new List<GameObject>();
-   
+    //public int enemiesKilled = 0;
 
     private AudioSource audioSource;
     private int currentEnemies = 0;
@@ -20,8 +19,16 @@ public class waveZoneManager : MonoBehaviour
     private float tempTime = 0;
     private bool prizeSpawned = false;
     private float timeToPrize = 0;
+    //private int enemyLevel = 0;
 
-    void Start()
+    public static waveZoneManager Instance { get; private set; }
+
+    private void Awake()
+    {
+        Instance = this;
+    }
+
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         for (int i = 0; i < transform.childCount; i++)
@@ -33,13 +40,28 @@ public class waveZoneManager : MonoBehaviour
         }
     }
 
-    void prizeSpawnedToggle()
+    private void prizeSpawnedToggle()
     {
         prizeSpawned = false;
     }
 
-    void Update()
+    private void Update()
     {
+        /*if (enemiesKilled >= 50)
+        {
+            enemyLevel++;
+            enemiesKilled = 0;
+        }*/
+
+        if (tempTime < 60)
+        {
+            timeToSpawn = 1.25f;
+        }
+        else
+        {
+            timeToSpawn = 0.75f;
+        }
+
         tempTime += Time.deltaTime;
         timeToPrize += Time.deltaTime;
         if (timeToPrize >= 60 && !prizeSpawned)
@@ -53,10 +75,11 @@ public class waveZoneManager : MonoBehaviour
         timer.SetText(Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60) * 60)) + "s ");
         currentEnemies = BulletPool.Instance.getActiveBulletCount();
         timeSpawning += Time.deltaTime;
-        if(timeSpawning >= timeToSpawn && currentEnemies < enemyLimit)
+        if (timeSpawning >= timeToSpawn && currentEnemies < enemyLimit)
         {
             timeSpawning = 0;
             GameObject enemy = BulletPool.Instance.GetBullet();
+            //enemy.GetComponent<goldRushEnemy>().level = enemyLevel;
             enemy.transform.position = spawnPoints[Random.Range(0, spawnPoints.Count)].position;
             enemy.SetActive(true);
         }
@@ -72,8 +95,8 @@ public class waveZoneManager : MonoBehaviour
                 spawnPoints.Add(transform.GetChild(i).transform);
             }
         }
-        
-        foreach(Transform point in spawnPoints)
+
+        foreach (Transform point in spawnPoints)
         {
             Gizmos.DrawSphere(point.position, 0.5f);
         }

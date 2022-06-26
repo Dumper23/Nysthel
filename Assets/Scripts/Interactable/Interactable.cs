@@ -18,6 +18,7 @@ public class Interactable : MonoBehaviour
 
     [Header("--------Chest Shop----------")]
     public GameObject[] chests;
+
     public GameObject[] chestSpawnPoint;
     public Collider2D chestDetection;
     public int chestShopPrice = 50;
@@ -47,11 +48,12 @@ public class Interactable : MonoBehaviour
     };
 
     private bool inRange = false;
-    
+
     public void setInShop(bool b)
     {
         inShop = b;
     }
+
     private void Update()
     {
         if (playerIn && !inShop && interactionDialog != null)
@@ -89,7 +91,6 @@ public class Interactable : MonoBehaviour
                             }
                         }
                         //Else fer un Popup per mostrar que no te diners i que no pot viatjar
-
                     }
                     else
                     {
@@ -97,12 +98,12 @@ public class Interactable : MonoBehaviour
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("Village");
                     }
-                    
+
                     break;
 
                 case Interactions.OpenChest:
                     Chest chest = GetComponentInParent<Chest>();
-                    if(chest != null)
+                    if (chest != null)
                     {
                         if (chest.hasMoney)
                         {
@@ -123,9 +124,16 @@ public class Interactable : MonoBehaviour
                         }
                         else
                         {
-                            Instantiate(chest.destruction, transform);
-                            Instantiate(chest.destructionParticles, transform.position, Quaternion.identity);
-                            Destroy(chest.gameObject);
+                            if (!chest.opened)
+                            {
+                                chest.moneyText.gameObject.SetActive(false);
+                                if (chest.hasObject)
+                                {
+                                    Instantiate(chest.objectToGive[Random.Range(0, chest.objectToGive.Length)], transform.position, Quaternion.identity);
+                                }
+                                Instantiate(chest.chestOpenSound, transform.position, Quaternion.identity);
+                                chest.opened = true;
+                            }
                         }
 
                         if (!chest.opened)
@@ -138,8 +146,11 @@ public class Interactable : MonoBehaviour
                             chest.opened = true;
                             chest.anim.Play("chestOpen");
                         }
-                        
-                        
+                        else if (!chest.hasMoney)
+                        {
+                            chest.anim.Play("chestOpen");
+                            Destroy(chest.gameObject, 1f);
+                        }
                     }
                     break;
 
@@ -207,8 +218,8 @@ public class Interactable : MonoBehaviour
                             "help you get stronger.";
                         SaveVariables.TALKED_HALLBORG = 1;
                         FindObjectOfType<DialogSystem>().startDialog(s, this);
-                        if (interactionDialog != null) { 
-
+                        if (interactionDialog != null)
+                        {
                             interactionDialog.SetActive(false);
                         }
                         this.enabled = false;
@@ -271,11 +282,11 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("WoodFarm");
-                    }                    
+                    }
                     break;
 
                 case Interactions.EstatuaBendicion:
-                    if(player.wood >= 5000 && SaveVariables.HOLY_STATUE == 0)
+                    if (player.wood >= 5000 && SaveVariables.HOLY_STATUE == 0)
                     {
                         SaveVariables.PLAYER_WOOD -= 5000;
                         player.wood = SaveVariables.PLAYER_WOOD;
@@ -310,7 +321,6 @@ public class Interactable : MonoBehaviour
                     }
                     else if (SaveVariables.DAMAGE_STATUE == 1)
                     {
-
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
                             SaveVariables.ACTIVATED_STATUES++;
@@ -336,7 +346,6 @@ public class Interactable : MonoBehaviour
                     }
                     else if (SaveVariables.EMMYR_STATUE == 1)
                     {
-                       
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
                             SaveVariables.ACTIVATED_STATUES++;
@@ -362,7 +371,6 @@ public class Interactable : MonoBehaviour
                     }
                     else if (SaveVariables.GOLD_STATUE == 1)
                     {
-                        
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
                             SaveVariables.ACTIVATED_STATUES++;
@@ -388,7 +396,6 @@ public class Interactable : MonoBehaviour
                     }
                     else if (SaveVariables.CHANCE_STATUE == 1)
                     {
-                        
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
                             SaveVariables.CHANCE_STATUE = 2;
@@ -403,6 +410,7 @@ public class Interactable : MonoBehaviour
                     }
 
                     break;
+
                 case Interactions.TalkToStatueRestaurator:
                     if (SaveVariables.TALKED_VORDKOR == 0)
                     {
@@ -430,6 +438,7 @@ public class Interactable : MonoBehaviour
                         this.gameObject.SetActive(false);
                     }
                     break;
+
                 case Interactions.TalkToGoodEnt:
                     if (SaveVariables.HAS_EMMYR_ITEM == 0)
                     {
@@ -512,58 +521,73 @@ public class Interactable : MonoBehaviour
                             text.SetText("Press X or E to return to the Village.");
                         }
                         break;
+
                     case Interactions.OpenChest:
                         text.SetText("Press X or E to open chest!");
                         break;
+
                     case Interactions.GoToAdventure:
                         text.SetText("Press X or E to select a destination!");
                         break;
+
                     case Interactions.EnterBlackSmith:
                         text.SetText("Press X or E to talk with the BlackSmith");
                         break;
+
                     case Interactions.EnterShop:
                         text.SetText("Press X or E to talk with the Mercader");
                         break;
+
                     case Interactions.Save:
                         text.SetText("Press X or E to save your progress.");
                         break;
+
                     case Interactions.GoToWoodFarm:
                         text.SetText("Press X or E to go to the Wood Farm. It's not a safe place! (Cost: 100)");
                         break;
+
                     case Interactions.GoToGoldRush:
                         text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 500)");
                         break;
+
                     case Interactions.EstatuaBendicion:
                         text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
                         if (SaveVariables.HOLY_STATUE == 0)
                             text.SetText("Press X or E to build the Holy Statue! (2500 wood)");
                         break;
+
                     case Interactions.EstatuaDamage:
                         text.SetText("Angry Statue, your damage has been augmented (press to Activate or Desactivate)");
                         if (SaveVariables.DAMAGE_STATUE == 0)
                             text.SetText("Press X or E to build the Angry Statue! (4000 wood)");
                         break;
+
                     case Interactions.EstatuaEmmyr:
                         text.SetText("Emmyr's Statue, his soul will allways be with you (press to Activate or Desactivate)");
                         if (SaveVariables.EMMYR_STATUE == 0)
                             text.SetText("Press X or E to build Emmyr's Statue! (1000 wood & Emmyr's Soul)");
                         break;
+
                     case Interactions.EstatuaOr:
                         text.SetText("Golden Statue, coins will be more valuable (press to Activate or Desactivate)");
                         if (SaveVariables.GOLD_STATUE == 0)
                             text.SetText("Press X or E to build the Golden Statue! (3500 wood)");
                         break;
+
                     case Interactions.EstatuaSecondChance:
                         text.SetText("Resurrection Statue, your chances of having a second chance have been incremented (press to Activate or Desactivate)");
                         if (SaveVariables.CHANCE_STATUE == 0)
                             text.SetText("Press X or E to build the Resurrection Statue! (6666 wood)");
                         break;
+
                     case Interactions.TalkToStatueRestaurator:
                         text.SetText("Press X or E to talk with the statue restaurator!");
                         break;
+
                     case Interactions.TalkToGoodEnt:
                         text.SetText("Press X or E to talk with the Good Ent!");
                         break;
+
                     case Interactions.ChestShop:
                         text.SetText("Press X or E to buy 3 random gold Chests by " + chestShopPrice + " gold");
                         break;
@@ -574,13 +598,11 @@ public class Interactable : MonoBehaviour
                 interactionDialog.SetActive(true);
             }
             inRange = true;
-            
         }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
     }
 
     private void OnTriggerExit2D(Collider2D collision)

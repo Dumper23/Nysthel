@@ -9,9 +9,11 @@ public class SecondChance : MonoBehaviour
     public GameObject[] EnemiesW1;
     public GameObject[] EnemiesW2;
     public GameObject[] EnemiesW3;
+    public GameObject[] EnemiesW4;
     public GameObject bulletW1;
     public GameObject bulletW2;
     public GameObject bulletW3;
+    public GameObject bulletW4;
     public BulletPool bp;
 
     public float spawnRadius;
@@ -19,7 +21,7 @@ public class SecondChance : MonoBehaviour
     public float timer = 60f;
     public float enemyRate = 1f;
     public GameObject loadingScreen;
-    
+
     private int seconds;
     private bool spawned = false;
 
@@ -34,7 +36,7 @@ public class SecondChance : MonoBehaviour
         seconds = (int)timer % 60;
         counterText.SetText("Survive for: " + seconds + "s");
 
-        if(seconds <= 0)
+        if (seconds <= 0)
         {
             loadingScreen.SetActive(true);
             SaveManager.Instance.SaveGame();
@@ -50,7 +52,8 @@ public class SecondChance : MonoBehaviour
             {
                 bp.poolBullet = bulletW1;
                 Instantiate(EnemiesW1[Random.Range(0, EnemiesW1.Length)], randPos, Quaternion.identity);
-            }else if (SaveVariables.CURRENT_WORLD == 1)
+            }
+            else if (SaveVariables.CURRENT_WORLD == 1)
             {
                 bp.poolBullet = bulletW2;
                 Instantiate(EnemiesW2[Random.Range(0, EnemiesW2.Length)], randPos, Quaternion.identity);
@@ -60,8 +63,12 @@ public class SecondChance : MonoBehaviour
                 bp.poolBullet = bulletW3;
                 Instantiate(EnemiesW3[Random.Range(0, EnemiesW3.Length)], randPos, Quaternion.identity);
             }
+            else if (SaveVariables.CURRENT_WORLD == 3)
+            {
+                bp.poolBullet = bulletW4;
+                Instantiate(EnemiesW4[Random.Range(0, EnemiesW4.Length)], randPos, Quaternion.identity);
+            }
         }
-        
     }
 
     private void reSpawn()

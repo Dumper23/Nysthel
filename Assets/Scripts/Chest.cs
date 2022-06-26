@@ -7,24 +7,32 @@ using UnityEngine.UI;
 public class Chest : MonoBehaviour
 {
     public GameObject[] objectToGive;
-    public Color colorOfText = new Color(0,0,0,255);
+    public Color colorOfText = new Color(0, 0, 0, 255);
     public bool opened;
     public bool hasMoney = false;
     public bool hasObject = true;
     public GameObject destruction;
     public ParticleSystem destructionParticles;
     public GameObject coinType;
+    public GameObject coinType2;
+    public GameObject coinType3;
+    public bool moneyConvertion = false;
+
     [Range(0f, 1f)]
     public float breakingProbability;
+
     [HideInInspector]
     public Animator anim;
+
     public int moneyQuantity = 0;
     public TextMeshProUGUI moneyText;
     public bool givePrize = false;
     public GameObject chestWinSound;
     public GameObject chestOpenSound;
+
     [Range(0, 50)]
     public int minCoinStep = 0;
+
     [Range(0, 50)]
     public int maxCoinStep = 10;
 
@@ -34,13 +42,15 @@ public class Chest : MonoBehaviour
 
     private int hp = 3;
     private bool immune = false;
+    private bool coin2 = false;
+    private bool coin3 = false;
 
     private void Start()
     {
         anim = GetComponent<Animator>();
         moneyText.enabled = false;
         moneyText.color = colorOfText;
-        if(objectToGive == null || objectToGive.Length <= 0)
+        if (objectToGive == null || objectToGive.Length <= 0)
         {
             hasObject = false;
         }
@@ -48,12 +58,13 @@ public class Chest : MonoBehaviour
 
     private void Update()
     {
-        if(hp == 3)
+        if (hp == 3)
         {
             h1.enabled = true;
             h2.enabled = true;
             h3.enabled = true;
-        }else if (hp == 2)
+        }
+        else if (hp == 2)
         {
             h1.enabled = true;
             h2.enabled = true;
@@ -75,19 +86,44 @@ public class Chest : MonoBehaviour
         {
             moneyText.enabled = false;
         }
-        if(hp <= 0)
+        if (hp <= 0)
         {
+            if (moneyConvertion)
+            {
+                if (moneyQuantity > 100)
+                {
+                    moneyQuantity /= 2;
+                    coin2 = true;
+                }
+                if (moneyQuantity > 100)
+                {
+                    moneyQuantity /= 3;
+                    coin3 = true;
+                }
+            }
             for (int i = 0; i <= moneyQuantity; i++)
             {
-                GameObject go = Instantiate(coinType, transform.position, Quaternion.identity);
-                go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                if (coin2 && !coin3)
+                {
+                    GameObject go = Instantiate(coinType2, transform.position, Quaternion.identity);
+                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                }
+                else if (coin3)
+                {
+                    GameObject go = Instantiate(coinType3, transform.position, Quaternion.identity);
+                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                }
+                else
+                {
+                    GameObject go = Instantiate(coinType, transform.position, Quaternion.identity);
+                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                }
             }
             Instantiate(destruction, transform.position, Quaternion.identity);
             Instantiate(destructionParticles, transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -98,7 +134,7 @@ public class Chest : MonoBehaviour
                 hp--;
                 Destroy(collision.gameObject);
                 immune = true;
-                Invoke("vulnerable",0.25f);
+                Invoke("vulnerable", 0.25f);
             }
         }
     }

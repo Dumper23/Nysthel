@@ -32,7 +32,7 @@ public static class SaveVariables
     public static int MAX_WORLD = 0;
     public static int CURRENT_WORLD = 0;
 
-    public static int 
+    public static int
         BLACKSMITH_LEVEL = 0,
         LIFE_LEVEL = 0,
         ATTACK_LEVEL = 0,
@@ -97,7 +97,6 @@ public static class SaveVariables
         DASH_RECOVERY_LEVEL = 0;
         DASH_RANGE_LEVEL = 0;
 
-
         INV_SMALL_POTION = 0;
         INV_BIG_POTION = 0;
         INV_SHIELD_POTION = 0;
@@ -129,17 +128,22 @@ public static class SaveVariables
         //INV_SEEK_AXE = 0;
     }
 
-
     public static string getCurrentWorld()
     {
         switch (CURRENT_WORLD)
         {
             case 0:
                 return "Forest";
+
             case 1:
                 return "Ruins";
+
             case 2:
                 return "Mines";
+
+            case 3:
+                return "Walls";
+
             default:
                 return "Village";
         }

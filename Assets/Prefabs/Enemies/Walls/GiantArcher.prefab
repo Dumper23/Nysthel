@@ -193,10 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80b319761e4422419e56b034e617fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 76
-  damage: 10
-  maxGoldToGive: 5
-  minGoldToGive: 0
+  health: 86
+  damage: 35
+  maxGoldToGive: 20
+  minGoldToGive: 10
   moveSpeed: 2
   startHealth: 0
   rb: {fileID: 922088481914221060}
@@ -204,19 +204,25 @@ MonoBehaviour:
   firePoint: {fileID: 6505718994538907657}
   attackRate: 1
   range: 30
-  coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
+  coin: {fileID: 5779060491291618182, guid: 41382773221edab47a7d4efcd71d5ea8, type: 3}
   coinForce: 2
   bloodStain: {fileID: 9221127518733234886, guid: 5f6964fad714b774aa2bfff03c38600b, type: 3}
   bloodParticles: {fileID: 8870822980127303738, guid: 596656cd70782f041ba7bc3555958a03, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
-  activated: 1
+  activated: 0
   stoppingRange: 11.9
-  lance: {fileID: 922088482075854655}
+  weapon: {fileID: 922088482075854655}
   lanceRotationSpeed: 0.04
   isRanged: 1
+  isBomber: 0
+  isPriest: 0
   arrow: {fileID: 5991347108643234671, guid: b9ef34d26482f9c41945a3b943d4fac6, type: 3}
+  bomb: {fileID: 0}
   angleSpread: 90
+  waypointCount: 4
+  walkRadius: 10
+  waypoints: []
 --- !u!70 &922088481914221061
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
