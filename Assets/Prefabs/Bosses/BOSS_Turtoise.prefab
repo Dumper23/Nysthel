@@ -141,11 +141,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9434a28964528b647ae1f6695d978dec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 80
+  health: 60
   damage: 20
   maxGoldToGive: 100
   minGoldToGive: 50
   moveSpeed: 2
+  startHealth: 0
   rb: {fileID: 8446597804094068537}
   anim: {fileID: 8446597804094068536}
   firePoint: {fileID: 8446597804247384151}

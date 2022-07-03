@@ -124,6 +124,7 @@ MonoBehaviour:
   maxGoldToGive: 25
   minGoldToGive: 15
   moveSpeed: 1
+  startHealth: 0
   rb: {fileID: 983220726935600613}
   anim: {fileID: 983220726935600611}
   firePoint: {fileID: 0}
@@ -135,7 +136,7 @@ MonoBehaviour:
   bloodParticles: {fileID: 9221127518733234886, guid: 1fa862c0e67f21d4fac9d849a3822c94, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
-  activated: 0
+  activated: 1
   isRanged: 0
   bullet: {fileID: 0}
   audios:
@@ -149,7 +150,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 983220726935600615}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

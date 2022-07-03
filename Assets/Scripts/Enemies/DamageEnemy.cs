@@ -8,6 +8,17 @@ public class DamageEnemy : Enemy
 
     private float speed = 50;
     private Vector3 moveDir;
+    private AudioSource au;
+
+    private void Start()
+    {
+        if (isColumnContinuous)
+        {
+            au = GetComponent<AudioSource>();
+            au.pitch = Random.Range(1.5f, 2.5f);
+        }
+    }
+
     public override void takeDamage(int value)
     {
         //Nothing
@@ -27,6 +38,14 @@ public class DamageEnemy : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
+        if (isColumnContinuous)
+        {
+            if (collision.transform.CompareTag("Enemy")) 
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider);   
+            }
+        }
+
         if (collision.transform.CompareTag("PlayerBullet"))
         {
             Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
@@ -41,6 +60,13 @@ public class DamageEnemy : Enemy
 
     private void OnCollisionStay2D(Collision2D collision)
     {
+        if (isColumnContinuous)
+        {
+            if (collision.transform.CompareTag("Enemy"))
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.collider);
+            }
+        }
         if (collision.transform.CompareTag("PlayerBullet"))
         {
             Physics2D.IgnoreCollision(this.GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());

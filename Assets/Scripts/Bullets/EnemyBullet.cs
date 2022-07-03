@@ -9,6 +9,7 @@ public class EnemyBullet : MonoBehaviour
     public float timeAlive = 3f;
     public int damage = 10;
     public float timeToWait = 0f;
+    public bool isElectric = false;
 
     public Transform target;
     private Vector2 moveDir;
@@ -17,6 +18,10 @@ public class EnemyBullet : MonoBehaviour
 
     private void Start()
     {
+        if (isElectric)
+        {
+            GetComponent<AudioSource>().pitch = Random.Range(0.85f, 1.1f);
+        }
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Enemy"), LayerMask.NameToLayer("EnemyBullet"), true);
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Decoration"), LayerMask.NameToLayer("EnemyBullet"), true);
         if (isSeeker)

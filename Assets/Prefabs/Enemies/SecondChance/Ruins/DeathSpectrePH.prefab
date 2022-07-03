@@ -44,7 +44,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3105389083354774773}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -92,7 +92,8 @@ MonoBehaviour:
   damage: 20
   maxGoldToGive: 0
   minGoldToGive: 0
-  moveSpeed: 0.45
+  moveSpeed: 3
+  startHealth: 0
   rb: {fileID: 0}
   anim: {fileID: 3105389084747393113}
   firePoint: {fileID: 3105389083356927678}
@@ -111,6 +112,8 @@ MonoBehaviour:
   meleeAttackDelay: 0.35
   treshold: 1
   meleeAttackEffect: {fileID: 3895382744759835924}
+  isRanged: 1
+  cCollider: {fileID: 0}
 --- !u!58 &3105389083354774774
 CircleCollider2D:
   m_ObjectHideFlags: 0

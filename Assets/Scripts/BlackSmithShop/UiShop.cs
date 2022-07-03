@@ -173,8 +173,12 @@ public class UiShop : MonoBehaviour
                         }
                     }
                 }
+
                 lastItemSelected = shopCustomer.BoughtItem(itemType);
-                EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
+                if (lastItemSelected < templates.Count && lastItemSelected >= 0 && templates[lastItemSelected] != null)
+                {
+                    EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
+                }
 
                 Transform t = transform.Find("Panel").Find("Statistics");
                 float[] s = shopCustomer.GetStatistics();
@@ -206,7 +210,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
 
@@ -214,7 +217,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
 
@@ -222,7 +224,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
 
@@ -230,7 +231,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
 
@@ -238,7 +238,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
 
@@ -246,7 +245,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
 
@@ -254,7 +252,6 @@ public class UiShop : MonoBehaviour
                                     if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade))
                                     {
                                         templates[i].gameObject.SetActive(false);
-                                        ReRoll();
                                     }
                                     break;
                             }
@@ -321,13 +318,5 @@ public class UiShop : MonoBehaviour
     private void endShop()
     {
         shopInteractable.setInShop(false);
-    }
-
-    public void ReRoll()
-    {
-        /*if (shopCustomer.TrySpendGoldAmount(reRollCost))
-        {
-            GenerateUI();
-        }*/
     }
 }

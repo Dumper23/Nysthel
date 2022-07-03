@@ -1232,7 +1232,10 @@ MonoBehaviour:
   walkParticles: {fileID: 1391199669}
   dashParticles: {fileID: 1123923597}
   pickUpParticles: {fileID: 7774038271840652595}
+  dashSmoke: {fileID: 1225045283968229550, guid: 9ef40df12945ea14bbef3686f6f8a1cd, type: 3}
+  movement: {x: 0, y: 0}
   damage: 10
+  defense: 0
   firePoint: {fileID: 9216989107770260182}
   bulletPrefab: {fileID: 8848529324968467858, guid: 99b9fa0d3654df44ea8951569f6e48df, type: 3}
   bulletForce: 10

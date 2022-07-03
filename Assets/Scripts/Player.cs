@@ -16,6 +16,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public ParticleSystem walkParticles;
     public ParticleSystem dashParticles;
     public ParticleSystem pickUpParticles;
+    public GameObject dashSmoke;
 
     public Vector2 movement;
     private Vector2 aimPos;
@@ -292,6 +293,16 @@ public class Player : MonoBehaviour, IShopCustomer
                 immune = true;
                 dashDirection = movement;
                 dashSpeed = dashDirection.normalized * dashForce;
+                if (movement.x > 0)
+                {
+                    dashSmoke.GetComponent<SpriteRenderer>().flipX = false;
+                    Instantiate(dashSmoke, transform.position, Quaternion.identity);
+                }
+                else
+                {
+                    dashSmoke.GetComponent<SpriteRenderer>().flipX = true;
+                    Instantiate(dashSmoke, transform.position, Quaternion.identity);
+                }
             }
         }
 

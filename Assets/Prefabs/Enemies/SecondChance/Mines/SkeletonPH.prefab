@@ -299,7 +299,8 @@ MonoBehaviour:
   damage: 10
   maxGoldToGive: 0
   minGoldToGive: 0
-  moveSpeed: 0.15
+  moveSpeed: 2
+  startHealth: 0
   rb: {fileID: 7558771150749535024}
   anim: {fileID: 7558771150677934378}
   firePoint: {fileID: 7558771150551628168}

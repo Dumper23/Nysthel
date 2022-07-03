@@ -30,6 +30,7 @@ public class UlrusActivation : MonoBehaviour
             Ulrus.GetComponent<BOSS_Ulrus>().activate();
             Ulrus.GetComponent<BOSS_Ulrus>().changeAnimationState("teleportArrive");
             barrier.SetActive(true);
+            Destroy(gameObject, 5);
         }
     }
 }

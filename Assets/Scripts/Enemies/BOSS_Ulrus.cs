@@ -15,6 +15,8 @@ public class BOSS_Ulrus : Enemy
     public GameObject meleeCollider;
 
     private Vector3 oldTargetPos;
+    private bool dashed = false;
+    private bool meleeDone = false;
     private float initialDashSpeed;
 
     [Header("\n----------Teleport Options----------\n")]
@@ -54,7 +56,21 @@ public class BOSS_Ulrus : Enemy
     [Header("\n----------Laser Options----------\n")]
     public GameObject lasersFase1;
     public GameObject lasersFase2;
-    public float laserTime = 20f;    
+    public float laserTime = 20f;
+
+    [Header("\n--------Audio options---------\n")]
+    public AudioSource attackAS;
+    public AudioSource damageAS;
+    public AudioSource dashAS;
+    public AudioClip[] audios;
+
+    private static int DAMAGE_AUDIO = 0;
+    private static int FIREBALL_AUDIO = 1;
+    private static int AREA_AUDIO = 2;
+    private static int TELEPORT_AUDIO = 3;
+    private static int MELEE_AUDIO = 4;
+    private static int DASH_AUDIO = 5;
+    private static int LASER_AUDIO = 6;
 
     [Header("\n--------Other options---------\n")]
     public SpriteRenderer sprite;
@@ -112,7 +128,7 @@ public class BOSS_Ulrus : Enemy
         state[11] = "rangedAttack";
         state[12] = "laser";
 
-        cState = "walk";
+        cState = "areaAttack";
     }
 
     // Update is called once per frame
@@ -120,6 +136,10 @@ public class BOSS_Ulrus : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
+            if (!immune)
+            {
+                shield.SetActive(false);
+            }
             if(health <= 0)
             {
                 DamageEnemy[] columns = FindObjectsOfType<DamageEnemy>();
@@ -218,11 +238,11 @@ public class BOSS_Ulrus : Enemy
                         if (!isActing)
                         {
                             isActing = true;
-                            Invoke("ChangeState", 1);
-                            lasersFase1.transform.position = transform.position;
-                            lasersFase2.transform.position = transform.position;
                             changeAnimationState("laser");
-                            Invoke("activateLaser", 0.7f);
+                            attackAS.clip = audios[LASER_AUDIO];
+                            attackAS.Play();
+                            Invoke("activateLaser", 1f);
+                            Invoke("ChangeState", 1.2f);
                         }
                     }
                     else
@@ -254,6 +274,8 @@ public class BOSS_Ulrus : Enemy
                     }
                     if (areaAttackIsPrepared)
                     {
+                        attackAS.clip = audios[AREA_AUDIO];
+                        attackAS.Play();
                         spawnColumns();
                     }
 
@@ -286,6 +308,8 @@ public class BOSS_Ulrus : Enemy
     public void activate()
     {
         Invoke("setActivation", 0.5f);
+        attackAS.clip = audios[TELEPORT_AUDIO];
+        attackAS.Play();
     }
 
     private void setActivation()
@@ -298,6 +322,12 @@ public class BOSS_Ulrus : Enemy
     {
         if ((transform.position - oldTargetPos).magnitude >= meleeRange)
         {
+            if (!dashed)
+            {
+                dashAS.clip = audios[DASH_AUDIO];
+                dashAS.Play();
+                dashed = true;
+            }
             transform.position = Vector3.Lerp(transform.position, oldTargetPos, (dashSpeed * Time.deltaTime) / 2);
             meleeCollider.SetActive(false);
             attackTime += Time.deltaTime;
@@ -309,6 +339,7 @@ public class BOSS_Ulrus : Enemy
         }
         else
         {
+            transform.position = Vector3.Lerp(transform.position, target.position, (dashSpeed * Time.deltaTime) / 1.5f);
             Invoke("colliderActivation", 0.2f);
             changeAnimationState("melee");
             Invoke("updateOldTargetPos", dashRestTime);
@@ -318,6 +349,19 @@ public class BOSS_Ulrus : Enemy
     private void colliderActivation()
     {
         meleeCollider.SetActive(true);
+        if (!meleeDone)
+        {
+            meleeDone = true;
+            Invoke("resetMeleeAudio", 1f);
+            attackAS.clip = audios[MELEE_AUDIO];
+            attackAS.Play();
+            dashed = false;
+        }
+    }
+
+    private void resetMeleeAudio()
+    {
+        meleeDone = false;
     }
 
     private void updateOldTargetPos()
@@ -332,6 +376,8 @@ public class BOSS_Ulrus : Enemy
 
     private void startTeleportAction()
     {
+        attackAS.clip = audios[TELEPORT_AUDIO];
+        attackAS.Play();
         teleportCollider.enabled = true;
         Invoke("hideTeleportCollider", 0.35f);
         teleportPosition = new Vector2(Random.Range(teleportArea.xMin, teleportArea.xMax), Random.Range(teleportArea.yMin, teleportArea.yMax));
@@ -342,6 +388,7 @@ public class BOSS_Ulrus : Enemy
     private void teleport()
     {
         //Start teleport
+        shield.SetActive(false);
         immune = true;
         #region Bullet Instantiation
         go = Instantiate(seekBullet, transform.position, Quaternion.identity);
@@ -440,6 +487,8 @@ public class BOSS_Ulrus : Enemy
     private void teleportArrival()
     {
         //End teleport
+        attackAS.clip = audios[TELEPORT_AUDIO];
+        attackAS.Play();
         immune = false;
         teleportCollider.enabled = true;
         Invoke("hideTeleportCollider", 0.35f);
@@ -475,6 +524,8 @@ public class BOSS_Ulrus : Enemy
         time += Time.deltaTime;
         if(time >= attackRate)
         {
+            attackAS.clip = audios[FIREBALL_AUDIO];
+            attackAS.Play();
             isShooting = true;
             Invoke("shoot", 0.2f);
             Invoke("isShootingOff", 0.6f);
@@ -560,6 +611,10 @@ public class BOSS_Ulrus : Enemy
     #region LASER
     private void activateLaser()
     {
+        lasersFase1.SetActive(false);
+        lasersFase2.SetActive(false);
+        lasersFase1.transform.position = transform.position;
+        lasersFase2.transform.position = transform.position;
         if (fase <= 2)
         {
             lasersFase1.SetActive(true);
@@ -568,7 +623,6 @@ public class BOSS_Ulrus : Enemy
         {
             lasersFase2.SetActive(true);
         }
-        Invoke("desactivateLaser", laserTime);
     }
 
     private void desactivateLaser()
@@ -580,6 +634,8 @@ public class BOSS_Ulrus : Enemy
 
     private void ChangeState()
     {
+        meleeDone = false;
+        dashed = false;
         changeAnimationState("");
         areaAttackIsPrepared = false;
         meleeCollider.SetActive(false);
@@ -605,6 +661,8 @@ public class BOSS_Ulrus : Enemy
 
     private void ChangeState(string stat)
     {
+        meleeDone = false;
+        dashed = false;
         changeAnimationState("");
         areaAttackIsPrepared = false;
         meleeCollider.SetActive(false);
@@ -651,13 +709,18 @@ public class BOSS_Ulrus : Enemy
     public override void takeDamage(int value)
     {
         base.takeDamage(value);
-        string[] an = new string[2];
-        shield.SetActive(true);
-        immune = true;
+        if (!immune)
+        {
+            damageAS.clip = audios[DAMAGE_AUDIO];
+            damageAS.Play();
+            string[] an = new string[2];
+            shield.SetActive(true);
+            immune = true;
+            an[0] = "blood";
+            an[1] = "blood2";
+            blood.GetComponent<Animator>().Play(an[Random.Range(0, an.Length)]);
+        }
         Invoke("endImmune", immuneTime);
-        an[0] = "blood";
-        an[1] = "blood2";
-        blood.GetComponent<Animator>().Play(an[Random.Range(0, an.Length)]);
     }
 
     private void endImmune()
