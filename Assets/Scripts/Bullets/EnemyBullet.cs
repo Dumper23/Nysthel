@@ -10,7 +10,7 @@ public class EnemyBullet : MonoBehaviour
     public int damage = 10;
     public float timeToWait = 0f;
 
-    private Transform target;
+    public Transform target;
     private Vector2 moveDir;
     private Rigidbody2D rb;
     private bool readyToMove = false;

@@ -17,7 +17,7 @@ public class Player : MonoBehaviour, IShopCustomer
     public ParticleSystem dashParticles;
     public ParticleSystem pickUpParticles;
 
-    private Vector2 movement;
+    public Vector2 movement;
     private Vector2 aimPos;
     private bool dashing = false;
     private float nextDash = 0f;
@@ -941,6 +941,8 @@ public class Player : MonoBehaviour, IShopCustomer
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position + (Vector3)movement*2, 1f);
     }
 
     private void statueStats()

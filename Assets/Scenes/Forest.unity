@@ -330,9 +330,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40cd2f7aa905e84448ee2be7121d53e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TUTORIAL_DONE: 0
   PLAYER_GOLD: 0
   PLAYER_WOOD: 0
   PLAYER_ATTACK: 0
+  PLAYER_DEFENSE: 0
   PLAYER_SPEED: 0
   PLAYER_ATTACK_SPEED: 0
   PLAYER_RANGE: 0
@@ -371,6 +373,9 @@ MonoBehaviour:
   INV_DOUBLE_AXE: 0
   INV_BLOOD_AXE: 0
   INV_SEEK_AXE: 0
+  INV_BATTLE_AXE: 0
+  INV_NYSTHEL_AXE: 0
+  INV_TRUE_AXE: 0
 --- !u!1 &305323372
 GameObject:
   m_ObjectHideFlags: 0
@@ -452,6 +457,7 @@ MonoBehaviour:
   item:
     itemType: 3
     amount: 1
+    positionInventory: 0
 --- !u!4 &619990091
 Transform:
   m_ObjectHideFlags: 0
@@ -512,6 +518,7 @@ MonoBehaviour:
   item:
     itemType: 5
     amount: 1
+    positionInventory: 0
 --- !u!1001 &742903747
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -876,6 +883,7 @@ MonoBehaviour:
   item:
     itemType: 4
     amount: 1
+    positionInventory: 0
 --- !u!4 &1275490632
 Transform:
   m_ObjectHideFlags: 0

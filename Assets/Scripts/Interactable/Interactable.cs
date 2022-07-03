@@ -155,10 +155,10 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case Interactions.GoToGoldRush:
-                    if (SaveVariables.PLAYER_GOLD >= 100)
+                    if (SaveVariables.PLAYER_GOLD >= 250)
                     {
                         loadingScreen.SetActive(true);
-                        SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
+                        SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 250;
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("GoldRush");
                     }
@@ -547,13 +547,13 @@ public class Interactable : MonoBehaviour
                         break;
 
                     case Interactions.GoToGoldRush:
-                        text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 500)");
+                        text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 250)");
                         break;
 
                     case Interactions.EstatuaBendicion:
                         text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
                         if (SaveVariables.HOLY_STATUE == 0)
-                            text.SetText("Press X or E to build the Holy Statue! (2500 wood)");
+                            text.SetText("Press X or E to build the Holy Statue! (5000 wood)");
                         break;
 
                     case Interactions.EstatuaDamage:

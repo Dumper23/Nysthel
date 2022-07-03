@@ -40,7 +40,7 @@ public class StaticEye : Enemy
 
     private void shootLaser()
     {
-        if (Physics2D.Raycast(firePoint.position, firePoint.right))
+        if (Physics2D.Raycast(firePoint.position, firePoint.right, 1000, LayerMask.NameToLayer("Eenmy")))
         {
             RaycastHit2D hit = Physics2D.Raycast(firePoint.position, firePoint.right);
             Vector3 pos = hit.point;

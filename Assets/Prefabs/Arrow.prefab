@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5991347108059373583}
   - component: {fileID: 5991347108059373582}
   - component: {fileID: 6941170984419359106}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: sprite
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -202,9 +202,9 @@ GameObject:
   - component: {fileID: 7155157198252406734}
   - component: {fileID: 2012746560099956871}
   - component: {fileID: -5267612905609543462}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Arrow
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -279,6 +279,7 @@ MonoBehaviour:
   timeAlive: 3
   damage: 20
   timeToWait: 0
+  target: {fileID: 0}
 --- !u!1 &5991347110084324800
 GameObject:
   m_ObjectHideFlags: 0
@@ -289,7 +290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5991347110084324801}
   - component: {fileID: 5991347110084324806}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Point Light 2D
   m_TagString: Untagged
   m_Icon: {fileID: 0}

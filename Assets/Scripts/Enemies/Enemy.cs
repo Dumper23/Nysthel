@@ -112,11 +112,10 @@ public abstract class Enemy : MonoBehaviour
         return inRange;
     }
 
-    protected void changeAnimationState(string newState)
+    public void changeAnimationState(string newState)
     {
         //We avoid playing the same animation multiple times
         if (currentState == newState) return;
-
         //We play a determinated animation
         anim.Play(newState);
 
@@ -132,6 +131,28 @@ public abstract class Enemy : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, range);
     }
 
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.transform.CompareTag("Player"))
+        {
+            if (collision.transform.GetComponent<Player>().isImmune())
+            {
+                Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+            }
+            else
+            {
+                if (this.transform.tag == "sparring")
+                {
+                    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+                }
+                else
+                {
+                    collision.transform.GetComponent<Player>().takeDamage(damage);
+                }
+            }
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.transform.CompareTag("Player"))
@@ -142,7 +163,11 @@ public abstract class Enemy : MonoBehaviour
             }
             else
             {
-                if (this.transform.tag != "sparring")
+                if (this.transform.tag == "sparring")
+                {
+                    Physics2D.IgnoreCollision(GetComponent<Collider2D>(), collision.transform.GetComponent<Collider2D>());
+                }
+                else
                 {
                     collision.transform.GetComponent<Player>().takeDamage(damage);
                 }

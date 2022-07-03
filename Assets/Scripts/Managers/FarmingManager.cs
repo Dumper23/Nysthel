@@ -9,6 +9,8 @@ public class FarmingManager : MonoBehaviour
     public int respawnTime = 4;
     public GameObject[] EnemiesW1;
     public GameObject[] EnemiesW2;
+    public GameObject[] EnemiesW3;
+    public GameObject[] EnemiesW4;
     public float spawnRadius;
     public float minEnemyRate = 10f;
     public float maxEnemyRate = 30f;
@@ -83,6 +85,14 @@ public class FarmingManager : MonoBehaviour
             else if (SaveVariables.MAX_WORLD == 1)
             {
                 Instantiate(EnemiesW2[Random.Range(0, EnemiesW2.Length)], randPos, Quaternion.identity);
+            }
+            else if (SaveVariables.MAX_WORLD == 2)
+            {
+                Instantiate(EnemiesW3[Random.Range(0, EnemiesW3.Length)], randPos, Quaternion.identity);
+            }
+            else if (SaveVariables.MAX_WORLD >= 3)
+            {
+                Instantiate(EnemiesW4[Random.Range(0, EnemiesW4.Length)], randPos, Quaternion.identity);
             }
         }
     }

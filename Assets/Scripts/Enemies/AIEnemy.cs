@@ -80,7 +80,10 @@ public class AIEnemy : Enemy
                     weapon.transform.rotation = Quaternion.Lerp(weapon.transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), lanceRotationSpeed);
                 }
 
-                Agent.SetDestination(target.position);
+                if ((target.position - transform.position).magnitude <= range)
+                {
+                    Agent.SetDestination(target.position);
+                }
 
                 if (Mathf.Abs((target.position - transform.position).magnitude) <= stoppingRange + 0.2f)
                 {

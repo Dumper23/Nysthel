@@ -96,7 +96,14 @@ public class Bullet : MonoBehaviour
             }
             else
             {
-                Destroy(collision.gameObject);
+                if (collision.transform.CompareTag("BulletHellBullet"))
+                {
+                    collision.gameObject.SetActive(false);
+                }
+                else
+                {
+                    Destroy(collision.gameObject);
+                }
                 Instantiate(destroyGameObject, transform.position, Quaternion.identity);
                 Instantiate(afterDestroySound, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);

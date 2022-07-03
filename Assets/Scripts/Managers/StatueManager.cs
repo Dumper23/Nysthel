@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
@@ -7,6 +8,7 @@ public class StatueManager : MonoBehaviour
 {
     public GameObject holyStatue, goldStatue, chanceStatue, emmyrStatue, damageStatue;
     public Light2D holyStatueL, goldStatueL, chanceStatueL, emmyrStatueL, damageStatueL;
+    public TextMeshProUGUI statueNum;
 
     private void Start()
     {
@@ -24,6 +26,7 @@ public class StatueManager : MonoBehaviour
 
     void Update()
     {
+        statueNum.SetText(SaveVariables.ACTIVATED_STATUES + "/3");
         if (SaveVariables.HOLY_STATUE == 1)
         {
             holyStatue.SetActive(true);
