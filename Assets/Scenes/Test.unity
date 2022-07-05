@@ -717,6 +717,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 960337674}
   hitLight: {fileID: 1791489362}
+  deathSound: {fileID: 0}
 --- !u!1 &310589350
 GameObject:
   m_ObjectHideFlags: 0
@@ -5915,6 +5916,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 535891956}
   hitLight: {fileID: 1592666409}
+  deathSound: {fileID: 0}
 --- !u!1 &340429752 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8469165761278272952, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
@@ -6237,6 +6239,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 1446287117}
   hitLight: {fileID: 2037940957}
+  deathSound: {fileID: 0}
 --- !u!1 &433710192
 GameObject:
   m_ObjectHideFlags: 0
@@ -6649,6 +6652,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 1054672906}
   hitLight: {fileID: 1175213322}
+  deathSound: {fileID: 0}
 --- !u!1 &535891953
 GameObject:
   m_ObjectHideFlags: 0
@@ -17001,6 +17005,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 1256294252}
   hitLight: {fileID: 472802658}
+  deathSound: {fileID: 0}
 --- !u!1 &840155846
 GameObject:
   m_ObjectHideFlags: 0
@@ -125505,6 +125510,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 1312917616}
   hitLight: {fileID: 1476115675}
+  deathSound: {fileID: 0}
 --- !u!1 &1428961177
 GameObject:
   m_ObjectHideFlags: 0
@@ -136100,6 +136106,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 1876321484}
   hitLight: {fileID: 989431966}
+  deathSound: {fileID: 0}
 --- !u!1 &1941460652 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6332523809339244160, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
@@ -136471,6 +136478,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 314345300}
   hitLight: {fileID: 1850954971}
+  deathSound: {fileID: 0}
 --- !u!1 &2057819269 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1752114919797526800, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
@@ -136657,6 +136665,7 @@ MonoBehaviour:
   rotationSpeed: 15
   hitParticles: {fileID: 668611968}
   hitLight: {fileID: 76538035}
+  deathSound: {fileID: 0}
 --- !u!1 &1161605425979842437
 GameObject:
   m_ObjectHideFlags: 0

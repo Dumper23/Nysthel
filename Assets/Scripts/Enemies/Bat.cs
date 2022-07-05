@@ -8,9 +8,14 @@ public class Bat : Enemy
     public GameObject batCopy;
     public int copyMaxGold = 5;
     public int copyMinGold = 2;
+    public GameObject deathSound;
+
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.pitch = Random.Range(0.7f, 1f);
         target = FindObjectOfType<Player>().transform;
     }
 
@@ -19,7 +24,11 @@ public class Bat : Enemy
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay && (target.position - transform.position).magnitude <= range)
         {
             transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.deltaTime);
-            die();
+            if (health <= 0)
+            {
+                Instantiate(deathSound, transform.position, Quaternion.identity);
+                die();
+            }
         }
     }
     
@@ -36,6 +45,7 @@ public class Bat : Enemy
             }
             if(health - value > 0)
             {
+                audioSource.Play();
                 Vector3 spawnPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
                 GameObject copy = Instantiate(batCopy, transform.position + spawnPos, Quaternion.identity);
                 transform.position = transform.position + spawnPos;

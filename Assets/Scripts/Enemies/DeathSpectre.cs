@@ -12,13 +12,21 @@ public class DeathSpectre : Enemy
     public GameObject meleeAttackEffect;
     public bool isRanged = true;
     public CircleCollider2D cCollider;
+    public AudioClip[] audios;
+    public GameObject deadSound;
 
+    private static int ATTACK_AUDIO = 0;
+    private static int MELEE_AUDIO = 1;
+
+    private AudioSource audioSource;
     private float xScale = 1, yScale = 1;
     private float xOffset = 0.39f;
     private bool isAttacking = false;
+    private bool hasSounded = false;
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>().transform;
     }
 
@@ -53,6 +61,10 @@ public class DeathSpectre : Enemy
                             xScale = 1;
                             yScale = 1;
                         }
+                        else
+                        {
+                            hasSounded = false;
+                        }
                     }
                     else
                     {
@@ -71,6 +83,10 @@ public class DeathSpectre : Enemy
                         yScale = 2;
                         Invoke("meleeAttack", meleeAttackDelay);
                         Invoke("cancelAttack", 0.6f);
+                    }
+                    else
+                    {
+                        hasSounded = false;
                     }
 
                     if (!isAttacking)
@@ -104,7 +120,11 @@ public class DeathSpectre : Enemy
                 Seek();
             }
 
-            die();
+            if (health <= 0)
+            {
+                Instantiate(deadSound, transform.position, Quaternion.identity);
+                die();
+            }
 
         }
     }
@@ -126,10 +146,26 @@ public class DeathSpectre : Enemy
         b = (Instantiate(bullet, firePoint.position, Quaternion.identity) as GameObject).GetComponent<EnemyBullet>();
         b.timeToWait = 2f;
         isAttacking = false;
+        Invoke("sound", 0.5f);
+        Invoke("sound", 1f);
+        Invoke("sound", 2f);
+    }
+
+    private void sound()
+    {
+        audioSource.clip = audios[ATTACK_AUDIO];
+        audioSource.Play();
     }
 
     private void meleeAttack()
     {
+        if (!hasSounded)
+        {
+            audioSource.clip = audios[MELEE_AUDIO];
+            audioSource.Play();
+            hasSounded = true;
+        }
+
         if (new Vector2((target.position.x - transform.position.x), target.position.y - transform.position.y).magnitude < meleeAttackRange)
         {
             if (target.position.x > transform.position.x)

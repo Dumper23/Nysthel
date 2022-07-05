@@ -124,6 +124,7 @@ MonoBehaviour:
   maxGoldToGive: 35
   minGoldToGive: 25
   moveSpeed: 4.5
+  startHealth: 0
   rb: {fileID: 8738362145537654641}
   anim: {fileID: 8738362145537654638}
   firePoint: {fileID: 8738362145663006745}
@@ -190,7 +191,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 0

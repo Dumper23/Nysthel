@@ -793,6 +793,7 @@ MonoBehaviour:
   maxGoldToGive: 200
   minGoldToGive: 100
   moveSpeed: 0.05
+  startHealth: 0
   rb: {fileID: 7439475397799872318}
   anim: {fileID: 7439475397799872319}
   firePoint: {fileID: 7439475397322913326}
@@ -836,7 +837,7 @@ MonoBehaviour:
   spikes: {fileID: 5039122417511358204, guid: 2ab0bd3e951ef8f4f8b221c140106bc3, type: 3}
   spikeLocation: {fileID: 8534236154328881671, guid: 0abd0db4d7c110447826a42481e35549, type: 3}
   bulletPrefab: {fileID: 313272557742413170, guid: c38aa8f41152cbc498dd8bb90c7de183, type: 3}
-  undeadPrefab: {fileID: 2918943423871706559, guid: ae804731ceab98047a8c4dc570adb2f3, type: 3}
+  undeadPrefab: {fileID: 2918943423871706559, guid: 597ded15b4bafd34295529c3736ea076, type: 3}
 --- !u!60 &5193985086302080644
 PolygonCollider2D:
   m_ObjectHideFlags: 0

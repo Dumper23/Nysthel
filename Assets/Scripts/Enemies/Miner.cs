@@ -11,7 +11,13 @@ public class Miner : Enemy
     public float bulletSpeed = 5f;
     public GameObject pointOfLight;
     public ParticleSystem groundParticles;
+    public AudioClip[] audios;
+    public GameObject deathSound;
 
+    private static int ATTACK_AUDIO = 0;
+    private static int HIDE_AUDIO = 1;
+    private static int UNHIDE_AUDIO = 2;
+    private AudioSource audioSource;
     private float time = 0;
     private float timeMoving = 2f;
     private bool move = false;
@@ -24,6 +30,7 @@ public class Miner : Enemy
 
     void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         groundParticles.Stop();
         target = FindObjectOfType<Player>().transform;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyBullet"), LayerMask.NameToLayer("Enemy"));
@@ -40,7 +47,11 @@ public class Miner : Enemy
     {
         if(activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
-            die();
+            if (health <= 0)
+            {
+                Instantiate(deathSound, transform.position, Quaternion.identity);
+                die();
+            }
             if ((target.position - transform.position).magnitude <= range)
             {
                 if (move)
@@ -51,8 +62,12 @@ public class Miner : Enemy
                         groundParticles.Play();
                         if (!lastIsMoving)
                         {
+                            audioSource.pitch = Random.Range(0.75f, 1.15f);
+                            audioSource.clip = audios[HIDE_AUDIO];
+                            audioSource.Play();
                             anim.Play("gettingIn");
                         }
+                        
                         moveDir = (target.position - transform.position).normalized;
                         Invoke("stopMoving", timeMoving);
                         Invoke("startMoving", animationTime);
@@ -105,6 +120,9 @@ public class Miner : Enemy
 
     private void shoot()
     {
+        audioSource.pitch = Random.Range(0.75f, 1.15f);
+        audioSource.clip = audios[ATTACK_AUDIO];
+        audioSource.Play();
         GameObject bul = BulletPool.Instance.GetBullet();
         bul.GetComponent<BulletHellBullet>().damage = damage;
         bul.GetComponent<BulletHellBullet>().speed = bulletSpeed;
@@ -132,6 +150,9 @@ public class Miner : Enemy
 
     private void stopMoving()
     {
+        audioSource.pitch = Random.Range(0.75f, 1.15f);
+        audioSource.clip = audios[UNHIDE_AUDIO];
+        audioSource.Play();
         immune = false;
         isShooting = false;
         isMoving = false;

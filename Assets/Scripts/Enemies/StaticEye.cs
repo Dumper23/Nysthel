@@ -11,11 +11,17 @@ public class StaticEye : Enemy
     public float rotationSpeed = 15f;
     public ParticleSystem hitParticles;
     public GameObject hitLight;
+    public GameObject deathSound;
 
+    private bool isSounding = false;
     private Rotating rotation;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+        audioSource.pitch = Random.Range(0.70f, 0.90f);
         if (rotate)
         {
             rotation = gameObject.AddComponent<Rotating>();
@@ -29,11 +35,19 @@ public class StaticEye : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
+            if (!isSounding) { 
+                audioSource.Play();
+                isSounding = true;
+            }
             if (rotate)
             {
                 rotation.enabled = true;
             }
-            die();
+            if (health <= 0)
+            {
+                Instantiate(deathSound, transform.position, Quaternion.identity);
+                die();
+            }
             shootLaser();
         }
     }
