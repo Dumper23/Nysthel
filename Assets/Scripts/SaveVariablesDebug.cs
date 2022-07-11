@@ -65,6 +65,18 @@ public class SaveVariablesDebug : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.H))
+        {
+            Debug.Log("Cheat code activated");
+            FindObjectOfType<Player>().gold = 999999;
+            FindObjectOfType<Player>().wood = 999999;
+            SaveVariables.PLAYER_GOLD = 999999;
+            SaveVariables.PLAYER_WOOD = 999999;
+            SaveVariables.MAX_WORLD = 4;
+            FindObjectOfType<Player>().updateGold();
+            SaveManager.Instance.SaveGame();
+        }
+
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;
         PLAYER_WOOD = SaveVariables.PLAYER_WOOD;

@@ -9,6 +9,7 @@ public class Bat : Enemy
     public int copyMaxGold = 5;
     public int copyMinGold = 2;
     public GameObject deathSound;
+    public bool isSecondChance = false;
 
     private AudioSource audioSource;
 
@@ -53,8 +54,16 @@ public class Bat : Enemy
                 copy.GetComponent<Bat>().health = 10;
                 copy.GetComponent<Bat>().activated = true;
                 copy.GetComponent<Bat>().immune = false;
-                copy.GetComponent<Bat>().maxGoldToGive = copyMaxGold;
-                copy.GetComponent<Bat>().minGoldToGive = copyMinGold;
+                if (isSecondChance)
+                {
+                    copy.GetComponent<Bat>().maxGoldToGive = 0;
+                    copy.GetComponent<Bat>().minGoldToGive = 0;
+                }
+                else
+                {
+                    copy.GetComponent<Bat>().maxGoldToGive = copyMaxGold;
+                    copy.GetComponent<Bat>().minGoldToGive = copyMinGold;
+                }
                 copy.GetComponent<Bat>().moveSpeed = moveSpeed * 2f;
                 copy.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 0, 0.4f);
 

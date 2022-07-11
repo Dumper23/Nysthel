@@ -17,6 +17,13 @@ public class AIEnemy : Enemy
     public int waypointCount = 4;
     public int walkRadius = 10;
     public List<Transform> waypoints = new List<Transform>();
+    public AudioClip[] audios;
+    public GameObject deathAudio;
+
+    private static int SPEAR_AUDIO = 0;
+    private static int BOW_AUDIO = 1;
+    private static int SPELL_AUDIO = 2;
+    private AudioSource audioSource;
     private NavMeshAgent Agent;
     private float time = 0;
     private bool attacking = false;
@@ -27,6 +34,7 @@ public class AIEnemy : Enemy
     // Start is called before the first frame update
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         time = attackRate;
         if (!isBomber)
         {
@@ -97,17 +105,30 @@ public class AIEnemy : Enemy
                         if (!isRanged)
                         {
                             anim.Play("attack");
+                            audioSource.pitch = Random.Range(0.85f, 1.15f);
+                            audioSource.clip = audios[SPEAR_AUDIO];
+                            audioSource.Play();
                             Invoke("endAttack", 0.8f);
                         }
                         else if (isRanged)
                         {
+
                             GameObject go2 = Instantiate(arrow, firePoint.position, Quaternion.identity);
                             go2.GetComponent<EnemyBullet>().damage = damage;
                             if (!isPriest)
                             {
+                                audioSource.pitch = Random.Range(0.85f, 1.15f);
+                                audioSource.clip = audios[BOW_AUDIO];
+                                audioSource.Play();
                                 float angle2 = Mathf.Atan2((target.position - go2.transform.position).normalized.y, (target.position - go2.transform.position).normalized.x) * Mathf.Rad2Deg;
                                 go2.transform.GetChild(0).transform.rotation = Quaternion.AngleAxis(angle2 + 225, Vector3.forward);
                                 go2.GetComponent<EnemyBullet>().setMoveDirection((target.position - go2.transform.position).normalized);
+                            }
+                            else
+                            {
+                                audioSource.pitch = Random.Range(0.85f, 1.15f);
+                                audioSource.clip = audios[SPELL_AUDIO];
+                                audioSource.Play();
                             }
                             Invoke("endAttack", 0.8f);
                         }
@@ -166,7 +187,12 @@ public class AIEnemy : Enemy
                     currentWaypoint++;
                 }
             }
-            die();
+            if(health <= 0)
+            {
+                Instantiate(deathAudio, transform.position, Quaternion.identity);
+                die();
+            }
+           
         }
     }
 

@@ -15,6 +15,7 @@ public class Interactable : MonoBehaviour
     public GameObject marker;
     public GameObject mapSelectionUi;
     public GameObject loadingScreen;
+    public GameObject emmyrSoul;
 
     [Header("--------Chest Shop----------")]
     public GameObject[] chests;
@@ -48,6 +49,7 @@ public class Interactable : MonoBehaviour
     };
 
     private bool inRange = false;
+
 
     public void setInShop(bool b)
     {
@@ -83,22 +85,30 @@ public class Interactable : MonoBehaviour
                         {
                             if (player.gold - Mathf.RoundToInt(player.gold * 0.3f) >= 0)
                             {
+                                player.playPositiveAction();
                                 loadingScreen.SetActive(true);
                                 SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.3f);
                                 SaveManager.Instance.SaveGame();
 
                                 SceneManager.LoadScene("Village");
                             }
+                            else
+                            {
+                                player.playNegativeAction();
+                            }
                         }
-                        //Else fer un Popup per mostrar que no te diners i que no pot viatjar
+                        else
+                        {
+                            player.playNegativeAction();
+                        }
                     }
                     else
                     {
+                        player.playPositiveAction();
                         loadingScreen.SetActive(true);
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("Village");
                     }
-
                     break;
 
                 case Interactions.OpenChest:
@@ -157,10 +167,15 @@ public class Interactable : MonoBehaviour
                 case Interactions.GoToGoldRush:
                     if (SaveVariables.PLAYER_GOLD >= 250)
                     {
+                        player.playPositiveAction();
                         loadingScreen.SetActive(true);
                         SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 250;
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("GoldRush");
+                    }
+                    else
+                    {
+                        player.playNegativeAction();
                     }
                     break;
 
@@ -169,6 +184,7 @@ public class Interactable : MonoBehaviour
                     {
                         if (player.gold - chestShopPrice >= 0)
                         {
+                            player.playPositiveAction();
                             player.feedBackScreenPanel.GetComponent<Animator>().Play("goldSpentScreen");
                             player.gold -= chestShopPrice;
                             player.goldText.SetText(player.gold.ToString());
@@ -179,6 +195,14 @@ public class Interactable : MonoBehaviour
                                 Instantiate(chests[Random.Range(0, chests.Length)], chestSpawnPoint[2].transform.position, Quaternion.identity);
                             }
                         }
+                        else
+                        {
+                            player.playNegativeAction();
+                        }
+                    }
+                    else
+                    {
+                        player.playNegativeAction();
                     }
                     break;
 
@@ -271,6 +295,7 @@ public class Interactable : MonoBehaviour
                     break;
 
                 case Interactions.Save:
+                    player.playPositiveAction();
                     player.feedBackScreenPanel.GetComponent<Animator>().Play("SaveScreen");
                     SaveManager.Instance.SaveGame();
                     break;
@@ -278,16 +303,22 @@ public class Interactable : MonoBehaviour
                 case Interactions.GoToWoodFarm:
                     if (SaveVariables.PLAYER_GOLD >= 100)
                     {
+                        player.playPositiveAction();
                         loadingScreen.SetActive(true);
                         SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
                         SaveManager.Instance.SaveGame();
                         SceneManager.LoadScene("WoodFarm");
+                    }
+                    else
+                    {
+                        player.playNegativeAction();
                     }
                     break;
 
                 case Interactions.EstatuaBendicion:
                     if (player.wood >= 5000 && SaveVariables.HOLY_STATUE == 0)
                     {
+                        player.playPositiveAction();
                         SaveVariables.PLAYER_WOOD -= 5000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
@@ -298,8 +329,13 @@ public class Interactable : MonoBehaviour
                     {
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
+                            player.playPositiveAction();
                             SaveVariables.HOLY_STATUE = 2;
                             SaveVariables.ACTIVATED_STATUES++;
+                        }
+                        else
+                        {
+                            player.playNegativeAction();
                         }
                     }
                     else if (SaveVariables.HOLY_STATUE == 2)
@@ -308,11 +344,16 @@ public class Interactable : MonoBehaviour
                         if (SaveVariables.ACTIVATED_STATUES > 0)
                             SaveVariables.ACTIVATED_STATUES--;
                     }
+                    else
+                    {
+                        player.playNegativeAction();
+                    }
                     break;
 
                 case Interactions.EstatuaDamage:
                     if (player.wood >= 4000 && SaveVariables.DAMAGE_STATUE == 0)
                     {
+                        player.playPositiveAction();
                         SaveVariables.PLAYER_WOOD -= 4000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
@@ -323,8 +364,13 @@ public class Interactable : MonoBehaviour
                     {
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
+                            player.playPositiveAction();
                             SaveVariables.ACTIVATED_STATUES++;
                             SaveVariables.DAMAGE_STATUE = 2;
+                        }
+                        else
+                        {
+                            player.playPositiveAction();
                         }
                     }
                     else if (SaveVariables.DAMAGE_STATUE == 2)
@@ -333,11 +379,16 @@ public class Interactable : MonoBehaviour
                         if (SaveVariables.ACTIVATED_STATUES > 0)
                             SaveVariables.ACTIVATED_STATUES--;
                     }
+                    else
+                    {
+                        player.playNegativeAction();
+                    }
                     break;
 
                 case Interactions.EstatuaEmmyr:
                     if (SaveVariables.PLAYER_WOOD >= 1000 && SaveVariables.HAS_EMMYR_ITEM == 1 && SaveVariables.EMMYR_STATUE == 0)
                     {
+                        player.playPositiveAction();
                         SaveVariables.PLAYER_WOOD -= 1000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
@@ -348,8 +399,13 @@ public class Interactable : MonoBehaviour
                     {
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
+                            player.playPositiveAction();
                             SaveVariables.ACTIVATED_STATUES++;
                             SaveVariables.EMMYR_STATUE = 2;
+                        }
+                        else
+                        {
+                            player.playNegativeAction();
                         }
                     }
                     else if (SaveVariables.EMMYR_STATUE == 2)
@@ -358,11 +414,16 @@ public class Interactable : MonoBehaviour
                         if (SaveVariables.ACTIVATED_STATUES > 0)
                             SaveVariables.ACTIVATED_STATUES--;
                     }
+                    else
+                    {
+                        player.playNegativeAction(); 
+                    }
                     break;
 
                 case Interactions.EstatuaOr:
                     if (SaveVariables.PLAYER_WOOD >= 3500 && SaveVariables.GOLD_STATUE == 0)
                     {
+                        player.playPositiveAction();
                         SaveVariables.PLAYER_WOOD -= 3500;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
@@ -373,8 +434,13 @@ public class Interactable : MonoBehaviour
                     {
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
+                            player.playPositiveAction();
                             SaveVariables.ACTIVATED_STATUES++;
                             SaveVariables.GOLD_STATUE = 2;
+                        }
+                        else
+                        {
+                            player.playNegativeAction();
                         }
                     }
                     else if (SaveVariables.GOLD_STATUE == 2)
@@ -383,11 +449,16 @@ public class Interactable : MonoBehaviour
                         if (SaveVariables.ACTIVATED_STATUES > 0)
                             SaveVariables.ACTIVATED_STATUES--;
                     }
+                    else
+                    {
+                        player.playNegativeAction();
+                    }
                     break;
 
                 case Interactions.EstatuaSecondChance:
                     if (player.wood >= 6666 && SaveVariables.CHANCE_STATUE == 0)
                     {
+                        player.playPositiveAction();
                         SaveVariables.PLAYER_WOOD -= 6666;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
@@ -398,8 +469,13 @@ public class Interactable : MonoBehaviour
                     {
                         if (SaveVariables.ACTIVATED_STATUES < 3)
                         {
+                            player.playPositiveAction();
                             SaveVariables.CHANCE_STATUE = 2;
                             SaveVariables.ACTIVATED_STATUES++;
+                        }
+                        else
+                        {
+                            player.playNegativeAction();
                         }
                     }
                     else if (SaveVariables.CHANCE_STATUE == 2)
@@ -408,7 +484,10 @@ public class Interactable : MonoBehaviour
                         if (SaveVariables.ACTIVATED_STATUES > 0)
                             SaveVariables.ACTIVATED_STATUES--;
                     }
-
+                    else
+                    {
+                        player.playNegativeAction();
+                    }
                     break;
 
                 case Interactions.TalkToStatueRestaurator:
@@ -461,7 +540,6 @@ public class Interactable : MonoBehaviour
                             interactionDialog.SetActive(false);
                         }
                         this.enabled = false;
-
                         SaveVariables.HAS_EMMYR_ITEM = 1;
                     }
                     else
@@ -609,6 +687,10 @@ public class Interactable : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+            if (emmyrSoul != null)
+            {
+                emmyrSoul.SetActive(true);
+            }
             playerIn = false;
             if (mapSelectionUi != null)
             {

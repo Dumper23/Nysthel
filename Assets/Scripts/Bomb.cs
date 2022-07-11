@@ -9,6 +9,7 @@ public class Bomb : MonoBehaviour
     public float minTimeToDetonate;
     public float maxTimeToDetonate;
     public float range = 1.2f;
+    public GameObject bombDeath;
 
     private void Start()
     {
@@ -26,6 +27,7 @@ public class Bomb : MonoBehaviour
                 hit.GetComponent<Player>().takeDamage(damage);
             }
         }
+        Instantiate(bombDeath, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

@@ -112,6 +112,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private const int FOOTSTEP_AUDIO = 2;
     private const int PICKUP_AUDIO = 3;
     private const int DAMAGE_AUDIO = 4;
+    private const int NEGATIVE_AUDIO = 5;
 
     [Header("--------------UI And other settings--------------")]
     public TextMeshProUGUI goldText;
@@ -177,8 +178,15 @@ public class Player : MonoBehaviour, IShopCustomer
         GameStateManager.Instance.OnGameStateChange += OnGameStateChanged;
     }
 
+    private void setSound()
+    {
+        audioSource[PICKUP_AUDIO].volume = 0.7f;
+    }
+
     private void Start()
     {
+        audioSource[PICKUP_AUDIO].volume = 0;
+        Invoke("setSound", 0.5f);
         battleCircleLoad.SetActive(false);
         battleCircleLoadMaximum.SetActive(false);
         GameStateManager.Instance.SetState(GameState.Gameplay);
@@ -916,7 +924,6 @@ public class Player : MonoBehaviour, IShopCustomer
         shielded = false;
     }
 
-    //Fer que estigui 2 segons la cam on ha mort el jugador, que no sigui instant respawn a la aldea
     private void die()
     {
         if (currentHealth <= 0)
@@ -926,7 +933,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 hasSecondChance = true;
             }
 
-            if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm")
+            if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
             {
                 saveInventory();
                 SaveManager.Instance.SaveGame();
@@ -1022,8 +1029,15 @@ public class Player : MonoBehaviour, IShopCustomer
                         {
                             currentHealth += 10;
                         }
+                        audioSource[PICKUP_AUDIO].clip = audios[7];
+                        audioSource[PICKUP_AUDIO].Play();
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1 });
                         SaveVariables.INV_SMALL_POTION--;
+                    }
+                    else
+                    {
+                        audioSource[PICKUP_AUDIO].clip = audios[6];
+                        audioSource[PICKUP_AUDIO].Play();
                     }
                     break;
 
@@ -1038,14 +1052,23 @@ public class Player : MonoBehaviour, IShopCustomer
                         {
                             currentHealth += 20;
                         }
+                        audioSource[PICKUP_AUDIO].clip = audios[7];
+                        audioSource[PICKUP_AUDIO].Play();
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
                         SaveVariables.INV_BIG_POTION--;
+                    }
+                    else
+                    {
+                        audioSource[PICKUP_AUDIO].clip = audios[6];
+                        audioSource[PICKUP_AUDIO].Play();
                     }
                     break;
 
                 case Item.ItemType.shieldPotion:
                     if (!shielded && !goldRushed && !timeSlowed)
                     {
+                        audioSource[PICKUP_AUDIO].clip = audios[7];
+                        audioSource[PICKUP_AUDIO].Play();
                         shield.SetActive(true);
                         immune = true;
                         Invoke("endShield", shieldDuration);
@@ -1058,11 +1081,18 @@ public class Player : MonoBehaviour, IShopCustomer
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
                         SaveVariables.INV_SHIELD_POTION--;
                     }
+                    else
+                    {
+                        audioSource[PICKUP_AUDIO].clip = audios[6];
+                        audioSource[PICKUP_AUDIO].Play();
+                    }
                     break;
 
                 case Item.ItemType.goldPotion:
                     if (!goldRushed && !shielded && !timeSlowed)
                     {
+                        audioSource[PICKUP_AUDIO].clip = audios[7];
+                        audioSource[PICKUP_AUDIO].Play();
                         goldMultiplier = goldMultiplier + 1;
                         goldMultiplierUI.GetComponent<TextMeshProUGUI>().SetText("x" + goldMultiplier);
                         goldMultiplierUI.SetActive(true);
@@ -1076,21 +1106,35 @@ public class Player : MonoBehaviour, IShopCustomer
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
                         SaveVariables.INV_GOLD_POTION--;
                     }
+                    else
+                    {
+                        audioSource[PICKUP_AUDIO].clip = audios[6];
+                        audioSource[PICKUP_AUDIO].Play();
+                    }
                     break;
 
                 case Item.ItemType.teleportPotion:
                     GameObject tpPoint = GameObject.FindGameObjectWithTag("Respawn");
                     if (tpPoint != null)
                     {
+                        audioSource[PICKUP_AUDIO].clip = audios[7];
+                        audioSource[PICKUP_AUDIO].Play();
                         transform.position = tpPoint.transform.position;
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
                         SaveVariables.INV_TELEPORT_POTION--;
+                    }
+                    else
+                    {
+                        audioSource[PICKUP_AUDIO].clip = audios[6];
+                        audioSource[PICKUP_AUDIO].Play();
                     }
                     break;
 
                 case Item.ItemType.timePotion:
                     if (!timeSlowed && !shielded && !goldRushed)
                     {
+                        audioSource[PICKUP_AUDIO].clip = audios[7];
+                        audioSource[PICKUP_AUDIO].Play();
                         timeSlowed = true;
                         seconds = (int)timePotionDuration;
                         timer = (int)timePotionDuration;
@@ -1105,12 +1149,19 @@ public class Player : MonoBehaviour, IShopCustomer
                         inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
                         SaveVariables.INV_TIME_POTION--;
                     }
+                    else
+                    {
+                        audioSource[PICKUP_AUDIO].clip = audios[6];
+                        audioSource[PICKUP_AUDIO].Play();
+                    }
                     break;
             }
             healthBar.setHealth(currentHealth);
         }
         else
         {
+            audioSource[PICKUP_AUDIO].clip = audios[7];
+            audioSource[PICKUP_AUDIO].Play();
             switch (item.itemType)
             {
                 case Item.ItemType.multiAxe:
@@ -1356,9 +1407,10 @@ public class Player : MonoBehaviour, IShopCustomer
         return index;
     }
 
-    private void updateGold()
+    public void updateGold()
     {
         goldText.text = gold.ToString();
+        woodText.text = wood.ToString();
         if (BlackSmithGoldText != null)
         {
             BlackSmithGoldText.text = gold.ToString();
@@ -1369,6 +1421,8 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (gold >= goldAmount)
         {
+            audioSource[PICKUP_AUDIO].clip = audios[7];
+            audioSource[PICKUP_AUDIO].Play();
             gold -= goldAmount;
             updateGold();
             SaveVariables.PLAYER_GOLD = gold;
@@ -1377,6 +1431,8 @@ public class Player : MonoBehaviour, IShopCustomer
         else
         {
             //Error, no enough gold
+            audioSource[PICKUP_AUDIO].clip = audios[6];
+            audioSource[PICKUP_AUDIO].Play();
             return false;
         }
     }
@@ -1425,6 +1481,18 @@ public class Player : MonoBehaviour, IShopCustomer
                     break;
             }
         }
+    }
+
+    public void playPositiveAction()
+    {
+        audioSource[PICKUP_AUDIO].clip = audios[7];
+        audioSource[PICKUP_AUDIO].Play();
+    }
+
+    public void playNegativeAction()
+    {
+        audioSource[PICKUP_AUDIO].clip = audios[6];
+        audioSource[PICKUP_AUDIO].Play();
     }
 
     public void loadPlayerVariables()

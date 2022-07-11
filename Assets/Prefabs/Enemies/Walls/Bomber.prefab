@@ -321,6 +321,8 @@ MonoBehaviour:
   waypointCount: 4
   walkRadius: 30
   waypoints: []
+  audios: []
+  deathAudio: {fileID: 543838641944785605, guid: b4f4bb7045c95634abaf285c6b83f8fb, type: 3}
 --- !u!70 &6531459779261276575
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

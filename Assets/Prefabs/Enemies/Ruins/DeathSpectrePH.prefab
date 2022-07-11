@@ -154,7 +154,7 @@ MonoBehaviour:
   bloodParticles: {fileID: 3845195260188331717, guid: 1b131c4f1a44d5d408e50f0afc12cb3d, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
-  activated: 1
+  activated: 0
   meleeAttackRange: 4
   bullet: {fileID: 313272557742413170, guid: c38aa8f41152cbc498dd8bb90c7de183, type: 3}
   meleeAttackRate: 1

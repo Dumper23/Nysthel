@@ -9,6 +9,7 @@ public class EndCutScene : MonoBehaviour
     
     void Start()
     {
+        Time.timeScale = 0.75f;
         Invoke("end", timeToChangeScene);
     }
 

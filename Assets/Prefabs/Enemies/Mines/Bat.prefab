@@ -183,6 +183,7 @@ MonoBehaviour:
   copyMaxGold: 5
   copyMinGold: 2
   deathSound: {fileID: 1407387659022667793, guid: f5a5221e89c591240917243586cc9349, type: 3}
+  isSecondChance: 1
 --- !u!58 &122981791967876216
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -211,7 +212,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 718e17c968ef5f249904a2d47f35d95f, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 0.62
+  m_Volume: 0.299
   m_Pitch: 1
   Loop: 0
   Mute: 0

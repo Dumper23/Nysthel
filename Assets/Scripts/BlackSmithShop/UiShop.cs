@@ -16,6 +16,7 @@ public class UiShop : MonoBehaviour
     private List<Transform> templates = new List<Transform>();
     private List<GameObject> itemsToBuy = new List<GameObject>();
     public GameObject upgradeButton;
+    public GameObject exitButton;
 
     private int upgradeShopCost = 200;
     private int lastItemSelected = 0;
@@ -45,18 +46,26 @@ public class UiShop : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy)
+        if (EventSystem.current != null &&  (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy))
         {
             bool found = false;
             int i = 0;
             while (!found)
             {
-                if (templates[i].gameObject.activeInHierarchy)
+                if (templates.Count > 0 && i < templates.Count)
                 {
-                    EventSystem.current.SetSelectedGameObject(templates[i].gameObject);
+                    if (templates[i].gameObject.activeInHierarchy)
+                    {
+                        EventSystem.current.SetSelectedGameObject(templates[i].gameObject);
+                        found = true;
+                    }
+                    i++;
+                }
+                else
+                {
+                    EventSystem.current.SetSelectedGameObject(exitButton);
                     found = true;
                 }
-                i++;
             }
         }
     }

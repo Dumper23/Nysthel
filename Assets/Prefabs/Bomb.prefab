@@ -205,3 +205,4 @@ MonoBehaviour:
   minTimeToDetonate: 1.33
   maxTimeToDetonate: 4
   range: 2.5
+  bombDeath: {fileID: 960190239159648221, guid: e4d4d8ec13308c74fa01a0698c1d8dcc, type: 3}
