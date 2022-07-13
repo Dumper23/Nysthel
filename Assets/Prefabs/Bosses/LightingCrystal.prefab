@@ -1069,13 +1069,14 @@ MonoBehaviour:
   maxGoldToGive: 40
   minGoldToGive: 30
   moveSpeed: 2
+  startHealth: 0
   rb: {fileID: 8438419333570516901}
   anim: {fileID: 8438419333570516900}
   firePoint: {fileID: 8438419333570516897}
   attackRate: 0.5
   range: 2
-  coin: {fileID: 5779060491291618182, guid: 41382773221edab47a7d4efcd71d5ea8, type: 3}
-  coinForce: 4
+  coinType: 2
+  coinForce: 5
   bloodStain: {fileID: 8870822980127303738, guid: 596656cd70782f041ba7bc3555958a03, type: 3}
   bloodParticles: {fileID: 5666712459616409812, guid: c441a80824586824ea8994f35d56d269, type: 3}
   immune: 0

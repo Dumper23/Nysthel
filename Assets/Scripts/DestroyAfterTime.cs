@@ -6,6 +6,8 @@ public class DestroyAfterTime : MonoBehaviour
 {
     public float timeToDestroy = 1f;
     public bool isSimple = false;
+    public bool isPool = false;
+
     private Animator anim;
     private float startTime = 0;
 
@@ -16,7 +18,20 @@ public class DestroyAfterTime : MonoBehaviour
             anim = GetComponent<Animator>();
             startTime = Time.time;
         }
-        Destroy(gameObject, timeToDestroy);
+        if (isPool)
+        {
+            Invoke("destroy", timeToDestroy);
+        }
+        else
+        {
+            Destroy(gameObject, timeToDestroy);
+        }
+    }
+
+
+    private void destroy()
+    {
+        gameObject.SetActive(false);
     }
 
     private void Update()

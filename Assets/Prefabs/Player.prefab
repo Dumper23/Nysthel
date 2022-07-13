@@ -241,6 +241,75 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &804429383
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 804429384}
+  - component: {fileID: 804429385}
+  - component: {fileID: 804429386}
+  m_Layer: 14
+  m_Name: CoinCollector
+  m_TagString: coinContainer
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &804429384
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804429383}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 9216989108363573417}
+  m_RootOrder: 14
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &804429385
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804429383}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.8096993
+--- !u!50 &804429386
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 804429383}
+  m_BodyType: 1
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 4
 --- !u!1 &876775851
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,7 +1169,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 583c01d24df1343aca31ca5352044c6a, type: 3}
   m_Color: {r: 0.7372549, g: 0.03431604, b: 0, a: 0.31764707}
   m_FlipX: 0
@@ -1182,7 +1251,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 10
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2413806693520163455, guid: ebe73ca9363db456bacf42c025bb4847, type: 3}
   m_Color: {r: 0.3772516, g: 0, b: 0.735849, a: 0.41960785}
   m_FlipX: 0
@@ -1274,6 +1343,7 @@ Transform:
   - {fileID: 1994437211}
   - {fileID: 1754919395799225178}
   - {fileID: 3473836742535274760}
+  - {fileID: 804429384}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1359,6 +1429,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77cdd46504adebd4ca88649cc5777aa3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinCollector: {fileID: 804429383}
   moveSpeed: 6
   rb: {fileID: 9216989108363573416}
   dashRestoreTime: 3
@@ -2022,14 +2093,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3d2f5634e518c2b4286dd82a2aeceeed, type: 3}
---- !u!4 &1123923598 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1645842580945851722, guid: 3d2f5634e518c2b4286dd82a2aeceeed, type: 3}
-  m_PrefabInstance: {fileID: 1645842579905897412}
-  m_PrefabAsset: {fileID: 0}
 --- !u!198 &1123923597 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1645842580945851721, guid: 3d2f5634e518c2b4286dd82a2aeceeed, type: 3}
+  m_PrefabInstance: {fileID: 1645842579905897412}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1123923598 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1645842580945851722, guid: 3d2f5634e518c2b4286dd82a2aeceeed, type: 3}
   m_PrefabInstance: {fileID: 1645842579905897412}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &3273449411387470628

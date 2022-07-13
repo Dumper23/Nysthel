@@ -142,3 +142,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToDestroy: 1.5
   isSimple: 1
+  isPool: 0

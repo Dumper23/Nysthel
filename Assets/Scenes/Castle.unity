@@ -1473,6 +1473,7 @@ GameObject:
   - component: {fileID: 328076117}
   - component: {fileID: 328076118}
   - component: {fileID: 328076119}
+  - component: {fileID: 328076120}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -1614,6 +1615,25 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!95 &328076120
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 328076113}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d3a11efc04c41d044968a4e95b0849d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &340201469
 GameObject:
   m_ObjectHideFlags: 0
@@ -55366,6 +55386,10 @@ PrefabInstance:
       propertyPath: m_Value
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 1311085680814246496, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: cameraContainer
+      value: 
+      objectReference: {fileID: 328076113}
     - target: {fileID: 1657666025023756232, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -143775,6 +143799,9 @@ MonoBehaviour:
   Target: {fileID: 708302110}
   Offset: {x: 0, y: -2, z: 0}
   SmoothTime: 0.45
+  isEmmyrSoul: 0
+  light: {fileID: 0}
+  particles: {fileID: 0}
 --- !u!1 &2656135277212083882
 GameObject:
   m_ObjectHideFlags: 0

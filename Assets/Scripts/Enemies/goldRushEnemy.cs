@@ -9,9 +9,6 @@ public class goldRushEnemy : Enemy
     public int timesDead = 0;
     public TextMeshPro levelText;
     public SpriteRenderer sp;
-    public GameObject coin1;
-    public GameObject coin2;
-    public GameObject coin3;
     public int restartCoins = 0;
     public List<Sprite> sprites = new List<Sprite>();
 
@@ -55,34 +52,34 @@ public class goldRushEnemy : Enemy
         if (level < Mathf.RoundToInt(sprites.Count * 0.15f))
         {
             levelText.faceColor = new Color32(255, 0, 209, 255);
-            coin = coin1;
+            coinType = 0;
         }
         if (level >= Mathf.RoundToInt(sprites.Count * 0.15f) && level < Mathf.RoundToInt(sprites.Count * 0.35f))
         {
             levelText.faceColor = new Color32(0, 251, 255, 255);
-            coin = coin1;
+            coinType = 0;
         }
         if (level >= Mathf.RoundToInt(sprites.Count * 0.35f) && level < Mathf.RoundToInt(sprites.Count * 0.5f))
         {
             levelText.faceColor = new Color32(0, 61, 250, 255);
-            coin = coin2;
+            coinType = 1;
         }
         if (level >= Mathf.RoundToInt(sprites.Count * 0.5f) && level < Mathf.RoundToInt(sprites.Count * 0.75f))
         {
             levelText.faceColor = new Color32(255, 147, 0, 255);
-            coin = coin2;
+            coinType = 1;
             restartCoins = Mathf.RoundToInt(sprites.Count * 0.5f);
         }
         if (level >= Mathf.RoundToInt(sprites.Count * 0.75f) && level < sprites.Count)
         {
             levelText.faceColor = new Color32(255, 241, 0, 255);
-            coin = coin3;
+            coinType = 2;
             restartCoins = Mathf.RoundToInt(sprites.Count * 0.75f);
         }
         if (level >= sprites.Count)
         {
             levelText.faceColor = new Color32(255, 0, 0, 255);
-            coin = coin3;
+            coinType = 2;
         }
     }
 
@@ -136,8 +133,15 @@ public class goldRushEnemy : Enemy
             {
                 for (int i = 0; i <= goldToGive; i++)
                 {
-                    GameObject go = Instantiate(coin, transform.position, Quaternion.identity);
-                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
+                    GameObject go = CoinManager.Instance.GetCoin(coinType);
+                    go.SetActive(true);
+                    go.transform.position = transform.position;
+                    Coin c = go.GetComponent<Coin>();
+                    c.playerInRange = false;
+                    c.startPosition = transform.position;
+                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) + transform.position;
+                    c.coinForce = coinForce;
+                    c.isSet = true;
                 }
             }
             timesDead++;

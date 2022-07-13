@@ -860,6 +860,7 @@ GameObject:
   - component: {fileID: 1744962639}
   - component: {fileID: 1744962640}
   - component: {fileID: 1744962638}
+  - component: {fileID: 3656342708432914303}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -926,6 +927,8 @@ MonoBehaviour:
   minimapCam: {fileID: 0}
   toggle: {fileID: 0}
   QuitAdvertise: {fileID: 4826080997942232692}
+  quit: 0
+  menu: 0
 --- !u!114 &8469165761278272949
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1148,6 +1151,22 @@ MonoBehaviour:
   pressSound: {fileID: 8300000, guid: 9de507203c643e74394804423137f2ac, type: 3}
   audioSourceSelect: {fileID: 1744962640}
   audioSourcePress: {fileID: 1744962639}
+--- !u!114 &3656342708432914303
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8469165761278272952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f1a65795763f5545a1a5689d0d3cb60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startCoins: 20
+  lowCoin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
+  midCoin: {fileID: 5899310037350252981, guid: af1ed36c3ba680c4a9642aba3378d084, type: 3}
+  highCoin: {fileID: 5779060491291618182, guid: 41382773221edab47a7d4efcd71d5ea8, type: 3}
 --- !u!1 &9114529419389422285
 GameObject:
   m_ObjectHideFlags: 0

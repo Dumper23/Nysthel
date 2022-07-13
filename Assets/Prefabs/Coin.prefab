@@ -82,10 +82,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6941140493267274602}
   - component: {fileID: 6941140493267274605}
-  - component: {fileID: 8949794145557036735}
   - component: {fileID: -876021181830319600}
   - component: {fileID: 7444783}
   - component: {fileID: -8392674818818664165}
+  - component: {fileID: 5484900268117384798}
   m_Layer: 6
   m_Name: Coin
   m_TagString: Coin
@@ -159,27 +159,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &8949794145557036735
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6941140493267274604}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 3.41
-  m_AngularDrag: 2.09
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &-876021181830319600
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -195,7 +174,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.887626
+  m_Radius: 0.49470955
 --- !u!95 &7444783
 Animator:
   serializedVersion: 3
@@ -229,3 +208,23 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timeToDestroy: 10
   isSimple: 0
+  isPool: 1
+--- !u!114 &5484900268117384798
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6941140493267274604}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb37c7ddccb946442ad1625cb19db188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  coinForce: 10
+  isWood: 0
+  isSet: 0
+  playerInRange: 0
+  coinValue: 1
+  startPosition: {x: 0, y: 0, z: 0}

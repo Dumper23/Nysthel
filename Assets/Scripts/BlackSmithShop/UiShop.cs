@@ -289,7 +289,7 @@ public class UiShop : MonoBehaviour
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
             "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
 
-        if (templates[lastItemSelected] != null)
+        if (lastItemSelected < templates.Count && templates[lastItemSelected] != null)
         {
             EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
         }

@@ -6,7 +6,8 @@ public class DestructibleObject : MonoBehaviour
 {
     public int health = 10;
     public int maxGoldToGive = 1;
-    public GameObject coin;
+    [Range(0, 2)]
+    public int coinType = 0;
     public float coinForce = 20f;
     public GameObject soundEffect;
     public ParticleSystem destroyParticles;
@@ -26,8 +27,16 @@ public class DestructibleObject : MonoBehaviour
         {
             Instantiate(destroyParticles, transform.position, Quaternion.identity);
             for (int i = 0; i <= goldToGive; i++) {
-                GameObject g = Instantiate(coin, transform.position, transform.rotation);
-                g.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
+                GameObject g = CoinManager.Instance.GetCoin(coinType);
+                g.SetActive(true);
+                g.transform.position = transform.position;
+                Coin c = g.GetComponent<Coin>();
+                c.playerInRange = false;
+                c.startPosition = transform.position;
+                c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * coinForce + transform.position;
+                c.coinForce = coinForce;
+                c.isSet = true;
+                
             }
             soundEffect.GetComponent<AudioSource>().pitch = Random.Range(0.55f, 1.55f);
             Instantiate(soundEffect, transform.position, Quaternion.identity);

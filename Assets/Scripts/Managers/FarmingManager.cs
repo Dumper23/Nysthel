@@ -5,6 +5,7 @@ using UnityEngine;
 public class FarmingManager : MonoBehaviour
 {
     public GameObject[] resourcesToSpawn;
+    public GameObject bulletW3;
     public Transform[] points;
     public int respawnTime = 4;
     public GameObject[] EnemiesW1;
@@ -27,6 +28,11 @@ public class FarmingManager : MonoBehaviour
         reload();
         enemyRate = Random.Range(minEnemyRate, maxEnemyRate);
         Invoke("reSpawn", enemyRate);
+
+        if(SaveVariables.MAX_WORLD == 2)
+        {
+            BulletPool.Instance.poolBullet = bulletW3;
+        }
     }
 
     public void reload()

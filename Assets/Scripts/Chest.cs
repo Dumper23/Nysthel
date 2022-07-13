@@ -13,10 +13,9 @@ public class Chest : MonoBehaviour
     public bool hasObject = true;
     public GameObject destruction;
     public ParticleSystem destructionParticles;
-    public GameObject coinType;
-    public GameObject coinType2;
-    public GameObject coinType3;
+    public int coinType;
     public bool moneyConvertion = false;
+    public float coinForce = 5;
 
     [Range(0f, 1f)]
     public float breakingProbability;
@@ -105,19 +104,26 @@ public class Chest : MonoBehaviour
             {
                 if (coin2 && !coin3)
                 {
-                    GameObject go = Instantiate(coinType2, transform.position, Quaternion.identity);
-                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                    coinType = 1;
                 }
                 else if (coin3)
                 {
-                    GameObject go = Instantiate(coinType3, transform.position, Quaternion.identity);
-                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                    coinType = 2;
                 }
                 else
                 {
-                    GameObject go = Instantiate(coinType, transform.position, Quaternion.identity);
-                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * 10f, ForceMode2D.Impulse);
+                    coinType = 0;
                 }
+
+                GameObject go = CoinManager.Instance.GetCoin(coinType);
+                go.SetActive(true);
+                go.transform.position = transform.position;
+                Coin c = go.GetComponent<Coin>();
+                c.playerInRange = false;
+                c.startPosition = transform.position;
+                c.coinForce = coinForce;
+                c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) + transform.position;
+                c.isSet = true;
             }
             Instantiate(destruction, transform.position, Quaternion.identity);
             Instantiate(destructionParticles, transform.position, Quaternion.identity);

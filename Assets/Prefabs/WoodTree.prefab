@@ -163,7 +163,7 @@ MonoBehaviour:
   wood: {fileID: 189114144111310478, guid: ff35b2c1282c2cf419652bbbd350c94a, type: 3}
   maxWood: 60
   minWood: 30
-  woodForce: 10
+  woodForce: 2
   hitsToDestroy: 3
   destroySound: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}
   aud: {fileID: 402135136}

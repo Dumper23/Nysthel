@@ -6,6 +6,7 @@ using TMPro;
 
 public class Player : MonoBehaviour, IShopCustomer
 {
+    public GameObject coinCollector;
     [Header("--------------Movement--------------")]
     public float moveSpeed = 5f;
 
@@ -112,11 +113,9 @@ public class Player : MonoBehaviour, IShopCustomer
     private const int FOOTSTEP_AUDIO = 2;
     private const int PICKUP_AUDIO = 3;
     private const int DAMAGE_AUDIO = 4;
-    private const int NEGATIVE_AUDIO = 5;
 
     [Header("--------------UI And other settings--------------")]
     public TextMeshProUGUI goldText;
-
     public TextMeshProUGUI BlackSmithGoldText;
     public TextMeshProUGUI woodText;
 
@@ -186,6 +185,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private void Start()
     {
         audioSource[PICKUP_AUDIO].volume = 0;
+        coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange + 0.5f;
         Invoke("setSound", 0.5f);
         battleCircleLoad.SetActive(false);
         battleCircleLoadMaximum.SetActive(false);
@@ -216,6 +216,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Update()
     {
+        coinCollector.transform.position = transform.position;
         statueStats();
         if (usingController)
         {
@@ -278,12 +279,12 @@ public class Player : MonoBehaviour, IShopCustomer
         cam.transform.position = new Vector3(transform.position.x, transform.position.y, cam.transform.position.z);
 
         //We check collision with coins and collect them
-        Collider2D[] coins = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange);
+        /*Collider2D[] coins = Physics2D.OverlapCircleAll(transform.position, coinMagnetRange);
 
         if (coins.Length > 0)
         {
             coinMagnet(coins);
-        }
+        }*/
 
         die();
 
@@ -491,8 +492,28 @@ public class Player : MonoBehaviour, IShopCustomer
         }
     }
 
+
+    public void recieveGold(int coinValue)
+    {
+        gold += (coinValue * goldMultiplier);
+        Statistics.Instance.goldCollected += (coinValue * goldMultiplier);
+        updateGold();
+        SaveVariables.PLAYER_GOLD = gold;
+        coinSound.name = "CoinSounding";
+        Instantiate(coinSound, transform);
+    }
+    public void recieveWood(int coinValue)
+    {
+        wood += (1 * woodMultiplier);
+        SaveVariables.PLAYER_WOOD += (1 * woodMultiplier);
+        woodText.SetText(wood.ToString());
+        audioSource[PICKUP_AUDIO].clip = audios[PICKUP_AUDIO];
+        audioSource[PICKUP_AUDIO].Play();
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         if (collision.transform.tag == "Coin")
         {
             gold += (1 * goldMultiplier);
@@ -501,7 +522,7 @@ public class Player : MonoBehaviour, IShopCustomer
             SaveVariables.PLAYER_GOLD = gold;
             coinSound.name = "CoinSounding";
             Instantiate(coinSound, transform);
-            Destroy(collision.gameObject);
+            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
         }
         if (collision.transform.tag == "Coin2")
         {
@@ -511,7 +532,7 @@ public class Player : MonoBehaviour, IShopCustomer
             SaveVariables.PLAYER_GOLD = gold;
             coinSound.name = "CoinSounding";
             Instantiate(coinSound, transform);
-            Destroy(collision.gameObject);
+            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
         }
         if (collision.transform.tag == "Coin3")
         {
@@ -521,18 +542,18 @@ public class Player : MonoBehaviour, IShopCustomer
             SaveVariables.PLAYER_GOLD = gold;
             coinSound.name = "CoinSounding";
             Instantiate(coinSound, transform);
-            Destroy(collision.gameObject);
+            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
         }
         if (collision.transform.tag == "Wood")
         {
             wood += (1 * woodMultiplier);
             SaveVariables.PLAYER_WOOD += (1 * woodMultiplier);
             woodText.SetText(wood.ToString());
-            Destroy(collision.gameObject);
             audioSource[PICKUP_AUDIO].clip = audios[PICKUP_AUDIO];
             audioSource[PICKUP_AUDIO].Play();
+            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
         }
-
+        */
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
         if (iw != null)
         {
@@ -668,7 +689,10 @@ public class Player : MonoBehaviour, IShopCustomer
             }
             else
             {
+                if (!attacking)
+                {
                 changeAnimationState("Nysthel_walk");
+                }
             }
         }
         else if (!attacking)
@@ -684,7 +708,6 @@ public class Player : MonoBehaviour, IShopCustomer
         if (Time.time > nextFire)
         {
             Statistics.Instance.attacksDone += 1;
-
             //Diferent time attack settup
             if (bloodyaxe)
             {
@@ -871,7 +894,7 @@ public class Player : MonoBehaviour, IShopCustomer
         bullet.setDirection(directionToShoot);
     }
 
-    private void coinMagnet(Collider2D[] coins)
+    /*private void coinMagnet(Collider2D[] coins)
     {
         foreach (Collider2D coin in coins)
         {
@@ -880,7 +903,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 coin.transform.Translate((transform.position - coin.transform.position).normalized * coinMagnetSpeed * Time.deltaTime);
             }
         }
-    }
+    }*/
 
     private void stopAttacking()
     {
@@ -902,6 +925,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (!immune)
         {
+            Statistics.Instance.shake();
             feedBackScreenPanel.GetComponent<Animator>().Play("DamageAnimation");
             currentHealth -= Mathf.RoundToInt(value - ((defense / 100f) * value));
             immune = true;
@@ -1387,6 +1411,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 coinMagnetRange += ShopItem.GetImprovementQuantity(ShopItem.ItemType.RangeUpgrade);
                 SaveVariables.PLAYER_RANGE = coinMagnetRange;
                 SaveVariables.RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
+                coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange + 0.5f;
                 index = 4;
                 break;
 
@@ -1647,31 +1672,37 @@ public class Player : MonoBehaviour, IShopCustomer
 
             case ItemShopItem.ItemType.doubleAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.doubleAxe, amount = 1 });
+                SaveVariables.INV_DOUBLE_AXE = 1;
                 index = 6;
                 break;
 
             case ItemShopItem.ItemType.bloodAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.bloodAxe, amount = 1 });
+                SaveVariables.INV_BLOOD_AXE = 1;
                 index = 7;
                 break;
 
             case ItemShopItem.ItemType.seekAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.seekAxe, amount = 1 });
+                SaveVariables.INV_SEEK_AXE = 1;
                 index = 8;
                 break;
 
             case ItemShopItem.ItemType.battleAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.battleAxe, amount = 1 });
+                SaveVariables.INV_BATTLE_AXE = 1;
                 index = 9;
                 break;
 
             case ItemShopItem.ItemType.nysthelAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.nysthelAxe, amount = 1 });
+                SaveVariables.INV_NYSTHEL_AXE = 1;
                 index = 10;
                 break;
 
             case ItemShopItem.ItemType.trueAxe:
                 inventory.addItem(new Item { itemType = Item.ItemType.trueAxe, amount = 1 });
+                SaveVariables.INV_TRUE_AXE = 1;
                 index = 11;
                 break;
 

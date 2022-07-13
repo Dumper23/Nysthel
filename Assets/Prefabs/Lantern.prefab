@@ -4924,8 +4924,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Target: {fileID: 0}
-  Offset: {x: 0, y: 0.5, z: 0}
+  Offset: {x: -0.5, y: 0.5, z: 0}
   SmoothTime: 0.3
+  isEmmyrSoul: 0
+  light: {fileID: 0}
+  particles: {fileID: 0}
 --- !u!212 &2656135278282285735
 SpriteRenderer:
   m_ObjectHideFlags: 0

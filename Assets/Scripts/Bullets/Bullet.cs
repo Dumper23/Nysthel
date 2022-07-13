@@ -70,9 +70,22 @@ public class Bullet : MonoBehaviour
         damage = dmg;
     }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.transform.tag == "coinContainer")
+        {
+            Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "Destructible")
+        if (collision.CompareTag("coinContainer"))
+        {
+            Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), GetComponent<Collider2D>());
+        }
+
+            if (collision.transform.tag == "Destructible")
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);
@@ -110,7 +123,7 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        if (collision.transform.tag != "Bullet" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Coin2" && collision.transform.tag != "Coin3" && collision.transform.tag != "Wood")
+        if (collision.transform.tag != "Bullet" && collision.transform.tag != "coinContainer" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Coin2" && collision.transform.tag != "Coin3" && collision.transform.tag != "Wood")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             Instantiate(destroyGameObject, transform.position, Quaternion.identity);

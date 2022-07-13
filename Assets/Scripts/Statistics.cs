@@ -19,6 +19,7 @@ public class Statistics : MonoBehaviour
     public GameObject statisticsUI;
     public GameObject button;
     public GameObject loadingScreen;
+    public GameObject cameraContainer;
 
     public static Statistics Instance { get; private set; }
 
@@ -26,7 +27,6 @@ public class Statistics : MonoBehaviour
     {
         Instance = this;
     }
-
     private void Start()
     {
         goldCollected = 0;
@@ -34,6 +34,11 @@ public class Statistics : MonoBehaviour
         attacksDone = 0;
         timeSpent = 0;
         enemiesKilled = 0;
+    }
+
+    public void shake()
+    {
+        cameraContainer.GetComponent<Animator>().Play("shake");
     }
 
     private void Update()

@@ -86,7 +86,12 @@ public class Farmeable : MonoBehaviour
         for (int i = 0; i < Random.Range(minWood, maxWood); i++)
         {
             GameObject g = Instantiate(wood, pos, Quaternion.identity);
-            g.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * woodForce, ForceMode2D.Impulse);
+            Coin c = g.GetComponent<Coin>();
+            c.playerInRange = false;
+            c.startPosition = transform.position;
+            c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * woodForce + new Vector3(transform.position.x, transform.position.y, 0);
+            c.coinForce = woodForce;
+            c.isSet = true;
         }
         Destroy(gameObject);
 

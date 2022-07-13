@@ -82,9 +82,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5899310037350252979}
   - component: {fileID: 5899310037350252980}
-  - component: {fileID: 5600617437610521702}
   - component: {fileID: 4781365787080734921}
   - component: {fileID: 3570630723614249974}
+  - component: {fileID: -3738948012193372725}
   m_Layer: 6
   m_Name: CoinRush1
   m_TagString: Coin
@@ -158,27 +158,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!50 &5600617437610521702
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5899310037350252981}
-  m_BodyType: 0
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 3.41
-  m_AngularDrag: 2.09
-  m_GravityScale: 0
-  m_Material: {fileID: 0}
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 4
 --- !u!58 &4781365787080734921
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -194,7 +173,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.887626
+  m_Radius: 0.5
 --- !u!95 &3570630723614249974
 Animator:
   serializedVersion: 3
@@ -214,3 +193,22 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &-3738948012193372725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5899310037350252981}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb37c7ddccb946442ad1625cb19db188, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {x: 0, y: 0, z: 0}
+  coinForce: 10
+  isWood: 0
+  isSet: 0
+  playerInRange: 0
+  coinValue: 1
+  startPosition: {x: 0, y: 0, z: 0}

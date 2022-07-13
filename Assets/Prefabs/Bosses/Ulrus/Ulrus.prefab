@@ -10176,7 +10176,7 @@ MonoBehaviour:
   firePoint: {fileID: 3621076136027386060}
   attackRate: 1
   range: 14.85
-  coin: {fileID: 5779060491291618182, guid: 41382773221edab47a7d4efcd71d5ea8, type: 3}
+  coinType: 2
   coinForce: 6
   bloodStain: {fileID: 8870822980127303738, guid: 6c1eb2c79bc69ce45b26ea3e08a0c3f3, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: 6d31b4b692e29f4418cd640dae5b44a9, type: 3}
@@ -10207,6 +10207,10 @@ MonoBehaviour:
   lasersFase1: {fileID: 0}
   lasersFase2: {fileID: 0}
   laserTime: 20
+  attackAS: {fileID: 0}
+  damageAS: {fileID: 0}
+  dashAS: {fileID: 0}
+  audios: []
   sprite: {fileID: 3621076135044267856}
   portal: {fileID: 3283005098352873175, guid: cc764bd6fcdff4044aff3ab3e3043913, type: 3}
   blood: {fileID: 272549412}
@@ -10406,7 +10410,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}

@@ -25,6 +25,7 @@ TagManager:
   - sparring
   - waypoint
   - LoadingScreen
+  - coinContainer
   layers:
   - Default
   - TransparentFX

@@ -19,7 +19,7 @@ public abstract class Enemy : MonoBehaviour
     public Transform firePoint;
     public float attackRate = 1f;
     public float range = 2f;
-    public GameObject coin;
+    public int coinType;
     public float coinForce = 2f;
     public GameObject bloodStain;
     public GameObject bloodParticles;
@@ -54,7 +54,7 @@ public abstract class Enemy : MonoBehaviour
         {
             if (go != null)
             {
-                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- 0");
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("Immune!");
             }
         }
     }
@@ -84,8 +84,15 @@ public abstract class Enemy : MonoBehaviour
             {
                 for (int i = 0; i <= goldToGive; i++)
                 {
-                    GameObject go = Instantiate(coin, transform.position, Quaternion.identity);
-                    go.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * coinForce, ForceMode2D.Impulse);
+                    GameObject go = CoinManager.Instance.GetCoin(coinType);
+                    go.SetActive(true);
+                    go.transform.position = transform.position;
+                    Coin c = go.GetComponent<Coin>();
+                    c.playerInRange = false;
+                    c.startPosition = transform.position;
+                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * coinForce + transform.position;
+                    c.coinForce = coinForce;
+                    c.isSet = true;
                 }
             }
             Destroy(gameObject);
