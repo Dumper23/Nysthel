@@ -89,8 +89,9 @@ public abstract class Enemy : MonoBehaviour
                     go.transform.position = transform.position;
                     Coin c = go.GetComponent<Coin>();
                     c.playerInRange = false;
+                    c.isPreSet = true;
                     c.startPosition = transform.position;
-                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * coinForce + transform.position;
+                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * coinForce + new Vector3(transform.position.x, transform.position.y, 0);
                     c.coinForce = coinForce;
                     c.isSet = true;
                 }

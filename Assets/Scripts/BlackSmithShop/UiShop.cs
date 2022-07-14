@@ -72,6 +72,10 @@ public class UiShop : MonoBehaviour
 
     private void GenerateUI()
     {
+        if (SaveVariables.BLACKSMITH_LEVEL >= 6)
+        {
+            upgradeButton.SetActive(false);
+        }
         for (int i = 0; i < container.childCount; i++)
         {
             if (container.GetChild(i).name == "ShopItemTemplate(Clone)")
@@ -201,6 +205,7 @@ public class UiShop : MonoBehaviour
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
             }
+            SaveManager.Instance.SaveGame();
         }
         else
         {
@@ -307,6 +312,10 @@ public class UiShop : MonoBehaviour
         {
             ShopAssets.Instance.BlackSmithLevel++;
             SaveVariables.BLACKSMITH_LEVEL = ShopAssets.Instance.BlackSmithLevel;
+            if(SaveVariables.BLACKSMITH_LEVEL >= 6)
+            {
+                upgradeButton.SetActive(false);
+            }
             GenerateUI();
         }
         if (SaveVariables.BLACKSMITH_LEVEL >= 6)

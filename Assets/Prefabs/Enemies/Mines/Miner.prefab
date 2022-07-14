@@ -5038,7 +5038,7 @@ MonoBehaviour:
   firePoint: {fileID: 8294126062071103102}
   attackRate: 0.5
   range: 50
-  coin: {fileID: 5899310037350252981, guid: af1ed36c3ba680c4a9642aba3378d084, type: 3}
+  coinType: 1
   coinForce: 2
   bloodStain: {fileID: 3203136689453428286, guid: 7f79eedbd2a71e143873db9537b42be1, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: da35429cc908b7e42806ceb344bbecf4, type: 3}
@@ -5065,7 +5065,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8294126062491554364}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

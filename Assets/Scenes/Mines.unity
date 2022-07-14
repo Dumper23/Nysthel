@@ -571,6 +571,10 @@ PrefabInstance:
       propertyPath: m_BackGroundColor.r
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 804429384, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: m_RootOrder
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 1994437211, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
       propertyPath: m_LocalScale.x
       value: 0.6

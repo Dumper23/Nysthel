@@ -11,6 +11,11 @@ public class DestroyAfterTime : MonoBehaviour
     private Animator anim;
     private float startTime = 0;
 
+    private void OnEnable()
+    {
+        startTime = Time.time;
+    }
+
     void Start()
     {
         if (!isSimple)

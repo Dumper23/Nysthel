@@ -105,6 +105,7 @@ public class SaveData
         RANGE_LEVEL = SaveVariables.RANGE_LEVEL;
         DASH_RECOVERY_LEVEL = SaveVariables.DASH_RECOVERY_LEVEL;
         RANGE_LEVEL = SaveVariables.DASH_RANGE_LEVEL;
+        DASH_RANGE_LEVEL = SaveVariables.DASH_RANGE_LEVEL;
 
         //Inventory
         INV_SMALL_POTION = SaveVariables.INV_SMALL_POTION;

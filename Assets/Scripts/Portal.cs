@@ -35,22 +35,34 @@ public class Portal : MonoBehaviour
             if (SceneManager.GetActiveScene().name == "Forest")
             {
                 SceneManager.UnloadSceneAsync("Forest");
-                SaveVariables.MAX_WORLD = 1;
+                if (SaveVariables.MAX_WORLD < 1)
+                {
+                    SaveVariables.MAX_WORLD = 1;
+                }
             }
             else if (SceneManager.GetActiveScene().name == "Ruins")
             {
                 SceneManager.UnloadSceneAsync("Ruins");
-                SaveVariables.MAX_WORLD = 2;
+                if (SaveVariables.MAX_WORLD < 2)
+                {
+                    SaveVariables.MAX_WORLD = 2;
+                }
             }
             else if (SceneManager.GetActiveScene().name == "Mines")
             {
                 SceneManager.UnloadSceneAsync("Mines");
-                SaveVariables.MAX_WORLD = 3;
+                if (SaveVariables.MAX_WORLD < 3)
+                {
+                    SaveVariables.MAX_WORLD = 3;
+                }
             }
             else if (SceneManager.GetActiveScene().name == "Walls")
             {
                 SceneManager.UnloadSceneAsync("Walls");
-                SaveVariables.MAX_WORLD = 4;
+                if (SaveVariables.MAX_WORLD < 4)
+                {
+                    SaveVariables.MAX_WORLD = 4;
+                }
             }
         }
         SaveManager.Instance.SaveGame();

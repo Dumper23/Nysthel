@@ -79,6 +79,9 @@ MonoBehaviour:
   Target: {fileID: 6531459779261276570}
   Offset: {x: -1.88, y: 0, z: 0}
   SmoothTime: 0.3
+  isEmmyrSoul: 0
+  light: {fileID: 0}
+  particles: {fileID: 0}
 --- !u!1 &6531459777923795378
 GameObject:
   m_ObjectHideFlags: 0
@@ -302,7 +305,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 2
   range: 30
-  coin: {fileID: 5779060491291618182, guid: 41382773221edab47a7d4efcd71d5ea8, type: 3}
+  coinType: 2
   coinForce: 2
   bloodStain: {fileID: 9221127518733234886, guid: 5f6964fad714b774aa2bfff03c38600b, type: 3}
   bloodParticles: {fileID: 2978385474241289672, guid: 6628bea9c841f2e4c88f5d0734a70723, type: 3}

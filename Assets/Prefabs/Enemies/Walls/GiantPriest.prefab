@@ -205,7 +205,7 @@ MonoBehaviour:
   firePoint: {fileID: 5473748769840456877}
   attackRate: 2
   range: 30
-  coin: {fileID: 5779060491291618182, guid: 41382773221edab47a7d4efcd71d5ea8, type: 3}
+  coinType: 2
   coinForce: 2
   bloodStain: {fileID: 9221127518733234886, guid: 5f6964fad714b774aa2bfff03c38600b, type: 3}
   bloodParticles: {fileID: 8870822980127303738, guid: 596656cd70782f041ba7bc3555958a03, type: 3}

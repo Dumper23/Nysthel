@@ -22,7 +22,6 @@ public class SaveManager : MonoBehaviour
 
         SaveData data = new SaveData();
         data.LoadData();
-
         formatter.Serialize(stream, data);
         stream.Close();
     }
@@ -104,6 +103,7 @@ public class SaveManager : MonoBehaviour
             SaveVariables.INV_BATTLE_AXE = data.INV_BATTLE_AXE;
             SaveVariables.INV_NYSTHEL_AXE = data.INV_NYSTHEL_AXE;
             SaveVariables.INV_TRUE_AXE = data.INV_TRUE_AXE;
+
         }
     }
 }

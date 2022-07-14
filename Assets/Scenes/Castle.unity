@@ -1000,7 +1000,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -1768,7 +1768,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -7479,6 +7479,10 @@ PrefabInstance:
     - target: {fileID: 4750481620955305785, guid: 2b8d8775dc392b84e88f6404e6ad094e, type: 3}
       propertyPath: m_Name
       value: TeleportIndicator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4750481620955305785, guid: 2b8d8775dc392b84e88f6404e6ad094e, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b8d8775dc392b84e88f6404e6ad094e, type: 3}
@@ -54715,7 +54719,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -55213,7 +55217,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -55865,7 +55869,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -57161,7 +57165,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -67148,7 +67152,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -67335,7 +67339,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -118549,7 +118553,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -133433,7 +133437,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -138794,7 +138798,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}
@@ -143858,6 +143862,10 @@ PrefabInstance:
     - target: {fileID: 3621076135444549493, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
       propertyPath: m_Name
       value: Ulrus
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621076135444549493, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3621076135444549494, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
       propertyPath: m_RootOrder

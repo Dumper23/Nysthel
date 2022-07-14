@@ -307,6 +307,7 @@ public class Interactable : MonoBehaviour
                         loadingScreen.SetActive(true);
                         SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
                         SaveManager.Instance.SaveGame();
+                        SceneManager.UnloadSceneAsync("Village");
                         SceneManager.LoadScene("WoodFarm");
                     }
                     else

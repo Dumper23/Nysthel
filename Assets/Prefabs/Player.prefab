@@ -252,7 +252,7 @@ GameObject:
   - component: {fileID: 804429384}
   - component: {fileID: 804429385}
   - component: {fileID: 804429386}
-  m_Layer: 14
+  m_Layer: 2
   m_Name: CoinCollector
   m_TagString: coinContainer
   m_Icon: {fileID: 0}

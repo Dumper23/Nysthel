@@ -28,23 +28,27 @@ public class Farmeable : MonoBehaviour
     {
         if(collision.tag == "PlayerBullet" && !dead)
         {
-            hitsToDestroy--;
+            
             aud.Play();
-            if (FindObjectOfType<Player>().transform.position.x >= transform.position.x)
+            if (hitsToDestroy > 1)
             {
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || !animator.GetCurrentAnimatorStateInfo(0).IsName("HitRight"))
+                if (FindObjectOfType<Player>().transform.position.x >= transform.position.x)
                 {
-                    animator.Play("Hit");
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || !animator.GetCurrentAnimatorStateInfo(0).IsName("HitRight"))
+                    {
+                        animator.Play("Hit");
+                    }
                 }
-            }
-            else
-            {
-                if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || !animator.GetCurrentAnimatorStateInfo(0).IsName("HitRight"))
+                else
                 {
-                    animator.Play("HitRight");
-                }
+                    if (!animator.GetCurrentAnimatorStateInfo(0).IsName("Hit") || !animator.GetCurrentAnimatorStateInfo(0).IsName("HitRight"))
+                    {
+                        animator.Play("HitRight");
+                    }
+                }   
             }
 
+            hitsToDestroy--;
             if (hitsToDestroy > 0)
             {
                 Invoke("stopAnim", 0.3f);
@@ -61,16 +65,17 @@ public class Farmeable : MonoBehaviour
     {
         if(hitsToDestroy <= 0 && !dead)
         {
+            animator.StopPlayback();
+            animator.Play("Idle");
             dead = true;
             if (FindObjectOfType<Player>().transform.position.x >= transform.position.x)
             {
-                animator.StopPlayback();
+                
                 animator.Play("DieLeft");
                 pos = transform.position + new Vector3(-2, 0, 0);
             }
             else
             {
-                animator.StopPlayback();
                 animator.Play("DieRight");
                 pos = transform.position + new Vector3(2, 0, 0);
             }

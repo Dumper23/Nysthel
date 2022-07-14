@@ -105750,6 +105750,7 @@ GameObject:
   - component: {fileID: 1678641146}
   - component: {fileID: 1678641149}
   - component: {fileID: 1678641150}
+  - component: {fileID: 1678641151}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -105874,6 +105875,25 @@ MonoBehaviour:
   m_CropFrameX: 0
   m_CropFrameY: 0
   m_StretchFill: 0
+--- !u!95 &1678641151
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1678641145}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d3a11efc04c41d044968a4e95b0849d3, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &1717948048
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -109076,6 +109096,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: Resume
       objectReference: {fileID: 0}
+    - target: {fileID: 1311085680814246496, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: cameraContainer
+      value: 
+      objectReference: {fileID: 1678641145}
     - target: {fileID: 1311085680814246497, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

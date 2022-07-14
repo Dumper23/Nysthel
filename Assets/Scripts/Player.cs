@@ -185,7 +185,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private void Start()
     {
         audioSource[PICKUP_AUDIO].volume = 0;
-        coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange + 0.5f;
+        
         Invoke("setSound", 0.5f);
         battleCircleLoad.SetActive(false);
         battleCircleLoadMaximum.SetActive(false);
@@ -202,6 +202,7 @@ public class Player : MonoBehaviour, IShopCustomer
         woodText.SetText(wood.ToString());
         hasSecondChance = false;
         originalDamage = 10 + SaveVariables.ATTACK_LEVEL * 5;
+        coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange;
     }
 
     private void OnDestroy()
@@ -294,6 +295,7 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             if (Time.time > nextDash && !dashing && movement != Vector2.zero)
             {
+                Statistics.Instance.shake();
                 Statistics.Instance.dashesDone += 1;
                 audioSource[DASH_AUDIO].clip = audios[1];
                 audioSource[DASH_AUDIO].Play();
@@ -1411,7 +1413,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 coinMagnetRange += ShopItem.GetImprovementQuantity(ShopItem.ItemType.RangeUpgrade);
                 SaveVariables.PLAYER_RANGE = coinMagnetRange;
                 SaveVariables.RANGE_LEVEL = ShopItem.GetCurrentLevel(itemType);
-                coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange + 0.5f;
+                coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange * (SaveVariables.RANGE_LEVEL + 1);
                 index = 4;
                 break;
 
@@ -1429,6 +1431,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 index = 6;
                 break;
         }
+        SaveManager.Instance.SaveGame();
         return index;
     }
 

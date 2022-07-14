@@ -13,19 +13,29 @@ public class Coin : MonoBehaviour
     public bool playerInRange = false;
     public int coinValue = 1;
     public Vector3 startPosition;
+    public bool isPreSet = false;
 
     private float time = 0;
     private bool hasArrived = false;
     private float coinMagnetSpeed = 200;
     private Player p;
 
-    
+    private void OnEnable()
+    {
+        if (!isPreSet)
+        {
+            playerInRange = false;
+            startPosition = transform.position;
+            isSet = true;
+        }
+    }
 
     private void OnDisable()
     {
         hasArrived = false;
         playerInRange = false;
         time = 0;
+        GetComponent<Animator>().Play("coinRotation");
     }
 
     void Update()

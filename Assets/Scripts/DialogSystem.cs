@@ -33,7 +33,7 @@ public class DialogSystem : MonoBehaviour
 
         if (Input.anyKey)
         {
-            typingSpeed = 0.005f;
+            typingSpeed = 0.0035f;
         }
         else
         {
