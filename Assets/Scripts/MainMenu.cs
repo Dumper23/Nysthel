@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
-
+    public GameObject LoadingScreen;
     private void Start()
     {
         SaveManager.Instance.loadGame();
@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
 
     public void PlayGame()
     {
+        LoadingScreen.SetActive(true);
         if (SaveVariables.TUTORIAL_DONE != 0)
         {
             SceneManager.LoadScene("Village");

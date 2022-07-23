@@ -128,7 +128,7 @@ MonoBehaviour:
   rb: {fileID: 8738362145537654641}
   anim: {fileID: 8738362145537654638}
   firePoint: {fileID: 8738362145663006745}
-  attackRate: 2
+  attackRate: 3
   range: 50
   coinType: 0
   coinForce: 2

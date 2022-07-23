@@ -25,6 +25,7 @@ public class DestructibleObject : MonoBehaviour
     {
         if(health <= 0)
         {
+            Statistics.Instance.shake();
             Instantiate(destroyParticles, transform.position, Quaternion.identity);
             for (int i = 0; i <= goldToGive; i++) {
                 GameObject g = CoinManager.Instance.GetCoin(coinType);

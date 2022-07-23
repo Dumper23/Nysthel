@@ -27,19 +27,19 @@ public class ItemShopItem
         switch (itemType)
         {
             default:
-            case ItemType.smallHealthPotion: return 40;
+            case ItemType.smallHealthPotion: return 25;
             case ItemType.bigHealthPotion: return 90;
             case ItemType.shieldPotion: return 30;
             case ItemType.goldPotion: return 110;
             case ItemType.teleportPotion: return 200;
-            case ItemType.timePotion: return 130;
+            case ItemType.timePotion: return 80;
             case ItemType.doubleAxe: return 500;
             case ItemType.bloodAxe: return 1200;
-            case ItemType.seekAxe: return 2000;
+            case ItemType.seekAxe: return 1500;
             case ItemType.battleAxe: return 3000;
-            case ItemType.nysthelAxe: return 2500;
-            case ItemType.trueAxe: return 3000;
-            case ItemType.shield: return 250;
+            case ItemType.nysthelAxe: return 2600;
+            case ItemType.trueAxe: return 3200;
+            case ItemType.shield: return 100;
         }
     }
 

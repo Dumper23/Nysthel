@@ -15,6 +15,7 @@ public class Bullet : MonoBehaviour
     public LayerMask enemyLayer;
     public bool isTrueBullet = false;
 
+    private Transform player;
     private int damage = 10;
     
 
@@ -22,6 +23,7 @@ public class Bullet : MonoBehaviour
     private Vector2 moveDir;
     private void Start()
     {
+        player = FindObjectOfType<Player>().transform;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerBullet"));
         Destroy(gameObject, range);
     }
@@ -89,15 +91,24 @@ public class Bullet : MonoBehaviour
             if (collision.transform.tag == "Destructible")
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
-            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            
+            
+            float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
+            p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
         }
 
         if (collision.transform.tag == "Enemy" || collision.transform.tag == "sparring")
         {
+            Statistics.Instance.shake();
             if (collision.transform.GetComponent<Enemy>())
             {
                 collision.transform.GetComponent<Enemy>().takeDamage(damage);
-                Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+                GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+
+
+                float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
+                p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
             }
         }
 
@@ -118,7 +129,11 @@ public class Bullet : MonoBehaviour
                 {
                     Destroy(collision.gameObject);
                 }
-                Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+                GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+
+
+                float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
+                p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
                 Instantiate(afterDestroySound, transform.position, Quaternion.identity);
                 Destroy(this.gameObject);
             }
@@ -127,7 +142,11 @@ public class Bullet : MonoBehaviour
         if (collision.transform.tag != "Bullet" && collision.transform.tag != "coinContainer" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Coin2" && collision.transform.tag != "Coin3" && collision.transform.tag != "Wood")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
-            Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+
+
+            float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
+            p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
             if (!isTrueBullet)
             {
                 Destroy(gameObject);

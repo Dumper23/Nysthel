@@ -14,6 +14,8 @@ public class PauseManager : MonoBehaviour
     public Camera minimapCam;
     public Toggle toggle;
     public GameObject QuitAdvertise;
+    public float minZoom = 35;
+    public float maxZoom = 150;
 
     private Player player;
     public bool quit = false;
@@ -152,12 +154,12 @@ public class PauseManager : MonoBehaviour
         if (Input.GetAxisRaw("Map") != 0)
         {
             Map.transform.localScale = new Vector3(4, 4, 4);
-            minimapCam.orthographicSize = 150;
+            minimapCam.orthographicSize = maxZoom;
         }
         else
         {
             Map.transform.localScale = new Vector3(2, 2, 2);
-            minimapCam.orthographicSize = 35;
+            minimapCam.orthographicSize = minZoom;
         }
 
         if (Input.GetButtonDown("Inventory"))
