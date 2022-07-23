@@ -22,6 +22,7 @@ public class Bullet : MonoBehaviour
     private Vector2 moveDir;
     private void Start()
     {
+        Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("Player"), LayerMask.NameToLayer("PlayerBullet"));
         Destroy(gameObject, range);
     }
 

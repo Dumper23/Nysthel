@@ -65,7 +65,6 @@ public class SaveData
         TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;
 
         PLAYER_USING_CONTROLLER = SaveVariables.PLAYER_USING_CONTROLLER;
-
         //Player upgrades and gold
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         PLAYER_WOOD = SaveVariables.PLAYER_WOOD;

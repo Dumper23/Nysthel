@@ -298,6 +298,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 256
+  isTrueBullet: 0
 --- !u!95 &141958927352104013
 Animator:
   serializedVersion: 3
@@ -332,7 +333,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.27535444
+  m_Radius: 0.5006924
 --- !u!96 &4278157014016219687
 TrailRenderer:
   serializedVersion: 2

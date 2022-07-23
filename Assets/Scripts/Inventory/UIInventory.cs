@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class UIInventory : MonoBehaviour
 {
     public TextMeshProUGUI infoName, description, defenseText;
+    public bool isPointerIn = false;
 
     private Inventory inventory;
     private Transform container;
@@ -188,7 +189,7 @@ public class UIInventory : MonoBehaviour
             }
         }
 
-        if (EventSystem.current.currentSelectedGameObject != null)
+        if (!isPointerIn && EventSystem.current.currentSelectedGameObject != null)
         {
             if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
             {
@@ -238,7 +239,7 @@ public class UIInventory : MonoBehaviour
         }
     }
 
-    private void showItemInfo(string itemSelected)
+    public void showItemInfo(string itemSelected)
     {
         switch (itemSelected)
         {
@@ -310,6 +311,10 @@ public class UIInventory : MonoBehaviour
             case "trueAxe":
                 description.text = "DMG = +50\nSPD = -2";
                 infoName.text = "True dwarf Axe";
+                break;
+            default:
+                description.text = itemSelected;
+                infoName.text = itemSelected;
                 break;
         }
     }

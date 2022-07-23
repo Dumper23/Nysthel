@@ -22,10 +22,26 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>();
+        if(SaveVariables.PLAYER_USING_CONTROLLER == 1)
+        {
+            toggle.isOn = true;
+        }
+        else
+        {
+            toggle.isOn = false;
+        }
     }
 
     private void Update()
     {
+        if (SaveVariables.PLAYER_USING_CONTROLLER == 1)
+        {
+            toggle.isOn = true;
+        }
+        else
+        {
+            toggle.isOn = false;
+        }
         if (quit)
         {
             GameStateManager.Instance.SetState(GameState.Paused);
@@ -223,17 +239,20 @@ public class PauseManager : MonoBehaviour
 
     public void usingControllerToggle()
     {
-        if (player.usingController)
+        player.usingController = toggle.isOn;
+        SaveVariables.PLAYER_USING_CONTROLLER = toggle.isOn ? 1 : 0;
+        /*if (player.usingController)
         {
             toggle.isOn = false;
             player.usingController = false;
             SaveVariables.PLAYER_USING_CONTROLLER = 0;
+
         }
         else
         {
             toggle.isOn = true;
             player.usingController = true;
             SaveVariables.PLAYER_USING_CONTROLLER = 1;
-        }
+        }*/
     }
 }

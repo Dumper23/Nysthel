@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class RoomTemplates : MonoBehaviour
 {
+	public GameObject entryRoom;
 	public GameObject[] bottomRooms;
 	public GameObject[] topRooms;
 	public GameObject[] leftRooms;
@@ -84,6 +85,14 @@ public class RoomTemplates : MonoBehaviour
                     }
 				}
 			}
+
+            /*foreach(GameObject room in rooms)
+            {
+				if((room.transform.position - entryRoom.transform.position).magnitude <= 35)
+                {
+					Debug.Log(room.transform.name + " is a close room");
+                }
+            }*/
 		}
 		else
 		{

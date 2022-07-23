@@ -94,6 +94,7 @@ GameObject:
   - component: {fileID: 6173400405711013421}
   - component: {fileID: 5271853002999227267}
   - component: {fileID: 183446235}
+  - component: {fileID: 2707553069366636946}
   m_Layer: 12
   m_Name: PF Props Bush T2
   m_TagString: Untagged
@@ -209,3 +210,22 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0.09308612}
   serializedVersion: 2
   m_Radius: 0.33509266
+--- !u!95 &2707553069366636946
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6173400405711013420}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c3ab86cea593edc4d885868eee9b59af, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

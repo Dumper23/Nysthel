@@ -23,10 +23,10 @@ public class BOSS_Turtoise : Enemy
     private string cState;
     private Vector2 moveDir;
     private float nextTurtle = 0f;
+    private bool canDash = false;
 
     private bool phase2 = false;
     private bool shot = false;
-
 
 
     private void Start()
@@ -81,8 +81,13 @@ public class BOSS_Turtoise : Enemy
             switch (cState)
             {
                 case "dash":
-                    changeAnimationState("dash");
-                    dash();
+                    changeAnimationState("shield");
+                    Invoke("enableDash", 0.75f);
+                    if (canDash)
+                    {
+                        changeAnimationState("dash");
+                        dash();
+                    }
                     immune = true;
                     break;
                 case "shield":
@@ -93,12 +98,22 @@ public class BOSS_Turtoise : Enemy
                     changeAnimationState("idle");
                     immune = false;
                     break;
+                default:
+                    changeAnimationState("idle");
+                    immune = false;
+                    break;
             }
         }
     }
 
+    private void enableDash()
+    {
+        canDash = true;
+    }
+
     private void ChangeState()
     {
+        canDash = false;
         cState = state[Random.Range(0, state.Length-1)];
         moveDir = (target.position - transform.position).normalized * dashForce;
         inAction = false;
@@ -165,7 +180,7 @@ public class BOSS_Turtoise : Enemy
         {
             if (go != null)
             {
-                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- 0");
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("Immune");
             }
         }
     }
@@ -181,6 +196,7 @@ public class BOSS_Turtoise : Enemy
             if (collision.transform.CompareTag("Player"))
             {
                 collision.transform.GetComponent<Player>().takeDamage(damage);
+                cState = "shield";
             }
             else
             {

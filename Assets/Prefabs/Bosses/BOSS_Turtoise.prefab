@@ -159,7 +159,7 @@ MonoBehaviour:
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 0
-  dashForce: 8
+  dashForce: 6
   shotAngleIncrement: 30
   miniTurtle: {fileID: 5813332954646379419, guid: bcf2859b964d2f04ca49b87351d65082, type: 3}
   bullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}

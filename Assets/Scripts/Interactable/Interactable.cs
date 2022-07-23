@@ -210,7 +210,7 @@ public class Interactable : MonoBehaviour
                     SaveManager.Instance.SaveGame();
                     mapSelectionUi.SetActive(true);
                     inShop = true;
-                    EventSystem.current.SetSelectedGameObject(mapSelectionUi.transform.GetChild(1).gameObject);
+                    EventSystem.current.SetSelectedGameObject(mapSelectionUi.transform.GetChild(2).gameObject);
                     GameStateManager.Instance.SetState(GameState.Paused);
                     Time.timeScale = 0f;
                     break;
@@ -303,8 +303,8 @@ public class Interactable : MonoBehaviour
                 case Interactions.GoToWoodFarm:
                     if (SaveVariables.PLAYER_GOLD >= 100)
                     {
-                        player.playPositiveAction();
                         loadingScreen.SetActive(true);
+                        player.playPositiveAction();
                         SaveVariables.PLAYER_GOLD = SaveVariables.PLAYER_GOLD - 100;
                         SaveManager.Instance.SaveGame();
                         SceneManager.UnloadSceneAsync("Village");
@@ -593,7 +593,7 @@ public class Interactable : MonoBehaviour
                     case Interactions.GoToVillage:
                         if (SceneManager.GetActiveScene().name != "WoodFarm")
                         {
-                            text.SetText("Press X or E to go to the Village by 30% of your gold, you need to have at least 30 gold. (" + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + ")");
+                            text.SetText("Press X or E to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + " gold (you need to have at least 30 gold)");
                         }
                         else
                         {

@@ -9,7 +9,8 @@ public class Player : MonoBehaviour, IShopCustomer
     public GameObject coinCollector;
     [Header("--------------Movement--------------")]
     public float moveSpeed = 5f;
-
+    public ParticleSystem dashIndicatorMouse;
+    public ParticleSystem dashIndicatorController;
     public Rigidbody2D rb;
     public float dashRestoreTime = 3f;
     public float dashForce = 10f;
@@ -26,7 +27,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private Vector2 dashDirection;
     private Vector2 dashSpeed;
     private Vector3 lastUpdatePos = Vector3.zero;
-    private Vector3 dist;
+    private Vector3 distCheck;
     private float curentSpeed;
 
     [Header("--------------Combat--------------")]
@@ -158,6 +159,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private bool damageStatueApplied = false;
     private float timeToStep = 0.2f;
     private float timePassedStep = 0;
+    private bool isColliding = false;
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
@@ -290,6 +292,33 @@ public class Player : MonoBehaviour, IShopCustomer
         die();
 
         #region Dash
+        if (!inShop || Time.timeScale > 0 || GameStateManager.Instance.CurrentGameState != GameState.Paused)
+        {
+            if (Time.time > nextDash)
+            {
+                if (usingController)
+                {
+                    dashIndicatorController.Play();
+                }
+                else
+                {
+                    dashIndicatorMouse.Play();
+                }
+            }
+            else
+            {
+                if (usingController)
+                {
+                    dashIndicatorController.Pause();
+                    dashIndicatorController.Clear();
+                }
+                else
+                {
+                    dashIndicatorMouse.Pause();
+                    dashIndicatorMouse.Clear();
+                }
+            }
+        }
 
         if ((Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift)) && !shielded)
         {
@@ -349,8 +378,7 @@ public class Player : MonoBehaviour, IShopCustomer
             {
                 walkParticles.Play();
             }
-
-            if (movement.magnitude != 0)
+            if (movement.magnitude != 0 && isColliding)
             {
                 timePassedStep += Time.deltaTime;
                 if (timePassedStep > timeToStep)
@@ -429,6 +457,29 @@ public class Player : MonoBehaviour, IShopCustomer
                     battleTimePressed = 0;
                 }
             }
+
+            if (Time.time > nextFire)
+            {
+                if (usingController)
+                {
+                    crossHair.GetComponent<SpriteRenderer>().color = Color.green;
+                }
+                else
+                {
+                    customCursor.GetComponent<SpriteRenderer>().color = Color.green;
+                }
+            }
+            else
+            {
+                if (usingController)
+                {
+                    crossHair.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                else
+                {
+                    customCursor.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+            }
         }
 
         #endregion Movement and Attack
@@ -437,16 +488,18 @@ public class Player : MonoBehaviour, IShopCustomer
     //We are checking if the player is moving or not
     private bool checkMovement()
     {
-        dist = transform.position - lastUpdatePos;
-        curentSpeed = dist.magnitude / Time.deltaTime;
+        distCheck = transform.position - lastUpdatePos;
+        curentSpeed = distCheck.magnitude / Time.deltaTime;
         lastUpdatePos = transform.position;
 
         if (curentSpeed > 0.1)
         {
+            isColliding = true;
             return true;
         }
         else
         {
+            isColliding = false;
             return false;
         }
     }
@@ -707,8 +760,10 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         int tempDamage = 0;
         int DPSdamage = 0;
+
         if (Time.time > nextFire)
         {
+            
             Statistics.Instance.attacksDone += 1;
             //Diferent time attack settup
             if (bloodyaxe)

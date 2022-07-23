@@ -100,6 +100,16 @@ public class Chest : MonoBehaviour
                     coin3 = true;
                 }
             }
+            else
+            {
+                if(coinType == 1)
+                {
+                    coin2 = true;
+                }else if(coinType == 2)
+                {
+                    coin3 = true;
+                }
+            }
             for (int i = 0; i <= moneyQuantity; i++)
             {
                 if (coin2 && !coin3)

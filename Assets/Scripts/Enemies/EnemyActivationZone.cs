@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 [RequireComponent(typeof(BoxCollider2D))]
@@ -10,16 +11,22 @@ public class EnemyActivationZone : MonoBehaviour
     public GameObject[] Barriers;
     public AudioClip endOfRoom;
     public AudioClip startOfRoom;
+    public TextMeshPro enemyNumber;
 
     private bool activated = false;
     private bool finished = false;
     private bool hasBarriers = true;
     private Collider2D[] collisions;
+    private List<Enemy> enemiesInside = new List<Enemy>();
     private Player p;
 
 
     private void Start()
     {
+        if(enemyNumber != null)
+        {
+            enemyNumber.SetText("?");
+        }
         if (Barriers != null)
         {
             foreach (GameObject barrier in Barriers)
@@ -60,6 +67,10 @@ public class EnemyActivationZone : MonoBehaviour
                 }
             }
         }
+        if (enemyNumber != null)
+        {
+            enemyNumber.SetText(i.ToString());
+        }
     }
 
     private void Update()
@@ -90,6 +101,31 @@ public class EnemyActivationZone : MonoBehaviour
                     }
                 }
                 Invoke("destroyObj", 1.5f);   
+            }
+        }
+        else if(finished)
+        {
+            if (enemyNumber != null)
+            {
+                Collider2D[] temp = Physics2D.OverlapBoxAll(transform.position, EnemyAreaSurface, 0);
+                int enemyCount = 0;
+                foreach (Collider2D enemy in temp)
+                {
+                    if (enemy.CompareTag("Enemy"))
+                    {
+                        enemyCount++;
+                    }
+                }
+                if(enemyCount <= 0)
+                {
+                    enemyNumber.color = Color.green;
+                    enemyNumber.SetText(enemyCount.ToString());
+                }
+                else
+                {
+                    enemyNumber.SetText(enemyCount.ToString());
+                }
+
             }
         }
     }
@@ -127,10 +163,12 @@ public class EnemyActivationZone : MonoBehaviour
                         if (enemy.GetComponent<Enemy>())
                         {
                             enemy.GetComponent<Enemy>().enemyActivation(activated);
+                            enemiesInside.Add(enemy.GetComponent<Enemy>());
                         }
                         else if (enemy.GetComponent<StaticEye>())
                         {
                             enemy.GetComponent<StaticEye>().activated = true;
+                            enemiesInside.Add(enemy.GetComponent<Enemy>());
                         }
                     }
                 }
@@ -151,7 +189,6 @@ public class EnemyActivationZone : MonoBehaviour
                     foreach (GameObject barrier in Barriers)
                     {
                         barrier.SetActive(false);
-
                     }
                 }
 

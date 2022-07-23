@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProceduralBasic : MonoBehaviour
 {
-
+    public int maxEnemies = 8;
     public GameObject[] environmentObjects;
     public Transform[] points;
 
@@ -33,10 +33,32 @@ public class ProceduralBasic : MonoBehaviour
             probability[i] = probability_;
             if (Random.Range(0f, 1f) <= probability[i])
             {
-                instantiated[i] = Instantiate(
-                    environmentObjects[Random.Range(0, environmentObjects.Length)],
-                    points[i].transform.position,
-                    Quaternion.identity) as GameObject;
+                int objToSpawn = Random.Range(0, environmentObjects.Length);
+                int enemyCount = 0;
+                foreach(GameObject enemy in instantiated)
+                {
+                    if (enemy != null && enemy.GetComponent<Enemy>())
+                    {
+                        enemyCount++;
+                    }
+                }
+                if (environmentObjects[objToSpawn].GetComponent<Enemy>())
+                {
+                    if(enemyCount < maxEnemies)
+                    {
+                        instantiated[i] = Instantiate(
+                        environmentObjects[objToSpawn],
+                        points[i].transform.position,
+                        Quaternion.identity) as GameObject;
+                    }
+                }
+                else
+                {
+                    instantiated[i] = Instantiate(
+                        environmentObjects[objToSpawn],
+                        points[i].transform.position,
+                        Quaternion.identity) as GameObject;
+                }
 
             }
         }

@@ -35,7 +35,10 @@ public class Coin : MonoBehaviour
         hasArrived = false;
         playerInRange = false;
         time = 0;
-        GetComponent<Animator>().Play("coinRotation");
+        if (!isWood)
+        {
+            GetComponent<Animator>().Play("coinRotation");
+        }
     }
 
     void Update()
