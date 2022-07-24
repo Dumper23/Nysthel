@@ -15,7 +15,8 @@ public class PauseManager : MonoBehaviour
     public Toggle toggle;
     public GameObject QuitAdvertise;
     public float minZoom = 35;
-    public float maxZoom = 150;
+    public float maxZoom = 130;
+    public GameObject info;
 
     private Player player;
     public bool quit = false;
@@ -153,11 +154,35 @@ public class PauseManager : MonoBehaviour
 
         if (Input.GetAxisRaw("Map") != 0)
         {
+            if (info != null)
+            {
+                info.SetActive(true);
+            }
             Map.transform.localScale = new Vector3(4, 4, 4);
             minimapCam.orthographicSize = maxZoom;
+            if (Input.GetAxisRaw("verticalA") < 0 || Input.GetButton("left")) {
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(1, 0, 0), 0.25f);
+            }
+            if (Input.GetAxisRaw("verticalA") > 0 || Input.GetButton("right"))
+            {
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position + new Vector3(1, 0, 0), 0.25f);
+            }
+            if (Input.GetAxisRaw("horizontalA") > 0 || Input.GetButton("up"))
+            {
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position + new Vector3(0, 1, 0), 0.25f);
+            }
+            if (Input.GetAxisRaw("horizontalA") < 0 || Input.GetButton("down"))
+            {
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(0, 1, 0), 0.25f);
+            }
         }
         else
         {
+            if (info != null)
+            {
+                info.SetActive(false);
+            }
+            minimapCam.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, minimapCam.transform.position.z);
             Map.transform.localScale = new Vector3(2, 2, 2);
             minimapCam.orthographicSize = minZoom;
         }

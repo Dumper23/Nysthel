@@ -5341,6 +5341,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5808513693089813617, guid: 61b282ba026e1654c8c7b6c7147c66db, type: 3}
   m_PrefabInstance: {fileID: 810799428}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &810799430 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 513614903976198789, guid: 61b282ba026e1654c8c7b6c7147c66db, type: 3}
+  m_PrefabInstance: {fileID: 810799428}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &988565492 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 9216989108363573417, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
@@ -6219,6 +6224,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 810799429}
     - target: {fileID: 8469165761278272951, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
+      propertyPath: info
+      value: 
+      objectReference: {fileID: 810799430}
+    - target: {fileID: 8469165761278272951, guid: ad967e778e2ae5a4293b547edca9587a, type: 3}
       propertyPath: toggle
       value: 
       objectReference: {fileID: 1487035331}
@@ -6858,6 +6867,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8b31c0ef4d56444d8369a8b842444c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  entryRoom: {fileID: 0}
   bottomRooms:
   - {fileID: 588979309166157331, guid: bd62039b2c01bf449b82daeef0bb37f2, type: 3}
   - {fileID: 2738341489173702783, guid: 112a838509344e24ba6d3f9beb071096, type: 3}

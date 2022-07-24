@@ -28,7 +28,7 @@ public class Farmeable : MonoBehaviour
     {
         if(collision.tag == "PlayerBullet" && !dead)
         {
-            
+            Statistics.Instance.shake();
             aud.Play();
             if (hitsToDestroy > 1)
             {

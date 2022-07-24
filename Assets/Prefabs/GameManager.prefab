@@ -927,6 +927,9 @@ MonoBehaviour:
   minimapCam: {fileID: 0}
   toggle: {fileID: 0}
   QuitAdvertise: {fileID: 4826080997942232692}
+  minZoom: 35
+  maxZoom: 130
+  info: {fileID: 0}
   quit: 0
   menu: 0
 --- !u!114 &8469165761278272949
