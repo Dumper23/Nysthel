@@ -80,6 +80,7 @@ public class BOSS_Ulrus : Enemy
     public GameObject fires;
     public float immuneTime = 1f;
     public GameObject shield;
+    public GameObject deathSound;
 
     private bool patronDone = false;
     public int fase = 0;
@@ -151,6 +152,7 @@ public class BOSS_Ulrus : Enemy
                 Destroy(lasersFase2.gameObject);
                 Instantiate(portal,  transform.position, Quaternion.identity);
                 Destroy(fires);
+                Instantiate(deathSound);
                 die();
             }
 

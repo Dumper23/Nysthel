@@ -8,6 +8,8 @@ public class BOSS_LightingCrystal : Enemy
     public GameObject[] LaserAdvaices;
     public GameObject bat;
     public GameObject miner;
+    public AudioSource attackAudio;
+    public GameObject deathSound;
 
     public float pickAxeSpeed = 10f;
     public int pickAxeDamage = 25;
@@ -25,23 +27,23 @@ public class BOSS_LightingCrystal : Enemy
     private float attackRateFase = 0;
     private List<GameObject> batsSpawned = new List<GameObject>();
 
-    void Start()
+    private void Start()
     {
         startHealth = health;
         attackRateFase = attackRate / 3.5f;
         target = FindObjectOfType<Player>().transform;
         attackType = Random.Range(1, 4);
-        foreach(GameObject g in LaserEyes)
+        foreach (GameObject g in LaserEyes)
         {
             g.SetActive(false);
         }
-        foreach(GameObject g in LaserAdvaices)
+        foreach (GameObject g in LaserAdvaices)
         {
             g.SetActive(false);
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
@@ -59,6 +61,7 @@ public class BOSS_LightingCrystal : Enemy
             {
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
                 Instantiate(levelCompletedUi, target);
+                Instantiate(deathSound);
                 die();
             }
 
@@ -73,6 +76,7 @@ public class BOSS_LightingCrystal : Enemy
 
                     if (time >= attackRate)
                     {
+                        attackAudio.Play();
                         time = 0;
                         GameObject bul = BulletPool.Instance.GetBullet();
                         bul.GetComponent<BulletHellBullet>().damage = pickAxeDamage;
@@ -114,6 +118,7 @@ public class BOSS_LightingCrystal : Enemy
 
                     if (time >= attackRate / 2)
                     {
+                        attackAudio.Play();
                         time = 0;
                         GameObject bul = BulletPool.Instance.GetBullet();
                         bul.GetComponent<BulletHellBullet>().damage = pickAxeDamage;
@@ -133,7 +138,7 @@ public class BOSS_LightingCrystal : Enemy
 
                 case 3: //Bat Spawn && Miner
                     time += Time.deltaTime;
-                    if(time >= attackRate * 2)
+                    if (time >= attackRate * 2)
                     {
                         time = 0;
                         if (health >= startHealth / 2)
@@ -179,7 +184,7 @@ public class BOSS_LightingCrystal : Enemy
                     if (!changingAttack)
                     {
                         changingAttack = true;
-                        Invoke("changeAttack", timeToChangeAttack/3);
+                        Invoke("changeAttack", timeToChangeAttack / 3);
                     }
                     break;
             }
@@ -215,7 +220,7 @@ public class BOSS_LightingCrystal : Enemy
         changingAttack = false;
         int oldAttack = attackType;
         attackType = Random.Range(1, 4);
-        if(oldAttack == attackType)
+        if (oldAttack == attackType)
         {
             attackType = Random.Range(1, 4);
         }

@@ -13,11 +13,14 @@ public class BOSS_AncientWarrior : Enemy
     public GameObject[] bulletSpawnPoints;
     public GameObject villagePortal;
     public GameObject levelCompletedUi;
-
+    public AudioSource shotAS;
+    public AudioSource spikesAS;
+    public AudioSource undeadAS;
     public GameObject spikes;
     public GameObject spikeLocation;
     public GameObject bulletPrefab;
     public GameObject undeadPrefab;
+    public GameObject deathSound;
 
     private string[] state;
     private bool spikesSpawned = false;
@@ -37,7 +40,7 @@ public class BOSS_AncientWarrior : Enemy
 
     private SpriteRenderer s;
 
-    void Start()
+    private void Start()
     {
         originalHealth = health;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyBullet"), LayerMask.NameToLayer("Enemy"));
@@ -59,7 +62,7 @@ public class BOSS_AncientWarrior : Enemy
         cState = "idle";
     }
 
-    void Update()
+    private void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
@@ -72,6 +75,11 @@ public class BOSS_AncientWarrior : Enemy
             {
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
                 Instantiate(levelCompletedUi, target);
+                Instantiate(deathSound);
+                foreach (EnemyBullet bullet in FindObjectsOfType<EnemyBullet>())
+                {
+                    Destroy(bullet.gameObject);
+                }
                 die();
             }
 
@@ -117,6 +125,7 @@ public class BOSS_AncientWarrior : Enemy
                             inAction = true;
                         }
                         break;
+
                     case "undead":
                         immune = false;
                         undead();
@@ -158,6 +167,7 @@ public class BOSS_AncientWarrior : Enemy
                             inAction = true;
                         }
                         break;
+
                     case "undead":
                         immune = false;
                         undead();
@@ -181,7 +191,6 @@ public class BOSS_AncientWarrior : Enemy
         spiking = false;
         undeadSpawning = false;
         dashing = false;
-     
 
         switch (cState)
         {
@@ -200,11 +209,11 @@ public class BOSS_AncientWarrior : Enemy
             case "shot":
                 changeAnimationState("DeathSoulAttack");
                 break;
+
             case "undead":
                 changeAnimationState("2ndFase");
                 break;
         }
-        
     }
 
     private void undead()
@@ -212,26 +221,36 @@ public class BOSS_AncientWarrior : Enemy
         undeadSpawning = true;
         if (Time.time > nextUndead)
         {
+            undeadAS.Play();
             nextUndead = Time.time + undeadRate;
-            Instantiate(undeadPrefab, spawnPoints[Random.Range(0, spawnPoints.Length-1)].transform.position, Quaternion.identity);
-        }        
+            Instantiate(undeadPrefab, spawnPoints[Random.Range(0, spawnPoints.Length - 1)].transform.position, Quaternion.identity);
+        }
     }
 
-    private void shooting() { 
+    private void shooting()
+    {
         if (Time.time > nextShot)
         {
+            float timeToShoot = 0;
             if (health <= originalHealth / 2)
             {
-                nextShot = Time.time + attackRate/2;
-                Instantiate(bulletPrefab, bulletSpawnPoints[Random.Range(0, bulletSpawnPoints.Length)].transform.position, Quaternion.identity);
+                nextShot = Time.time + attackRate / 2;
+                GameObject g = Instantiate(bulletPrefab, bulletSpawnPoints[Random.Range(0, bulletSpawnPoints.Length)].transform.position, Quaternion.identity);
+                timeToShoot = g.GetComponent<EnemyBullet>().timeToWait;
             }
             else
             {
                 nextShot = Time.time + attackRate;
-                Instantiate(bulletPrefab, bulletSpawnPoints[Random.Range(0, bulletSpawnPoints.Length)].transform.position, Quaternion.identity);
+                GameObject g = Instantiate(bulletPrefab, bulletSpawnPoints[Random.Range(0, bulletSpawnPoints.Length)].transform.position, Quaternion.identity);
+                timeToShoot = g.GetComponent<EnemyBullet>().timeToWait;
             }
+            Invoke("sound", timeToShoot);
         }
-        
+    }
+
+    private void sound()
+    {
+        shotAS.Play();
     }
 
     private void idle()
@@ -269,6 +288,7 @@ public class BOSS_AncientWarrior : Enemy
     private void spawnSpikes()
     {
         Instantiate(spikes, spikesPlace, Quaternion.identity);
+        spikesAS.Play();
         Invoke("ChangeState", spikesAttackDuration);
         spiking = true;
     }

@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 314309017234547665}
   - component: {fileID: -7164987200410729255}
   - component: {fileID: 3897020908957003600}
+  - component: {fileID: 829841441}
   m_Layer: 8
   m_Name: BOSS_Turtoise
   m_TagString: Enemy
@@ -159,9 +160,10 @@ MonoBehaviour:
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
   activated: 0
-  dashForce: 6
+  dashForce: 7
   shotAngleIncrement: 30
   miniTurtle: {fileID: 5813332954646379419, guid: bcf2859b964d2f04ca49b87351d65082, type: 3}
+  deathSound: {fileID: 1407387659022667793, guid: 0e60b1eac846ddd4099929561e7944dd, type: 3}
   bullet: {fileID: 1814987636882458439, guid: 0328dfc98026a8e47b92591d6df7e60e, type: 3}
   bulletForce: 10
   villagePortal: {fileID: 3283005098352873175, guid: 3659a202fd5a026429a4bd4a57f703dd, type: 3}
@@ -169,6 +171,11 @@ MonoBehaviour:
   screamSource: {fileID: 3897020908957003600}
   scream: {fileID: 8300000, guid: dbbf88388f17bb7438e71ae26d0ce8cd, type: 3}
   levelCompletedUi: {fileID: 9126201878243218139, guid: 9aa83989f36925c48b78de029186b99e, type: 3}
+  AttacksSource: {fileID: 829841441}
+  audios:
+  - {fileID: 8300000, guid: 2a8783fd26a3dd546aaf0c05e9693485, type: 3}
+  - {fileID: 8300000, guid: 1f54dd959ee39a84a8a2e2454dcd08a9, type: 3}
+  - {fileID: 8300000, guid: a461bcd2410492b4c9983a0f28f0e793, type: 3}
 --- !u!60 &314309017234547665
 PolygonCollider2D:
   m_ObjectHideFlags: 0
@@ -301,6 +308,102 @@ AudioSource:
     m_PostInfinity: 2
     m_RotationOrder: 4
 --- !u!82 &3897020908957003600
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8446597804094068540}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!82 &829841441
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

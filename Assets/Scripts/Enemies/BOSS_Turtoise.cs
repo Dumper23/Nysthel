@@ -8,7 +8,7 @@ public class BOSS_Turtoise : Enemy
     public float dashForce = 5f;
     public float shotAngleIncrement = 10f;
     public GameObject miniTurtle;
-
+    public GameObject deathSound;
     public GameObject bullet;
     public float bulletForce = 10f;
     public GameObject villagePortal;
@@ -16,6 +16,12 @@ public class BOSS_Turtoise : Enemy
     public AudioSource screamSource;
     public AudioClip scream;
     public GameObject levelCompletedUi;
+    public AudioSource AttacksSource;
+    public AudioClip[] audios;
+
+    private static int SHOOT_AUDIO = 0;
+    private static int DASH_AUDIO = 1;
+    private static int COLLISION_AUDIO = 2;
 
     private float angle = 0f;
     private string[] state;
@@ -27,7 +33,6 @@ public class BOSS_Turtoise : Enemy
 
     private bool phase2 = false;
     private bool shot = false;
-
 
     private void Start()
     {
@@ -52,7 +57,7 @@ public class BOSS_Turtoise : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
-            if(!audioSource.isPlaying) audioSource.Play();
+            if (!audioSource.isPlaying) audioSource.Play();
 
             if (health <= Mathf.RoundToInt(startHealth / 2))
             {
@@ -64,10 +69,12 @@ public class BOSS_Turtoise : Enemy
             {
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
                 Instantiate(levelCompletedUi, target);
+                Instantiate(deathSound);
                 die();
             }
 
-            if (!inAction) {
+            if (!inAction)
+            {
                 Invoke("ChangeState", Random.Range(2, 5));
                 inAction = true;
             }
@@ -88,16 +95,25 @@ public class BOSS_Turtoise : Enemy
                         changeAnimationState("dash");
                         dash();
                     }
+                    else
+                    {
+                        AttacksSource.pitch = 1.5f;
+                        AttacksSource.clip = audios[DASH_AUDIO];
+                        AttacksSource.Play();
+                    }
                     immune = true;
                     break;
+
                 case "shield":
                     changeAnimationState("shield");
                     immune = true;
                     break;
+
                 case "idle":
                     changeAnimationState("idle");
                     immune = false;
                     break;
+
                 default:
                     changeAnimationState("idle");
                     immune = false;
@@ -114,13 +130,15 @@ public class BOSS_Turtoise : Enemy
     private void ChangeState()
     {
         canDash = false;
-        cState = state[Random.Range(0, state.Length-1)];
+        cState = state[Random.Range(0, state.Length - 1)];
         moveDir = (target.position - transform.position).normalized * dashForce;
         inAction = false;
     }
 
     private void Shoot()
     {
+        AttacksSource.clip = audios[SHOOT_AUDIO];
+        AttacksSource.Play();
         shot = false;
         angle = 0;
         while (angle <= 350)
@@ -157,11 +175,10 @@ public class BOSS_Turtoise : Enemy
             }
         }
     }
-    
+
     public override void takeDamage(int value)
     {
         GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), 0), Quaternion.identity) as GameObject;
-
 
         if (activated && !immune)
         {
@@ -193,6 +210,9 @@ public class BOSS_Turtoise : Enemy
         }
         else
         {
+            Statistics.Instance.shake();
+            AttacksSource.clip = audios[COLLISION_AUDIO];
+            AttacksSource.Play();
             if (collision.transform.CompareTag("Player"))
             {
                 collision.transform.GetComponent<Player>().takeDamage(damage);
@@ -204,5 +224,4 @@ public class BOSS_Turtoise : Enemy
             }
         }
     }
-
 }

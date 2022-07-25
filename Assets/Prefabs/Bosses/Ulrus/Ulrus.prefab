@@ -10218,6 +10218,7 @@ MonoBehaviour:
   fires: {fileID: 0}
   immuneTime: 1
   shield: {fileID: 1393798478}
+  deathSound: {fileID: 1407387659022667793, guid: 0e60b1eac846ddd4099929561e7944dd, type: 3}
   fase: 0
   cState: 
 --- !u!70 &3621076135444549450
