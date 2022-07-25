@@ -2528,10 +2528,10 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
-    y: 0
-    width: 1
-    height: 1
+    x: -0.20278184
+    y: -0.203125
+    width: 1.4055637
+    height: 1.40625
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
@@ -2583,8 +2583,8 @@ MonoBehaviour:
   m_RefResolutionY: 1080
   m_UpscaleRT: 0
   m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
+  m_CropFrameX: 1
+  m_CropFrameY: 1
   m_StretchFill: 0
 --- !u!95 &438007549
 Animator:
