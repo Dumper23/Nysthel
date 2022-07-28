@@ -194,7 +194,7 @@ MonoBehaviour:
   speed: 4
   isSeeker: 1
   timeAlive: 10
-  damage: 20
+  damage: 35
   timeToWait: 0
   isElectric: 0
   target: {fileID: 0}

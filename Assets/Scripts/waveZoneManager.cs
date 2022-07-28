@@ -11,6 +11,7 @@ public class waveZoneManager : MonoBehaviour
     public TextMeshProUGUI timer;
     public Transform prizeSpawnPoint;
     public List<GameObject> prizes = new List<GameObject>();
+    public TextMeshProUGUI recordText;
     //public int enemiesKilled = 0;
 
     private AudioSource audioSource;
@@ -30,6 +31,8 @@ public class waveZoneManager : MonoBehaviour
 
     private void Start()
     {
+        recordText.SetText("Max Time: " + Mathf.FloorToInt(SaveVariables.SECONDS_GOLD_RUSH / 60) + "m " + Mathf.RoundToInt(SaveVariables.SECONDS_GOLD_RUSH - (Mathf.FloorToInt(SaveVariables.SECONDS_GOLD_RUSH / 60) * 60)) + "s\n"
+            + "Max Kills: " + SaveVariables.KILLS_GOLD_RUSH);
         audioSource = GetComponent<AudioSource>();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -72,7 +75,8 @@ public class waveZoneManager : MonoBehaviour
             Invoke("prizeSpawnedToggle", 0.2f);
             Instantiate(prizes[Random.Range(0, prizes.Count)], prizeSpawnPoint.position, Quaternion.identity); ;
         }
-        timer.SetText(Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60) * 60)) + "s ");
+        timer.SetText("Time: " + Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60) * 60)) + "s \n"
+            + "Kills: " + Statistics.Instance.enemiesKilled);
         currentEnemies = BulletPool.Instance.getActiveBulletCount();
         timeSpawning += Time.deltaTime;
         if (timeSpawning >= timeToSpawn && currentEnemies < enemyLimit)

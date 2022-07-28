@@ -7,8 +7,10 @@ using TMPro;
 public class Player : MonoBehaviour, IShopCustomer
 {
     public GameObject coinCollector;
+
     [Header("--------------Movement--------------")]
     public float moveSpeed = 5f;
+
     public ParticleSystem dashIndicatorMouse;
     public ParticleSystem dashIndicatorController;
     public Rigidbody2D rb;
@@ -117,6 +119,7 @@ public class Player : MonoBehaviour, IShopCustomer
 
     [Header("--------------UI And other settings--------------")]
     public TextMeshProUGUI goldText;
+
     public TextMeshProUGUI BlackSmithGoldText;
     public TextMeshProUGUI woodText;
 
@@ -160,6 +163,7 @@ public class Player : MonoBehaviour, IShopCustomer
     private float timeToStep = 0.2f;
     private float timePassedStep = 0;
     private bool isColliding = false;
+    private bool goldSubtracted = false;
 
     [Header("--------------Path Renderer--------------")]
     public bool pathRenderer = false;
@@ -186,8 +190,9 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Start()
     {
+        goldSubtracted = false;
         audioSource[PICKUP_AUDIO].volume = 0;
-        
+
         Invoke("setSound", 0.5f);
         battleCircleLoad.SetActive(false);
         battleCircleLoadMaximum.SetActive(false);
@@ -292,6 +297,7 @@ public class Player : MonoBehaviour, IShopCustomer
         die();
 
         #region Dash
+
         if (!inShop || Time.timeScale > 0 || GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
             if (Time.time > nextDash)
@@ -547,7 +553,6 @@ public class Player : MonoBehaviour, IShopCustomer
         }
     }
 
-
     public void recieveGold(int coinValue)
     {
         gold += (coinValue * goldMultiplier);
@@ -557,6 +562,7 @@ public class Player : MonoBehaviour, IShopCustomer
         coinSound.name = "CoinSounding";
         Instantiate(coinSound, transform);
     }
+
     public void recieveWood(int coinValue)
     {
         wood += (1 * woodMultiplier);
@@ -746,7 +752,7 @@ public class Player : MonoBehaviour, IShopCustomer
             {
                 if (!attacking)
                 {
-                changeAnimationState("Nysthel_walk");
+                    changeAnimationState("Nysthel_walk");
                 }
             }
         }
@@ -763,7 +769,6 @@ public class Player : MonoBehaviour, IShopCustomer
 
         if (Time.time > nextFire)
         {
-            
             Statistics.Instance.attacksDone += 1;
             //Diferent time attack settup
             if (bloodyaxe)
@@ -982,6 +987,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (!immune)
         {
+            Debug.Log(value);
             Statistics.Instance.shake();
             feedBackScreenPanel.GetComponent<Animator>().Play("DamageAnimation");
             currentHealth -= Mathf.RoundToInt(value - ((defense / 100f) * value));
@@ -1022,11 +1028,11 @@ public class Player : MonoBehaviour, IShopCustomer
             }
             else
             {
-                if (SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
+                if (!goldSubtracted && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
                 {
+                    goldSubtracted = true;
                     SaveVariables.clearInventory();
-                    gold -= Mathf.RoundToInt(0.6f * gold);
-                    SaveVariables.PLAYER_GOLD = gold;
+                    SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(0.4f * SaveVariables.PLAYER_GOLD);
                 }
                 SaveManager.Instance.SaveGame();
                 isDead = true;
@@ -1041,7 +1047,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         Gizmos.DrawWireSphere(transform.position, coinMagnetRange);
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position + (Vector3)movement*2, 1f);
+        Gizmos.DrawWireSphere(transform.position + (Vector3)movement * 2, 1f);
     }
 
     private void statueStats()
@@ -1148,6 +1154,8 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.shieldPotion:
                     if (!shielded && !goldRushed && !timeSlowed)
                     {
+                        CancelInvoke("endShield");
+                        CancelInvoke("notImmunity");
                         audioSource[PICKUP_AUDIO].clip = audios[7];
                         audioSource[PICKUP_AUDIO].Play();
                         shield.SetActive(true);

@@ -15,11 +15,17 @@ public class Lantern : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (isEmmyrSoul && !light.activeInHierarchy && SaveVariables.HAS_EMMYR_ITEM == 1)
+        if (isEmmyrSoul && !light.activeInHierarchy && SaveVariables.HAS_EMMYR_ITEM == 1 && SaveVariables.EMMYR_STATUE == 2)
         {
             light.SetActive(true);
             particles.SetActive(true);
             GetComponent<SpriteRenderer>().enabled = true;
+        }
+        else if (isEmmyrSoul && (SaveVariables.HAS_EMMYR_ITEM == 0 || SaveVariables.EMMYR_STATUE == 1 || SaveVariables.EMMYR_STATUE == 0))
+        {
+            light.SetActive(false);
+            particles.SetActive(false);
+            GetComponent<SpriteRenderer>().enabled = false;
         }
 
         if (Target != null)

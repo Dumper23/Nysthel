@@ -81,8 +81,47 @@ public class UiItemShop : MonoBehaviour
         {
             shopItemRectTransform.anchoredPosition = new Vector2(350, shopItemTransform.localPosition.y - (shopItemHeight * (positionIndex - 6)));
         }
-        shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
-        shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
+
+        if (itemName == "Shield" && SaveVariables.PLAYER_DEFENSE >= 50)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Max Shield!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Double axe" && SaveVariables.INV_DOUBLE_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Seek axe" && SaveVariables.INV_SEEK_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Bloody axe" && SaveVariables.INV_BLOOD_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Nysthel axe" && SaveVariables.INV_NYSTHEL_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "True dwarf axe" && SaveVariables.INV_TRUE_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Advanced battle axe" && SaveVariables.INV_BATTLE_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else
+        {
+            shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
+        }
 
         templates.Add(shopItemTransform);
 
@@ -98,28 +137,36 @@ public class UiItemShop : MonoBehaviour
 
     private void TryBuyItem(ItemShopItem.ItemType itemType)
     {
-        bool maxShield = false;
-        if (itemType == ItemShopItem.ItemType.shield)
+        if (itemType == ItemShopItem.ItemType.shield && SaveVariables.PLAYER_DEFENSE >= 50)
         {
-            if (SaveVariables.PLAYER_DEFENSE <= 75)
-            {
-                maxShield = false;
-            }
-            else
-            {
-                maxShield = true;
-                for (int i = 0; i < templates.Count; i++)
-                {
-                    switch (templates[i].Find("itemName").GetComponent<TextMeshProUGUI>().text)
-                    {
-                        case "Shield":
-                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Max Shield!");
-                            break;
-                    }
-                }
-            }
+            return;
         }
-        if (!maxShield && shopCustomer.TrySpendGoldAmount(ItemShopItem.GetCost(itemType)))
+        if (itemType == ItemShopItem.ItemType.doubleAxe && SaveVariables.INV_DOUBLE_AXE != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.seekAxe && SaveVariables.INV_SEEK_AXE != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.bloodAxe && SaveVariables.INV_BLOOD_AXE != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.nysthelAxe && SaveVariables.INV_NYSTHEL_AXE != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.trueAxe && SaveVariables.INV_TRUE_AXE != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.battleAxe && SaveVariables.INV_BATTLE_AXE != 0)
+        {
+            return;
+        }
+
+        if (shopCustomer.TrySpendGoldAmount(ItemShopItem.GetCost(itemType)))
         {
             for (int i = 0; i < templates.Count; i++)
             {
@@ -150,40 +197,96 @@ public class UiItemShop : MonoBehaviour
                         break;
 
                     case "Double axe":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe).ToString());
+                        if (SaveVariables.INV_DOUBLE_AXE != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.doubleAxe).ToString());
+                        }
                         break;
 
                     case "Bloody axe":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.bloodAxe).ToString());
+                        if (SaveVariables.INV_BLOOD_AXE != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.bloodAxe).ToString());
+                        }
                         break;
 
                     case "Seek axe":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.seekAxe).ToString());
+                        if (SaveVariables.INV_SEEK_AXE != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.seekAxe).ToString());
+                        }
                         break;
 
                     case "Advanced battle axe":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.battleAxe).ToString());
+                        if (SaveVariables.INV_BATTLE_AXE != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.battleAxe).ToString());
+                        }
                         break;
 
                     case "Nysthel axe":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.nysthelAxe).ToString());
+                        if (SaveVariables.INV_NYSTHEL_AXE != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.nysthelAxe).ToString());
+                        }
                         break;
 
                     case "True dwarf axe":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe).ToString());
+                        if (SaveVariables.INV_TRUE_AXE != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe).ToString());
+                        }
+
                         break;
 
                     case "Shield":
-                        templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.shield).ToString());
+                        if (SaveVariables.PLAYER_DEFENSE >= 50)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Max Shield!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.shield).ToString());
+                        }
                         break;
                 }
             }
-            if (!maxShield)
-            {
-                lastItemSelected = shopCustomer.BoughtItem(itemType);
-                EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
-            }
+
+            lastItemSelected = shopCustomer.BoughtItem(itemType);
+            EventSystem.current.SetSelectedGameObject(templates[lastItemSelected].gameObject);
         }
+        GenerateUI();
     }
 
     public void setLastItemSelected(int index)

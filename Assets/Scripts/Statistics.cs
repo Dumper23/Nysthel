@@ -27,6 +27,7 @@ public class Statistics : MonoBehaviour
     {
         Instance = this;
     }
+
     private void Start()
     {
         goldCollected = 0;
@@ -51,6 +52,17 @@ public class Statistics : MonoBehaviour
         if (statisticsText != null && statisticsUI != null)
         {
             EventSystem.current.SetSelectedGameObject(button);
+            if (SceneManager.GetActiveScene().name.Equals("GoldRush"))
+            {
+                if (enemiesKilled > SaveVariables.KILLS_GOLD_RUSH)
+                {
+                    SaveVariables.KILLS_GOLD_RUSH = enemiesKilled;
+                }
+                if (tempTime > SaveVariables.SECONDS_GOLD_RUSH)
+                {
+                    SaveVariables.SECONDS_GOLD_RUSH = tempTime;
+                }
+            }
             statisticsText.SetText(
                   "-Gold collected: " + goldCollected + "\n"
                 + "-Dashes done: " + dashesDone + "\n"

@@ -139,7 +139,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8805030dd6066fe4cbab7780c71c9934, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 30
+  health: 35
   damage: 10
   maxGoldToGive: 30
   minGoldToGive: 20
@@ -150,7 +150,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 50
-  coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 8546774708782298221, guid: 9140c14a6df08b14eb629b4d2ed0b384, type: 3}
   bloodParticles: {fileID: 9221127518733234886, guid: e271c766f1679824c8a0dbb8b354b088, type: 3}

@@ -18,7 +18,7 @@ public class UiShop : MonoBehaviour
     public GameObject upgradeButton;
     public GameObject exitButton;
 
-    private int upgradeShopCost = 200;
+    private int upgradeShopCost = 50;
     private int lastItemSelected = 0;
 
     private void Awake()
@@ -46,7 +46,7 @@ public class UiShop : MonoBehaviour
 
     private void Update()
     {
-        if (EventSystem.current != null &&  (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy))
+        if (EventSystem.current != null && (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy))
         {
             bool found = false;
             int i = 0;
@@ -312,7 +312,7 @@ public class UiShop : MonoBehaviour
         {
             ShopAssets.Instance.BlackSmithLevel++;
             SaveVariables.BLACKSMITH_LEVEL = ShopAssets.Instance.BlackSmithLevel;
-            if(SaveVariables.BLACKSMITH_LEVEL >= 6)
+            if (SaveVariables.BLACKSMITH_LEVEL >= 6)
             {
                 upgradeButton.SetActive(false);
             }

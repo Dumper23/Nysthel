@@ -8,6 +8,9 @@ public class SaveData
     public int TUTORIAL_DONE = 0;
     public int PLAYER_USING_CONTROLLER = 0; //Default controll is mouse
 
+    public int KILLS_GOLD_RUSH = 0;
+    public float SECONDS_GOLD_RUSH = 0;
+
     public int PLAYER_GOLD = 0;
     public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
@@ -65,6 +68,10 @@ public class SaveData
         TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;
 
         PLAYER_USING_CONTROLLER = SaveVariables.PLAYER_USING_CONTROLLER;
+
+        KILLS_GOLD_RUSH = SaveVariables.KILLS_GOLD_RUSH;
+        SECONDS_GOLD_RUSH = SaveVariables.SECONDS_GOLD_RUSH;
+
         //Player upgrades and gold
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         PLAYER_WOOD = SaveVariables.PLAYER_WOOD;
@@ -122,5 +129,4 @@ public class SaveData
         INV_NYSTHEL_AXE = SaveVariables.INV_NYSTHEL_AXE;
         INV_TRUE_AXE = SaveVariables.INV_TRUE_AXE;
     }
-
 }

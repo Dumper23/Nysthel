@@ -1006,7 +1006,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  damage: 10
+  damage: 45
   maxGoldToGive: 5
   minGoldToGive: 0
   moveSpeed: 6
@@ -1016,7 +1016,7 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 1
   range: 2
-  coin: {fileID: 0}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 0}
   bloodParticles: {fileID: 0}

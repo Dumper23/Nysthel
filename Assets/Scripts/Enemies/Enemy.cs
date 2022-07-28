@@ -84,7 +84,7 @@ public abstract class Enemy : MonoBehaviour
             goldToGive = g;
             if (g > 0)
             {
-                for (int i = 0; i <= goldToGive; i++)
+                for (int i = 0; i < goldToGive; i++)
                 {
                     GameObject go = CoinManager.Instance.GetCoin(coinType);
                     go.SetActive(true);
@@ -96,6 +96,7 @@ public abstract class Enemy : MonoBehaviour
                     c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * coinForce + new Vector3(transform.position.x, transform.position.y, 0);
                     c.coinForce = coinForce;
                     c.isSet = true;
+                    go.GetComponent<DestroyAfterTime>().isPool = true;
                 }
             }
             Destroy(gameObject);

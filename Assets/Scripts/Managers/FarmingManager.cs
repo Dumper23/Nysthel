@@ -22,14 +22,14 @@ public class FarmingManager : MonoBehaviour
 
     private bool reduced500 = false, reduced1000 = false, reduced2000 = false;
 
-    void Start()
+    private void Start()
     {
         instantiated = new GameObject[points.Length];
         reload();
         enemyRate = Random.Range(minEnemyRate, maxEnemyRate);
         Invoke("reSpawn", enemyRate);
 
-        if(SaveVariables.MAX_WORLD == 2)
+        if (SaveVariables.MAX_WORLD == 3)
         {
             BulletPool.Instance.poolBullet = bulletW3;
         }
@@ -53,21 +53,21 @@ public class FarmingManager : MonoBehaviour
 
     private void Update()
     {
-        if(FindObjectOfType<Player>().wood > 500 & !reduced500)
+        if (FindObjectOfType<Player>().wood > 500 & !reduced500)
         {
-            enemyRate -= 4;
+            enemyRate -= 2;
             reduced500 = true;
         }
 
         if (FindObjectOfType<Player>().wood > 1000 & !reduced1000)
         {
-            enemyRate -= 4;
+            enemyRate -= 2;
             reduced1000 = true;
         }
 
         if (FindObjectOfType<Player>().wood > 2000 & !reduced2000)
         {
-            enemyRate -= 4;
+            enemyRate -= 2;
             reduced2000 = true;
         }
 
@@ -83,27 +83,33 @@ public class FarmingManager : MonoBehaviour
         {
             Invoke("reSpawn", enemyRate);
             spawned = true;
-            Vector2 randPos = Random.insideUnitCircle * spawnRadius;
-            if (SaveVariables.MAX_WORLD == 0)
+            Player aux = FindObjectOfType<Player>();
+            Vector3 randPos = Random.insideUnitCircle * spawnRadius;
+            while ((randPos - aux.transform.position).magnitude < 3)
+            {
+                randPos = Random.insideUnitCircle * spawnRadius;
+            }
+
+            if (SaveVariables.MAX_WORLD == 0 || SaveVariables.MAX_WORLD == 1)
             {
                 Instantiate(EnemiesW1[Random.Range(0, EnemiesW1.Length)], randPos, Quaternion.identity);
             }
-            else if (SaveVariables.MAX_WORLD == 1)
+            else if (SaveVariables.MAX_WORLD == 2)
             {
                 Instantiate(EnemiesW2[Random.Range(0, EnemiesW2.Length)], randPos, Quaternion.identity);
             }
-            else if (SaveVariables.MAX_WORLD == 2)
+            else if (SaveVariables.MAX_WORLD == 3)
             {
                 Instantiate(EnemiesW3[Random.Range(0, EnemiesW3.Length)], randPos, Quaternion.identity);
             }
-            else if (SaveVariables.MAX_WORLD >= 3)
+            else if (SaveVariables.MAX_WORLD > 3)
             {
                 Instantiate(EnemiesW4[Random.Range(0, EnemiesW4.Length)], randPos, Quaternion.identity);
             }
         }
     }
 
-    IEnumerator respawn(int pos)
+    private IEnumerator respawn(int pos)
     {
         yield return new WaitForSeconds(respawnTime);
 

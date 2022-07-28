@@ -30,17 +30,15 @@ public class ShopItem
         {
             //Cost function: Mathf.RoundToInt(Mathf.Pow(ShopAssets.Instance.BlackSmithLevel + 1, 2)) * 25
             default:
-            case ItemType.LifeUpgrade: return 100 * (GetCurrentLevel(ItemType.LifeUpgrade) + 1);
-            case ItemType.AttackUpgrade: return 200 * (GetCurrentLevel(ItemType.AttackUpgrade) + 1);
-            case ItemType.SpeedUpgrade: return 100 * (GetCurrentLevel(ItemType.SpeedUpgrade) + 1);
-            case ItemType.AttackSpeedUpgrade: return 150 * (GetCurrentLevel(ItemType.AttackSpeedUpgrade) + 1);
-            case ItemType.RangeUpgrade: return 100 * (GetCurrentLevel(ItemType.RangeUpgrade) + 1);
-            case ItemType.DashRecoveryUpgrade: return 150 * (GetCurrentLevel(ItemType.DashRecoveryUpgrade) + 1);
-            case ItemType.DashRangeUpgrade: return 100 * (GetCurrentLevel(ItemType.DashRangeUpgrade) + 1);
+            case ItemType.LifeUpgrade: return 200 * (GetCurrentLevel(ItemType.LifeUpgrade) + 1);
+            case ItemType.AttackUpgrade: return 250 * (GetCurrentLevel(ItemType.AttackUpgrade) + 1);
+            case ItemType.SpeedUpgrade: return 150 * (GetCurrentLevel(ItemType.SpeedUpgrade) + 1);
+            case ItemType.AttackSpeedUpgrade: return 200 * (GetCurrentLevel(ItemType.AttackSpeedUpgrade) + 1);
+            case ItemType.RangeUpgrade: return 150 * (GetCurrentLevel(ItemType.RangeUpgrade) + 1);
+            case ItemType.DashRecoveryUpgrade: return 200 * (GetCurrentLevel(ItemType.DashRecoveryUpgrade) + 1);
+            case ItemType.DashRangeUpgrade: return 150 * (GetCurrentLevel(ItemType.DashRangeUpgrade) + 1);
         }
     }
-
-    
 
     public static int GetCurrentLevel(ItemType itemType)
     {
@@ -103,7 +101,6 @@ public class ShopItem
                 DashRangeUpgradeLevel = level;
                 SaveVariables.DASH_RANGE_LEVEL = DashRangeUpgradeLevel;
                 break;
-
         }
     }
 
@@ -145,7 +142,6 @@ public class ShopItem
                 DashRangeUpgradeLevel++;
                 SaveVariables.DASH_RANGE_LEVEL = DashRangeUpgradeLevel;
                 break;
-
         }
     }
 
@@ -179,7 +175,6 @@ public class ShopItem
             case ItemType.DashRangeUpgrade: return 2f;
         }
     }
-
 
     public static Sprite GetSprite(ItemType itemType)
     {

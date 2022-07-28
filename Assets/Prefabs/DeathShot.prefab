@@ -103,8 +103,10 @@ MonoBehaviour:
   speed: 5
   isSeeker: 1
   timeAlive: 5
-  damage: 25
+  damage: 18
   timeToWait: 2
+  isElectric: 0
+  target: {fileID: 0}
 --- !u!58 &5719909438311033892
 CircleCollider2D:
   m_ObjectHideFlags: 0

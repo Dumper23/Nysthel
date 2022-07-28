@@ -4862,8 +4862,9 @@ MonoBehaviour:
   speed: 8
   isSeeker: 0
   timeAlive: 5
-  damage: 25
+  damage: 30
   timeToWait: 0
+  isElectric: 0
   target: {fileID: 0}
 --- !u!50 &5437781548153669714
 Rigidbody2D:

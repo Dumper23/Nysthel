@@ -210,6 +210,6 @@ MonoBehaviour:
   isWood: 0
   isSet: 0
   playerInRange: 0
-  coinValue: 5
+  coinValue: 10
   startPosition: {x: 0, y: 0, z: 0}
   isPreSet: 0

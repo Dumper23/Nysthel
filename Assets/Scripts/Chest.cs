@@ -16,6 +16,7 @@ public class Chest : MonoBehaviour
     public int coinType;
     public bool moneyConvertion = false;
     public float coinForce = 5;
+    public bool canBeDestroyed = true;
 
     [Range(0f, 1f)]
     public float breakingProbability;
@@ -102,10 +103,11 @@ public class Chest : MonoBehaviour
             }
             else
             {
-                if(coinType == 1)
+                if (coinType == 1)
                 {
                     coin2 = true;
-                }else if(coinType == 2)
+                }
+                else if (coinType == 2)
                 {
                     coin3 = true;
                 }
@@ -143,14 +145,17 @@ public class Chest : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.transform.tag == "PlayerBullet")
+        if (canBeDestroyed)
         {
-            if (!immune)
+            if (collision.transform.tag == "PlayerBullet")
             {
-                hp--;
-                Destroy(collision.gameObject);
-                immune = true;
-                Invoke("vulnerable", 0.25f);
+                if (!immune)
+                {
+                    hp--;
+                    Destroy(collision.gameObject);
+                    immune = true;
+                    Invoke("vulnerable", 0.25f);
+                }
             }
         }
     }

@@ -37,15 +37,14 @@ public class UIInventory : MonoBehaviour
     {
         defenseText.SetText(SaveVariables.PLAYER_DEFENSE.ToString());
         TextMeshProUGUI t = statistics.Find("stats").GetComponent<TextMeshProUGUI>();
-        t.text = "Nysthel Statistics:\n"
-               + "(" + SaveVariables.LIFE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Life: \t\t\t" + player.maxHealth + "\n"
-               + "(" + SaveVariables.ATTACK_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack: \t\t\t" + player.damage + "\n"
-               + "(" + SaveVariables.SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed: \t\t\t" + player.moveSpeed.ToString("F2") + "\n"
-               + "(" + SaveVariables.ATTACK_SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed: \t\t\t" + (1 / player.attackRate).ToString("F2") + "\n"
-               + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range: \t\t\t" + player.coinMagnetRange.ToString("F2") + "\n"
-               + "(" + SaveVariables.DASH_RECOVERY_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recovery: \t\t" + player.dashRestoreTime.ToString("F2") + "\n"
-               + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range: \t\t\t" + player.dashForce.ToString("F2") + "\n"
-               + "Defense: " + SaveVariables.PLAYER_DEFENSE + "% of damage blocked";
+        t.text = "(" + SaveVariables.LIFE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) + ") Life:............................" + player.maxHealth + "\n"
+               + "(" + SaveVariables.ATTACK_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) + ") Attack:..........................." + player.damage + "\n"
+               + "(" + SaveVariables.SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) + ") Speed:............................" + player.moveSpeed.ToString("F2") + "\n"
+               + "(" + SaveVariables.ATTACK_SPEED_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) + ") Attack Speed:....................." + (1 / player.attackRate).ToString("F2") + "\n"
+               + "(" + SaveVariables.RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) + ") Magnet Range:....................." + player.coinMagnetRange.ToString("F2") + "\n"
+               + "(" + SaveVariables.DASH_RECOVERY_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recovery:...................." + player.dashRestoreTime.ToString("F2") + "\n"
+               + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:......................." + player.dashForce.ToString("F2") + "\n"
+               + "(" + SaveVariables.PLAYER_DEFENSE + "/50) " + "Defense: " + SaveVariables.PLAYER_DEFENSE + "% of damage blocked";
     }
 
     public void setPlayer(Player player)
@@ -312,6 +311,7 @@ public class UIInventory : MonoBehaviour
                 description.text = "DMG = +50\nSPD = -2";
                 infoName.text = "True dwarf Axe";
                 break;
+
             default:
                 description.text = itemSelected;
                 infoName.text = itemSelected;

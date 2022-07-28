@@ -4,6 +4,9 @@ public static class SaveVariables
 {
     public static int TUTORIAL_DONE = 0;
 
+    public static int KILLS_GOLD_RUSH = 0;
+    public static float SECONDS_GOLD_RUSH = 0;
+
     public static int PLAYER_GOLD = 0;
     public static int PLAYER_WOOD = 0;
     public static int PLAYER_ATTACK = 0;
@@ -61,6 +64,9 @@ public static class SaveVariables
     public static void clearVariables()
     {
         TUTORIAL_DONE = 0;
+
+        KILLS_GOLD_RUSH = 0;
+        SECONDS_GOLD_RUSH = 0;
 
         PLAYER_GOLD = 0;
         PLAYER_WOOD = 0;

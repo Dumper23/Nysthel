@@ -5027,7 +5027,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3f0d804c1b1ed84191c10c96d728bd9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 55
+  health: 90
   damage: 20
   maxGoldToGive: 35
   minGoldToGive: 25

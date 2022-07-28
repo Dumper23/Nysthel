@@ -5023,6 +5023,7 @@ MonoBehaviour:
   speed: 0
   isSeeker: 0
   timeAlive: 10
-  damage: 15
+  damage: 30
   timeToWait: 0
+  isElectric: 0
   target: {fileID: 0}

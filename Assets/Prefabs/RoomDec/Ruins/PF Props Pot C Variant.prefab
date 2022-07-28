@@ -1,5 +1,23 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6076227599357799490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5513572447875731072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fb03b25b17607e042b188b6e4b8b480d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 5
+  maxGoldToGive: 6
+  coinType: 0
+  coinForce: 2
+  soundEffect: {fileID: 8017809112979578920, guid: e02ee227321221f46b33ce952210fa76, type: 3}
+  destroyParticles: {fileID: 5666712459616409814, guid: d4f8516db1123744887366aecc470ad9, type: 3}
 --- !u!1001 &8016768853300955312
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9,7 +27,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2577585254280797810, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922478, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
       propertyPath: m_FlipX
@@ -33,11 +51,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
       propertyPath: m_Name
-      value: PF Props Pot C
+      value: PF Props Pot C Variant
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+      propertyPath: m_TagString
+      value: Destructible
       objectReference: {fileID: 0}
     - target: {fileID: 2577585254963922481, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
       propertyPath: m_RootOrder
@@ -83,5 +105,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9140004029675014805, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].x
+      value: 0.15160799
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140004029675014805, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[0].y
+      value: 0.41504067
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140004029675014805, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].x
+      value: -0.1586535
+      objectReference: {fileID: 0}
+    - target: {fileID: 9140004029675014805, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+      propertyPath: m_Points.m_Paths.Array.data[0].Array.data[1].y
+      value: 0.4230937
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+--- !u!1 &5513572447875731072 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2577585254963922480, guid: f3cc2373308c11848977b28d974a9de0, type: 3}
+  m_PrefabInstance: {fileID: 8016768853300955312}
+  m_PrefabAsset: {fileID: 0}

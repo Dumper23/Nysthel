@@ -46,6 +46,9 @@ public class SaveManager : MonoBehaviour
             SaveVariables.PLAYER_USING_CONTROLLER = data.PLAYER_USING_CONTROLLER;
             SaveVariables.TUTORIAL_DONE = data.TUTORIAL_DONE;
 
+            SaveVariables.KILLS_GOLD_RUSH = data.KILLS_GOLD_RUSH;
+            SaveVariables.SECONDS_GOLD_RUSH = data.SECONDS_GOLD_RUSH;
+
             //Player Stats
             SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;
             SaveVariables.PLAYER_WOOD = data.PLAYER_WOOD;
@@ -103,7 +106,6 @@ public class SaveManager : MonoBehaviour
             SaveVariables.INV_BATTLE_AXE = data.INV_BATTLE_AXE;
             SaveVariables.INV_NYSTHEL_AXE = data.INV_NYSTHEL_AXE;
             SaveVariables.INV_TRUE_AXE = data.INV_TRUE_AXE;
-
         }
     }
 }

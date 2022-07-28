@@ -1852,6 +1852,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1311085680814246507}
     - target: {fileID: 9216989108363573423, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
+      propertyPath: pathRenderer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9216989108363573423, guid: 0cc11d26e6d07f74d80073c3a99ad289, type: 3}
       propertyPath: goldMultiplierUI
       value: 
       objectReference: {fileID: 1325438388}
@@ -2733,6 +2737,10 @@ PrefabInstance:
     - target: {fileID: 6773924278292656850, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_Delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: SelectSound
+      objectReference: {fileID: 0}
+    - target: {fileID: 6819975041205236597, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6995110515111498810, guid: 1a5972cc36b13b34bb3d809555a54720, type: 3}
       propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Target

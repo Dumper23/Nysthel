@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 public class DestroyAfterTime : MonoBehaviour
 {
@@ -16,7 +17,7 @@ public class DestroyAfterTime : MonoBehaviour
         startTime = Time.time;
     }
 
-    void Start()
+    private void Start()
     {
         if (!isSimple)
         {
@@ -33,7 +34,6 @@ public class DestroyAfterTime : MonoBehaviour
         }
     }
 
-
     private void destroy()
     {
         gameObject.SetActive(false);
@@ -46,6 +46,10 @@ public class DestroyAfterTime : MonoBehaviour
             if (Time.time >= (startTime + timeToDestroy) - 0.4 * timeToDestroy)
             {
                 anim.Play("CoinDesapear");
+            }
+            if (Time.time >= (startTime + timeToDestroy))
+            {
+                destroy();
             }
         }
     }

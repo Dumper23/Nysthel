@@ -55352,7 +55352,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 20
-  damage: 10
+  damage: 60
   maxGoldToGive: 5
   minGoldToGive: 0
   moveSpeed: 2
@@ -144130,9 +144130,17 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1674880551}
     - target: {fileID: 3621076135444549495, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
+      propertyPath: damage
+      value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 3621076135444549495, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
       propertyPath: dashAS
       value: 
       objectReference: {fileID: 708302113}
+    - target: {fileID: 3621076135444549495, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
+      propertyPath: health
+      value: 4000
+      objectReference: {fileID: 0}
     - target: {fileID: 3621076135444549495, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
       propertyPath: attackAS
       value: 
@@ -144141,6 +144149,10 @@ PrefabInstance:
       propertyPath: damageAS
       value: 
       objectReference: {fileID: 708302111}
+    - target: {fileID: 3621076135444549495, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
+      propertyPath: dashSpeed
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3621076135444549495, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
       propertyPath: immuneTime
       value: 1.5
@@ -144205,6 +144217,10 @@ PrefabInstance:
       propertyPath: audios.Array.data[6]
       value: 
       objectReference: {fileID: 8300000, guid: 33811f14e7235ec4db55c87962a00329, type: 3}
+    - target: {fileID: 3621076135840181696, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
+      propertyPath: m_Radius
+      value: 0.46
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4dacbfc31cc67c44385d863758c1883f, type: 3}
 --- !u!4 &3643527974079133229
@@ -144453,6 +144469,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8982589109913721508, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982589109979147549, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982589110021980709, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982589110114358173, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982589110564472466, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 8982589111046975132, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
       propertyPath: m_Name
       value: LasersF2
@@ -144500,6 +144536,10 @@ PrefabInstance:
     - target: {fileID: 8982589111046975135, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8982589111082170673, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
+      propertyPath: damage
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f39fe4da8ef840a4692d43013c29869e, type: 3}
@@ -145116,6 +145156,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 8067421188122753869, guid: fc6c2eed11a6a17439865e466585b9c0, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217713025034352749, guid: fc6c2eed11a6a17439865e466585b9c0, type: 3}
+      propertyPath: damage
+      value: 40
+      objectReference: {fileID: 0}
     - target: {fileID: 9217713025737990578, guid: fc6c2eed11a6a17439865e466585b9c0, type: 3}
       propertyPath: m_RootOrder
       value: 11
@@ -145167,6 +145215,10 @@ PrefabInstance:
     - target: {fileID: 9217713025737990579, guid: fc6c2eed11a6a17439865e466585b9c0, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9217713026239269159, guid: fc6c2eed11a6a17439865e466585b9c0, type: 3}
+      propertyPath: damage
+      value: 40
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fc6c2eed11a6a17439865e466585b9c0, type: 3}

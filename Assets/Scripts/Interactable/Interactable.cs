@@ -50,7 +50,6 @@ public class Interactable : MonoBehaviour
 
     private bool inRange = false;
 
-
     public void setInShop(bool b)
     {
         inShop = b;
@@ -83,11 +82,11 @@ public class Interactable : MonoBehaviour
                     {
                         if (player.gold >= 30)
                         {
-                            if (player.gold - Mathf.RoundToInt(player.gold * 0.3f) >= 0)
+                            if (player.gold - Mathf.RoundToInt(player.gold * 0.15f) >= 0)
                             {
                                 player.playPositiveAction();
                                 loadingScreen.SetActive(true);
-                                SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.3f);
+                                SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(player.gold * 0.15f);
                                 SaveManager.Instance.SaveGame();
 
                                 SceneManager.LoadScene("Village");
@@ -417,7 +416,7 @@ public class Interactable : MonoBehaviour
                     }
                     else
                     {
-                        player.playNegativeAction(); 
+                        player.playNegativeAction();
                     }
                     break;
 
@@ -593,7 +592,7 @@ public class Interactable : MonoBehaviour
                     case Interactions.GoToVillage:
                         if (SceneManager.GetActiveScene().name != "WoodFarm")
                         {
-                            text.SetText("Press X or E to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.3f) + " gold (you need to have at least 30 gold)");
+                            text.SetText("Press X or E to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.15f) + " gold (you need to have at least 30 gold)");
                         }
                         else
                         {
