@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
@@ -25,7 +26,7 @@ public class PauseManager : MonoBehaviour
     private void Start()
     {
         player = FindObjectOfType<Player>();
-        if(SaveVariables.PLAYER_USING_CONTROLLER == 1)
+        if (SaveVariables.PLAYER_USING_CONTROLLER == 1)
         {
             toggle.isOn = true;
         }
@@ -37,6 +38,14 @@ public class PauseManager : MonoBehaviour
 
     private void Update()
     {
+        if (player.inShop)
+        {
+            Map.SetActive(false);
+        }
+        else
+        {
+            Map.SetActive(true);
+        }
         if (SaveVariables.PLAYER_USING_CONTROLLER == 1)
         {
             toggle.isOn = true;
@@ -156,11 +165,12 @@ public class PauseManager : MonoBehaviour
         {
             if (info != null)
             {
-                info.SetActive(true);
+                info.GetComponent<TextMeshProUGUI>().SetText("Navigate with the arrows");
             }
             Map.transform.localScale = new Vector3(4, 4, 4);
             minimapCam.orthographicSize = maxZoom;
-            if (Input.GetAxisRaw("verticalA") < 0 || Input.GetButton("left")) {
+            if (Input.GetAxisRaw("verticalA") < 0 || Input.GetButton("left"))
+            {
                 minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(1, 0, 0), 0.25f);
             }
             if (Input.GetAxisRaw("verticalA") > 0 || Input.GetButton("right"))
@@ -180,7 +190,7 @@ public class PauseManager : MonoBehaviour
         {
             if (info != null)
             {
-                info.SetActive(false);
+                info.GetComponent<TextMeshProUGUI>().SetText("Tab or L2 to zoom");
             }
             minimapCam.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, minimapCam.transform.position.z);
             Map.transform.localScale = new Vector3(2, 2, 2);
@@ -273,7 +283,6 @@ public class PauseManager : MonoBehaviour
             toggle.isOn = false;
             player.usingController = false;
             SaveVariables.PLAYER_USING_CONTROLLER = 0;
-
         }
         else
         {

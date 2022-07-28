@@ -11,6 +11,11 @@ public class SaveData
     public int KILLS_GOLD_RUSH = 0;
     public float SECONDS_GOLD_RUSH = 0;
 
+    public int ELECTRIC_ORB = 0;
+    public int FIRE_ORB = 0;
+    public int EARTH_ORB = 0;
+    public int ICE_ORB = 0;
+
     public int PLAYER_GOLD = 0;
     public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
@@ -71,6 +76,11 @@ public class SaveData
 
         KILLS_GOLD_RUSH = SaveVariables.KILLS_GOLD_RUSH;
         SECONDS_GOLD_RUSH = SaveVariables.SECONDS_GOLD_RUSH;
+
+        ELECTRIC_ORB = SaveVariables.ELECTRIC_ORB;
+        FIRE_ORB = SaveVariables.FIRE_ORB;
+        EARTH_ORB = SaveVariables.EARTH_ORB;
+        ICE_ORB = SaveVariables.ICE_ORB;
 
         //Player upgrades and gold
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;

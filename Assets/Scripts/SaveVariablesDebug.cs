@@ -8,6 +8,7 @@ public class SaveVariablesDebug : MonoBehaviour
 
     [Header("--------------------------Player Stats--------------------------")]
     public int PLAYER_GOLD = 0;
+
     public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
     public int PLAYER_DEFENSE = 0;
@@ -21,6 +22,7 @@ public class SaveVariablesDebug : MonoBehaviour
 
     [Header("--------------------------Statues--------------------------")]
     public int GOLD_STATUE = 0;
+
     public int HOLY_STATUE = 0;
     public int CHANCE_STATUE = 0;
     public int EMMYR_STATUE = 0;
@@ -29,16 +31,19 @@ public class SaveVariablesDebug : MonoBehaviour
 
     [Header("--------------------------Dialogs--------------------------")]
     public int TALKED_VORDKOR = 0;
+
     public int TALKED_HALLBORG = 0;
     public int TALKED_GROMODIN = 0;
     public int HAS_EMMYR_ITEM = 0;
 
     [Header("--------------------------Worlds--------------------------")]
     public int MAX_WORLD = 0;
+
     public int CURRENT_WORLD = 0;
 
     [Header("--------------------------Upgrade Stats--------------------------")]
     public int BLACKSMITH_LEVEL = 0;
+
     public int LIFE_LEVEL = 0;
     public int ATTACK_LEVEL = 0;
     public int SPEED_LEVEL = 0;
@@ -49,6 +54,7 @@ public class SaveVariablesDebug : MonoBehaviour
 
     [Header("--------------------------Inventory--------------------------")]
     public int INV_SMALL_POTION = 0;
+
     public int INV_BIG_POTION = 0;
     public int INV_SHIELD_POTION = 0;
     public int INV_GOLD_POTION = 0;
@@ -63,9 +69,16 @@ public class SaveVariablesDebug : MonoBehaviour
     public int INV_NYSTHEL_AXE = 0;
     public int INV_TRUE_AXE = 0;
 
+    [Header("--------------------------ORBS--------------------------")]
+    public int ELECTRIC_ORB = 0;
+
+    public int FIRE_ORB = 0;
+    public int EARTH_ORB = 0;
+    public int ICE_ORB = 0;
+
     private void Update()
     {
-        if(Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.H))
+        if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.H))
         {
             Debug.Log("Cheat code activated");
             FindObjectOfType<Player>().gold = 999999;
@@ -76,6 +89,11 @@ public class SaveVariablesDebug : MonoBehaviour
             FindObjectOfType<Player>().updateGold();
             SaveManager.Instance.SaveGame();
         }
+
+        ELECTRIC_ORB = SaveVariables.ELECTRIC_ORB;
+        FIRE_ORB = SaveVariables.FIRE_ORB;
+        EARTH_ORB = SaveVariables.EARTH_ORB;
+        ICE_ORB = SaveVariables.ICE_ORB;
 
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;
@@ -106,7 +124,6 @@ public class SaveVariablesDebug : MonoBehaviour
         MAX_WORLD = SaveVariables.MAX_WORLD;
         CURRENT_WORLD = SaveVariables.CURRENT_WORLD;
 
-
         BLACKSMITH_LEVEL = SaveVariables.BLACKSMITH_LEVEL;
         LIFE_LEVEL = SaveVariables.LIFE_LEVEL;
         ATTACK_LEVEL = SaveVariables.ATTACK_LEVEL;
@@ -116,11 +133,10 @@ public class SaveVariablesDebug : MonoBehaviour
         DASH_RECOVERY_LEVEL = SaveVariables.DASH_RECOVERY_LEVEL;
         DASH_RANGE_LEVEL = SaveVariables.DASH_RANGE_LEVEL;
 
-
         INV_SMALL_POTION = SaveVariables.INV_SMALL_POTION;
         INV_BIG_POTION = SaveVariables.INV_BIG_POTION;
         INV_SHIELD_POTION = SaveVariables.INV_SHIELD_POTION;
-        INV_GOLD_POTION = SaveVariables.INV_GOLD_POTION; 
+        INV_GOLD_POTION = SaveVariables.INV_GOLD_POTION;
         INV_TELEPORT_POTION = SaveVariables.INV_TELEPORT_POTION;
         INV_TIME_POTION = SaveVariables.INV_TIME_POTION;
         INV_MULTIAXE = SaveVariables.INV_MULTIAXE;
@@ -131,5 +147,5 @@ public class SaveVariablesDebug : MonoBehaviour
         INV_BATTLE_AXE = SaveVariables.INV_BATTLE_AXE;
         INV_NYSTHEL_AXE = SaveVariables.INV_NYSTHEL_AXE;
         INV_TRUE_AXE = SaveVariables.INV_TRUE_AXE;
-}
+    }
 }

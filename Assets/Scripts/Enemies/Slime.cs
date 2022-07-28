@@ -2,11 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 [RequireComponent(typeof(AudioSource))]
 public class Slime : Enemy
 {
-
     public bool isRanged = false;
     public GameObject bullet;
     public float bulletForce = 10f;
@@ -23,7 +21,7 @@ public class Slime : Enemy
     private float nextSound = 0f;
     private float timeSounds = 0.6f;
 
-    void Start()
+    private void Start()
     {
         target = GameObject.FindGameObjectWithTag("Player").transform;
         changeAnimationState("Idle");
@@ -34,7 +32,7 @@ public class Slime : Enemy
         shotPatterns[3] = new Vector2(0, -1);
     }
 
-    void Update()
+    private void Update()
     {
         if (activated)
         {
@@ -75,12 +73,11 @@ public class Slime : Enemy
                 audioSourceWalk.clip = audios[1];
                 audioSourceWalk.pitch = Random.Range(0.7f, 1.3f);
                 audioSourceWalk.Play();
-
             }
         }
     }
 
-    void Shoot()
+    private void Shoot()
     {
         audioSourceAttack.clip = audios[0];
         audioSourceAttack.Play();

@@ -58,3 +58,8 @@ MonoBehaviour:
   battleAxe: {fileID: 21300000, guid: a4faf28f72cbd5646aa59a23e74278a3, type: 3}
   nysthelAxe: {fileID: 21300000, guid: e7de2b4ad2b745f4abfd27c78533505a, type: 3}
   trueAxe: {fileID: 21300000, guid: 2c633dde22051c340ac46e397277d3c2, type: 3}
+  shield: {fileID: 0}
+  electricOrb: {fileID: 7152000436125876825, guid: 995c26b86bde154478456380db0c5086, type: 3}
+  fireOrb: {fileID: 2235919689236203233, guid: 031c0a11b31550646b3e0617c8b57f26, type: 3}
+  earthOrb: {fileID: 2907608456816868344, guid: 969d129dd93000844b3664bfc8501f02, type: 3}
+  iceOrb: {fileID: -961627566635349303, guid: 480e078b52bab6e44a9d1c324c3fb621, type: 3}

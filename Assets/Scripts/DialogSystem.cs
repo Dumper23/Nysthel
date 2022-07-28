@@ -12,11 +12,12 @@ public class DialogSystem : MonoBehaviour
     public float typingSpeed = 0.02f;
     public GameObject continueButton;
 
+    private bool canContinue = false;
     private float originialSpeed;
     private int index;
     private Interactable interactable;
 
-    void Start()
+    private void Start()
     {
         sentences = new string[1];
         originialSpeed = typingSpeed;
@@ -26,12 +27,22 @@ public class DialogSystem : MonoBehaviour
 
     private void Update()
     {
-        if (dialogDisplay.text == sentences[index]) {
+        if (dialogDisplay.text == sentences[index])
+        {
             continueButton.SetActive(true);
             EventSystem.current.SetSelectedGameObject(continueButton);
+            Invoke("continueSentences", 0.75f);
         }
 
-        if (Input.anyKey)
+        if (canContinue)
+        {
+            if (Input.anyKey || Input.GetButton("Interact"))
+            {
+                NextSenctence();
+            }
+        }
+
+        if (Input.anyKey || Input.GetButton("Interact"))
         {
             typingSpeed = 0.0035f;
         }
@@ -41,19 +52,19 @@ public class DialogSystem : MonoBehaviour
         }
     }
 
-    IEnumerator Type()
+    private IEnumerator Type()
     {
         foreach (char letter in sentences[index].ToCharArray())
         {
             dialogDisplay.text += letter;
             yield return new WaitForSeconds(typingSpeed);
         }
-       
     }
 
     public void NextSenctence()
     {
         continueButton.SetActive(false);
+        canContinue = false;
         if (index < sentences.Length - 1)
         {
             index++;
@@ -79,6 +90,15 @@ public class DialogSystem : MonoBehaviour
         }
     }
 
+    private void continueSentences()
+    {
+        CancelInvoke("continueSentences");
+        if (dialogDisplay.text == sentences[index])
+        {
+            canContinue = true;
+        }
+    }
+
     public void startDialog(string[] s, Interactable interactable)
     {
         index = 0;
@@ -95,7 +115,7 @@ public class DialogSystem : MonoBehaviour
         {
             a.enabled = false;
         }
-        
+
         panel.SetActive(true);
         sentences = s;
         EventSystem.current.SetSelectedGameObject(continueButton);

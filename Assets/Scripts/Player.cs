@@ -676,39 +676,55 @@ public class Player : MonoBehaviour, IShopCustomer
                     break;
 
                 case Item.ItemType.basicAxe:
-                    SaveVariables.INV_BASIC_AXE = iw.getItem().amount;
+                    SaveVariables.INV_BASIC_AXE = 1;
                     break;
 
                 case Item.ItemType.seekAxe:
-                    SaveVariables.INV_SEEK_AXE = iw.getItem().amount;
+                    SaveVariables.INV_SEEK_AXE = 1;
                     break;
 
                 case Item.ItemType.bloodAxe:
-                    SaveVariables.INV_BLOOD_AXE = iw.getItem().amount;
+                    SaveVariables.INV_BLOOD_AXE = 1;
                     break;
 
                 case Item.ItemType.multiAxe:
-                    SaveVariables.INV_MULTIAXE = iw.getItem().amount;
+                    SaveVariables.INV_MULTIAXE = 1;
                     break;
 
                 case Item.ItemType.doubleAxe:
-                    SaveVariables.INV_DOUBLE_AXE = iw.getItem().amount;
+                    SaveVariables.INV_DOUBLE_AXE = 1;
                     break;
 
                 case Item.ItemType.battleAxe:
-                    SaveVariables.INV_BATTLE_AXE = iw.getItem().amount;
+                    SaveVariables.INV_BATTLE_AXE = 1;
                     break;
 
                 case Item.ItemType.nysthelAxe:
-                    SaveVariables.INV_NYSTHEL_AXE = iw.getItem().amount;
+                    SaveVariables.INV_NYSTHEL_AXE = 1;
                     break;
 
                 case Item.ItemType.trueAxe:
-                    SaveVariables.INV_TRUE_AXE = iw.getItem().amount;
+                    SaveVariables.INV_TRUE_AXE = 1;
                     break;
 
                 case Item.ItemType.shield:
-                    SaveVariables.PLAYER_DEFENSE = iw.getItem().amount;
+                    SaveVariables.PLAYER_DEFENSE = 1;
+                    break;
+
+                case Item.ItemType.electricOrb:
+                    SaveVariables.ELECTRIC_ORB = 1;
+                    break;
+
+                case Item.ItemType.fireOrb:
+                    SaveVariables.FIRE_ORB = 1;
+                    break;
+
+                case Item.ItemType.earthOrb:
+                    SaveVariables.EARTH_ORB = 1;
+                    break;
+
+                case Item.ItemType.iceOrb:
+                    SaveVariables.ICE_ORB = 1;
                     break;
             }
 
@@ -987,7 +1003,6 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (!immune)
         {
-            Debug.Log(value);
             Statistics.Instance.shake();
             feedBackScreenPanel.GetComponent<Animator>().Play("DamageAnimation");
             currentHealth -= Mathf.RoundToInt(value - ((defense / 100f) * value));
@@ -1404,6 +1419,63 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_SEEK_AXE == 2) SaveVariables.INV_SEEK_AXE = 1;
                     SaveVariables.INV_TRUE_AXE = 2;
                     break;
+
+                case Item.ItemType.electricOrb:
+                    if (SaveVariables.FIRE_ORB == 2) SaveVariables.FIRE_ORB = 1;
+                    if (SaveVariables.EARTH_ORB == 2) SaveVariables.EARTH_ORB = 1;
+                    if (SaveVariables.ICE_ORB == 2) SaveVariables.ICE_ORB = 1;
+
+                    if (SaveVariables.ELECTRIC_ORB == 1)
+                    {
+                        SaveVariables.ELECTRIC_ORB = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.ELECTRIC_ORB = 1;
+                    }
+                    break;
+
+                case Item.ItemType.fireOrb:
+                    if (SaveVariables.ELECTRIC_ORB == 2) SaveVariables.ELECTRIC_ORB = 1;
+                    if (SaveVariables.EARTH_ORB == 2) SaveVariables.EARTH_ORB = 1;
+                    if (SaveVariables.ICE_ORB == 2) SaveVariables.ICE_ORB = 1;
+                    if (SaveVariables.FIRE_ORB == 1)
+                    {
+                        SaveVariables.FIRE_ORB = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.FIRE_ORB = 1;
+                    }
+                    break;
+
+                case Item.ItemType.earthOrb:
+                    if (SaveVariables.FIRE_ORB == 2) SaveVariables.FIRE_ORB = 1;
+                    if (SaveVariables.ELECTRIC_ORB == 2) SaveVariables.ELECTRIC_ORB = 1;
+                    if (SaveVariables.ICE_ORB == 2) SaveVariables.ICE_ORB = 1;
+                    if (SaveVariables.EARTH_ORB == 1)
+                    {
+                        SaveVariables.EARTH_ORB = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.EARTH_ORB = 1;
+                    }
+                    break;
+
+                case Item.ItemType.iceOrb:
+                    if (SaveVariables.FIRE_ORB == 2) SaveVariables.FIRE_ORB = 1;
+                    if (SaveVariables.EARTH_ORB == 2) SaveVariables.EARTH_ORB = 1;
+                    if (SaveVariables.ELECTRIC_ORB == 2) SaveVariables.ELECTRIC_ORB = 1;
+                    if (SaveVariables.ICE_ORB == 1)
+                    {
+                        SaveVariables.ICE_ORB = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.ICE_ORB = 1;
+                    }
+                    break;
             }
         }
     }
@@ -1697,6 +1769,30 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (SaveVariables.INV_TRUE_AXE > 0) inventory.addItem(it);
                     if (SaveVariables.INV_TRUE_AXE == 2) UseItem(it);
                     break;
+
+                case Item.ItemType.electricOrb:
+                    it = new Item { itemType = Item.ItemType.electricOrb, amount = SaveVariables.ELECTRIC_ORB };
+                    if (SaveVariables.ELECTRIC_ORB > 0) inventory.addItem(it);
+                    //if (SaveVariables.ELECTRIC_ORB == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.fireOrb:
+                    it = new Item { itemType = Item.ItemType.fireOrb, amount = SaveVariables.FIRE_ORB };
+                    if (SaveVariables.FIRE_ORB > 0) inventory.addItem(it);
+                    //if (SaveVariables.FIRE_ORB == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.earthOrb:
+                    it = new Item { itemType = Item.ItemType.earthOrb, amount = SaveVariables.EARTH_ORB };
+                    if (SaveVariables.EARTH_ORB > 0) inventory.addItem(it);
+                    //if (SaveVariables.EARTH_ORB == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.iceOrb:
+                    it = new Item { itemType = Item.ItemType.iceOrb, amount = SaveVariables.ICE_ORB };
+                    if (SaveVariables.ICE_ORB > 0) inventory.addItem(it);
+                    //if (SaveVariables.ICE_ORB == 2) UseItem(it);
+                    break;
             }
         }
     }
@@ -1776,6 +1872,30 @@ public class Player : MonoBehaviour, IShopCustomer
                 defense++;
                 SaveVariables.PLAYER_DEFENSE++;
                 index = 12;
+                break;
+
+            case ItemShopItem.ItemType.electricOrb:
+                inventory.addItem(new Item { itemType = Item.ItemType.electricOrb, amount = 1 });
+                SaveVariables.ELECTRIC_ORB = 1;
+                index = 13;
+                break;
+
+            case ItemShopItem.ItemType.fireOrb:
+                inventory.addItem(new Item { itemType = Item.ItemType.fireOrb, amount = 1 });
+                SaveVariables.FIRE_ORB = 1;
+                index = 14;
+                break;
+
+            case ItemShopItem.ItemType.earthOrb:
+                inventory.addItem(new Item { itemType = Item.ItemType.earthOrb, amount = 1 });
+                SaveVariables.EARTH_ORB = 1;
+                index = 15;
+                break;
+
+            case ItemShopItem.ItemType.iceOrb:
+                inventory.addItem(new Item { itemType = Item.ItemType.iceOrb, amount = 1 });
+                SaveVariables.ICE_ORB = 1;
+                index = 16;
                 break;
         }
         return index;

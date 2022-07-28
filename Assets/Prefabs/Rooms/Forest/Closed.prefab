@@ -24577,6 +24577,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomPosition (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8721917885983816438, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -24666,6 +24670,10 @@ PrefabInstance:
     - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_Name
       value: RoomPosition (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8721917885983816438, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_RootOrder
@@ -24757,6 +24765,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomPosition (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8721917885983816438, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -24847,6 +24859,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: RoomPosition (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8721917885983816438, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -24936,6 +24952,10 @@ PrefabInstance:
     - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_Name
       value: RoomPosition
+      objectReference: {fileID: 0}
+    - target: {fileID: 8721917885983816436, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8721917885983816438, guid: 62a82f3cce5735748ac6ea435a1f5f75, type: 3}
       propertyPath: m_RootOrder

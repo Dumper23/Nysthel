@@ -137,7 +137,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b340ed35d22239446916b59f4ff4bfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 75
+  health: 66
   damage: 20
   maxGoldToGive: 60
   minGoldToGive: 50
@@ -146,7 +146,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   anim: {fileID: 3105389084747393113}
   firePoint: {fileID: 3105389083356927678}
-  attackRate: 6
+  attackRate: 10
   range: 50
   coinType: 0
   coinForce: 2
@@ -154,7 +154,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 3845195260188331717, guid: 1b131c4f1a44d5d408e50f0afc12cb3d, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   meleeAttackRange: 4
   bullet: {fileID: 313272557742413170, guid: c38aa8f41152cbc498dd8bb90c7de183, type: 3}
   meleeAttackRate: 1

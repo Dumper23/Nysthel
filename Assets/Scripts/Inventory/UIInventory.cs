@@ -17,6 +17,7 @@ public class UIInventory : MonoBehaviour
     private Transform itemTemplate;
     private Transform statistics;
     private Transform weaponEquiped;
+    private Transform orbEquiped;
     private Transform itemSpecs;
     private Player player;
     private Item currentItem;
@@ -29,6 +30,7 @@ public class UIInventory : MonoBehaviour
         itemTemplate = container.Find("ItemTemplate");
         statistics = transform.Find("Statistics");
         weaponEquiped = transform.Find("WE");
+        orbEquiped = transform.Find("OE");
         itemSpecs = transform.Find("itemSpecs");
         container.parent.gameObject.SetActive(false);
     }
@@ -125,6 +127,14 @@ public class UIInventory : MonoBehaviour
 
     private void Update()
     {
+        if (SaveVariables.ELECTRIC_ORB < 2 && SaveVariables.EARTH_ORB < 2 && SaveVariables.FIRE_ORB < 2 && SaveVariables.ICE_ORB < 2)
+        {
+            orbEquiped.gameObject.SetActive(false);
+        }
+        else
+        {
+            orbEquiped.gameObject.SetActive(true);
+        }
         foreach (Item item in inventory.getItemList())
         {
             switch (item.itemType)
@@ -183,6 +193,34 @@ public class UIInventory : MonoBehaviour
                     if (SaveVariables.INV_TRUE_AXE == 2)
                     {
                         weaponEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.electricOrb:
+                    if (SaveVariables.ELECTRIC_ORB == 2)
+                    {
+                        orbEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.earthOrb:
+                    if (SaveVariables.EARTH_ORB == 2)
+                    {
+                        orbEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.fireOrb:
+                    if (SaveVariables.FIRE_ORB == 2)
+                    {
+                        orbEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.iceOrb:
+                    if (SaveVariables.ICE_ORB == 2)
+                    {
+                        orbEquiped.GetComponent<Image>().sprite = item.GetSprite();
                     }
                     break;
             }

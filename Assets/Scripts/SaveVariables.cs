@@ -7,6 +7,11 @@ public static class SaveVariables
     public static int KILLS_GOLD_RUSH = 0;
     public static float SECONDS_GOLD_RUSH = 0;
 
+    public static int ELECTRIC_ORB = 0;
+    public static int FIRE_ORB = 0;
+    public static int EARTH_ORB = 0;
+    public static int ICE_ORB = 0;
+
     public static int PLAYER_GOLD = 0;
     public static int PLAYER_WOOD = 0;
     public static int PLAYER_ATTACK = 0;
@@ -67,6 +72,11 @@ public static class SaveVariables
 
         KILLS_GOLD_RUSH = 0;
         SECONDS_GOLD_RUSH = 0;
+
+        ELECTRIC_ORB = 0;
+        FIRE_ORB = 0;
+        EARTH_ORB = 0;
+        ICE_ORB = 0;
 
         PLAYER_GOLD = 0;
         PLAYER_WOOD = 0;

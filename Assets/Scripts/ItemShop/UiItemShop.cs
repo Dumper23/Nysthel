@@ -64,6 +64,14 @@ public class UiItemShop : MonoBehaviour
         CreateItemButton(ItemShopItem.ItemType.trueAxe, ItemShopItem.GetSprite(ItemShopItem.ItemType.trueAxe), "True dwarf axe", ItemShopItem.GetCost(ItemShopItem.ItemType.trueAxe), 11);
 
         CreateItemButton(ItemShopItem.ItemType.shield, ItemShopItem.GetSprite(ItemShopItem.ItemType.shield), "Shield", ItemShopItem.GetCost(ItemShopItem.ItemType.shield), 12);
+
+        CreateItemButton(ItemShopItem.ItemType.electricOrb, ItemShopItem.GetSprite(ItemShopItem.ItemType.electricOrb), "Electric modifier", ItemShopItem.GetCost(ItemShopItem.ItemType.electricOrb), 13);
+
+        CreateItemButton(ItemShopItem.ItemType.fireOrb, ItemShopItem.GetSprite(ItemShopItem.ItemType.fireOrb), "Fire modifier", ItemShopItem.GetCost(ItemShopItem.ItemType.fireOrb), 14);
+
+        CreateItemButton(ItemShopItem.ItemType.earthOrb, ItemShopItem.GetSprite(ItemShopItem.ItemType.earthOrb), "Earth modifier", ItemShopItem.GetCost(ItemShopItem.ItemType.earthOrb), 15);
+
+        CreateItemButton(ItemShopItem.ItemType.iceOrb, ItemShopItem.GetSprite(ItemShopItem.ItemType.iceOrb), "Ice modifier", ItemShopItem.GetCost(ItemShopItem.ItemType.iceOrb), 16);
     }
 
     private void CreateItemButton(ItemShopItem.ItemType itemType, Sprite itemSprite, string itemName, int itemCost, int positionIndex)
@@ -73,13 +81,13 @@ public class UiItemShop : MonoBehaviour
         shopItemTransform.gameObject.SetActive(true);
 
         float shopItemHeight = 80f;
-        if (positionIndex < 6)
+        if (positionIndex < 9)
         {
             shopItemRectTransform.anchoredPosition = new Vector2(shopItemTransform.localPosition.x, shopItemTransform.localPosition.y - (shopItemHeight * positionIndex));
         }
         else
         {
-            shopItemRectTransform.anchoredPosition = new Vector2(350, shopItemTransform.localPosition.y - (shopItemHeight * (positionIndex - 6)));
+            shopItemRectTransform.anchoredPosition = new Vector2(350, shopItemTransform.localPosition.y - (shopItemHeight * (positionIndex - 9)));
         }
 
         if (itemName == "Shield" && SaveVariables.PLAYER_DEFENSE >= 50)
@@ -113,6 +121,26 @@ public class UiItemShop : MonoBehaviour
             shopItemTransform.Find("gold").gameObject.SetActive(false);
         }
         else if (itemName == "Advanced battle axe" && SaveVariables.INV_BATTLE_AXE != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Electric modifier" && SaveVariables.ELECTRIC_ORB != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Fire modifier" && SaveVariables.FIRE_ORB != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Earth modifier" && SaveVariables.EARTH_ORB != 0)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemName == "Ice modifier" && SaveVariables.ICE_ORB != 0)
         {
             shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
             shopItemTransform.Find("gold").gameObject.SetActive(false);
@@ -162,6 +190,22 @@ public class UiItemShop : MonoBehaviour
             return;
         }
         if (itemType == ItemShopItem.ItemType.battleAxe && SaveVariables.INV_BATTLE_AXE != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.electricOrb && SaveVariables.ELECTRIC_ORB != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.fireOrb && SaveVariables.FIRE_ORB != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.earthOrb && SaveVariables.EARTH_ORB != 0)
+        {
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.iceOrb && SaveVariables.ICE_ORB != 0)
         {
             return;
         }
@@ -278,6 +322,54 @@ public class UiItemShop : MonoBehaviour
                         else
                         {
                             templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.shield).ToString());
+                        }
+                        break;
+
+                    case "Electric modifier":
+                        if (SaveVariables.ELECTRIC_ORB != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.electricOrb).ToString());
+                        }
+                        break;
+
+                    case "Fire modifier":
+                        if (SaveVariables.FIRE_ORB != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.fireOrb).ToString());
+                        }
+                        break;
+
+                    case "Earth modifier":
+                        if (SaveVariables.EARTH_ORB != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.earthOrb).ToString());
+                        }
+                        break;
+
+                    case "Ice modifier":
+                        if (SaveVariables.ICE_ORB != 0)
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
+                            templates[i].Find("gold").gameObject.SetActive(false);
+                        }
+                        else
+                        {
+                            templates[i].Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(ItemShopItem.GetCost(ItemShopItem.ItemType.iceOrb).ToString());
                         }
                         break;
                 }

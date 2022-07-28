@@ -25,4 +25,8 @@ public class ItemShopAssets : MonoBehaviour
     public Sprite nysthelAxe;
     public Sprite trueAxe;
     public Sprite shield;
+    public Sprite electricOrb;
+    public Sprite fireOrb;
+    public Sprite earthOrb;
+    public Sprite iceOrb;
 }

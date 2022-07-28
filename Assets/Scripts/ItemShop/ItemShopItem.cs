@@ -18,7 +18,11 @@ public class ItemShopItem
         battleAxe,
         nysthelAxe,
         trueAxe,
-        shield
+        shield,
+        electricOrb,
+        fireOrb,
+        earthOrb,
+        iceOrb
     }
 
     //Falta Balancejar preus
@@ -40,6 +44,10 @@ public class ItemShopItem
             case ItemType.nysthelAxe: return 3000;
             case ItemType.trueAxe: return 3200;
             case ItemType.shield: return 75;
+            case ItemType.electricOrb: return 1500;
+            case ItemType.fireOrb: return 1500;
+            case ItemType.earthOrb: return 1500;
+            case ItemType.iceOrb: return 1500;
         }
     }
 
@@ -61,6 +69,10 @@ public class ItemShopItem
             case ItemType.nysthelAxe: return ItemShopAssets.Instance.nysthelAxe;
             case ItemType.trueAxe: return ItemShopAssets.Instance.trueAxe;
             case ItemType.shield: return ItemShopAssets.Instance.shield;
+            case ItemType.electricOrb: return ItemShopAssets.Instance.electricOrb;
+            case ItemType.fireOrb: return ItemShopAssets.Instance.fireOrb;
+            case ItemType.earthOrb: return ItemShopAssets.Instance.earthOrb;
+            case ItemType.iceOrb: return ItemShopAssets.Instance.iceOrb;
         }
     }
 }

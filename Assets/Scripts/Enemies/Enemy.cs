@@ -13,6 +13,7 @@ public abstract class Enemy : MonoBehaviour
     public int minGoldToGive = 0;
     public float moveSpeed = 2f;
     public int startHealth;
+    private int fireDMG = 10;
 
     public Rigidbody2D rb;
     public Animator anim;
@@ -25,6 +26,7 @@ public abstract class Enemy : MonoBehaviour
     public GameObject bloodParticles;
     public bool immune = false;
     public GameObject damageNumbers;
+    public bool immuneToElementalEffects = false;
 
     protected Transform target;
     protected int goldToGive;
@@ -32,6 +34,10 @@ public abstract class Enemy : MonoBehaviour
     protected float nextShot = 0f;
 
     public bool activated = false;
+    public bool isInFire = false;
+    public bool isFrozen = false;
+    private float originalMoveSpeed = 0;
+    private float originalAttackRate = 0;
 
     private void Start()
     {
@@ -40,7 +46,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void takeDamage(int value)
     {
-        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), 0), Quaternion.identity) as GameObject;
+        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0), Quaternion.identity) as GameObject;
 
         if (activated && !immune)
         {
@@ -103,6 +109,31 @@ public abstract class Enemy : MonoBehaviour
         }
     }
 
+    public void freeze()
+    {
+        if (!isFrozen)
+        {
+            isFrozen = true;
+            Invoke("startFreeze", 1f);
+        }
+    }
+
+    private void startFreeze()
+    {
+        anim.speed = 0;
+        target = transform;
+        nextShot = 99999;
+        Invoke("stopFrozen", 3.75f);
+    }
+
+    private void stopFrozen()
+    {
+        anim.speed = 1;
+        isFrozen = false;
+        target = FindObjectOfType<Player>().transform;
+        nextShot = 0;
+    }
+
     protected bool Seek()
     {
         bool inRange = false;
@@ -160,6 +191,46 @@ public abstract class Enemy : MonoBehaviour
                 {
                     collision.transform.GetComponent<Player>().takeDamage(damage);
                 }
+            }
+        }
+    }
+
+    public void fireEffect(int damage, int times)
+    {
+        if (!isInFire)
+        {
+            isInFire = true;
+            fireDMG = damage;
+            Invoke("endFire", 0.25f * times);
+            for (int i = 0; i < times; i++)
+            {
+                Invoke("fireDamage", 0.25f * (i + 1));
+            }
+        }
+    }
+
+    private void endFire()
+    {
+        isInFire = false;
+    }
+
+    private void fireDamage()
+    {
+        GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), 0), Quaternion.identity) as GameObject;
+
+        if (activated && !immune)
+        {
+            if (go != null)
+            {
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- " + fireDMG);
+            }
+            health -= fireDMG;
+        }
+        else if (immune)
+        {
+            if (go != null)
+            {
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("Immune!");
             }
         }
     }

@@ -159,7 +159,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 2847033719132464291, guid: 33258756367c86a40a4bc6a997560f2c, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 1
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   dashForce: 7
   shotAngleIncrement: 30
   miniTurtle: {fileID: 5813332954646379419, guid: bcf2859b964d2f04ca49b87351d65082, type: 3}

@@ -49,6 +49,11 @@ public class SaveManager : MonoBehaviour
             SaveVariables.KILLS_GOLD_RUSH = data.KILLS_GOLD_RUSH;
             SaveVariables.SECONDS_GOLD_RUSH = data.SECONDS_GOLD_RUSH;
 
+            SaveVariables.ELECTRIC_ORB = data.ELECTRIC_ORB;
+            SaveVariables.EARTH_ORB = data.EARTH_ORB;
+            SaveVariables.FIRE_ORB = data.FIRE_ORB;
+            SaveVariables.ICE_ORB = data.ICE_ORB;
+
             //Player Stats
             SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;
             SaveVariables.PLAYER_WOOD = data.PLAYER_WOOD;

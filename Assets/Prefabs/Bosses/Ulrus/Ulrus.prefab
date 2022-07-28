@@ -10182,7 +10182,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 9221127518733234886, guid: 6d31b4b692e29f4418cd640dae5b44a9, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 1
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   meleeRange: 0.91
   dashSpeed: 7
   fireSpawnRate: 0.075
@@ -10417,7 +10420,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!1 &3621076135840181710
 GameObject:

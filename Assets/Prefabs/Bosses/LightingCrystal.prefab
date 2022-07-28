@@ -1082,7 +1082,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 5666712459616409812, guid: c441a80824586824ea8994f35d56d269, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 1
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   LaserEyes:
   - {fileID: 7279383079904245274}
   - {fileID: 7279383079695353236}

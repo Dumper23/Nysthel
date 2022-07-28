@@ -299,6 +299,18 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   isTrueBullet: 0
+  electricRange: 2
+  ADSElectric: {fileID: 1407387659022667793, guid: 04607414db9b4dc4d8db58a18b544b61, type: 3}
+  electricDamage: 10
+  electricHit: {fileID: 7057542853936669321, guid: ba07823c013f89c40a72e4e60b474b10, type: 3}
+  electricRay: {fileID: 741750547952376026, guid: bc93ce91dedad3c498dd3547b6b8c68c, type: 3}
+  fireDamage: 1
+  ADSFire: {fileID: 1407387659022667793, guid: f7830d7421b9ec341ae986ab2d9aa8dc, type: 3}
+  fireHit: {fileID: 3085305815272858100, guid: 2eee918e3d53c42429577ce7f14f58b2, type: 3}
+  earthHit: {fileID: 8793527130146752370, guid: 96630f9b29b5ee34aab97d62cc836155, type: 3}
+  ADSEarth: {fileID: 1407387659022667793, guid: c766b69da43044444a9aa21e6d53c123, type: 3}
+  iceHit: {fileID: 1912513616472427254, guid: 578de5fb15d126c42902c1e8e389de65, type: 3}
+  ADSIce: {fileID: 1407387659022667793, guid: 08868e125dd9b054cb26a0667da593bf, type: 3}
 --- !u!95 &141958927352104013
 Animator:
   serializedVersion: 3

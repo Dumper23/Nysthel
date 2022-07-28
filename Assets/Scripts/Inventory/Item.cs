@@ -22,7 +22,11 @@ public class Item
         battleAxe,
         nysthelAxe,
         trueAxe,
-        shield
+        shield,
+        electricOrb,
+        fireOrb,
+        earthOrb,
+        iceOrb,
     }
 
     public ItemType itemType;
@@ -49,6 +53,10 @@ public class Item
             case ItemType.nysthelAxe: return ItemAssets.Instance.nysthelAxe;
             case ItemType.trueAxe: return ItemAssets.Instance.trueAxe;
             case ItemType.shield: return ItemAssets.Instance.shield;
+            case ItemType.electricOrb: return ItemAssets.Instance.electricOrb;
+            case ItemType.fireOrb: return ItemAssets.Instance.fireOrb;
+            case ItemType.earthOrb: return ItemAssets.Instance.earthOrb;
+            case ItemType.iceOrb: return ItemAssets.Instance.iceOrb;
         }
     }
 
@@ -74,6 +82,10 @@ public class Item
             case ItemType.battleAxe:
             case ItemType.nysthelAxe:
             case ItemType.trueAxe:
+            case ItemType.electricOrb:
+            case ItemType.fireOrb:
+            case ItemType.earthOrb:
+            case ItemType.iceOrb:
                 return false;
         }
     }

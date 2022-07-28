@@ -117,14 +117,15 @@ public class goldRushEnemy : Enemy
     {
         if (health <= 0)
         {
+            Vector3 lastPos = transform.position;
             Statistics.Instance.enemiesKilled += 1;
             if (bloodStain != null)
             {
-                Instantiate(bloodStain, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+                Instantiate(bloodStain, lastPos, Quaternion.Euler(0, 0, Random.Range(0, 360)));
             }
             if (bloodParticles != null)
             {
-                Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
+                Instantiate(bloodParticles, lastPos, Quaternion.Euler(90, 0, 0));
             }
             int g = Random.Range(minGoldToGive, maxGoldToGive);
             if (g < 0) g = 0;
@@ -135,11 +136,11 @@ public class goldRushEnemy : Enemy
                 {
                     GameObject go = CoinManager.Instance.GetCoin(coinType);
                     go.SetActive(true);
-                    go.transform.position = transform.position;
+                    go.transform.position = lastPos;
                     Coin c = go.GetComponent<Coin>();
                     c.playerInRange = false;
-                    c.startPosition = transform.position;
-                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) + transform.position;
+                    c.startPosition = lastPos;
+                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) + lastPos;
                     c.coinForce = coinForce;
                     c.isSet = true;
                 }

@@ -14954,7 +14954,7 @@ GameObject:
   - component: {fileID: 5829684690529239324}
   m_Layer: 0
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: MineWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
