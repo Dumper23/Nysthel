@@ -350,6 +350,26 @@ public class UIInventory : MonoBehaviour
                 infoName.text = "True dwarf Axe";
                 break;
 
+            case "electricOrb":
+                description.text = "deals 10 DMG to all enemies that are close to each other";
+                infoName.text = "Electric Orb";
+                break;
+
+            case "fireOrb":
+                description.text = "Sets an enemy on fire dealing 10 DMG in total";
+                infoName.text = "Fire Orb";
+                break;
+
+            case "earthOrb":
+                description.text = "Deals half of nysthels current DMG (including axe stats)";
+                infoName.text = "Earth Orb";
+                break;
+
+            case "iceOrb":
+                description.text = "Freezes enemies but deals 0 DMG";
+                infoName.text = "Ice Orb";
+                break;
+
             default:
                 description.text = itemSelected;
                 infoName.text = itemSelected;

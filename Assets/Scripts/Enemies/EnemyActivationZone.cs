@@ -20,10 +20,9 @@ public class EnemyActivationZone : MonoBehaviour
     private List<Enemy> enemiesInside = new List<Enemy>();
     private Player p;
 
-
     private void Start()
     {
-        if(enemyNumber != null)
+        if (enemyNumber != null)
         {
             enemyNumber.SetText("?");
         }
@@ -43,7 +42,6 @@ public class EnemyActivationZone : MonoBehaviour
         GetComponent<BoxCollider2D>().size = EnemyAreaSurface;
         Invoke("DetectEnemies", 2f);
         collisions = new Collider2D[999];
-               
     }
 
     private void DetectEnemies()
@@ -59,7 +57,8 @@ public class EnemyActivationZone : MonoBehaviour
                     enemy.GetComponent<Enemy>().enemyActivation(activated);
                     collisions[i] = enemy;
                     i++;
-                }else if (enemy.GetComponent<StaticEye>())
+                }
+                else if (enemy.GetComponent<StaticEye>())
                 {
                     enemy.GetComponent<StaticEye>().activated = true;
                     collisions[i] = enemy;
@@ -86,7 +85,7 @@ public class EnemyActivationZone : MonoBehaviour
                     enemyCount++;
                 }
             }
-            if(enemyCount == 0)
+            if (enemyCount == 0)
             {
                 finished = true;
                 p.inCombat = false;
@@ -100,10 +99,10 @@ public class EnemyActivationZone : MonoBehaviour
                         barrier.SetActive(false);
                     }
                 }
-                Invoke("destroyObj", 1.5f);   
+                Invoke("destroyObj", 1.5f);
             }
         }
-        else if(finished)
+        else if (finished)
         {
             if (enemyNumber != null)
             {
@@ -116,7 +115,7 @@ public class EnemyActivationZone : MonoBehaviour
                         enemyCount++;
                     }
                 }
-                if(enemyCount <= 0)
+                if (enemyCount <= 0)
                 {
                     enemyNumber.color = Color.green;
                     enemyNumber.SetText(enemyCount.ToString());
@@ -125,7 +124,6 @@ public class EnemyActivationZone : MonoBehaviour
                 {
                     enemyNumber.SetText(enemyCount.ToString());
                 }
-
             }
         }
     }
@@ -134,7 +132,6 @@ public class EnemyActivationZone : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -152,7 +149,6 @@ public class EnemyActivationZone : MonoBehaviour
                     foreach (GameObject barrier in Barriers)
                     {
                         barrier.SetActive(true);
-
                     }
                 }
 
@@ -180,7 +176,7 @@ public class EnemyActivationZone : MonoBehaviour
     {
         if (!finished)
         {
-            if (collision.CompareTag("Player") && (collision.transform.position - transform.position).magnitude > 35)
+            if (collision.CompareTag("Player"))
             {
                 p.inCombat = false;
                 activated = false;
@@ -199,6 +195,10 @@ public class EnemyActivationZone : MonoBehaviour
                         if (enemy.GetComponent<Enemy>())
                         {
                             enemy.GetComponent<Enemy>().enemyActivation(activated);
+                            if (enemy.GetComponent<Bat>() && enemy.GetComponent<Bat>().intantiatedCopy != null && enemy.GetComponent<Bat>().intantiatedCopy.GetComponent<Bat>() != null)
+                            {
+                                Destroy(enemy.GetComponent<Bat>().intantiatedCopy.GetComponent<Bat>().gameObject);
+                            }
                         }
                         else if (enemy.GetComponent<StaticEye>())
                         {

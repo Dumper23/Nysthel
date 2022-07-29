@@ -11,6 +11,9 @@ public class Bat : Enemy
     public GameObject deathSound;
     public bool isSecondChance = false;
 
+    [HideInInspector]
+    public GameObject intantiatedCopy;
+
     private AudioSource audioSource;
 
     private void Start()
@@ -20,10 +23,11 @@ public class Bat : Enemy
         target = FindObjectOfType<Player>().transform;
     }
 
-    void Update()
+    private void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay && (target.position - transform.position).magnitude <= range)
         {
+            batCopy.GetComponent<Bat>().activated = true;
             transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.deltaTime);
             if (health <= 0)
             {
@@ -32,9 +36,8 @@ public class Bat : Enemy
             }
         }
     }
-    
-    override
-    public void takeDamage(int value)
+
+    public override void takeDamage(int value)
     {
         GameObject go = Instantiate(damageNumbers, transform.position + new Vector3(Random.Range(-0.6f, 0.6f), Random.Range(-0.6f, 0.6f), 0), Quaternion.identity) as GameObject;
 
@@ -44,11 +47,12 @@ public class Bat : Enemy
             {
                 go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- " + value);
             }
-            if(health - value > 0)
+            if (health - value > 0)
             {
                 audioSource.Play();
                 Vector3 spawnPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
                 GameObject copy = Instantiate(batCopy, transform.position + spawnPos, Quaternion.identity);
+                intantiatedCopy = copy;
                 transform.position = transform.position + spawnPos;
                 copy.GetComponent<Bat>().startHealth = 10;
                 copy.GetComponent<Bat>().health = 10;
@@ -66,7 +70,6 @@ public class Bat : Enemy
                 }
                 copy.GetComponent<Bat>().moveSpeed = moveSpeed * 2f;
                 copy.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 0, 0.4f);
-
             }
             health -= value;
         }

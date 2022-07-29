@@ -95,7 +95,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2918943423871706559}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -143,7 +143,7 @@ MonoBehaviour:
   damage: 10
   maxGoldToGive: 0
   minGoldToGive: 0
-  moveSpeed: 2
+  moveSpeed: 3
   startHealth: 0
   rb: {fileID: 2918943423871706556}
   anim: {fileID: 2918943423871706557}
@@ -156,7 +156,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 9221127518733234886, guid: e271c766f1679824c8a0dbb8b354b088, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 1
+  isInFire: 0
+  isFrozen: 0
   zombieDead: {fileID: 920945185466920206, guid: b9febe5618ad1e140a924d289d627a86, type: 3}
 --- !u!70 &2918943423871706529
 CapsuleCollider2D:

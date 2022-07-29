@@ -37,17 +37,17 @@ public class ItemShopItem
             case ItemType.goldPotion: return 110;
             case ItemType.teleportPotion: return 200;
             case ItemType.timePotion: return 80;
-            case ItemType.doubleAxe: return 500;
+            case ItemType.doubleAxe: return 550;
             case ItemType.bloodAxe: return 1600;
             case ItemType.seekAxe: return 2000;
             case ItemType.battleAxe: return 2600;
             case ItemType.nysthelAxe: return 3000;
             case ItemType.trueAxe: return 3200;
             case ItemType.shield: return 75;
-            case ItemType.electricOrb: return 1500;
-            case ItemType.fireOrb: return 1500;
-            case ItemType.earthOrb: return 1500;
-            case ItemType.iceOrb: return 1500;
+            case ItemType.electricOrb: return 1750;
+            case ItemType.fireOrb: return 1400;
+            case ItemType.earthOrb: return 1600;
+            case ItemType.iceOrb: return 450;
         }
     }
 

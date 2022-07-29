@@ -167,7 +167,7 @@ public class Bullet : MonoBehaviour
                         if (!collision.transform.GetComponent<Enemy>().isInFire)
                         {
                             Instantiate(ADSFire, transform.position, Quaternion.identity);
-                            Instantiate(fireHit, collision.transform.position, Quaternion.identity, collision.transform);
+                            Instantiate(fireHit, collision.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity, collision.transform);
                         }
                         collision.transform.GetComponent<Enemy>().fireEffect(fireDamage, 10);
                         collision.transform.GetComponent<Enemy>().takeDamage(damage);
@@ -186,7 +186,7 @@ public class Bullet : MonoBehaviour
                     {
                         Instantiate(ADSEarth, transform.position, Quaternion.identity);
                         Instantiate(earthHit, collision.transform.position, Quaternion.identity);
-                        collision.transform.GetComponent<Enemy>().takeDamage(damage / 3);
+                        collision.transform.GetComponent<Enemy>().takeDamage(damage / 2);
                         collision.transform.GetComponent<Enemy>().takeDamage(damage);
                     }
                     else
