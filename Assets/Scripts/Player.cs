@@ -175,6 +175,28 @@ public class Player : MonoBehaviour, IShopCustomer
     private float nextPoint = 0;
     private float battleTimePressed = 0;
 
+    [Header("--------------Skills--------------")]
+    private bool skillActivated = false;
+
+    private int originalAttack;
+    private float originalAttackSpeed;
+
+    public bool holy = false;
+    public bool scare = false;
+    public float holyBlessingReloadtime = 120f;
+    public float golemReloadtime = 60f;
+    public float waterReloadtime = 20f;
+    public float acidReloadtime = 30f;
+    public float scareReloadTime = 120f;
+    public float teleportReloadTime = 120f;
+
+    public GameObject waterPuddle;
+
+    public GameObject acidPuddle;
+    public GameObject golem;
+    public GameObject holyBlessing;
+    public GameObject scareSprite;
+
     private void Awake()
     {
         inventory = new Inventory(UseItem);
@@ -326,7 +348,7 @@ public class Player : MonoBehaviour, IShopCustomer
             }
         }
 
-        if ((Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift)) && !shielded)
+        if ((Input.GetAxisRaw("Dash") != 0 || Input.GetKey(KeyCode.LeftShift)) && !shielded && !scare)
         {
             if (Time.time > nextDash && !dashing && movement != Vector2.zero)
             {
@@ -411,56 +433,59 @@ public class Player : MonoBehaviour, IShopCustomer
                 firePoint.localPosition = new Vector3(Mathf.Clamp(aimPos.x, -0.6f, 0.6f), Mathf.Clamp(aimPos.y, -0.6f, 0.6f), 0);
             }
 
-            if (Input.GetButton("Attack"))
+            if (!scare)
             {
-                if (battleaxe)
+                if (Input.GetButton("Attack"))
                 {
-                    battleCircleLoad.SetActive(true);
-                    battleCircleLoadMaximum.SetActive(true);
-                    battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
-                    battlePressing = true;
-                    battleTimePressed += Time.deltaTime;
+                    if (battleaxe)
+                    {
+                        battleCircleLoad.SetActive(true);
+                        battleCircleLoadMaximum.SetActive(true);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = true;
+                        battleTimePressed += Time.deltaTime;
 
-                    if (battleTimePressed > 0.5f && battleTimePressed < 1f)
-                    {
-                        battleCircleLoad.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
-                        bulletsToShoot = 2;
-                    }
-                    else if (battleTimePressed > 1f && battleTimePressed < 1.5f)
-                    {
-                        battleCircleLoad.transform.localScale = new Vector3(2f, 2f, 2f);
-                        bulletsToShoot = 3;
-                    }
-                    else if (battleTimePressed > 1.5f && battleTimePressed < 3f)
-                    {
-                        battleCircleLoad.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
-                        bulletsToShoot = 4;
-                    }
-                    else if (battleTimePressed > 3f)
-                    {
-                        battleCircleLoad.transform.localScale = new Vector3(3f, 3f, 3f);
-                        bulletsToShoot = 7;
+                        if (battleTimePressed > 0.5f && battleTimePressed < 1f)
+                        {
+                            battleCircleLoad.transform.localScale = new Vector3(1.5f, 1.5f, 1.5f);
+                            bulletsToShoot = 2;
+                        }
+                        else if (battleTimePressed > 1f && battleTimePressed < 1.5f)
+                        {
+                            battleCircleLoad.transform.localScale = new Vector3(2f, 2f, 2f);
+                            bulletsToShoot = 3;
+                        }
+                        else if (battleTimePressed > 1.5f && battleTimePressed < 3f)
+                        {
+                            battleCircleLoad.transform.localScale = new Vector3(2.5f, 2.5f, 2.5f);
+                            bulletsToShoot = 4;
+                        }
+                        else if (battleTimePressed > 3f)
+                        {
+                            battleCircleLoad.transform.localScale = new Vector3(3f, 3f, 3f);
+                            bulletsToShoot = 7;
+                        }
+                        else
+                        {
+                            bulletsToShoot = 1;
+                        }
                     }
                     else
                     {
-                        bulletsToShoot = 1;
+                        Shoot();
                     }
                 }
                 else
                 {
-                    Shoot();
-                }
-            }
-            else
-            {
-                if (battleaxe && battleTimePressed > 0)
-                {
-                    battleCircleLoad.transform.localScale = new Vector3(1f, 1f, 1f);
-                    battleCircleLoad.SetActive(false);
-                    battleCircleLoadMaximum.SetActive(false);
-                    Shoot();
-                    bulletsToShoot = 0;
-                    battleTimePressed = 0;
+                    if (battleaxe && battleTimePressed > 0)
+                    {
+                        battleCircleLoad.transform.localScale = new Vector3(1f, 1f, 1f);
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        Shoot();
+                        bulletsToShoot = 0;
+                        battleTimePressed = 0;
+                    }
                 }
             }
 
@@ -489,6 +514,85 @@ public class Player : MonoBehaviour, IShopCustomer
         }
 
         #endregion Movement and Attack
+
+        #region Skills
+
+        if (!skillActivated)
+        {
+            if (Input.GetButtonDown("skill"))
+            {
+                float reloadTime = 0f;
+                if (SaveVariables.WATER_SKILL == 2)
+                {
+                    Instantiate(waterPuddle, transform.position, Quaternion.identity);
+                    reloadTime = waterReloadtime;
+                }
+                else if (SaveVariables.ACID_SKILL == 2)
+                {
+                    Instantiate(acidPuddle, transform.position, Quaternion.identity);
+                    reloadTime = acidReloadtime;
+                }
+                else if (SaveVariables.GOLEM_SKILL == 2)
+                {
+                    Instantiate(golem, transform.position, Quaternion.identity);
+                    reloadTime = golemReloadtime;
+                }
+                else if (SaveVariables.BOOST_SKILL == 2)
+                {
+                    holyBlessing.SetActive(true);
+                    holy = true;
+                    holyBlessing.GetComponent<Animator>().Play("out");
+                    originalAttack = damage;
+                    originalAttackSpeed = attackRate;
+
+                    damage += (damage / 2);
+                    attackRate = attackRate / 1.5f;
+
+                    Invoke("EndBoost", 30f);
+                    reloadTime = holyBlessingReloadtime;
+                }
+                else if (SaveVariables.SCARE_SKILL == 2)
+                {
+                    scare = true;
+                    immune = true;
+                    scareSprite.SetActive(true);
+                    scareSprite.GetComponent<Animator>().Play("out");
+                    Invoke("EndScare", 10f);
+                    reloadTime = scareReloadTime;
+                }
+                skillActivated = true;
+                Invoke("endSkill", reloadTime);
+            }
+        }
+
+        #endregion Skills
+    }
+
+    private void EndScare()
+    {
+        scareSprite.GetComponent<Animator>().Play("in");
+        Invoke("hideScare", 1f);
+        scare = false;
+        immune = false;
+    }
+
+    private void EndBoost()
+    {
+        holyBlessing.GetComponent<Animator>().Play("in");
+        Invoke("hideBlessing", 1f);
+        damage = originalAttack;
+        attackRate = originalAttackSpeed;
+        holy = false;
+    }
+
+    private void hideBlessing()
+    {
+        holyBlessing.SetActive(false);
+    }
+
+    private void hideScare()
+    {
+        scareSprite.SetActive(false);
     }
 
     //We are checking if the player is moving or not
@@ -725,6 +829,30 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 case Item.ItemType.iceOrb:
                     SaveVariables.ICE_ORB = 1;
+                    break;
+
+                case Item.ItemType.waterPuddle:
+                    SaveVariables.WATER_SKILL = 1;
+                    break;
+
+                case Item.ItemType.acidPuddle:
+                    SaveVariables.ACID_SKILL = 1;
+                    break;
+
+                case Item.ItemType.golem:
+                    SaveVariables.GOLEM_SKILL = 1;
+                    break;
+
+                case Item.ItemType.boost:
+                    SaveVariables.BOOST_SKILL = 1;
+                    break;
+
+                case Item.ItemType.scare:
+                    SaveVariables.SCARE_SKILL = 1;
+                    break;
+
+                case Item.ItemType.teleportClone:
+                    SaveVariables.TELEPORT_SKILL = 1;
                     break;
             }
 
@@ -1022,7 +1150,10 @@ public class Player : MonoBehaviour, IShopCustomer
     private void notImmunity()
     {
         shield.SetActive(false);
-        immune = false;
+        if (!scare)
+        {
+            immune = false;
+        }
         shielded = false;
     }
 
@@ -1476,6 +1607,103 @@ public class Player : MonoBehaviour, IShopCustomer
                         SaveVariables.ICE_ORB = 1;
                     }
                     break;
+
+                // Skills
+                case Item.ItemType.waterPuddle:
+                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                    if (SaveVariables.WATER_SKILL == 1)
+                    {
+                        SaveVariables.WATER_SKILL = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.WATER_SKILL = 1;
+                    }
+                    break;
+
+                case Item.ItemType.acidPuddle:
+                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                    if (SaveVariables.ACID_SKILL == 1)
+                    {
+                        SaveVariables.ACID_SKILL = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.ACID_SKILL = 1;
+                    }
+                    break;
+
+                case Item.ItemType.golem:
+                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                    if (SaveVariables.GOLEM_SKILL == 1)
+                    {
+                        SaveVariables.GOLEM_SKILL = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.GOLEM_SKILL = 1;
+                    }
+                    break;
+
+                case Item.ItemType.boost:
+                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                    if (SaveVariables.BOOST_SKILL == 1)
+                    {
+                        SaveVariables.BOOST_SKILL = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.BOOST_SKILL = 1;
+                    }
+                    break;
+
+                case Item.ItemType.scare:
+                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                    if (SaveVariables.SCARE_SKILL == 1)
+                    {
+                        SaveVariables.SCARE_SKILL = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.SCARE_SKILL = 1;
+                    }
+                    break;
+
+                case Item.ItemType.teleportClone:
+                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                    if (SaveVariables.TELEPORT_SKILL == 1)
+                    {
+                        SaveVariables.TELEPORT_SKILL = 2;
+                    }
+                    else
+                    {
+                        SaveVariables.TELEPORT_SKILL = 1;
+                    }
+                    break;
             }
         }
     }
@@ -1792,6 +2020,36 @@ public class Player : MonoBehaviour, IShopCustomer
                     it = new Item { itemType = Item.ItemType.iceOrb, amount = SaveVariables.ICE_ORB };
                     if (SaveVariables.ICE_ORB > 0) inventory.addItem(it);
                     //if (SaveVariables.ICE_ORB == 2) UseItem(it);
+                    break;
+
+                case Item.ItemType.waterPuddle:
+                    it = new Item { itemType = Item.ItemType.waterPuddle, amount = 1 };
+                    if (SaveVariables.WATER_SKILL >= 0) inventory.addItem(it);
+                    break;
+
+                case Item.ItemType.acidPuddle:
+                    it = new Item { itemType = Item.ItemType.acidPuddle, amount = 1 };
+                    if (SaveVariables.ACID_SKILL >= 0) inventory.addItem(it);
+                    break;
+
+                case Item.ItemType.golem:
+                    it = new Item { itemType = Item.ItemType.golem, amount = 1 };
+                    if (SaveVariables.GOLEM_SKILL >= 0) inventory.addItem(it);
+                    break;
+
+                case Item.ItemType.boost:
+                    it = new Item { itemType = Item.ItemType.boost, amount = 1 };
+                    if (SaveVariables.BOOST_SKILL >= 0) inventory.addItem(it);
+                    break;
+
+                case Item.ItemType.scare:
+                    it = new Item { itemType = Item.ItemType.scare, amount = 1 };
+                    if (SaveVariables.SCARE_SKILL >= 0) inventory.addItem(it);
+                    break;
+
+                case Item.ItemType.teleportClone:
+                    it = new Item { itemType = Item.ItemType.teleportClone, amount = 1 };
+                    if (SaveVariables.TELEPORT_SKILL >= 0) inventory.addItem(it);
                     break;
             }
         }

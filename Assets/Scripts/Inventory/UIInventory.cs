@@ -11,6 +11,7 @@ public class UIInventory : MonoBehaviour
 {
     public TextMeshProUGUI infoName, description, defenseText;
     public bool isPointerIn = false;
+    public Image skillImage;
 
     private Inventory inventory;
     private Transform container;
@@ -18,6 +19,7 @@ public class UIInventory : MonoBehaviour
     private Transform statistics;
     private Transform weaponEquiped;
     private Transform orbEquiped;
+    private Transform skillEquiped;
     private Transform itemSpecs;
     private Player player;
     private Item currentItem;
@@ -31,6 +33,7 @@ public class UIInventory : MonoBehaviour
         statistics = transform.Find("Statistics");
         weaponEquiped = transform.Find("WE");
         orbEquiped = transform.Find("OE");
+        skillEquiped = transform.Find("SE");
         itemSpecs = transform.Find("itemSpecs");
         container.parent.gameObject.SetActive(false);
     }
@@ -47,6 +50,7 @@ public class UIInventory : MonoBehaviour
                + "(" + SaveVariables.DASH_RECOVERY_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recovery:...................." + player.dashRestoreTime.ToString("F2") + "\n"
                + "(" + SaveVariables.DASH_RANGE_LEVEL + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:......................." + player.dashForce.ToString("F2") + "\n"
                + "(" + SaveVariables.PLAYER_DEFENSE + "/50) " + "Defense: " + SaveVariables.PLAYER_DEFENSE + "% of damage blocked";
+        refreshInventory();
     }
 
     public void setPlayer(Player player)
@@ -93,6 +97,74 @@ public class UIInventory : MonoBehaviour
             itemTemplateRect.anchoredPosition = new Vector2(x * cellSize, -y * cellSize);
             Image image = itemTemplateRect.Find("Image").GetComponent<Image>();
             image.sprite = item.GetSprite();
+            switch (item.itemType)
+            {
+                case Item.ItemType.waterPuddle:
+                    if (SaveVariables.WATER_SKILL == 0)
+                    {
+                        image.color = Color.black;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                    break;
+
+                case Item.ItemType.acidPuddle:
+                    if (SaveVariables.ACID_SKILL == 0)
+                    {
+                        image.color = Color.black;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                    break;
+
+                case Item.ItemType.golem:
+                    if (SaveVariables.GOLEM_SKILL == 0)
+                    {
+                        image.color = Color.black;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                    break;
+
+                case Item.ItemType.boost:
+                    if (SaveVariables.BOOST_SKILL == 0)
+                    {
+                        image.color = Color.black;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                    break;
+
+                case Item.ItemType.scare:
+                    if (SaveVariables.SCARE_SKILL == 0)
+                    {
+                        image.color = Color.black;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                    break;
+
+                case Item.ItemType.teleportClone:
+                    if (SaveVariables.TELEPORT_SKILL == 0)
+                    {
+                        image.color = Color.black;
+                    }
+                    else
+                    {
+                        image.color = Color.white;
+                    }
+                    break;
+            }
             TextMeshProUGUI uiText = itemTemplateRect.Find("AmountText").GetComponent<TextMeshProUGUI>();
             if (item.amount > 1)
             {
@@ -134,6 +206,16 @@ public class UIInventory : MonoBehaviour
         else
         {
             orbEquiped.gameObject.SetActive(true);
+        }
+        if (SaveVariables.WATER_SKILL < 2 && SaveVariables.ACID_SKILL < 2 && SaveVariables.GOLEM_SKILL < 2 && SaveVariables.BOOST_SKILL < 2 && SaveVariables.SCARE_SKILL < 2 && SaveVariables.TELEPORT_SKILL < 2)
+        {
+            skillEquiped.gameObject.SetActive(false);
+            skillImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            skillEquiped.gameObject.SetActive(true);
+            skillImage.gameObject.SetActive(true);
         }
         foreach (Item item in inventory.getItemList())
         {
@@ -221,6 +303,54 @@ public class UIInventory : MonoBehaviour
                     if (SaveVariables.ICE_ORB == 2)
                     {
                         orbEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.waterPuddle:
+                    if (SaveVariables.WATER_SKILL == 2)
+                    {
+                        skillEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                        skillImage.sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.acidPuddle:
+                    if (SaveVariables.ACID_SKILL == 2)
+                    {
+                        skillEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                        skillImage.sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.golem:
+                    if (SaveVariables.GOLEM_SKILL == 2)
+                    {
+                        skillEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                        skillImage.sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.boost:
+                    if (SaveVariables.BOOST_SKILL == 2)
+                    {
+                        skillEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                        skillImage.sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.scare:
+                    if (SaveVariables.SCARE_SKILL == 2)
+                    {
+                        skillEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                        skillImage.sprite = item.GetSprite();
+                    }
+                    break;
+
+                case Item.ItemType.teleportClone:
+                    if (SaveVariables.TELEPORT_SKILL == 2)
+                    {
+                        skillEquiped.GetComponent<Image>().sprite = item.GetSprite();
+                        skillImage.sprite = item.GetSprite();
                     }
                     break;
             }
@@ -368,6 +498,84 @@ public class UIInventory : MonoBehaviour
             case "iceOrb":
                 description.text = "Freezes enemies but deals 0 DMG";
                 infoName.text = "Ice Orb";
+                break;
+
+            case "waterPuddle":
+                if (SaveVariables.WATER_SKILL == 0)
+                {
+                    description.text = "It is hidden in the village!";
+                    infoName.text = "?";
+                }
+                else
+                {
+                    description.text = "It soaks the enemies in water";
+                    infoName.text = "Water Puddle";
+                }
+                break;
+
+            case "acidPuddle":
+                if (SaveVariables.ACID_SKILL == 0)
+                {
+                    description.text = "It can be found in a chest in the Forest!";
+                    infoName.text = "?";
+                }
+                else
+                {
+                    description.text = "It soaks the enemies in acid dealing DMG to them";
+                    infoName.text = "Acid Puddle";
+                }
+                break;
+
+            case "golem":
+                if (SaveVariables.GOLEM_SKILL == 0)
+                {
+                    description.text = "It is given as a reward in the Gold Rush for lasting more than 5 minutes!";
+                    infoName.text = "?";
+                }
+                else
+                {
+                    description.text = "It spawns a golem during some time that will help you kill your enemies!";
+                    infoName.text = "Rock Golem";
+                }
+                break;
+
+            case "boost":
+                if (SaveVariables.BOOST_SKILL == 0)
+                {
+                    description.text = "It can be found in a chest in the Forest!";
+                    infoName.text = "?";
+                }
+                else
+                {
+                    description.text = "Makes nysthel enter a rage state, your damage and attack speed will increase";
+                    infoName.text = "Holy blessing";
+                }
+                break;
+
+            case "scare":
+                if (SaveVariables.SCARE_SKILL == 0)
+                {
+                    description.text = "It can be found in a chest in the Ruins!";
+                    infoName.text = "?";
+                }
+                else
+                {
+                    description.text = "Nysthel uses dark forces to create a shield that will scare the enemies and prevent her from any damage";
+                    infoName.text = "Dark spell";
+                }
+                break;
+
+            case "teleportClone":
+                if (SaveVariables.TELEPORT_SKILL == 0)
+                {
+                    description.text = "It can be found in a chest in the Ruins!";
+                    infoName.text = "?";
+                }
+                else
+                {
+                    description.text = "The dark energy opens a portal, to which Nysthel can return whenever she wants";
+                    infoName.text = "Dark portal";
+                }
                 break;
 
             default:

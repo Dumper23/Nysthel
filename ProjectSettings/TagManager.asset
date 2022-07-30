@@ -27,6 +27,7 @@ TagManager:
   - LoadingScreen
   - coinContainer
   - MineWall
+  - skill
   layers:
   - Default
   - TransparentFX

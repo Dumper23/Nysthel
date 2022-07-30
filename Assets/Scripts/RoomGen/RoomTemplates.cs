@@ -98,7 +98,10 @@ public class RoomTemplates : MonoBehaviour
                     }
                     else
                     {
-                        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+                        string currentScene = SceneManager.GetActiveScene().name;
+                        Debug.Log(currentScene);
+                        SceneManager.UnloadSceneAsync(currentScene);
+                        SceneManager.LoadScene(currentScene);
                     }
                 }
             }

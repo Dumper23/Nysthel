@@ -549,6 +549,10 @@ MonoBehaviour:
   INV_BATTLE_AXE: 0
   INV_NYSTHEL_AXE: 0
   INV_TRUE_AXE: 0
+  ELECTRIC_ORB: 0
+  FIRE_ORB: 0
+  EARTH_ORB: 0
+  ICE_ORB: 0
 --- !u!1 &305323372
 GameObject:
   m_ObjectHideFlags: 0
@@ -4162,6 +4166,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1142306307}
     m_Modifications:
+    - target: {fileID: 8872628547318495246, guid: 97450556894927f4b863bcf88132401f, type: 3}
+      propertyPath: EmissionModule.enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8872628548546405579, guid: 97450556894927f4b863bcf88132401f, type: 3}
       propertyPath: m_Name
       value: Rain
@@ -4209,6 +4217,10 @@ PrefabInstance:
     - target: {fileID: 8872628548546405588, guid: 97450556894927f4b863bcf88132401f, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 180.068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872628548546405589, guid: 97450556894927f4b863bcf88132401f, type: 3}
+      propertyPath: InitialModule.maxNumParticles
+      value: 9000
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 97450556894927f4b863bcf88132401f, type: 3}

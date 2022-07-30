@@ -28,7 +28,7 @@ public class Bat : Enemy
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay && (target.position - transform.position).magnitude <= range)
         {
             batCopy.GetComponent<Bat>().activated = true;
-            transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.deltaTime);
+            Seek();
             if (health <= 0)
             {
                 Instantiate(deathSound, transform.position, Quaternion.identity);

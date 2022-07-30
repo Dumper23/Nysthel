@@ -10,6 +10,7 @@ public class Bullet : MonoBehaviour
     public float speed = 1f;
     public GameObject afterDestroySound;
     public GameObject destroyGameObject;
+    public GameObject holyHit;
     public Transform centerOfSeeking;
     public bool isSeeker = false;
     public float seekRange = 2f;
@@ -108,6 +109,11 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.transform.tag == "skill" && collision.transform.name == "Acid(Clone)" && SaveVariables.FIRE_ORB == 2)
+        {
+            collision.GetComponent<AcidSkill>().incendiate();
+        }
+
         if (collision.CompareTag("coinContainer"))
         {
             Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), GetComponent<Collider2D>());
@@ -117,6 +123,10 @@ public class Bullet : MonoBehaviour
         {
             collision.transform.GetComponent<DestructibleObject>().damage(damage);
             GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            if (player.GetComponent<Player>().holy)
+            {
+                Instantiate(holyHit, transform.position, Quaternion.identity);
+            }
 
             float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
@@ -131,7 +141,15 @@ public class Bullet : MonoBehaviour
                 {
                     collision.transform.GetComponent<Enemy>().takeDamage(damage);
                 }
-                Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, electricRange, enemyLayer);
+                Collider2D[] hits;
+                if (collision.transform.GetComponent<Enemy>().isInWater)
+                {
+                    hits = Physics2D.OverlapCircleAll(transform.position, electricRange * 3, enemyLayer);
+                }
+                else
+                {
+                    hits = Physics2D.OverlapCircleAll(transform.position, electricRange, enemyLayer);
+                }
                 int i = 0;
                 foreach (Collider2D hit in hits)
                 {
@@ -226,6 +244,10 @@ public class Bullet : MonoBehaviour
                 }
             }
             GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            if (player.GetComponent<Player>().holy)
+            {
+                Instantiate(holyHit, transform.position, Quaternion.identity);
+            }
 
             float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
@@ -248,6 +270,10 @@ public class Bullet : MonoBehaviour
                     Destroy(collision.gameObject);
                 }
                 GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+                if (player.GetComponent<Player>().holy)
+                {
+                    Instantiate(holyHit, transform.position, Quaternion.identity);
+                }
 
                 float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
                 p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
@@ -256,10 +282,14 @@ public class Bullet : MonoBehaviour
             }
         }
 
-        if (collision.transform.tag != "Bullet" && collision.transform.tag != "MineWall" && collision.transform.tag != "coinContainer" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Coin2" && collision.transform.tag != "Coin3" && collision.transform.tag != "Wood")
+        if (collision.transform.tag != "Bullet" && collision.transform.tag != "skill" && collision.transform.tag != "MineWall" && collision.transform.tag != "coinContainer" && collision.transform.tag != "BulletHellBullet" && collision.transform.tag != "Player" && collision.transform.tag != "EnemyZone" && collision.transform.tag != "Interactable" && collision.transform.tag != "SpawnPoint" && collision.transform.tag != "Shield" && collision.transform.tag != "PlayerBullet" && collision.transform.tag != "Collectable" && collision.transform.tag != "Coin" && collision.transform.tag != "Coin2" && collision.transform.tag != "Coin3" && collision.transform.tag != "Wood")
         {
             Instantiate(afterDestroySound, transform.position, Quaternion.identity);
             GameObject p = Instantiate(destroyGameObject, transform.position, Quaternion.identity);
+            if (player.GetComponent<Player>().holy)
+            {
+                Instantiate(holyHit, transform.position, Quaternion.identity);
+            }
 
             float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
             p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);

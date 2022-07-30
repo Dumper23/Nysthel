@@ -27,6 +27,12 @@ public class Item
         fireOrb,
         earthOrb,
         iceOrb,
+        waterPuddle,
+        acidPuddle,
+        golem,
+        boost,
+        scare,
+        teleportClone
     }
 
     public ItemType itemType;
@@ -57,6 +63,12 @@ public class Item
             case ItemType.fireOrb: return ItemAssets.Instance.fireOrb;
             case ItemType.earthOrb: return ItemAssets.Instance.earthOrb;
             case ItemType.iceOrb: return ItemAssets.Instance.iceOrb;
+            case ItemType.waterPuddle: return ItemAssets.Instance.waterPuddle;
+            case ItemType.acidPuddle: return ItemAssets.Instance.acidPuddle;
+            case ItemType.golem: return ItemAssets.Instance.golem;
+            case ItemType.boost: return ItemAssets.Instance.boost;
+            case ItemType.scare: return ItemAssets.Instance.scare;
+            case ItemType.teleportClone: return ItemAssets.Instance.teleportClone;
         }
     }
 
@@ -85,7 +97,12 @@ public class Item
             case ItemType.electricOrb:
             case ItemType.fireOrb:
             case ItemType.earthOrb:
-            case ItemType.iceOrb:
+            case ItemType.waterPuddle:
+            case ItemType.acidPuddle:
+            case ItemType.golem:
+            case ItemType.boost:
+            case ItemType.scare:
+            case ItemType.teleportClone:
                 return false;
         }
     }

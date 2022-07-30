@@ -271,7 +271,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7558771150749535050}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -300,7 +300,7 @@ MonoBehaviour:
   damage: 10
   maxGoldToGive: 35
   minGoldToGive: 25
-  moveSpeed: 2
+  moveSpeed: 3
   startHealth: 0
   rb: {fileID: 7558771150749535024}
   anim: {fileID: 7558771150677934378}
@@ -313,7 +313,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 9221127518733234886, guid: 676dc7b3730c6654686f1788f9264b15, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   meleeAttackRange: 4
   bullet: {fileID: 0}
   meleeAttackRate: 1

@@ -376,6 +376,7 @@ MonoBehaviour:
   speed: 10
   afterDestroySound: {fileID: 8017809112979578920, guid: c28a433ffb7b4b74da1bd23c3a883bf6, type: 3}
   destroyGameObject: {fileID: 4544862734716389051, guid: 3fb71cd63f862d74493d35d1dfc84cc2, type: 3}
+  holyHit: {fileID: 3519952460528117245, guid: 08ba444736ecf184b833db5b9296ae6c, type: 3}
   centerOfSeeking: {fileID: 0}
   isSeeker: 0
   seekRange: 2

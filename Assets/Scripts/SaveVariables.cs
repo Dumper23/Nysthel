@@ -12,6 +12,13 @@ public static class SaveVariables
     public static int EARTH_ORB = 0;
     public static int ICE_ORB = 0;
 
+    public static int WATER_SKILL = 0;
+    public static int ACID_SKILL = 0;
+    public static int GOLEM_SKILL = 0;
+    public static int BOOST_SKILL = 0;
+    public static int SCARE_SKILL = 0;
+    public static int TELEPORT_SKILL = 0;
+
     public static int PLAYER_GOLD = 0;
     public static int PLAYER_WOOD = 0;
     public static int PLAYER_ATTACK = 0;
@@ -77,6 +84,13 @@ public static class SaveVariables
         FIRE_ORB = 0;
         EARTH_ORB = 0;
         ICE_ORB = 0;
+
+        WATER_SKILL = 0;
+        ACID_SKILL = 0;
+        GOLEM_SKILL = 0;
+        BOOST_SKILL = 0;
+        SCARE_SKILL = 0;
+        TELEPORT_SKILL = 0;
 
         PLAYER_GOLD = 0;
         PLAYER_WOOD = 0;

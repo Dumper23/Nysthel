@@ -16,6 +16,13 @@ public class SaveData
     public int EARTH_ORB = 0;
     public int ICE_ORB = 0;
 
+    public int WATER_SKILL = 0;
+    public int ACID_SKILL = 0;
+    public int GOLEM_SKILL = 0;
+    public int BOOST_SKILL = 0;
+    public int SCARE_SKILL = 0;
+    public int TELEPORT_SKILL = 0;
+
     public int PLAYER_GOLD = 0;
     public int PLAYER_WOOD = 0;
     public int PLAYER_ATTACK = 0;
@@ -81,6 +88,13 @@ public class SaveData
         FIRE_ORB = SaveVariables.FIRE_ORB;
         EARTH_ORB = SaveVariables.EARTH_ORB;
         ICE_ORB = SaveVariables.ICE_ORB;
+
+        WATER_SKILL = SaveVariables.WATER_SKILL;
+        ACID_SKILL = SaveVariables.ACID_SKILL;
+        GOLEM_SKILL = SaveVariables.GOLEM_SKILL;
+        BOOST_SKILL = SaveVariables.BOOST_SKILL;
+        SCARE_SKILL = SaveVariables.SCARE_SKILL;
+        TELEPORT_SKILL = SaveVariables.TELEPORT_SKILL;
 
         //Player upgrades and gold
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;

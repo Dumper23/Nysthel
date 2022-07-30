@@ -556,11 +556,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 16794883480497529, guid: dc690e21b6ad52b47ac48dcad9ea7493, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.5
+      value: -21.19
       objectReference: {fileID: 0}
     - target: {fileID: 16794883480497529, guid: dc690e21b6ad52b47ac48dcad9ea7493, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.72
+      value: -10.46
       objectReference: {fileID: 0}
     - target: {fileID: 16794883480497529, guid: dc690e21b6ad52b47ac48dcad9ea7493, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1140,7 +1140,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &222433249
 Rigidbody2D:
@@ -1908,7 +1911,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &343018484
 Rigidbody2D:
@@ -54870,7 +54876,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &691199325
 Rigidbody2D:
@@ -55368,7 +55377,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 1
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!1 &804663939
 GameObject:
@@ -56068,7 +56080,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &1074948305
 Rigidbody2D:
@@ -57385,7 +57400,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &1289923536
 Rigidbody2D:
@@ -67372,7 +67390,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &1440771859
 Rigidbody2D:
@@ -67559,7 +67580,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &1454769825
 Rigidbody2D:
@@ -118773,7 +118797,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &1728480375
 Rigidbody2D:
@@ -133657,7 +133684,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &1863154738
 Rigidbody2D:
@@ -139018,7 +139048,10 @@ MonoBehaviour:
   bloodParticles: {fileID: 0}
   immune: 0
   damageNumbers: {fileID: 0}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
   isColumnContinuous: 0
 --- !u!50 &2123579560
 Rigidbody2D:

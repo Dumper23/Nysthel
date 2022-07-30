@@ -76,6 +76,15 @@ public class SaveVariablesDebug : MonoBehaviour
     public int EARTH_ORB = 0;
     public int ICE_ORB = 0;
 
+    [Header("--------------------------SKILLS--------------------------")]
+    public int WATER_SKILL = 0;
+
+    public int ACID_SKILL = 0;
+    public int GOLEM_SKILL = 0;
+    public int BOOST_SKILL = 0;
+    public int SCARE_SKILL = 0;
+    public int TELEPORT_SKILL = 0;
+
     private void Update()
     {
         if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.H))
@@ -94,6 +103,13 @@ public class SaveVariablesDebug : MonoBehaviour
         FIRE_ORB = SaveVariables.FIRE_ORB;
         EARTH_ORB = SaveVariables.EARTH_ORB;
         ICE_ORB = SaveVariables.ICE_ORB;
+
+        WATER_SKILL = SaveVariables.WATER_SKILL;
+        ACID_SKILL = SaveVariables.ACID_SKILL;
+        GOLEM_SKILL = SaveVariables.GOLEM_SKILL;
+        BOOST_SKILL = SaveVariables.BOOST_SKILL;
+        SCARE_SKILL = SaveVariables.SCARE_SKILL;
+        TELEPORT_SKILL = SaveVariables.TELEPORT_SKILL;
 
         PLAYER_GOLD = SaveVariables.PLAYER_GOLD;
         TUTORIAL_DONE = SaveVariables.TUTORIAL_DONE;

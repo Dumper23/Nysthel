@@ -63,3 +63,9 @@ MonoBehaviour:
   fireOrb: {fileID: 2235919689236203233, guid: 031c0a11b31550646b3e0617c8b57f26, type: 3}
   earthOrb: {fileID: 2907608456816868344, guid: 969d129dd93000844b3664bfc8501f02, type: 3}
   iceOrb: {fileID: -961627566635349303, guid: 480e078b52bab6e44a9d1c324c3fb621, type: 3}
+  waterPuddle: {fileID: -8814175192515489335, guid: 1d3d9c51e6bb8464882afe4e718f0e24, type: 3}
+  acidPuddle: {fileID: -3326372747576787673, guid: 2f84e55583b1585468e3528eeaade73b, type: 3}
+  golem: {fileID: -1350137002586733911, guid: 687a850e0b4f6574591e35410ce6d9a6, type: 3}
+  boost: {fileID: 2805804933102688220, guid: 460cb3ddb658b7c4890857839aea81dd, type: 3}
+  scare: {fileID: 645642141132145376, guid: 4ffb4eeebd77c284a86ea35a18e70abd, type: 3}
+  teleportClone: {fileID: -8224451262501634468, guid: 5863617b884a50746a29355d5ff809ef, type: 3}

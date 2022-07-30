@@ -51241,7 +51241,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1608651244}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.1, y: -0.62, z: -1.1629841}
+  m_LocalPosition: {x: -2.86, y: -2.11, z: -1.1629841}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -51291,7 +51291,7 @@ MonoBehaviour:
   - {fileID: 922088481914221058, guid: c7972d1f674cf0b47a18c5def37cd93d, type: 3}
   - {fileID: 2122804985395371686, guid: 17d3035cf6e7fa64c8d94ca9c6966d7a, type: 3}
   - {fileID: 6233859716015055177, guid: 029ea0051aeafc843bbdb8af173553c6, type: 3}
-  spawnRadius: 12.02
+  spawnRadius: 7.3
   minEnemyRate: 12
   maxEnemyRate: 35
 --- !u!1001 &1612888572

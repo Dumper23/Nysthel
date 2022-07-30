@@ -54,6 +54,13 @@ public class SaveManager : MonoBehaviour
             SaveVariables.FIRE_ORB = data.FIRE_ORB;
             SaveVariables.ICE_ORB = data.ICE_ORB;
 
+            SaveVariables.WATER_SKILL = data.WATER_SKILL;
+            SaveVariables.ACID_SKILL = data.ACID_SKILL;
+            SaveVariables.GOLEM_SKILL = data.GOLEM_SKILL;
+            SaveVariables.BOOST_SKILL = data.BOOST_SKILL;
+            SaveVariables.SCARE_SKILL = data.SCARE_SKILL;
+            SaveVariables.TELEPORT_SKILL = data.TELEPORT_SKILL;
+
             //Player Stats
             SaveVariables.PLAYER_GOLD = data.PLAYER_GOLD;
             SaveVariables.PLAYER_WOOD = data.PLAYER_WOOD;
