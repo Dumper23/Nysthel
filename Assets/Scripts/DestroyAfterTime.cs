@@ -8,6 +8,7 @@ public class DestroyAfterTime : MonoBehaviour
     public float timeToDestroy = 1f;
     public bool isSimple = false;
     public bool isPool = false;
+    public bool isSkill = false;
 
     private Animator anim;
     private float startTime = 0;
@@ -30,8 +31,31 @@ public class DestroyAfterTime : MonoBehaviour
         }
         else
         {
-            Destroy(gameObject, timeToDestroy);
+            if (isSkill)
+            {
+                Invoke("desapear", timeToDestroy);
+            }
+            else
+            {
+                Destroy(gameObject, timeToDestroy);
+            }
         }
+    }
+
+    private void desapear()
+    {
+        foreach (Enemy enemy in FindObjectsOfType<Enemy>())
+        {
+            if (enemy.isInWater)
+            {
+                enemy.isInWater = false;
+            }
+            if (enemy.isInAcid)
+            {
+                enemy.isInAcid = false;
+            }
+        }
+        Destroy(gameObject);
     }
 
     private void destroy()

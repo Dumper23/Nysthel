@@ -178,7 +178,9 @@ public class Player : MonoBehaviour, IShopCustomer
     [Header("--------------Skills--------------")]
     private bool skillActivated = false;
 
+    private bool alreadyTeleported = false;
     private int originalAttack;
+    private GameObject instantiatedTeleportClone;
     private float originalAttackSpeed;
 
     public bool holy = false;
@@ -191,7 +193,8 @@ public class Player : MonoBehaviour, IShopCustomer
     public float teleportReloadTime = 120f;
 
     public GameObject waterPuddle;
-
+    public GameObject hand;
+    public GameObject teleportClone;
     public GameObject acidPuddle;
     public GameObject golem;
     public GameObject holyBlessing;
@@ -560,12 +563,54 @@ public class Player : MonoBehaviour, IShopCustomer
                     Invoke("EndScare", 10f);
                     reloadTime = scareReloadTime;
                 }
+                else if (SaveVariables.TELEPORT_SKILL == 2)
+                {
+                    Invoke("canTeleportOn", 1f);
+                    instantiatedTeleportClone = Instantiate(teleportClone, transform.position, Quaternion.identity);
+                    instantiatedTeleportClone.GetComponent<Animator>().Play("out");
+                    alreadyTeleported = false;
+                    reloadTime = scareReloadTime;
+                }
                 skillActivated = true;
+                Debug.Log("Skill used!");
                 Invoke("endSkill", reloadTime);
+            }
+        }
+        else
+        {
+            if (Input.GetButtonDown("skill"))
+            {
+                if (SaveVariables.TELEPORT_SKILL == 2 && instantiatedTeleportClone != null && !alreadyTeleported)
+                {
+                    if (instantiatedTeleportClone.transform.position.x > transform.position.x)
+                    {
+                        GameObject g = Instantiate(hand, transform.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
+                        g.transform.localScale = new Vector3(-1, 1, 1);
+                    }
+                    else
+                    {
+                        GameObject g = Instantiate(hand, transform.position - new Vector3(0.5f, 0, 0), Quaternion.identity);
+                        g.transform.localScale = new Vector3(1, 1, 1);
+                    }
+                    alreadyTeleported = true;
+                    Invoke("teleport", 1.5f);
+                }
             }
         }
 
         #endregion Skills
+    }
+
+    private void endSkill()
+    {
+        Debug.Log("Skill avaliable");
+        skillActivated = false;
+    }
+
+    private void teleport()
+    {
+        transform.position = instantiatedTeleportClone.transform.position;
+        Destroy(instantiatedTeleportClone);
     }
 
     private void EndScare()

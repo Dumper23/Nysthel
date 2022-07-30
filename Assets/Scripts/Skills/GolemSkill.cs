@@ -23,6 +23,7 @@ public class GolemSkill : MonoBehaviour
     {
         anim = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
+        Invoke("die", 30f);
     }
 
     private void Update()
@@ -121,6 +122,8 @@ public class GolemSkill : MonoBehaviour
 
     private void die()
     {
+        attackRate = 99999;
+        nextAttack = 99999;
         changeAnimationState("Death");
         Destroy(gameObject, 1.5f);
     }

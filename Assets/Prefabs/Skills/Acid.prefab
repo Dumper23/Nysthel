@@ -25655,6 +25655,7 @@ GameObject:
   - component: {fileID: 3272639782838944535}
   - component: {fileID: 7624745576278639496}
   - component: {fileID: 4768534887399789445}
+  - component: {fileID: 8159917902356849977}
   m_Layer: 0
   m_Name: Acid
   m_TagString: skill
@@ -25777,6 +25778,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fire: {fileID: 9156116800562371991}
   isInFire: 0
+--- !u!114 &8159917902356849977
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3272639782838944532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 538625588592f0e44b3d37fad522f778, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeToDestroy: 10
+  isSimple: 1
+  isPool: 0
+  isSkill: 1
 --- !u!1 &3272639783107866313
 GameObject:
   m_ObjectHideFlags: 0

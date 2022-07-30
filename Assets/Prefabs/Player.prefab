@@ -11746,6 +11746,8 @@ MonoBehaviour:
   scareReloadTime: 120
   teleportReloadTime: 120
   waterPuddle: {fileID: 3272639782838944532, guid: 57ff34eafb1ecbb4abd54631209e2f8f, type: 3}
+  hand: {fileID: 7758995454386403782, guid: 6f308dfb7997a2f44835d124d121e2aa, type: 3}
+  teleportClone: {fileID: 979785866198270167, guid: 3a0181c77158a63489060ab2a9b708ba, type: 3}
   acidPuddle: {fileID: 3272639782838944532, guid: 06b6b5d43c8f6e248b4b563bf6e0e61a, type: 3}
   golem: {fileID: 4259158295442647213, guid: 410648bbb029ce346af8013699a00a37, type: 3}
   holyBlessing: {fileID: 3131473335559011360}
