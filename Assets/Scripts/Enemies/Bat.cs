@@ -27,6 +27,14 @@ public class Bat : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay && (target.position - transform.position).magnitude <= range)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             batCopy.GetComponent<Bat>().activated = true;
             Seek();
             if (health <= 0)

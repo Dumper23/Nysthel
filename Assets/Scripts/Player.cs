@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour, IShopCustomer
 {
@@ -126,6 +127,9 @@ public class Player : MonoBehaviour, IShopCustomer
     [SerializeField]
     private UIInventory uiInventory;
 
+    private Image skillTimeBar;
+    private Image borderSkill;
+
     public HealthBar healthBar;
     public GameObject goldMultiplierUI;
     public GameObject shield;
@@ -182,7 +186,14 @@ public class Player : MonoBehaviour, IShopCustomer
     private int originalAttack;
     private GameObject instantiatedTeleportClone;
     private float originalAttackSpeed;
+    private float counterSkill = 0;
+    private float totalTime = 0;
+    private float skillTime = 0;
 
+    public GameObject teleportStart;
+    public GameObject teleportArrive;
+    public GameObject teleportCreate;
+    public GameObject ADEarth;
     public bool holy = false;
     public bool scare = false;
     public float holyBlessingReloadtime = 120f;
@@ -200,6 +211,8 @@ public class Player : MonoBehaviour, IShopCustomer
     public GameObject holyBlessing;
     public GameObject scareSprite;
 
+    private bool isTimeSlowed = false;
+
     private void Awake()
     {
         inventory = new Inventory(UseItem);
@@ -215,6 +228,11 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Start()
     {
+        skillTimeBar = GameObject.FindGameObjectWithTag("timeBar").GetComponent<Image>();
+        borderSkill = GameObject.FindGameObjectWithTag("borderSkill").GetComponent<Image>();
+        borderSkill.gameObject.SetActive(false);
+        skillTimeBar.color = Color.white;
+        skillTimeBar.fillAmount = 1;
         goldSubtracted = false;
         audioSource[PICKUP_AUDIO].volume = 0;
 
@@ -235,6 +253,7 @@ public class Player : MonoBehaviour, IShopCustomer
         hasSecondChance = false;
         originalDamage = 10 + SaveVariables.ATTACK_LEVEL * 5;
         coinCollector.GetComponent<CircleCollider2D>().radius = coinMagnetRange;
+        uiInventory.checkFirstTime();
     }
 
     private void OnDestroy()
@@ -249,6 +268,27 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Update()
     {
+        if (Input.GetButton("Inventory") && isTimeSlowed && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
+        {
+            isTimeSlowed = false;
+            timeSlowed = true;
+            seconds = (int)timePotionDuration;
+            timer = (int)timePotionDuration;
+
+            counterText.gameObject.SetActive(true);
+            counterText.GetComponent<TextMeshProUGUI>().color = Color.black;
+            Invoke("endTimePotion", timePotionDuration);
+            moveSpeed = moveSpeed * 2;
+            attackRate = attackRate / 2;
+            Time.timeScale = 0.5f;
+
+            inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+            SaveVariables.INV_TIME_POTION--;
+        }
+        if (skillTimeBar.fillAmount >= 0.99f)
+        {
+            skillTimeBar.color = Color.white;
+        }
         coinCollector.transform.position = transform.position;
         statueStats();
         if (usingController)
@@ -520,25 +560,29 @@ public class Player : MonoBehaviour, IShopCustomer
 
         #region Skills
 
+        float reloadTime = 0f;
         if (!skillActivated)
         {
             if (Input.GetButtonDown("skill"))
             {
-                float reloadTime = 0f;
                 if (SaveVariables.WATER_SKILL == 2)
                 {
                     Instantiate(waterPuddle, transform.position, Quaternion.identity);
                     reloadTime = waterReloadtime;
+                    skillTime = 10f;
                 }
                 else if (SaveVariables.ACID_SKILL == 2)
                 {
                     Instantiate(acidPuddle, transform.position, Quaternion.identity);
                     reloadTime = acidReloadtime;
+                    skillTime = 10f;
                 }
                 else if (SaveVariables.GOLEM_SKILL == 2)
                 {
+                    Instantiate(ADEarth);
                     Instantiate(golem, transform.position, Quaternion.identity);
                     reloadTime = golemReloadtime;
+                    skillTime = 30f;
                 }
                 else if (SaveVariables.BOOST_SKILL == 2)
                 {
@@ -547,33 +591,57 @@ public class Player : MonoBehaviour, IShopCustomer
                     holyBlessing.GetComponent<Animator>().Play("out");
                     originalAttack = damage;
                     originalAttackSpeed = attackRate;
-
+                    skillTime = 10f;
                     damage += (damage / 2);
                     attackRate = attackRate / 1.5f;
 
-                    Invoke("EndBoost", 30f);
+                    Invoke("EndBoost", skillTime);
                     reloadTime = holyBlessingReloadtime;
                 }
                 else if (SaveVariables.SCARE_SKILL == 2)
                 {
                     scare = true;
                     immune = true;
+                    skillTime = 10f;
                     scareSprite.SetActive(true);
+                    Instantiate(teleportArrive);
                     scareSprite.GetComponent<Animator>().Play("out");
                     Invoke("EndScare", 10f);
                     reloadTime = scareReloadTime;
                 }
                 else if (SaveVariables.TELEPORT_SKILL == 2)
                 {
-                    Invoke("canTeleportOn", 1f);
+                    Instantiate(teleportCreate);
                     instantiatedTeleportClone = Instantiate(teleportClone, transform.position, Quaternion.identity);
                     instantiatedTeleportClone.GetComponent<Animator>().Play("out");
                     alreadyTeleported = false;
                     reloadTime = scareReloadTime;
                 }
+
                 skillActivated = true;
-                Debug.Log("Skill used!");
-                Invoke("endSkill", reloadTime);
+                totalTime = reloadTime;
+
+                if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
+                {
+                    reloadTime = skillTime;
+                    totalTime = skillTime;
+                }
+
+                if (SaveVariables.TELEPORT_SKILL != 2)
+                {
+                    Invoke("endSkill", reloadTime);
+                }
+                if (SaveVariables.WATER_SKILL < 2 && SaveVariables.ACID_SKILL < 2 && SaveVariables.GOLEM_SKILL < 2 && SaveVariables.BOOST_SKILL < 2 && SaveVariables.SCARE_SKILL < 2 && SaveVariables.TELEPORT_SKILL < 2)
+                {
+                }
+                else
+                {
+                    borderSkill.fillAmount = 1;
+                    borderSkill.gameObject.SetActive(true);
+                }
+                counterSkill = 0;
+                skillTimeBar.fillAmount = 0;
+                skillTimeBar.color = Color.black;
             }
         }
         else
@@ -586,16 +654,30 @@ public class Player : MonoBehaviour, IShopCustomer
                     {
                         GameObject g = Instantiate(hand, transform.position + new Vector3(0.5f, 0, 0), Quaternion.identity);
                         g.transform.localScale = new Vector3(-1, 1, 1);
+                        g.transform.GetChild(0).transform.localScale = new Vector3(-1, 1, 1);
                     }
                     else
                     {
                         GameObject g = Instantiate(hand, transform.position - new Vector3(0.5f, 0, 0), Quaternion.identity);
                         g.transform.localScale = new Vector3(1, 1, 1);
+                        g.transform.GetChild(0).transform.localScale = new Vector3(1, 1, 1);
                     }
                     alreadyTeleported = true;
-                    Invoke("teleport", 1.5f);
+                    Instantiate(teleportStart);
+                    Invoke("teleport", 1.3f);
                 }
             }
+            borderSkill.fillAmount = 1 - (counterSkill / skillTime);
+            skillTimeBar.fillAmount = (counterSkill / totalTime);
+        }
+        if (instantiatedTeleportClone == null)
+        {
+            counterSkill += Time.deltaTime;
+        }
+
+        if (borderSkill.fillAmount <= 0.01f)
+        {
+            borderSkill.gameObject.SetActive(false);
         }
 
         #endregion Skills
@@ -603,7 +685,6 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void endSkill()
     {
-        Debug.Log("Skill avaliable");
         skillActivated = false;
     }
 
@@ -611,14 +692,27 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         transform.position = instantiatedTeleportClone.transform.position;
         Destroy(instantiatedTeleportClone);
+        if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
+        {
+            endSkill();
+        }
+        else
+        {
+            Invoke("endSkill", teleportReloadTime);
+        }
+        scareSprite.SetActive(true);
+        scareSprite.GetComponent<Animator>().Play("out");
+        Invoke("EndScare", 1.5f);
+        Instantiate(teleportArrive);
+        immune = true;
+        scare = true;
+        skillTime = 1.5f;
     }
 
     private void EndScare()
     {
         scareSprite.GetComponent<Animator>().Play("in");
         Invoke("hideScare", 1f);
-        scare = false;
-        immune = false;
     }
 
     private void EndBoost()
@@ -637,6 +731,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void hideScare()
     {
+        scare = false;
+        immune = false;
         scareSprite.SetActive(false);
     }
 
@@ -1204,32 +1300,39 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void die()
     {
-        if (currentHealth <= 0)
+        if (currentHealth <= 0 && !goldSubtracted && !hasSecondChance)
         {
-            if (Random.Range(0f, 1f) <= secondChanceProbability)
+            if (SceneManager.GetActiveScene().name == "Tutorial")
             {
-                hasSecondChance = true;
-            }
-
-            if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
-            {
-                saveInventory();
-                SaveManager.Instance.SaveGame();
-                SceneManager.LoadScene("SecondChanceChallenge");
+                SceneManager.LoadScene("Tutorial");
             }
             else
             {
-                if (!goldSubtracted && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
+                if (Random.Range(0f, 1f) <= secondChanceProbability)
                 {
-                    goldSubtracted = true;
-                    SaveVariables.clearInventory();
-                    SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(0.4f * SaveVariables.PLAYER_GOLD);
+                    hasSecondChance = true;
                 }
-                SaveManager.Instance.SaveGame();
-                isDead = true;
-                Statistics.Instance.showStatistics();
-                Time.timeScale = 0f;
-                GameStateManager.Instance.SetState(GameState.Paused);
+
+                if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
+                {
+                    saveInventory();
+                    SaveManager.Instance.SaveGame();
+                    SceneManager.LoadScene("SecondChanceChallenge");
+                }
+                else
+                {
+                    if (!goldSubtracted && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
+                    {
+                        goldSubtracted = true;
+                        SaveVariables.clearInventory();
+                        SaveVariables.PLAYER_GOLD -= Mathf.RoundToInt(0.4f * SaveVariables.PLAYER_GOLD);
+                    }
+                    SaveManager.Instance.SaveGame();
+                    isDead = true;
+                    Statistics.Instance.showStatistics();
+                    Time.timeScale = 0f;
+                    GameStateManager.Instance.SetState(GameState.Paused);
+                }
             }
         }
     }
@@ -1267,9 +1370,13 @@ public class Player : MonoBehaviour, IShopCustomer
         }
         else if (goldStatueApplied && SaveVariables.GOLD_STATUE == 1)
         {
-            goldMultiplierUI.SetActive(false);
+            if (!goldRushed)
+            {
+                goldMultiplierUI.SetActive(false);
+            }
             goldMultiplier = goldMultiplier - 1;
             goldStatueApplied = false;
+            goldMultiplierUI.GetComponent<TextMeshProUGUI>().SetText("x" + goldMultiplier);
         }
 
         if (SaveVariables.HOLY_STATUE == 2)
@@ -1413,21 +1520,9 @@ public class Player : MonoBehaviour, IShopCustomer
                 case Item.ItemType.timePotion:
                     if (!timeSlowed && !shielded && !goldRushed)
                     {
+                        isTimeSlowed = true;
                         audioSource[PICKUP_AUDIO].clip = audios[7];
                         audioSource[PICKUP_AUDIO].Play();
-                        timeSlowed = true;
-                        seconds = (int)timePotionDuration;
-                        timer = (int)timePotionDuration;
-
-                        counterText.gameObject.SetActive(true);
-                        counterText.GetComponent<TextMeshProUGUI>().color = Color.black;
-                        Invoke("endTimePotion", timePotionDuration);
-                        moveSpeed = moveSpeed * 2;
-                        attackRate = attackRate / 2;
-                        Time.timeScale = 0.5f;
-
-                        inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
-                        SaveVariables.INV_TIME_POTION--;
                     }
                     else
                     {
@@ -1655,98 +1750,140 @@ public class Player : MonoBehaviour, IShopCustomer
 
                 // Skills
                 case Item.ItemType.waterPuddle:
-                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
-                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
-                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
-                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
-                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
-                    if (SaveVariables.WATER_SKILL == 1)
+                    if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
                     {
-                        SaveVariables.WATER_SKILL = 2;
+                        if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                        if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                        if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                        if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                        if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                        if (SaveVariables.WATER_SKILL == 1)
+                        {
+                            SaveVariables.WATER_SKILL = 2;
+                        }
+                        else if (SaveVariables.WATER_SKILL == 2)
+                        {
+                            SaveVariables.WATER_SKILL = 1;
+                        }
                     }
                     else
                     {
-                        SaveVariables.WATER_SKILL = 1;
+                        playNegativeAction();
                     }
                     break;
 
                 case Item.ItemType.acidPuddle:
-                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
-                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
-                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
-                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
-                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
-                    if (SaveVariables.ACID_SKILL == 1)
+                    if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
                     {
-                        SaveVariables.ACID_SKILL = 2;
+                        if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                        if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                        if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                        if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                        if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                        if (SaveVariables.ACID_SKILL == 1)
+                        {
+                            SaveVariables.ACID_SKILL = 2;
+                        }
+                        else if (SaveVariables.ACID_SKILL == 2)
+                        {
+                            SaveVariables.ACID_SKILL = 1;
+                        }
                     }
                     else
                     {
-                        SaveVariables.ACID_SKILL = 1;
+                        playNegativeAction();
                     }
                     break;
 
                 case Item.ItemType.golem:
-                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
-                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
-                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
-                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
-                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
-                    if (SaveVariables.GOLEM_SKILL == 1)
+                    if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
                     {
-                        SaveVariables.GOLEM_SKILL = 2;
+                        if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                        if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                        if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                        if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                        if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                        if (SaveVariables.GOLEM_SKILL == 1)
+                        {
+                            SaveVariables.GOLEM_SKILL = 2;
+                        }
+                        else if (SaveVariables.GOLEM_SKILL == 2)
+                        {
+                            SaveVariables.GOLEM_SKILL = 1;
+                        }
                     }
                     else
                     {
-                        SaveVariables.GOLEM_SKILL = 1;
+                        playNegativeAction();
                     }
                     break;
 
                 case Item.ItemType.boost:
-                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
-                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
-                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
-                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
-                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
-                    if (SaveVariables.BOOST_SKILL == 1)
+                    if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
                     {
-                        SaveVariables.BOOST_SKILL = 2;
+                        if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                        if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                        if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                        if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                        if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                        if (SaveVariables.BOOST_SKILL == 1)
+                        {
+                            SaveVariables.BOOST_SKILL = 2;
+                        }
+                        else if (SaveVariables.BOOST_SKILL == 2)
+                        {
+                            SaveVariables.BOOST_SKILL = 1;
+                        }
                     }
                     else
                     {
-                        SaveVariables.BOOST_SKILL = 1;
+                        playNegativeAction();
                     }
                     break;
 
                 case Item.ItemType.scare:
-                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
-                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
-                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
-                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
-                    if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
-                    if (SaveVariables.SCARE_SKILL == 1)
+                    if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
                     {
-                        SaveVariables.SCARE_SKILL = 2;
+                        if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                        if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                        if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                        if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                        if (SaveVariables.TELEPORT_SKILL == 2) SaveVariables.TELEPORT_SKILL = 1;
+                        if (SaveVariables.SCARE_SKILL == 1)
+                        {
+                            SaveVariables.SCARE_SKILL = 2;
+                        }
+                        else if (SaveVariables.SCARE_SKILL == 2)
+                        {
+                            SaveVariables.SCARE_SKILL = 1;
+                        }
                     }
                     else
                     {
-                        SaveVariables.SCARE_SKILL = 1;
+                        playNegativeAction();
                     }
                     break;
 
                 case Item.ItemType.teleportClone:
-                    if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
-                    if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
-                    if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
-                    if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
-                    if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
-                    if (SaveVariables.TELEPORT_SKILL == 1)
+                    if (SceneManager.GetActiveScene().name == "Village" || SceneManager.GetActiveScene().name == "Test")
                     {
-                        SaveVariables.TELEPORT_SKILL = 2;
+                        if (SaveVariables.ACID_SKILL == 2) SaveVariables.ACID_SKILL = 1;
+                        if (SaveVariables.GOLEM_SKILL == 2) SaveVariables.GOLEM_SKILL = 1;
+                        if (SaveVariables.BOOST_SKILL == 2) SaveVariables.BOOST_SKILL = 1;
+                        if (SaveVariables.SCARE_SKILL == 2) SaveVariables.SCARE_SKILL = 1;
+                        if (SaveVariables.WATER_SKILL == 2) SaveVariables.WATER_SKILL = 1;
+                        if (SaveVariables.TELEPORT_SKILL == 1)
+                        {
+                            SaveVariables.TELEPORT_SKILL = 2;
+                        }
+                        if (SaveVariables.WATER_SKILL == 2)
+                        {
+                            SaveVariables.TELEPORT_SKILL = 1;
+                        }
                     }
                     else
                     {
-                        SaveVariables.TELEPORT_SKILL = 1;
+                        playNegativeAction();
                     }
                     break;
             }
@@ -1764,10 +1901,14 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void endGoldPotion()
     {
-        goldMultiplier = 1;
+        goldMultiplier -= 1;
         goldRushed = false;
         goldRush.SetActive(false);
-        goldMultiplierUI.SetActive(false);
+        if (SaveVariables.GOLD_STATUE != 2)
+        {
+            goldMultiplierUI.SetActive(false);
+        }
+        goldMultiplierUI.GetComponent<TextMeshProUGUI>().SetText("x" + goldMultiplier);
         counterText.gameObject.SetActive(false);
     }
 

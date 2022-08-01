@@ -11,19 +11,27 @@ public class Undead : Enemy
     private float timeToStep = 0.2f;
     private float time = 0;
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>().transform;
         sprite = GetComponent<SpriteRenderer>();
     }
 
-    void Update()
+    private void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             time += Time.deltaTime;
-            if(time >= timeToStep)
+            if (time >= timeToStep)
             {
                 time = 0;
                 audioSource.pitch = Random.Range(0.8f, 1.2f);
@@ -51,7 +59,6 @@ public class Undead : Enemy
     {
         if (collision.transform.tag == "Enemy")
         {
-            
         }
     }
 }

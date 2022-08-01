@@ -274,7 +274,13 @@ MonoBehaviour:
   bloodParticles: {fileID: 9221127518733234886, guid: 6d31b4b692e29f4418cd640dae5b44a9, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 1
+  isInFire: 0
+  isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   isRanged: 1
   bullet: {fileID: 313272557742413170, guid: ad76d891dbf842348ba0353df743b637, type: 3}
   bulletForce: 15
@@ -292,7 +298,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8577376506480156897}
-  m_BodyType: 1
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0

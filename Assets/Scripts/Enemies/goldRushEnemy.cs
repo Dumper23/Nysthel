@@ -88,6 +88,14 @@ public class goldRushEnemy : Enemy
         GameState currentGameState = GameStateManager.Instance.CurrentGameState;
         if (currentGameState == GameState.Gameplay)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (target.position.x > transform.position.x)
             {
                 sp.flipX = true;
@@ -97,13 +105,27 @@ public class goldRushEnemy : Enemy
                 sp.flipX = false;
             }
 
-            if (Mathf.Abs(rb.velocity.magnitude) <= 0.2f)
+            if (!isScared)
             {
-                rb.velocity = (target.position - transform.position).normalized * -moveSpeed;
+                if (Mathf.Abs(rb.velocity.magnitude) <= 0.2f)
+                {
+                    rb.velocity = (target.position - transform.position).normalized * -moveSpeed;
+                }
+                else
+                {
+                    rb.velocity = (target.position - transform.position).normalized * moveSpeed;
+                }
             }
             else
             {
-                rb.velocity = (target.position - transform.position).normalized * moveSpeed;
+                if (Mathf.Abs(rb.velocity.magnitude) <= 0.2f)
+                {
+                    rb.velocity = (-target.position + transform.position).normalized * -moveSpeed;
+                }
+                else
+                {
+                    rb.velocity = (-target.position + transform.position).normalized * moveSpeed;
+                }
             }
             disapear();
         }
@@ -117,6 +139,10 @@ public class goldRushEnemy : Enemy
     {
         if (health <= 0)
         {
+            isInFire = false;
+            isInAcid = false;
+            isInWater = false;
+            CancelInvoke();
             Vector3 lastPos = transform.position;
             Statistics.Instance.enemiesKilled += 1;
             if (bloodStain != null)

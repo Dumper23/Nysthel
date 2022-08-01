@@ -19,17 +19,25 @@ public class Shadow : Enemy
     private static int UNHIDE_AUDIO = 2;
     private AudioSource audioSource;
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>().transform;
         anim.Play("Idle");
     }
 
-    void Update()
+    private void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (target.position.x > transform.position.x)
             {
                 transform.localScale = new Vector3(1, 1, 1);
@@ -39,7 +47,7 @@ public class Shadow : Enemy
                 transform.localScale = new Vector3(-1, 1, 1);
             }
 
-            if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range && !immune)
+            if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range && !immune && !isScared)
             {
                 nextShot = Time.time + attackRate;
                 Hide();
@@ -51,7 +59,7 @@ public class Shadow : Enemy
             }
             if (!immune)
             {
-                Seek();   
+                Seek();
             }
         }
     }
@@ -69,7 +77,8 @@ public class Shadow : Enemy
     {
         audioSource.clip = audios[ATTACK_AUDIO];
         audioSource.Play();
-        if (Random.Range(0f, 1f) > seekerProbability) {
+        if (Random.Range(0f, 1f) > seekerProbability)
+        {
             EnemyBullet b = (Instantiate(bulletSeek, transform.position - new Vector3(0, -0.2f, 0), Quaternion.identity) as GameObject).GetComponent<EnemyBullet>();
             b.damage = 15;
             b.speed = 5;
@@ -103,5 +112,4 @@ public class Shadow : Enemy
         eyeLight.SetActive(true);
         anim.Play("Idle");
     }
-
 }

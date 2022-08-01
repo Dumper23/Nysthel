@@ -85,6 +85,10 @@ public class EnemyActivationZone : MonoBehaviour
                     enemyCount++;
                 }
             }
+            if (enemyNumber != null)
+            {
+                enemyNumber.SetText(enemyCount.ToString());
+            }
             if (enemyCount == 0)
             {
                 finished = true;

@@ -19,6 +19,7 @@ public class StaticEye : Enemy
 
     private void Start()
     {
+        target = FindObjectOfType<Player>().transform;
         audioSource = GetComponent<AudioSource>();
         audioSource.Stop();
         audioSource.pitch = Random.Range(0.70f, 0.90f);
@@ -35,7 +36,16 @@ public class StaticEye : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
-            if (!isSounding) { 
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
+            if (!isSounding)
+            {
                 audioSource.Play();
                 isSounding = true;
             }
@@ -48,7 +58,19 @@ public class StaticEye : Enemy
                 Instantiate(deathSound, transform.position, Quaternion.identity);
                 die();
             }
-            shootLaser();
+            if (!isScared)
+            {
+                hitParticles.gameObject.SetActive(true);
+                hitLight.gameObject.SetActive(true);
+                lineRenderer.enabled = true;
+                shootLaser();
+            }
+            else
+            {
+                hitParticles.gameObject.SetActive(false);
+                hitLight.gameObject.SetActive(false);
+                lineRenderer.enabled = false;
+            }
         }
     }
 
@@ -94,7 +116,6 @@ public class StaticEye : Enemy
                         }
                     }
                 }
-                
             }
             else
             {
@@ -109,7 +130,6 @@ public class StaticEye : Enemy
                     hit.transform.GetComponent<Player>().takeDamage(damage);
                 }
             }
-
         }
     }
 
@@ -127,6 +147,7 @@ public class StaticEye : Enemy
         lineRenderer.SetPosition(1, pos1);
         lineRenderer.SetPosition(2, endPos);
     }
+
     private void drawRay(Vector2 startPos, Vector2 pos1, Vector2 pos2, Vector2 endPos)
     {
         lineRenderer.positionCount = 4;

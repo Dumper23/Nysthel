@@ -184,7 +184,7 @@ public class Bullet : MonoBehaviour
                     {
                         if (!collision.transform.GetComponent<Enemy>().isInFire)
                         {
-                            Instantiate(ADSFire, transform.position, Quaternion.identity);
+                            Instantiate(ADSFire, transform.position, Quaternion.identity, collision.transform);
                             Instantiate(fireHit, collision.transform.position + new Vector3(0, 0.5f, 0), Quaternion.identity, collision.transform);
                         }
                         collision.transform.GetComponent<Enemy>().fireEffect(fireDamage, 10);
@@ -204,7 +204,7 @@ public class Bullet : MonoBehaviour
                     {
                         Instantiate(ADSEarth, transform.position, Quaternion.identity);
                         Instantiate(earthHit, collision.transform.position, Quaternion.identity);
-                        collision.transform.GetComponent<Enemy>().takeDamage(damage / 2);
+                        collision.transform.GetComponent<Enemy>().takeDamage(damage / 3);
                         collision.transform.GetComponent<Enemy>().takeDamage(damage);
                     }
                     else
@@ -226,7 +226,7 @@ public class Bullet : MonoBehaviour
                             {
                                 Instantiate(iceHit, collision.transform.position, Quaternion.identity, collision.transform);
                                 collision.transform.GetComponent<Enemy>().freeze();
-                                Instantiate(ADSIce, transform.position, Quaternion.identity);
+                                Instantiate(ADSIce, transform.position, Quaternion.identity, collision.transform);
                             }
                         }
                     }
@@ -278,7 +278,10 @@ public class Bullet : MonoBehaviour
                 float angle = Mathf.Atan2((player.position - transform.position).normalized.y, (player.position - transform.position).normalized.x) * Mathf.Rad2Deg;
                 p.transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.AngleAxis(angle, Vector3.forward), 10f);
                 Instantiate(afterDestroySound, transform.position, Quaternion.identity);
-                Destroy(this.gameObject);
+                if (SaveVariables.INV_TRUE_AXE != 2)
+                {
+                    Destroy(this.gameObject);
+                }
             }
         }
 

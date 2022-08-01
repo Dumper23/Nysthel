@@ -10,6 +10,7 @@ public class GolemSkill : MonoBehaviour
     public float radious = 6;
     public float attackRate = 2f;
     public GameObject RockSpikes;
+    public float timeToDie = 30f;
 
     private Player player;
     private float nextAttack = 0;
@@ -18,12 +19,14 @@ public class GolemSkill : MonoBehaviour
     private GameObject closestEnemy;
     private string currentState = "idle";
     private Animator anim;
+    private AudioSource audioSource;
 
     private void Start()
     {
+        audioSource = GetComponent<AudioSource>();
         anim = GetComponent<Animator>();
         player = FindObjectOfType<Player>();
-        Invoke("die", 30f);
+        Invoke("die", timeToDie);
     }
 
     private void Update()
@@ -109,12 +112,14 @@ public class GolemSkill : MonoBehaviour
 
     private void basic()
     {
+        audioSource.Play();
         closestEnemy.GetComponent<Enemy>().takeDamage(damageAttackBasic);
         //Sonido golpes Roca
     }
 
     private void spikes()
     {
+        audioSource.Play();
         Instantiate(RockSpikes, closestEnemy.transform.position, Quaternion.identity);
         closestEnemy.GetComponent<Enemy>().takeDamage(damageAttackComplex);
         //Sonido golpes Roca

@@ -12,22 +12,23 @@ public class Ent : Enemy
 
     private AudioSource audioSource;
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = FindObjectOfType<Player>().transform;
         changeAnimationState("Idle");
-        if(firePoint == null)
+        if (firePoint == null)
         {
             firePoint = transform;
         }
     }
 
-    void Update()
+    private void Update()
     {
         if (activated)
         {
-            if (health <= 0) {
+            if (health <= 0)
+            {
                 Instantiate(afterDieSound, transform.position, Quaternion.identity);
                 die();
             }
@@ -41,29 +42,35 @@ public class Ent : Enemy
                 transform.localScale = new Vector3(-1, transform.localScale.y, transform.localScale.z);
             }
         }
-
     }
 
     private void FixedUpdate()
     {
         if (activated)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (!isRanged)
             {
                 bool inRange = Seek();
-                if (Time.time > nextShot && inRange)
+                if (Time.time > nextShot && inRange && !isScared)
                 {
                     nextShot = Time.time + 0.8f;
                     audioSource.clip = audios[0];
                     audioSource.Play();
-
                 }
             }
             else
             {
                 if (Vector3.Magnitude(target.position - transform.position) < range)
                 {
-                    if (Time.time > nextShot)
+                    if (Time.time > nextShot && !isScared)
                     {
                         audioSource.clip = audios[0];
                         audioSource.Play();
@@ -81,7 +88,7 @@ public class Ent : Enemy
         }
     }
 
-    void Shoot()
+    private void Shoot()
     {
         changeAnimationState("Idle");
         GameObject bul = Instantiate(bullet, firePoint.position, transform.rotation);

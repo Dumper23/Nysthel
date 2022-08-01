@@ -553,6 +553,12 @@ MonoBehaviour:
   FIRE_ORB: 0
   EARTH_ORB: 0
   ICE_ORB: 0
+  WATER_SKILL: 0
+  ACID_SKILL: 0
+  GOLEM_SKILL: 0
+  BOOST_SKILL: 0
+  SCARE_SKILL: 0
+  TELEPORT_SKILL: 0
 --- !u!1 &305323372
 GameObject:
   m_ObjectHideFlags: 0
@@ -1918,7 +1924,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 4e1db1b66355baa4ebf72ee9f047f604, type: 2}
   m_audioClip: {fileID: 8300000, guid: 66318e65f24c261428b1a78e07ef1ab4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2847,6 +2853,14 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2912821506344635618, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264033632256458, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: spawned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264033632256458, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: isCloseToStart
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5053264033809018460, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
@@ -3860,6 +3874,30 @@ PrefabInstance:
     - target: {fileID: 5053264033911241991, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
       propertyPath: m_Name
       value: EntryRoom
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264034395579738, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: spawned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264034395579738, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264034962120784, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: spawned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264034962120784, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264035282611818, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: spawned
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5053264035282611818, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e3d438eedb5df244d98a44820e72ea25, type: 3}

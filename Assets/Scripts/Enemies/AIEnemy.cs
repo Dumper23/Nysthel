@@ -42,6 +42,7 @@ public class AIEnemy : Enemy
         }
         else
         {
+            target = FindObjectOfType<Player>().transform;
             minAttackRate = attackRate / 2;
             maxAttackRate = attackRate + attackRate / 2;
             for (int i = 0; i <= waypointCount; i++)
@@ -72,6 +73,14 @@ public class AIEnemy : Enemy
     {
         if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
+            if (target.GetComponent<Player>() && target.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (!attacking)
             {
                 if (!isRanged && !isBomber)
@@ -90,7 +99,14 @@ public class AIEnemy : Enemy
 
                 if ((target.position - transform.position).magnitude <= range)
                 {
-                    Agent.SetDestination(target.position);
+                    if (isScared)
+                    {
+                        Agent.SetDestination(-target.position);
+                    }
+                    else
+                    {
+                        Agent.SetDestination(target.position);
+                    }
                 }
 
                 if (Mathf.Abs((target.position - transform.position).magnitude) <= stoppingRange + 0.2f)
@@ -102,7 +118,7 @@ public class AIEnemy : Enemy
                         //Attack
                         time = 0;
                         attacking = true;
-                        if (!isRanged)
+                        if (!isRanged && !isScared)
                         {
                             anim.Play("attack");
                             audioSource.pitch = Random.Range(0.85f, 1.15f);
@@ -110,9 +126,8 @@ public class AIEnemy : Enemy
                             audioSource.Play();
                             Invoke("endAttack", 0.8f);
                         }
-                        else if (isRanged)
+                        else if (isRanged && !isScared)
                         {
-
                             GameObject go2 = Instantiate(arrow, firePoint.position, Quaternion.identity);
                             go2.GetComponent<EnemyBullet>().damage = damage;
                             if (!isPriest)
@@ -147,7 +162,7 @@ public class AIEnemy : Enemy
             if (isBomber)
             {
                 time += Time.deltaTime;
-                if (time >= Random.Range(minAttackRate, maxAttackRate))
+                if (time >= Random.Range(minAttackRate, maxAttackRate) && !isScared)
                 {
                     //Bomber drop bombs
                     time = 0;
@@ -187,12 +202,11 @@ public class AIEnemy : Enemy
                     currentWaypoint++;
                 }
             }
-            if(health <= 0)
+            if (health <= 0)
             {
                 Instantiate(deathAudio, transform.position, Quaternion.identity);
                 die();
             }
-           
         }
     }
 

@@ -420,6 +420,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 3
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &709600643934250342
@@ -2002,6 +2003,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 2
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &709600644013324187
@@ -12696,6 +12698,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 709600645080228908}
     m_Modifications:
+    - target: {fileID: 5978672497373709740, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -12.36
+      objectReference: {fileID: 0}
     - target: {fileID: 6372678654493212900, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
       propertyPath: m_Name
       value: Barriers
@@ -12747,6 +12753,10 @@ PrefabInstance:
     - target: {fileID: 6402634056015400298, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7102748640232407406, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 9.75
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}

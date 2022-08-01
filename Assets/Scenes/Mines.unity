@@ -6339,7 +6339,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 4e1db1b66355baa4ebf72ee9f047f604, type: 2}
   m_audioClip: {fileID: 8300000, guid: 66318e65f24c261428b1a78e07ef1ab4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -6656,6 +6656,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5417832713993489523, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5417832714446323665, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
       propertyPath: environmentObjects.Array.size
       value: 18
@@ -6736,6 +6740,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5417832714788717129, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5417832715094806820, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
       propertyPath: m_Name
       value: EntryRoomMines
@@ -6788,8 +6796,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5417832715348520425, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5417832716044978553, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417832716044978553, guid: 81ec914d599fef746bf84da21de389f0, type: 3}
+      propertyPath: isCloseToStart
       value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []

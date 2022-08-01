@@ -9,13 +9,29 @@ public class MiniTurtoise : Enemy
 
     private void Start()
     {
+        target = FindObjectOfType<Player>().transform;
         moveDir = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized;
         Destroy(gameObject, dieTime);
     }
 
     private void Update()
     {
-        transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+        if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+        {
+            isScared = true;
+        }
+        else
+        {
+            isScared = false;
+        }
+        if (!isScared)
+        {
+            transform.Translate(moveDir * moveSpeed * Time.deltaTime);
+        }
+        else
+        {
+            transform.Translate((-target.position + transform.position).normalized * moveSpeed * Time.deltaTime);
+        }
         die();
     }
 

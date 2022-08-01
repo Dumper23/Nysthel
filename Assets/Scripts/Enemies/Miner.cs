@@ -28,13 +28,14 @@ public class Miner : Enemy
 
     private bool lastIsMoving = false;
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         groundParticles.Stop();
         target = FindObjectOfType<Player>().transform;
         Physics2D.IgnoreLayerCollision(LayerMask.NameToLayer("EnemyBullet"), LayerMask.NameToLayer("Enemy"));
-        if (Random.Range(0f, 1f) >= movingProbability) {
+        if (Random.Range(0f, 1f) >= movingProbability)
+        {
             move = false;
         }
         else
@@ -43,10 +44,18 @@ public class Miner : Enemy
         }
     }
 
-    void Update()
+    private void Update()
     {
-        if(activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
+        if (activated && GameStateManager.Instance.CurrentGameState == GameState.Gameplay)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (health <= 0)
             {
                 Instantiate(deathSound, transform.position, Quaternion.identity);
@@ -67,8 +76,15 @@ public class Miner : Enemy
                             audioSource.Play();
                             anim.Play("gettingIn");
                         }
-                        
-                        moveDir = (target.position - transform.position).normalized;
+
+                        if (!isScared)
+                        {
+                            moveDir = (target.position - transform.position).normalized;
+                        }
+                        else
+                        {
+                            moveDir = (-target.position + transform.position).normalized;
+                        }
                         Invoke("stopMoving", timeMoving);
                         Invoke("startMoving", animationTime);
                     }
@@ -97,7 +113,7 @@ public class Miner : Enemy
                     if (startedShooting)
                     {
                         time += Time.deltaTime;
-                        if (time >= attackRate)
+                        if (time >= attackRate && !isScared)
                         {
                             time = 0;
                             shoot();

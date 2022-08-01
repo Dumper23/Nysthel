@@ -97,6 +97,7 @@ public class Item
             case ItemType.electricOrb:
             case ItemType.fireOrb:
             case ItemType.earthOrb:
+            case ItemType.iceOrb:
             case ItemType.waterPuddle:
             case ItemType.acidPuddle:
             case ItemType.golem:

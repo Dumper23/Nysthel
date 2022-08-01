@@ -23,6 +23,7 @@ public class RoomTemplates : MonoBehaviour
     public AudioClip endBoss;
     public AudioClip startBoss;
 
+    private int emergencyBreak = 0;
     private bool spawnedBoss;
     private int roomIndex = 0;
 
@@ -82,8 +83,9 @@ public class RoomTemplates : MonoBehaviour
             if (!spawnedBoss)
             {
                 int i = 0;
-                while (!spawnedBoss)
+                while (!spawnedBoss || emergencyBreak >= 100)
                 {
+                    emergencyBreak++;
                     if (i < rooms.Count)
                     {
                         if (rooms[i].GetComponent<AddRoom>().canSpawnBoss)
@@ -98,21 +100,14 @@ public class RoomTemplates : MonoBehaviour
                     }
                     else
                     {
-                        string currentScene = SceneManager.GetActiveScene().name;
-                        Debug.Log(currentScene);
-                        SceneManager.UnloadSceneAsync(currentScene);
-                        SceneManager.LoadScene(currentScene);
+                        SceneManager.LoadScene("Village");
                     }
                 }
-            }
-
-            /*foreach(GameObject room in rooms)
-            {
-				if((room.transform.position - entryRoom.transform.position).magnitude <= 35)
+                if (!spawnedBoss)
                 {
-					Debug.Log(room.transform.name + " is a close room");
+                    SceneManager.LoadScene("Village");
                 }
-            }*/
+            }
         }
         else
         {

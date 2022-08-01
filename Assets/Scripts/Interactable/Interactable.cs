@@ -57,12 +57,12 @@ public class Interactable : MonoBehaviour
 
     private void Update()
     {
-        if (playerIn && !inShop && interactionDialog != null)
+        if (playerIn && !inShop && interactionDialog != null && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
             interactionDialog.SetActive(true);
         }
 
-        if (inRange && Input.GetButtonDown("Interact"))
+        if (inRange && Input.GetButtonDown("Interact") && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
             SaveVariables.PLAYER_LIFE = player.maxHealth;
             SaveVariables.PLAYER_ATTACK = player.damage;
@@ -276,7 +276,7 @@ public class Interactable : MonoBehaviour
                     {
                         string[] s = new string[7];
                         s[0] = "Gromodin: Hello dear customer! Do you see all this stuff?";
-                        s[1] = "Gromodin: Well, it can be all yours by a modest price, it's the cheapest mercancy you will find in the area!";
+                        s[1] = "Gromodin: Well, it can be all yours for a modest price, it's the cheapest mercancy you will find in the area!";
                         s[2] = "Gromodin: Oh...";
                         s[3] = "Gromodin: It's you Nysthel...";
                         s[4] = "Gromodin: Great...";
@@ -322,7 +322,7 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 5000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-
+                        this.enabled = false;
                         SaveVariables.HOLY_STATUE = 1;
                     }
                     else if (SaveVariables.HOLY_STATUE == 1)
@@ -357,7 +357,7 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 4000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-
+                        this.enabled = false;
                         SaveVariables.DAMAGE_STATUE = 1;
                     }
                     else if (SaveVariables.DAMAGE_STATUE == 1)
@@ -392,7 +392,7 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 1000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-
+                        this.enabled = false;
                         SaveVariables.EMMYR_STATUE = 1;
                     }
                     else if (SaveVariables.EMMYR_STATUE == 1)
@@ -427,7 +427,7 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 3500;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-
+                        this.enabled = false;
                         SaveVariables.GOLD_STATUE = 1;
                     }
                     else if (SaveVariables.GOLD_STATUE == 1)
@@ -462,7 +462,7 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 6666;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-
+                        this.enabled = false;
                         SaveVariables.CHANCE_STATUE = 1;
                     }
                     else if (SaveVariables.CHANCE_STATUE == 1)
@@ -681,6 +681,102 @@ public class Interactable : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
+        if (collision.CompareTag("Player"))
+        {
+            playerIn = true;
+            player = collision.GetComponent<Player>();
+            if (text != null)
+            {
+                switch (interaction)
+                {
+                    case Interactions.GoToVillage:
+                        if (SceneManager.GetActiveScene().name != "WoodFarm")
+                        {
+                            text.SetText("Press X or E to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.15f) + " gold (you need to have at least 30 gold)");
+                        }
+                        else
+                        {
+                            text.SetText("Press X or E to return to the Village.");
+                        }
+                        break;
+
+                    case Interactions.OpenChest:
+                        text.SetText("Press X or E to open chest!");
+                        break;
+
+                    case Interactions.GoToAdventure:
+                        text.SetText("Press X or E to select a destination!");
+                        break;
+
+                    case Interactions.EnterBlackSmith:
+                        text.SetText("Press X or E to talk with the BlackSmith");
+                        break;
+
+                    case Interactions.EnterShop:
+                        text.SetText("Press X or E to talk with the Mercader");
+                        break;
+
+                    case Interactions.Save:
+                        text.SetText("Press X or E to save your progress.");
+                        break;
+
+                    case Interactions.GoToWoodFarm:
+                        text.SetText("Press X or E to go to the Wood Farm. It's not a safe place! (Cost: 100)");
+                        break;
+
+                    case Interactions.GoToGoldRush:
+                        text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 250)");
+                        break;
+
+                    case Interactions.EstatuaBendicion:
+                        text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
+                        if (SaveVariables.HOLY_STATUE == 0)
+                            text.SetText("Press X or E to build the Holy Statue! (5000 wood)");
+                        break;
+
+                    case Interactions.EstatuaDamage:
+                        text.SetText("Angry Statue, your damage has been augmented (press to Activate or Desactivate)");
+                        if (SaveVariables.DAMAGE_STATUE == 0)
+                            text.SetText("Press X or E to build the Angry Statue! (4000 wood)");
+                        break;
+
+                    case Interactions.EstatuaEmmyr:
+                        text.SetText("Emmyr's Statue, his soul will allways be with you (press to Activate or Desactivate)");
+                        if (SaveVariables.EMMYR_STATUE == 0)
+                            text.SetText("Press X or E to build Emmyr's Statue! (1000 wood & Emmyr's Soul)");
+                        break;
+
+                    case Interactions.EstatuaOr:
+                        text.SetText("Golden Statue, coins will be more valuable (press to Activate or Desactivate)");
+                        if (SaveVariables.GOLD_STATUE == 0)
+                            text.SetText("Press X or E to build the Golden Statue! (3500 wood)");
+                        break;
+
+                    case Interactions.EstatuaSecondChance:
+                        text.SetText("Resurrection Statue, your chances of having a second chance have been incremented (press to Activate or Desactivate)");
+                        if (SaveVariables.CHANCE_STATUE == 0)
+                            text.SetText("Press X or E to build the Resurrection Statue! (6666 wood)");
+                        break;
+
+                    case Interactions.TalkToStatueRestaurator:
+                        text.SetText("Press X or E to talk with the statue restaurator!");
+                        break;
+
+                    case Interactions.TalkToGoodEnt:
+                        text.SetText("Press X or E to talk with the Good Ent!");
+                        break;
+
+                    case Interactions.ChestShop:
+                        text.SetText("Press X or E to buy 3 random gold Chests by " + chestShopPrice + " gold");
+                        break;
+                }
+            }
+            if (interactionDialog != null)
+            {
+                interactionDialog.SetActive(true);
+            }
+            inRange = true;
+        }
     }
 
     private void OnTriggerExit2D(Collider2D collision)

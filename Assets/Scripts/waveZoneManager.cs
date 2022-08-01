@@ -12,7 +12,12 @@ public class waveZoneManager : MonoBehaviour
     public Transform prizeSpawnPoint;
     public List<GameObject> prizes = new List<GameObject>();
     public TextMeshProUGUI recordText;
+    public GameObject golemReward;
+
     //public int enemiesKilled = 0;
+    public int minutesToRewardGolem = 11;
+
+    public int minutesPassed = 0;
 
     private AudioSource audioSource;
     private int currentEnemies = 0;
@@ -65,15 +70,25 @@ public class waveZoneManager : MonoBehaviour
             timeToSpawn = 0.75f;
         }
 
+        if (minutesPassed == minutesToRewardGolem)
+        {
+            minutesToRewardGolem = 999999;
+            if (SaveVariables.GOLEM_SKILL == 0)
+            {
+                Instantiate(golemReward, prizeSpawnPoint.position, Quaternion.identity);
+            }
+        }
+
         tempTime += Time.deltaTime;
         timeToPrize += Time.deltaTime;
         if (timeToPrize >= 60 && !prizeSpawned)
         {
+            minutesPassed++;
             timeToPrize = 0;
             audioSource.Play();
             prizeSpawned = true;
             Invoke("prizeSpawnedToggle", 0.2f);
-            Instantiate(prizes[Random.Range(0, prizes.Count)], prizeSpawnPoint.position, Quaternion.identity); ;
+            Instantiate(prizes[Random.Range(0, prizes.Count)], prizeSpawnPoint.position, Quaternion.identity);
         }
         timer.SetText("Time: " + Mathf.FloorToInt(tempTime / 60) + "m " + Mathf.RoundToInt(tempTime - (Mathf.FloorToInt(tempTime / 60) * 60)) + "s \n"
             + "Kills: " + Statistics.Instance.enemiesKilled);

@@ -28,6 +28,8 @@ TagManager:
   - coinContainer
   - MineWall
   - skill
+  - timeBar
+  - borderSkill
   layers:
   - Default
   - TransparentFX

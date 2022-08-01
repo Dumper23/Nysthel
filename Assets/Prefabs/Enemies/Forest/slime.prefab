@@ -140,6 +140,9 @@ MonoBehaviour:
   activated: 0
   isInFire: 0
   isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   isRanged: 0
   bullet: {fileID: 0}
   bulletForce: 10
@@ -294,7 +297,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.8
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -1,15 +1,13 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-
 public class buttonInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
-
     #region IPointerEnterHandler implementation
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        if (eventData != null && eventData.hovered.Count >= 3 && eventData.hovered[2].transform.parent.parent.parent != null && eventData.hovered[2].transform.parent.parent.parent.GetComponent<UIInventory>() != null && eventData.hovered[2].transform.parent.childCount >= 6)
+        if (eventData != null && eventData.hovered.Count >= 3 && eventData.hovered[2].transform.parent != null && eventData.hovered[2].transform.parent.parent != null && eventData.hovered[2].transform.parent.parent.parent != null && eventData.hovered[2].transform.parent.parent.parent.GetComponent<UIInventory>() != null && eventData.hovered[2].transform.parent.childCount >= 6)
         {
             eventData.hovered[2].transform.parent.parent.parent.GetComponent<UIInventory>().isPointerIn = true;
             eventData.hovered[2].transform.parent.parent.parent.GetComponent<UIInventory>().showItemInfo(eventData.hovered[2].transform.parent.GetChild(5).name);
@@ -22,10 +20,7 @@ public class buttonInfo : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
         {
             eventData.hovered[1].GetComponent<UIInventory>().isPointerIn = false;
         }
-        
     }
 
-
-    #endregion
-
+    #endregion IPointerEnterHandler implementation
 }

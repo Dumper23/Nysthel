@@ -2344,7 +2344,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 24300002, guid: 4e1db1b66355baa4ebf72ee9f047f604, type: 2}
   m_audioClip: {fileID: 8300000, guid: 66318e65f24c261428b1a78e07ef1ab4, type: 3}
   m_PlayOnAwake: 1
-  m_Volume: 0.35
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -2654,6 +2654,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3539902919140764368, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4672648371893861725, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
       propertyPath: m_RootOrder
       value: 3
@@ -2706,8 +2710,16 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5840096961304471050, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
+      propertyPath: isCloseToStart
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5994111154331906634, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5994111154331906634, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
+      propertyPath: isCloseToStart
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7008478721762704251, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
@@ -2716,6 +2728,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7549650551337660386, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
       propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7549650551337660386, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}
+      propertyPath: isCloseToStart
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8688966087618753574, guid: 53d1f4198037311408a1bdcb47ca726b, type: 3}

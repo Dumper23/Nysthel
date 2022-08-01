@@ -116,7 +116,7 @@ MonoBehaviour:
   item:
     itemType: 19
     amount: 1
-    positionInventory: 0
+    positionInventory: 18
 --- !u!1 &529698199990442680
 GameObject:
   m_ObjectHideFlags: 0

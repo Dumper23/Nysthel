@@ -24,18 +24,25 @@ public class DeathSpectre : Enemy
     private bool isAttacking = false;
     private bool hasSounded = false;
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         target = FindObjectOfType<Player>().transform;
     }
 
-    void Update()
+    private void Update()
     {
+        if (target != null && target.GetComponent<Player>() && target.GetComponent<Player>().scare)
+        {
+            isScared = true;
+        }
+        else
+        {
+            isScared = false;
+        }
+
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
-
-
             if ((target.position - transform.position).magnitude <= range)
             {
                 if (target.position.x > transform.position.x)
@@ -53,13 +60,16 @@ public class DeathSpectre : Enemy
                     {
                         if (Time.time > nextShot)
                         {
-                            nextShot = Time.time + attackRate;
-                            isAttacking = true;
-                            anim.Play("rangedAttack");
-                            Invoke("shoot", 0.75f);
-                            cCollider.offset = new Vector2(0, 0);
-                            xScale = 1;
-                            yScale = 1;
+                            if (!isScared)
+                            {
+                                nextShot = Time.time + attackRate;
+                                isAttacking = true;
+                                anim.Play("rangedAttack");
+                                Invoke("shoot", 0.75f);
+                                cCollider.offset = new Vector2(0, 0);
+                                xScale = 1;
+                                yScale = 1;
+                            }
                         }
                         else
                         {
@@ -75,14 +85,17 @@ public class DeathSpectre : Enemy
                 {
                     if (Time.time > nextShot)
                     {
-                        nextShot = Time.time + meleeAttackRate;
-                        isAttacking = true;
-                        anim.Play("meleeAttack");
-                        meleeAttackEffect.SetActive(true);
-                        xScale = 2;
-                        yScale = 2;
-                        Invoke("meleeAttack", meleeAttackDelay);
-                        Invoke("cancelAttack", 0.6f);
+                        if (!isScared)
+                        {
+                            nextShot = Time.time + meleeAttackRate;
+                            isAttacking = true;
+                            anim.Play("meleeAttack");
+                            meleeAttackEffect.SetActive(true);
+                            xScale = 2;
+                            yScale = 2;
+                            Invoke("meleeAttack", meleeAttackDelay);
+                            Invoke("cancelAttack", 0.6f);
+                        }
                     }
                     else
                     {
@@ -113,7 +126,6 @@ public class DeathSpectre : Enemy
                 isAttacking = false;
             }
 
-
             if (!isAttacking)
             {
                 cCollider.offset = new Vector2(0, 0);
@@ -125,7 +137,6 @@ public class DeathSpectre : Enemy
                 Instantiate(deadSound, transform.position, Quaternion.identity);
                 die();
             }
-
         }
     }
 
@@ -166,7 +177,6 @@ public class DeathSpectre : Enemy
             audioSource.Play();
             hasSounded = true;
         }
-
         if (new Vector2((target.position.x - transform.position.x), target.position.y - transform.position.y).magnitude < meleeAttackRange)
         {
             if (target.position.x > transform.position.x)

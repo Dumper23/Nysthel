@@ -5,8 +5,10 @@ using UnityEngine;
 public class UndeadMage : Enemy
 {
     public GameObject undeadMinion;
+
     [Range(1, 4)]
     public int minionQuantity;
+
     public int maxMinionSpawned = 24;
     public GameObject deadSound;
 
@@ -16,7 +18,7 @@ public class UndeadMage : Enemy
     private float timeToSound = 1f;
     private float timeRandom;
 
-    void Start()
+    private void Start()
     {
         sprite = GetComponent<SpriteRenderer>();
         target = FindObjectOfType<Player>().transform;
@@ -24,11 +26,18 @@ public class UndeadMage : Enemy
         timeRandom = Random.Range(0.8f, 2f);
     }
 
-    void Update()
+    private void Update()
     {
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
-            
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
 
             minionsSpawned = FindObjectsOfType<Undead>().Length;
 
@@ -48,8 +57,7 @@ public class UndeadMage : Enemy
                 sprite.flipX = true;
             }
 
-
-            if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range)
+            if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range && !isScared)
             {
                 timeToSound += Time.time;
                 if (timeToSound >= timeRandom)
@@ -60,7 +68,8 @@ public class UndeadMage : Enemy
                     audioSource.Play();
                 }
                 nextShot = Time.time + attackRate;
-                if (minionsSpawned < maxMinionSpawned) {
+                if (minionsSpawned < maxMinionSpawned)
+                {
                     Spawn();
                 }
             }
@@ -75,17 +84,18 @@ public class UndeadMage : Enemy
         {
             Instantiate(undeadMinion, transform.position + new Vector3(0, 1), Quaternion.identity);
         }
-        else if(minionQuantity == 2)
+        else if (minionQuantity == 2)
         {
             Instantiate(undeadMinion, transform.position + new Vector3(0, 1), Quaternion.identity);
             Instantiate(undeadMinion, transform.position + new Vector3(0, -1), Quaternion.identity);
         }
-        else if(minionQuantity == 3)
+        else if (minionQuantity == 3)
         {
             Instantiate(undeadMinion, transform.position + new Vector3(0, 1), Quaternion.identity);
             Instantiate(undeadMinion, transform.position + new Vector3(0, -1), Quaternion.identity);
             Instantiate(undeadMinion, transform.position + new Vector3(1, 0), Quaternion.identity);
-        }else if(minionQuantity == 4)
+        }
+        else if (minionQuantity == 4)
         {
             Instantiate(undeadMinion, transform.position + new Vector3(0, 1), Quaternion.identity);
             Instantiate(undeadMinion, transform.position + new Vector3(0, -1), Quaternion.identity);

@@ -1,4 +1,4 @@
-  using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,18 +17,25 @@ public class Fungus : Enemy
 
     private AudioSource audioSource;
 
-    void Start()
+    private void Start()
     {
         audioSource = GetComponent<AudioSource>();
         changeAnimationState("Idle");
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = FindObjectOfType<Player>().transform;
     }
 
-    void Update()
+    private void Update()
     {
         if (activated)
         {
-
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (health <= 0)
             {
                 Instantiate(afterDieSound, transform.position, Quaternion.identity);
@@ -37,7 +44,7 @@ public class Fungus : Enemy
 
             if ((target.position - transform.position).magnitude <= range)
             {
-                if (Time.time > nextShot)
+                if (Time.time > nextShot && !isScared)
                 {
                     nextShot = Time.time + attackRate;
                     audioSource.clip = audios[0];
@@ -54,29 +61,27 @@ public class Fungus : Enemy
 
     private void shoot()
     {
-        
         float bulDirX = transform.position.x + Mathf.Sin((angle * Mathf.PI) / 180f);
         float bulDirY = transform.position.y + Mathf.Cos((angle * Mathf.PI) / 180f);
 
         Vector3 bulMoveVector = new Vector3(bulDirX, bulDirY, 0f);
         Vector2 bulDir = (bulMoveVector - transform.position).normalized;
-        
+
         GameObject bul = BulletPool.Instance.GetBullet();
         bul.GetComponent<SpriteRenderer>().sprite = bulletSprite;
         bul.GetComponent<BulletHellBullet>().damage = damage;
-        
+
         bul.transform.position = firePoint.position;
         bul.transform.rotation = firePoint.rotation;
 
         if (isRandomShooter)
         {
-            changeAnimationState("Attack");  
+            changeAnimationState("Attack");
         }
 
         bul.SetActive(true);
         bul.GetComponent<BulletHellBullet>().SetMoveDirection(bulDir);
 
         angle += angleStep;
-
     }
 }

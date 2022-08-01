@@ -38,12 +38,14 @@ public abstract class Enemy : MonoBehaviour
     public bool isFrozen = false;
     public bool isInWater = false;
     public bool isInAcid = false;
+    public bool isScared = false;
 
     private AcidSkill acid;
 
     private void Start()
     {
         startHealth = health;
+        target = FindObjectOfType<Player>().transform;
     }
 
     public virtual void takeDamage(int value)
@@ -124,6 +126,7 @@ public abstract class Enemy : MonoBehaviour
     {
         anim.speed = 0;
         target = transform;
+        isFrozen = true;
         nextShot = 99999;
         Invoke("stopFrozen", 3.75f);
     }
@@ -141,40 +144,32 @@ public abstract class Enemy : MonoBehaviour
         bool inRange = false;
         if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
         {
-            if (target.GetComponent<Player>())
+            if (isScared)
             {
-                if (target.GetComponent<Player>().scare)
+                if (Mathf.Abs((target.position - transform.position).magnitude) <= 15f)
                 {
-                    nextShot = 99999;
-                    if (Mathf.Abs((target.position - transform.position).magnitude) <= 15f)
-                    {
-                        inRange = true;
-                        transform.Translate((-target.position + transform.position).normalized * moveSpeed * Time.deltaTime);
-                        changeAnimationState("Walk");
-                    }
-                    else
-                    {
-                        inRange = false;
-                        changeAnimationState("Idle");
-                    }
+                    inRange = true;
+                    transform.Translate((-target.position + transform.position).normalized * moveSpeed * Time.deltaTime);
+                    changeAnimationState("Walk");
                 }
                 else
                 {
-                    if (nextShot > 100)
-                    {
-                        nextShot = 0;
-                    }
-                    if (Mathf.Abs((target.position - transform.position).magnitude) <= range)
-                    {
-                        inRange = true;
-                        transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.deltaTime);
-                        changeAnimationState("Walk");
-                    }
-                    else
-                    {
-                        inRange = false;
-                        changeAnimationState("Idle");
-                    }
+                    inRange = false;
+                    changeAnimationState("Idle");
+                }
+            }
+            else
+            {
+                if (Mathf.Abs((target.position - transform.position).magnitude) <= range)
+                {
+                    inRange = true;
+                    transform.Translate((target.position - transform.position).normalized * moveSpeed * Time.deltaTime);
+                    changeAnimationState("Walk");
+                }
+                else
+                {
+                    inRange = false;
+                    changeAnimationState("Idle");
                 }
             }
         }
@@ -286,7 +281,7 @@ public abstract class Enemy : MonoBehaviour
             if (!isInAcid)
             {
                 acid = collision.GetComponent<AcidSkill>();
-                InvokeRepeating("acidDamage", 0, 1);
+                InvokeRepeating("acidDamage", 0, 0.5f);
                 isInAcid = true;
             }
         }

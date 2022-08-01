@@ -136,7 +136,12 @@ MonoBehaviour:
   bloodParticles: {fileID: 9221127518733234886, guid: 1fa862c0e67f21d4fac9d849a3822c94, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
   isRanged: 0
   bullet: {fileID: 0}
   audios:
@@ -197,7 +202,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 108
   DopplerLevel: 1
   MinDistance: 15.878042
   MaxDistance: 26.559275

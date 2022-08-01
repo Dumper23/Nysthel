@@ -35,6 +35,7 @@ public class UIInventory : MonoBehaviour
         orbEquiped = transform.Find("OE");
         skillEquiped = transform.Find("SE");
         itemSpecs = transform.Find("itemSpecs");
+
         container.parent.gameObject.SetActive(false);
     }
 
@@ -217,6 +218,69 @@ public class UIInventory : MonoBehaviour
             skillEquiped.gameObject.SetActive(true);
             skillImage.gameObject.SetActive(true);
         }
+
+        checkImages();
+
+        if (!isPointerIn && EventSystem.current.currentSelectedGameObject != null)
+        {
+            if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
+            {
+                showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(5).name);
+            }
+        }
+    }
+
+    public void checkFirstTime()
+    {
+        if (SaveVariables.WATER_SKILL < 2 && SaveVariables.ACID_SKILL < 2 && SaveVariables.GOLEM_SKILL < 2 && SaveVariables.BOOST_SKILL < 2 && SaveVariables.SCARE_SKILL < 2 && SaveVariables.TELEPORT_SKILL < 2)
+        {
+            skillEquiped.gameObject.SetActive(false);
+            skillImage.gameObject.SetActive(false);
+        }
+        else
+        {
+            skillEquiped.gameObject.SetActive(true);
+            skillImage.gameObject.SetActive(true);
+        }
+        if (SaveVariables.WATER_SKILL == 2)
+        {
+            skillEquiped.GetComponent<Image>().sprite = inventory.GetItem(Item.ItemType.waterPuddle).GetSprite();
+            skillImage.sprite = inventory.GetItem(Item.ItemType.waterPuddle).GetSprite();
+        }
+
+        if (SaveVariables.ACID_SKILL == 2)
+        {
+            skillEquiped.GetComponent<Image>().sprite = inventory.GetItem(Item.ItemType.acidPuddle).GetSprite();
+            skillImage.sprite = inventory.GetItem(Item.ItemType.acidPuddle).GetSprite();
+        }
+
+        if (SaveVariables.GOLEM_SKILL == 2)
+        {
+            skillEquiped.GetComponent<Image>().sprite = inventory.GetItem(Item.ItemType.golem).GetSprite();
+            skillImage.sprite = inventory.GetItem(Item.ItemType.golem).GetSprite();
+        }
+
+        if (SaveVariables.BOOST_SKILL == 2)
+        {
+            skillEquiped.GetComponent<Image>().sprite = inventory.GetItem(Item.ItemType.boost).GetSprite();
+            skillImage.sprite = inventory.GetItem(Item.ItemType.boost).GetSprite();
+        }
+
+        if (SaveVariables.SCARE_SKILL == 2)
+        {
+            skillEquiped.GetComponent<Image>().sprite = inventory.GetItem(Item.ItemType.scare).GetSprite();
+            skillImage.sprite = inventory.GetItem(Item.ItemType.scare).GetSprite();
+        }
+
+        if (SaveVariables.TELEPORT_SKILL == 2)
+        {
+            skillEquiped.GetComponent<Image>().sprite = inventory.GetItem(Item.ItemType.teleportClone).GetSprite();
+            skillImage.sprite = inventory.GetItem(Item.ItemType.teleportClone).GetSprite();
+        }
+    }
+
+    private void checkImages()
+    {
         foreach (Item item in inventory.getItemList())
         {
             switch (item.itemType)
@@ -355,14 +419,6 @@ public class UIInventory : MonoBehaviour
                     break;
             }
         }
-
-        if (!isPointerIn && EventSystem.current.currentSelectedGameObject != null)
-        {
-            if (EventSystem.current.currentSelectedGameObject.name == "ItemTemplate(Clone)")
-            {
-                showItemInfo(EventSystem.current.currentSelectedGameObject.transform.GetChild(5).name);
-            }
-        }
     }
 
     private void Clicked(Item item)
@@ -442,7 +498,7 @@ public class UIInventory : MonoBehaviour
 
             case "basicAxe":
                 description.text = "DMG = +0\nSPD = 3";
-                infoName.text = "Emmyr's Axe";
+                infoName.text = "Emmyr's gifted Axe";
                 break;
 
             case "bloodAxe":
@@ -472,7 +528,7 @@ public class UIInventory : MonoBehaviour
 
             case "nysthelAxe":
                 description.text = "DMG = +20\nSPD = 4";
-                infoName.text = "Messenger Axe";
+                infoName.text = "Nysthel Axe";
                 break;
 
             case "trueAxe":
@@ -508,7 +564,7 @@ public class UIInventory : MonoBehaviour
                 }
                 else
                 {
-                    description.text = "It soaks the enemies in water";
+                    description.text = "It soaks the enemies in water\nOnly equippable in the Village!";
                     infoName.text = "Water Puddle";
                 }
                 break;
@@ -521,7 +577,7 @@ public class UIInventory : MonoBehaviour
                 }
                 else
                 {
-                    description.text = "It soaks the enemies in acid dealing DMG to them";
+                    description.text = "It soaks the enemies in acid dealing DMG to them\nOnly equippable in the Village!";
                     infoName.text = "Acid Puddle";
                 }
                 break;
@@ -529,12 +585,12 @@ public class UIInventory : MonoBehaviour
             case "golem":
                 if (SaveVariables.GOLEM_SKILL == 0)
                 {
-                    description.text = "It is given as a reward in the Gold Rush for lasting more than 5 minutes!";
+                    description.text = "It is given as a reward in the Gold Rush for lasting more than 4 minutes!";
                     infoName.text = "?";
                 }
                 else
                 {
-                    description.text = "It spawns a golem during some time that will help you kill your enemies!";
+                    description.text = "It spawns a golem during some time that will help you kill your enemies!\nOnly equippable in the Village!";
                     infoName.text = "Rock Golem";
                 }
                 break;
@@ -547,7 +603,7 @@ public class UIInventory : MonoBehaviour
                 }
                 else
                 {
-                    description.text = "Makes nysthel enter a rage state, your damage and attack speed will increase";
+                    description.text = "Makes nysthel enter a rage state, your damage and attack speed will increase\nOnly equippable in the Village!";
                     infoName.text = "Holy blessing";
                 }
                 break;
@@ -560,7 +616,7 @@ public class UIInventory : MonoBehaviour
                 }
                 else
                 {
-                    description.text = "Nysthel uses dark forces to create a shield that will scare the enemies and prevent her from any damage";
+                    description.text = "Nysthel uses dark forces to create a shield that will scare the enemies and prevent her from any damage\nOnly equippable in the Village!";
                     infoName.text = "Dark spell";
                 }
                 break;
@@ -573,7 +629,7 @@ public class UIInventory : MonoBehaviour
                 }
                 else
                 {
-                    description.text = "The dark energy opens a portal, to which Nysthel can return whenever she wants";
+                    description.text = "The dark energy opens a portal, to which Nysthel can return whenever she wants\nOnly equippable in the Village!";
                     infoName.text = "Dark portal";
                 }
                 break;

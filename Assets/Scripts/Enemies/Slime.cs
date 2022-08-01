@@ -23,7 +23,7 @@ public class Slime : Enemy
 
     private void Start()
     {
-        target = GameObject.FindGameObjectWithTag("Player").transform;
+        target = FindObjectOfType<Player>().transform;
         changeAnimationState("Idle");
         shotPatterns = new Vector2[4];
         shotPatterns[0] = new Vector2(1, 0);
@@ -36,6 +36,14 @@ public class Slime : Enemy
     {
         if (activated)
         {
+            if (target != null && target.gameObject.GetComponent<Player>() && target.gameObject.GetComponent<Player>().scare)
+            {
+                isScared = true;
+            }
+            else
+            {
+                isScared = false;
+            }
             if (health <= 0)
             {
                 Instantiate(afterDieSound, transform.position, Quaternion.identity);
@@ -53,7 +61,7 @@ public class Slime : Enemy
 
             if (isRanged)
             {
-                if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range)
+                if (Time.time > nextShot && Vector3.Magnitude(target.position - transform.position) < range && !isScared)
                 {
                     nextShot = Time.time + attackRate;
                     Shoot();

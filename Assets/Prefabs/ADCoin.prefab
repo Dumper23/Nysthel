@@ -143,3 +143,4 @@ MonoBehaviour:
   timeToDestroy: 1.5
   isSimple: 1
   isPool: 0
+  isSkill: 0

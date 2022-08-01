@@ -9794,6 +9794,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 4
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &5817438638406734471
@@ -10262,6 +10263,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 2
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &5817438638946204641
@@ -13096,6 +13098,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5817438639818112094}
     m_Modifications:
+    - target: {fileID: 5978672497373709740, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -12.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6165905627281688266, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -20.21
+      objectReference: {fileID: 0}
     - target: {fileID: 6372678654493212900, guid: 673ebeda2d0f5f643851b59bca3548b6, type: 3}
       propertyPath: m_Name
       value: Barriers
