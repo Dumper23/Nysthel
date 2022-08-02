@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a80b319761e4422419e56b034e617fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 150
+  health: 250
   damage: 35
   maxGoldToGive: 30
   minGoldToGive: 25
@@ -211,7 +211,13 @@ MonoBehaviour:
   bloodParticles: {fileID: 8870822980127303738, guid: 596656cd70782f041ba7bc3555958a03, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   stoppingRange: 11.9
   weapon: {fileID: 2122804986832153499}
   lanceRotationSpeed: 0.04

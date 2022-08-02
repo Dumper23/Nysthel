@@ -41,12 +41,12 @@ public class ItemShopItem
             case ItemType.bloodAxe: return 1600;
             case ItemType.seekAxe: return 2000;
             case ItemType.battleAxe: return 2600;
-            case ItemType.nysthelAxe: return 3000;
-            case ItemType.trueAxe: return 3200;
+            case ItemType.nysthelAxe: return 4300;
+            case ItemType.trueAxe: return 5000;
             case ItemType.shield: return 75;
-            case ItemType.electricOrb: return 1750;
-            case ItemType.fireOrb: return 1400;
-            case ItemType.earthOrb: return 1600;
+            case ItemType.electricOrb: return 1650;
+            case ItemType.fireOrb: return 850;
+            case ItemType.earthOrb: return 1400;
             case ItemType.iceOrb: return 450;
         }
     }

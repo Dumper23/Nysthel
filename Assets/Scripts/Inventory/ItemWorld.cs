@@ -26,12 +26,12 @@ public class ItemWorld : MonoBehaviour
     }
 
     private Item item;
-    private SpriteRenderer spriteRenderer;
+    public SpriteRenderer spriteRenderer;
     private TextMeshPro textAmount;
 
     private void Awake()
     {
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        //spriteRenderer = GetComponent<SpriteRenderer>();
         textAmount = transform.Find("textAmount").GetComponent<TextMeshPro>();
     }
 
@@ -39,7 +39,7 @@ public class ItemWorld : MonoBehaviour
     {
         this.item = item;
         spriteRenderer.sprite = item.GetSprite();
-        if(item.amount > 1)
+        if (item.amount > 1)
         {
             textAmount.SetText(item.amount.ToString());
         }
@@ -58,6 +58,4 @@ public class ItemWorld : MonoBehaviour
     {
         Destroy(gameObject);
     }
-
-
 }

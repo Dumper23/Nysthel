@@ -89,7 +89,6 @@ public class SaveVariablesDebug : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.H))
         {
-            Debug.Log("Cheat code activated");
             FindObjectOfType<Player>().gold = 999999;
             FindObjectOfType<Player>().wood = 999999;
             SaveVariables.PLAYER_GOLD = 999999;

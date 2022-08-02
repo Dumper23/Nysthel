@@ -318,8 +318,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 50
   damage: 15
-  maxGoldToGive: 60
-  minGoldToGive: 50
+  maxGoldToGive: 50
+  minGoldToGive: 40
   moveSpeed: 2
   startHealth: 0
   rb: {fileID: 7248503250335689256}
@@ -327,13 +327,19 @@ MonoBehaviour:
   firePoint: {fileID: 0}
   attackRate: 5
   range: 50
-  coin: {fileID: 6941140493267274604, guid: 09105f532f6918d48ba2d4602191e226, type: 3}
+  coinType: 0
   coinForce: 2
   bloodStain: {fileID: 4253468341987095879, guid: d23d9580df0405841b5baaa0a525179c, type: 3}
   bloodParticles: {fileID: 3845195260188331717, guid: 1b131c4f1a44d5d408e50f0afc12cb3d, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   timeHidden: 3
   bulletSeek: {fileID: 665277971771172335, guid: ccdd2adaeb0311247a1fa9a13da651d3, type: 3}
   bullet: {fileID: 665277971771172335, guid: 7d4235d2ab9915e4696bbbfb647820c2, type: 3}

@@ -76,8 +76,8 @@ public class Statistics : MonoBehaviour
 
     public void goToVillage()
     {
-        Time.timeScale = 1f;
-        GameStateManager.Instance.SetState(GameState.Gameplay);
+        Time.timeScale = 0f;
+        GameStateManager.Instance.SetState(GameState.Paused);
         loadingScreen.SetActive(true);
         SceneManager.UnloadSceneAsync(SceneManager.GetActiveScene().buildIndex);
         SceneManager.LoadSceneAsync("Village");

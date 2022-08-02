@@ -176,8 +176,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 45
   damage: 10
-  maxGoldToGive: 50
-  minGoldToGive: 30
+  maxGoldToGive: 40
+  minGoldToGive: 20
   moveSpeed: 2
   startHealth: 0
   rb: {fileID: 8577376506480156901}

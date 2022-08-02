@@ -85,31 +85,31 @@ public class UiShop : MonoBehaviour
         }
         templates.Clear();
 
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 0)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 0)
         {
             CreateItemButton(ShopItem.ItemType.LifeUpgrade, ShopItem.GetSprite(ShopItem.ItemType.LifeUpgrade), "Life Upgrade", ShopItem.GetCost(ShopItem.ItemType.LifeUpgrade), 0);
         }
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 1)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 1)
         {
             CreateItemButton(ShopItem.ItemType.AttackUpgrade, ShopItem.GetSprite(ShopItem.ItemType.AttackUpgrade), "Attack Upgrade", ShopItem.GetCost(ShopItem.ItemType.AttackUpgrade), 1);
         }
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 2)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 2)
         {
             CreateItemButton(ShopItem.ItemType.SpeedUpgrade, ShopItem.GetSprite(ShopItem.ItemType.SpeedUpgrade), "Speed Upgrade", ShopItem.GetCost(ShopItem.ItemType.SpeedUpgrade), 2);
         }
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 3)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 3)
         {
             CreateItemButton(ShopItem.ItemType.AttackSpeedUpgrade, ShopItem.GetSprite(ShopItem.ItemType.AttackSpeedUpgrade), "Attack Speed Upgrade", ShopItem.GetCost(ShopItem.ItemType.AttackSpeedUpgrade), 3);
         }
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 4)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 4)
         {
             CreateItemButton(ShopItem.ItemType.RangeUpgrade, ShopItem.GetSprite(ShopItem.ItemType.RangeUpgrade), "Range Upgrade", ShopItem.GetCost(ShopItem.ItemType.RangeUpgrade), 4);
         }
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 5)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 5)
         {
             CreateItemButton(ShopItem.ItemType.DashRecoveryUpgrade, ShopItem.GetSprite(ShopItem.ItemType.DashRecoveryUpgrade), "Dash Recovery Upgrade", ShopItem.GetCost(ShopItem.ItemType.DashRecoveryUpgrade), 5);
         }
-        if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) && SaveVariables.BLACKSMITH_LEVEL >= 6)
+        if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) > ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) - 1 && SaveVariables.BLACKSMITH_LEVEL >= 6)
         {
             CreateItemButton(ShopItem.ItemType.DashRangeUpgrade, ShopItem.GetSprite(ShopItem.ItemType.DashRangeUpgrade), "Dash Range Upgrade", ShopItem.GetCost(ShopItem.ItemType.DashRangeUpgrade), 6);
         }
@@ -205,6 +205,69 @@ public class UiShop : MonoBehaviour
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) + ") Dash Recv.:\t\t" + s[4].ToString("F2") +
                     "\n(" + ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade) + "/" + ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) + ") Dash Range:\t\t" + s[5].ToString("F2");
             }
+            for (int i = 0; i < templates.Count; i++)
+            {
+                if (templates[i] != null)
+                {
+                    if (templates[i].Find("itemName") != null)
+                    {
+                        if (templates[i].Find("itemName").GetComponent<TextMeshProUGUI>() != null)
+                        {
+                            switch (templates[i].Find("itemName").GetComponent<TextMeshProUGUI>().text)
+                            {
+                                case "Life Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.LifeUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.LifeUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+
+                                case "Attack Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+
+                                case "Speed Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.SpeedUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.SpeedUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+
+                                case "Attack Speed Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.AttackSpeedUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.AttackSpeedUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+
+                                case "Range Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.RangeUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.RangeUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+
+                                case "Dash Recovery Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRecoveryUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRecoveryUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+
+                                case "Dash Range Upgrade":
+                                    if (ShopItem.GetMaxLevel(ShopItem.ItemType.DashRangeUpgrade) <= ShopItem.GetCurrentLevel(ShopItem.ItemType.DashRangeUpgrade))
+                                    {
+                                        templates[i].gameObject.SetActive(false);
+                                    }
+                                    break;
+                            }
+                        }
+                    }
+                }
+            }
             SaveManager.Instance.SaveGame();
         }
         else
@@ -275,6 +338,7 @@ public class UiShop : MonoBehaviour
             }
             //EventSystem.current.SetSelectedGameObject(templates[itemsShown[0]].gameObject);
         }
+        GenerateUI();
     }
 
     public void show(IShopCustomer shopCustomer)

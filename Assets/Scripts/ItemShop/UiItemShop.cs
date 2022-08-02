@@ -13,6 +13,8 @@ public class UiItemShop : MonoBehaviour
     private List<Transform> templates = new List<Transform>();
     public Interactable shopInteractable;
 
+    private Player player;
+
     private int lastItemSelected = 0;
 
     private void Awake()
@@ -24,6 +26,7 @@ public class UiItemShop : MonoBehaviour
 
     private void Start()
     {
+        player = FindObjectOfType<Player>();
         GenerateUI();
         hide();
     }
@@ -145,12 +148,41 @@ public class UiItemShop : MonoBehaviour
             shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Already bought!");
             shopItemTransform.Find("gold").gameObject.SetActive(false);
         }
+        else if (itemType == ItemShopItem.ItemType.smallHealthPotion && SaveVariables.INV_SMALL_POTION >= 5)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Out of stock!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemType == ItemShopItem.ItemType.bigHealthPotion && SaveVariables.INV_BIG_POTION >= 5)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Out of stock!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemType == ItemShopItem.ItemType.shieldPotion && SaveVariables.INV_SHIELD_POTION >= 5)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Out of stock!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemType == ItemShopItem.ItemType.goldPotion && SaveVariables.INV_GOLD_POTION >= 5)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Out of stock!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemType == ItemShopItem.ItemType.teleportPotion && SaveVariables.INV_TELEPORT_POTION >= 5)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Out of stock!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
+        else if (itemType == ItemShopItem.ItemType.timePotion && SaveVariables.INV_TIME_POTION >= 5)
+        {
+            shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText("Out of stock!");
+            shopItemTransform.Find("gold").gameObject.SetActive(false);
+        }
         else
         {
-            shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
             shopItemTransform.Find("itemCost").GetComponent<TextMeshProUGUI>().SetText(itemCost.ToString());
         }
-
+        shopItemTransform.Find("itemName").GetComponent<TextMeshProUGUI>().SetText(itemName);
         templates.Add(shopItemTransform);
 
         shopItemTransform.Find("itemIcon").GetComponent<Image>().sprite = itemSprite;
@@ -167,46 +199,88 @@ public class UiItemShop : MonoBehaviour
     {
         if (itemType == ItemShopItem.ItemType.shield && SaveVariables.PLAYER_DEFENSE >= 50)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.doubleAxe && SaveVariables.INV_DOUBLE_AXE != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.seekAxe && SaveVariables.INV_SEEK_AXE != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.bloodAxe && SaveVariables.INV_BLOOD_AXE != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.nysthelAxe && SaveVariables.INV_NYSTHEL_AXE != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.trueAxe && SaveVariables.INV_TRUE_AXE != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.battleAxe && SaveVariables.INV_BATTLE_AXE != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.electricOrb && SaveVariables.ELECTRIC_ORB != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.fireOrb && SaveVariables.FIRE_ORB != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.earthOrb && SaveVariables.EARTH_ORB != 0)
         {
+            player.playNegativeAction();
             return;
         }
         if (itemType == ItemShopItem.ItemType.iceOrb && SaveVariables.ICE_ORB != 0)
         {
+            player.playNegativeAction();
+            return;
+        }
+
+        if (itemType == ItemShopItem.ItemType.smallHealthPotion && SaveVariables.INV_SMALL_POTION >= 5)
+        {
+            player.playNegativeAction();
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.bigHealthPotion && SaveVariables.INV_BIG_POTION >= 5)
+        {
+            player.playNegativeAction();
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.shieldPotion && SaveVariables.INV_SHIELD_POTION >= 5)
+        {
+            player.playNegativeAction();
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.goldPotion && SaveVariables.INV_GOLD_POTION >= 5)
+        {
+            player.playNegativeAction();
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.teleportPotion && SaveVariables.INV_TELEPORT_POTION >= 5)
+        {
+            player.playNegativeAction();
+            return;
+        }
+        if (itemType == ItemShopItem.ItemType.timePotion && SaveVariables.INV_TIME_POTION >= 5)
+        {
+            player.playNegativeAction();
             return;
         }
 

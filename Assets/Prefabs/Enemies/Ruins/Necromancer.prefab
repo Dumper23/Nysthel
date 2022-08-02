@@ -360,8 +360,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 90
   damage: 10
-  maxGoldToGive: 50
-  minGoldToGive: 40
+  maxGoldToGive: 40
+  minGoldToGive: 30
   moveSpeed: 1
   startHealth: 0
   rb: {fileID: 8920577469684989695}
@@ -375,7 +375,13 @@ MonoBehaviour:
   bloodParticles: {fileID: 2847033719132464291, guid: 33258756367c86a40a4bc6a997560f2c, type: 3}
   immune: 0
   damageNumbers: {fileID: 5436016289593992110, guid: 59b510d2c84315d479ebdac8e1ece862, type: 3}
+  immuneToElementalEffects: 0
   activated: 0
+  isInFire: 0
+  isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   undeadMinion: {fileID: 2918943423871706559, guid: 74b561d46c4afba4c86201b6d9fb527a, type: 3}
   minionQuantity: 4
   maxMinionSpawned: 8

@@ -139,8 +139,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 66
   damage: 20
-  maxGoldToGive: 60
-  minGoldToGive: 50
+  maxGoldToGive: 50
+  minGoldToGive: 40
   moveSpeed: 3
   startHealth: 0
   rb: {fileID: 0}
@@ -158,6 +158,9 @@ MonoBehaviour:
   activated: 0
   isInFire: 0
   isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   meleeAttackRange: 4
   bullet: {fileID: 313272557742413170, guid: c38aa8f41152cbc498dd8bb90c7de183, type: 3}
   meleeAttackRate: 1

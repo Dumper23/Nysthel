@@ -56,6 +56,8 @@ public class Player : MonoBehaviour, IShopCustomer
     private Vector3 directionToShoot;
 
     [Header("--------------weapon config--------------")]
+    public int totalDamage = 0;
+
     public float bloodyAxeRateIncrement = 0.2f;
 
     public float doubleAxeRateIncrement = 0.44f;
@@ -93,6 +95,7 @@ public class Player : MonoBehaviour, IShopCustomer
     [Header("--------------Player Stats--------------")]
     public int maxHealth = 50;
 
+    public int maxPotions = 7;
     public int gold;
     public int wood;
     public int woodMultiplier = 1;
@@ -281,9 +284,6 @@ public class Player : MonoBehaviour, IShopCustomer
             moveSpeed = moveSpeed * 2;
             attackRate = attackRate / 2;
             Time.timeScale = 0.5f;
-
-            inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
-            SaveVariables.INV_TIME_POTION--;
         }
         if (skillTimeBar.fillAmount >= 0.99f)
         {
@@ -476,7 +476,7 @@ public class Player : MonoBehaviour, IShopCustomer
                 firePoint.localPosition = new Vector3(Mathf.Clamp(aimPos.x, -0.6f, 0.6f), Mathf.Clamp(aimPos.y, -0.6f, 0.6f), 0);
             }
 
-            if (!scare)
+            if (!scare && !shielded)
             {
                 if (Input.GetButton("Attack"))
                 {
@@ -666,6 +666,10 @@ public class Player : MonoBehaviour, IShopCustomer
                     Instantiate(teleportStart);
                     Invoke("teleport", 1.3f);
                 }
+                else
+                {
+                    playNegativeAction();
+                }
             }
             borderSkill.fillAmount = 1 - (counterSkill / skillTime);
             skillTimeBar.fillAmount = (counterSkill / totalTime);
@@ -819,50 +823,59 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        /*
-        if (collision.transform.tag == "Coin")
-        {
-            gold += (1 * goldMultiplier);
-            Statistics.Instance.goldCollected += (1 * goldMultiplier);
-            updateGold();
-            SaveVariables.PLAYER_GOLD = gold;
-            coinSound.name = "CoinSounding";
-            Instantiate(coinSound, transform);
-            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
-        }
-        if (collision.transform.tag == "Coin2")
-        {
-            gold += (3 * goldMultiplier);
-            Statistics.Instance.goldCollected += (3 * goldMultiplier);
-            updateGold();
-            SaveVariables.PLAYER_GOLD = gold;
-            coinSound.name = "CoinSounding";
-            Instantiate(coinSound, transform);
-            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
-        }
-        if (collision.transform.tag == "Coin3")
-        {
-            gold += (5 * goldMultiplier);
-            Statistics.Instance.goldCollected += (5 * goldMultiplier);
-            updateGold();
-            SaveVariables.PLAYER_GOLD = gold;
-            coinSound.name = "CoinSounding";
-            Instantiate(coinSound, transform);
-            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
-        }
-        if (collision.transform.tag == "Wood")
-        {
-            wood += (1 * woodMultiplier);
-            SaveVariables.PLAYER_WOOD += (1 * woodMultiplier);
-            woodText.SetText(wood.ToString());
-            audioSource[PICKUP_AUDIO].clip = audios[PICKUP_AUDIO];
-            audioSource[PICKUP_AUDIO].Play();
-            collision.GetComponentInParent<Coin>().gameObject.SetActive(false);
-        }
-        */
         ItemWorld iw = collision.transform.GetComponent<ItemWorld>();
         if (iw != null)
         {
+            switch (iw.getItem().itemType)
+            {
+                case Item.ItemType.smallPotion:
+                    if (SaveVariables.INV_SMALL_POTION + iw.getItem().amount > maxPotions)
+                    {
+                        playNegativeAction();
+                        return;
+                    }
+                    break;
+
+                case Item.ItemType.bigPotion:
+                    if (SaveVariables.INV_BIG_POTION + iw.getItem().amount > maxPotions)
+                    {
+                        playNegativeAction();
+                        return;
+                    }
+                    break;
+
+                case Item.ItemType.shieldPotion:
+                    if (SaveVariables.INV_SHIELD_POTION + iw.getItem().amount > maxPotions)
+                    {
+                        playNegativeAction();
+                        return;
+                    }
+                    break;
+
+                case Item.ItemType.goldPotion:
+                    if (SaveVariables.INV_GOLD_POTION + iw.getItem().amount > maxPotions)
+                    {
+                        playNegativeAction();
+                        return;
+                    }
+                    break;
+
+                case Item.ItemType.timePotion:
+                    if (SaveVariables.INV_TIME_POTION + iw.getItem().amount > maxPotions)
+                    {
+                        playNegativeAction();
+                        return;
+                    }
+                    break;
+
+                case Item.ItemType.teleportPotion:
+                    if (SaveVariables.INV_TELEPORT_POTION + iw.getItem().amount > maxPotions)
+                    {
+                        playNegativeAction();
+                        return;
+                    }
+                    break;
+            }
             pickUpParticles.gameObject.transform.position = collision.transform.position;
             if (iw.getItem().itemType == Item.ItemType.smallPotion || iw.getItem().itemType == Item.ItemType.bigPotion)
             {
@@ -1059,48 +1072,56 @@ public class Player : MonoBehaviour, IShopCustomer
             if (bloodyaxe)
             {
                 tempDamage = damage + bloodyAxeDamageIncrement;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + bloodyAxeRateIncrement;
             }
             else if (multiaxe)
             {
                 tempDamage = damage;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage * 4;
                 nextFire = Time.time + attackRate + multiAxeRateIncrement;
             }
             else if (doubleaxe)
             {
                 tempDamage = damage;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage * 2;
                 nextFire = Time.time + attackRate + doubleAxeRateIncrement;
             }
             else if (seekaxe)
             {
                 tempDamage = damage + seekAxeDamageIncrement;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + seekAxeRateIncrement;
             }
             else if (battleaxe)
             {
                 tempDamage = damage + battleAxeDamageIncrement;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + battleAxeRateIncrement;
             }
             else if (nysthelaxe)
             {
                 tempDamage = damage + nysthelAxeDamageIncrement;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + nysthelAxeRateIncrement;
             }
             else if (trueaxe)
             {
                 tempDamage = damage + trueAxeDamageIncrement;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + trueAxeRateIncrement;
             }
             else
             {
                 tempDamage = damage;
+                totalDamage = tempDamage;
                 DPSdamage = tempDamage;
                 nextFire = Time.time + attackRate + basicAxeRateIncrement;
             }
@@ -1220,6 +1241,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void battleBullets()
     {
+        audioSource[ATTACK_AUDIO].clip = audios[0];
+        audioSource[ATTACK_AUDIO].Play();
         directionToShoot = (firePoint.position - transform.position).normalized;
         attacking = true;
         Invoke("stopAttacking", animationDelay);
@@ -1302,6 +1325,7 @@ public class Player : MonoBehaviour, IShopCustomer
     {
         if (currentHealth <= 0 && !goldSubtracted && !hasSecondChance)
         {
+            GameStateManager.Instance.SetState(GameState.Paused);
             if (SceneManager.GetActiveScene().name == "Tutorial")
             {
                 SceneManager.LoadScene("Tutorial");
@@ -1521,6 +1545,9 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (!timeSlowed && !shielded && !goldRushed)
                     {
                         isTimeSlowed = true;
+
+                        inventory.RemoveItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+                        SaveVariables.INV_TIME_POTION--;
                         audioSource[PICKUP_AUDIO].clip = audios[7];
                         audioSource[PICKUP_AUDIO].Play();
                     }
@@ -1544,7 +1571,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (nysthelaxe) nysthelaxe = false;
                     if (trueaxe) trueaxe = false;
                     multiaxe = true;
@@ -1563,7 +1597,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (nysthelaxe) nysthelaxe = false;
                     if (trueaxe) trueaxe = false;
                     doubleaxe = true;
@@ -1582,7 +1623,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
                     if (seekaxe) seekaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (nysthelaxe) nysthelaxe = false;
                     if (trueaxe) trueaxe = false;
                     basicaxe = true;
@@ -1601,7 +1649,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (seekaxe) seekaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (nysthelaxe) nysthelaxe = false;
                     if (trueaxe) trueaxe = false;
                     bloodyaxe = true;
@@ -1620,7 +1675,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (nysthelaxe) nysthelaxe = false;
                     if (trueaxe) trueaxe = false;
                     seekaxe = true;
@@ -1658,7 +1720,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (seekaxe) seekaxe = false;
                     if (trueaxe) trueaxe = false;
                     nysthelaxe = true;
@@ -1677,7 +1746,14 @@ public class Player : MonoBehaviour, IShopCustomer
                     if (doubleaxe) doubleaxe = false;
                     if (basicaxe) basicaxe = false;
                     if (bloodyaxe) bloodyaxe = false;
-                    if (battleaxe) battleaxe = false;
+                    if (battleaxe)
+                    {
+                        battleaxe = false;
+                        battleCircleLoad.SetActive(false);
+                        battleCircleLoadMaximum.SetActive(false);
+                        battleCircleLoad.transform.localScale = new Vector3(1, 1, 1);
+                        battlePressing = false;
+                    }
                     if (nysthelaxe) nysthelaxe = false;
                     if (seekaxe) seekaxe = false;
                     trueaxe = true;
@@ -2248,31 +2324,37 @@ public class Player : MonoBehaviour, IShopCustomer
         {
             case ItemShopItem.ItemType.smallHealthPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.smallPotion, amount = 1 });
+                SaveVariables.INV_SMALL_POTION++;
                 index = 0;
                 break;
 
             case ItemShopItem.ItemType.bigHealthPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.bigPotion, amount = 1 });
+                SaveVariables.INV_BIG_POTION++;
                 index = 1;
                 break;
 
             case ItemShopItem.ItemType.shieldPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.shieldPotion, amount = 1 });
+                SaveVariables.INV_SHIELD_POTION++;
                 index = 2;
                 break;
 
             case ItemShopItem.ItemType.goldPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.goldPotion, amount = 1 });
+                SaveVariables.INV_GOLD_POTION++;
                 index = 3;
                 break;
 
             case ItemShopItem.ItemType.teleportPotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.teleportPotion, amount = 1 });
+                SaveVariables.INV_TELEPORT_POTION++;
                 index = 4;
                 break;
 
             case ItemShopItem.ItemType.timePotion:
                 inventory.addItem(new Item { itemType = Item.ItemType.timePotion, amount = 1 });
+                SaveVariables.INV_TIME_POTION++;
                 index = 5;
                 break;
 

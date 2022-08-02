@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 1
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &588979308621839422
@@ -229,7 +230,7 @@ GameObject:
   - component: {fileID: 588979308739460918}
   m_Layer: 0
   m_Name: Collision
-  m_TagString: Untagged
+  m_TagString: MineWall
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5799,7 +5800,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -15195,7 +15196,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 9
-      m_TileSpriteIndex: 12
+      m_TileSpriteIndex: 13
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -15205,7 +15206,7 @@ Tilemap:
     second:
       serializedVersion: 2
       m_TileIndex: 11
-      m_TileSpriteIndex: 11
+      m_TileSpriteIndex: 12
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -15328,12 +15329,12 @@ Tilemap:
     m_Data: {fileID: 0}
   - m_RefCount: 0
     m_Data: {fileID: 0}
+  - m_RefCount: 0
+    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: 6500454950373560670, guid: 026875ec12eb1e14b95095deaba77d87, type: 3}
   - m_RefCount: 1
     m_Data: {fileID: 715100126345153864, guid: 026875ec12eb1e14b95095deaba77d87, type: 3}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
   - m_RefCount: 1
     m_Data: {fileID: -3134837611320979745, guid: 026875ec12eb1e14b95095deaba77d87, type: 3}
   - m_RefCount: 2
@@ -16052,6 +16053,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 2
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &588979310376626325
@@ -16946,11 +16948,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1161605426653598061, guid: 76ad789444c365d4c898dd203dbde5f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.7699966
+      value: -2.45
       objectReference: {fileID: 0}
     - target: {fileID: 1161605426653598061, guid: 76ad789444c365d4c898dd203dbde5f0, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 4.040001
+      value: 3.57
       objectReference: {fileID: 0}
     - target: {fileID: 1161605426653598061, guid: 76ad789444c365d4c898dd203dbde5f0, type: 3}
       propertyPath: m_LocalPosition.z

@@ -27,6 +27,7 @@ public class Interactable : MonoBehaviour
     private Player player;
     private bool inShop = false;
     private bool playerIn = false;
+    private Vector3 originalPos;
 
     public enum Interactions
     {
@@ -49,6 +50,11 @@ public class Interactable : MonoBehaviour
     };
 
     private bool inRange = false;
+
+    private void Start()
+    {
+        originalPos = transform.position;
+    }
 
     public void setInShop(bool b)
     {
@@ -322,7 +328,8 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 5000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-                        this.enabled = false;
+                        transform.position = new Vector3(999, 999, 0);
+                        Invoke("returnToPosition", 0.3f);
                         SaveVariables.HOLY_STATUE = 1;
                     }
                     else if (SaveVariables.HOLY_STATUE == 1)
@@ -357,7 +364,8 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 4000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-                        this.enabled = false;
+                        transform.position = new Vector3(999, 999, 0);
+                        Invoke("returnToPosition", 0.3f);
                         SaveVariables.DAMAGE_STATUE = 1;
                     }
                     else if (SaveVariables.DAMAGE_STATUE == 1)
@@ -392,7 +400,8 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 1000;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-                        this.enabled = false;
+                        transform.position = new Vector3(999, 999, 0);
+                        Invoke("returnToPosition", 0.3f);
                         SaveVariables.EMMYR_STATUE = 1;
                     }
                     else if (SaveVariables.EMMYR_STATUE == 1)
@@ -427,7 +436,8 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 3500;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-                        this.enabled = false;
+                        transform.position = new Vector3(999, 999, 0);
+                        Invoke("returnToPosition", 0.3f);
                         SaveVariables.GOLD_STATUE = 1;
                     }
                     else if (SaveVariables.GOLD_STATUE == 1)
@@ -462,7 +472,8 @@ public class Interactable : MonoBehaviour
                         SaveVariables.PLAYER_WOOD -= 6666;
                         player.wood = SaveVariables.PLAYER_WOOD;
                         player.woodText.SetText(SaveVariables.PLAYER_WOOD.ToString());
-                        this.enabled = false;
+                        transform.position = new Vector3(999, 999, 0);
+                        Invoke("returnToPosition", 0.3f);
                         SaveVariables.CHANCE_STATUE = 1;
                     }
                     else if (SaveVariables.CHANCE_STATUE == 1)
@@ -579,6 +590,11 @@ public class Interactable : MonoBehaviour
         }
     }
 
+    private void returnToPosition()
+    {
+        transform.position = originalPos;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
@@ -592,82 +608,82 @@ public class Interactable : MonoBehaviour
                     case Interactions.GoToVillage:
                         if (SceneManager.GetActiveScene().name != "WoodFarm")
                         {
-                            text.SetText("Press X or E to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.15f) + " gold (you need to have at least 30 gold)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.15f) + " gold (you need to have at least 30 gold)");
                         }
                         else
                         {
-                            text.SetText("Press X or E to return to the Village.");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to return to the Village.");
                         }
                         break;
 
                     case Interactions.OpenChest:
-                        text.SetText("Press X or E to open chest!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to open chest!");
                         break;
 
                     case Interactions.GoToAdventure:
-                        text.SetText("Press X or E to select a destination!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to select a destination!");
                         break;
 
                     case Interactions.EnterBlackSmith:
-                        text.SetText("Press X or E to talk with the BlackSmith");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the BlackSmith");
                         break;
 
                     case Interactions.EnterShop:
-                        text.SetText("Press X or E to talk with the Mercader");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the Mercader");
                         break;
 
                     case Interactions.Save:
-                        text.SetText("Press X or E to save your progress.");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to save your progress.");
                         break;
 
                     case Interactions.GoToWoodFarm:
-                        text.SetText("Press X or E to go to the Wood Farm. It's not a safe place! (Cost: 100)");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to go to the Wood Farm. It's not a safe place! (Cost: 100)");
                         break;
 
                     case Interactions.GoToGoldRush:
-                        text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 250)");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to go to the Gold Rush isle. It's not a safe place! (Cost: 250)");
                         break;
 
                     case Interactions.EstatuaBendicion:
                         text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
                         if (SaveVariables.HOLY_STATUE == 0)
-                            text.SetText("Press X or E to build the Holy Statue! (5000 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Holy Statue! (5000 wood)");
                         break;
 
                     case Interactions.EstatuaDamage:
-                        text.SetText("Angry Statue, your damage has been augmented (press to Activate or Desactivate)");
+                        text.SetText("Strength Statue, your damage has been augmented (press to Activate or Desactivate)");
                         if (SaveVariables.DAMAGE_STATUE == 0)
-                            text.SetText("Press X or E to build the Angry Statue! (4000 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Strength Statue! (4000 wood)");
                         break;
 
                     case Interactions.EstatuaEmmyr:
                         text.SetText("Emmyr's Statue, his soul will allways be with you (press to Activate or Desactivate)");
                         if (SaveVariables.EMMYR_STATUE == 0)
-                            text.SetText("Press X or E to build Emmyr's Statue! (1000 wood & Emmyr's Soul)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build Emmyr's Statue! (1000 wood & Emmyr's Soul)");
                         break;
 
                     case Interactions.EstatuaOr:
                         text.SetText("Golden Statue, coins will be more valuable (press to Activate or Desactivate)");
                         if (SaveVariables.GOLD_STATUE == 0)
-                            text.SetText("Press X or E to build the Golden Statue! (3500 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Golden Statue! (3500 wood)");
                         break;
 
                     case Interactions.EstatuaSecondChance:
                         text.SetText("Resurrection Statue, your chances of having a second chance have been incremented (press to Activate or Desactivate)");
                         if (SaveVariables.CHANCE_STATUE == 0)
-                            text.SetText("Press X or E to build the Resurrection Statue! (6666 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Resurrection Statue! (6666 wood)");
                         break;
 
                     case Interactions.TalkToStatueRestaurator:
-                        text.SetText("Press X or E to talk with the statue restaurator!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the statue restaurator!");
                         break;
 
                     case Interactions.TalkToGoodEnt:
-                        text.SetText("Press X or E to talk with the Good Ent!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the Good Ent!");
                         break;
 
                     case Interactions.ChestShop:
-                        text.SetText("Press X or E to buy 3 random gold Chests by " + chestShopPrice + " gold");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to buy 3 random gold Chests by " + chestShopPrice + " gold");
                         break;
                 }
             }
@@ -679,7 +695,7 @@ public class Interactable : MonoBehaviour
         }
     }
 
-    private void OnTriggerStay2D(Collider2D collision)
+    /*private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
@@ -692,82 +708,82 @@ public class Interactable : MonoBehaviour
                     case Interactions.GoToVillage:
                         if (SceneManager.GetActiveScene().name != "WoodFarm")
                         {
-                            text.SetText("Press X or E to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.15f) + " gold (you need to have at least 30 gold)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to go to the Village. It will cost you: " + Mathf.RoundToInt(SaveVariables.PLAYER_GOLD * 0.15f) + " gold (you need to have at least 30 gold)");
                         }
                         else
                         {
-                            text.SetText("Press X or E to return to the Village.");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> return to the Village.");
                         }
                         break;
 
                     case Interactions.OpenChest:
-                        text.SetText("Press X or E to open chest!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to open chest!");
                         break;
 
                     case Interactions.GoToAdventure:
-                        text.SetText("Press X or E to select a destination!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to select a destination!");
                         break;
 
                     case Interactions.EnterBlackSmith:
-                        text.SetText("Press X or E to talk with the BlackSmith");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> talk with the BlackSmith");
                         break;
 
                     case Interactions.EnterShop:
-                        text.SetText("Press X or E to talk with the Mercader");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the Mercader");
                         break;
 
                     case Interactions.Save:
-                        text.SetText("Press X or E to save your progress.");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to save your progress.");
                         break;
 
                     case Interactions.GoToWoodFarm:
-                        text.SetText("Press X or E to go to the Wood Farm. It's not a safe place! (Cost: 100)");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to go to the Wood Farm. It's not a safe place! (Cost: 100)");
                         break;
 
                     case Interactions.GoToGoldRush:
-                        text.SetText("Press X or E to go to the Gold Rush isle. It's not a safe place! (Cost: 250)");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to go to the Gold Rush isle. It's not a safe place! (Cost: 250)");
                         break;
 
                     case Interactions.EstatuaBendicion:
                         text.SetText("Holy Statue, your projectiles will destroy the enemy projectiles! (press to Activate or Desactivate)");
                         if (SaveVariables.HOLY_STATUE == 0)
-                            text.SetText("Press X or E to build the Holy Statue! (5000 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Holy Statue! (5000 wood)");
                         break;
 
                     case Interactions.EstatuaDamage:
-                        text.SetText("Angry Statue, your damage has been augmented (press to Activate or Desactivate)");
+                        text.SetText("Strength Statue, your damage has been augmented (press to Activate or Desactivate)");
                         if (SaveVariables.DAMAGE_STATUE == 0)
-                            text.SetText("Press X or E to build the Angry Statue! (4000 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Strength Statue! (4000 wood)");
                         break;
 
                     case Interactions.EstatuaEmmyr:
                         text.SetText("Emmyr's Statue, his soul will allways be with you (press to Activate or Desactivate)");
                         if (SaveVariables.EMMYR_STATUE == 0)
-                            text.SetText("Press X or E to build Emmyr's Statue! (1000 wood & Emmyr's Soul)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build Emmyr's Statue! (1000 wood & Emmyr's Soul)");
                         break;
 
                     case Interactions.EstatuaOr:
                         text.SetText("Golden Statue, coins will be more valuable (press to Activate or Desactivate)");
                         if (SaveVariables.GOLD_STATUE == 0)
-                            text.SetText("Press X or E to build the Golden Statue! (3500 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Golden Statue! (3500 wood)");
                         break;
 
                     case Interactions.EstatuaSecondChance:
                         text.SetText("Resurrection Statue, your chances of having a second chance have been incremented (press to Activate or Desactivate)");
                         if (SaveVariables.CHANCE_STATUE == 0)
-                            text.SetText("Press X or E to build the Resurrection Statue! (6666 wood)");
+                            text.SetText("Press  <sprite=4> or   <sprite=87> to build the Resurrection Statue! (6666 wood)");
                         break;
 
                     case Interactions.TalkToStatueRestaurator:
-                        text.SetText("Press X or E to talk with the statue restaurator!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the statue restaurator!");
                         break;
 
                     case Interactions.TalkToGoodEnt:
-                        text.SetText("Press X or E to talk with the Good Ent!");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to talk with the Good Ent!");
                         break;
 
                     case Interactions.ChestShop:
-                        text.SetText("Press X or E to buy 3 random gold Chests by " + chestShopPrice + " gold");
+                        text.SetText("Press  <sprite=4> or   <sprite=87> to buy 3 random gold Chests by " + chestShopPrice + " gold");
                         break;
                 }
             }
@@ -777,7 +793,7 @@ public class Interactable : MonoBehaviour
             }
             inRange = true;
         }
-    }
+    }*/
 
     private void OnTriggerExit2D(Collider2D collision)
     {

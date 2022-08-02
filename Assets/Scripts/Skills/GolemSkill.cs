@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GolemSkill : MonoBehaviour
 {
-    public int damageAttackBasic = 1;
-    public int damageAttackComplex = 2;
     public float moveSpeed;
     public float radious = 6;
     public float attackRate = 2f;
@@ -13,6 +11,8 @@ public class GolemSkill : MonoBehaviour
     public float timeToDie = 30f;
 
     private Player player;
+    private int damageAttackBasic = 1;
+    private int damageAttackComplex = 2;
     private float nextAttack = 0;
     private Collider2D[] enemies;
     private float closestDistance = 999999;
@@ -32,6 +32,8 @@ public class GolemSkill : MonoBehaviour
     private void Update()
     {
         closestDistance = 999999;
+        damageAttackBasic = (player.totalDamage) / 3;
+        damageAttackComplex = player.totalDamage;
         enemies = Physics2D.OverlapCircleAll(transform.position, radious);
         foreach (Collider2D enemy in enemies)
         {

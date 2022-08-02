@@ -726,7 +726,7 @@ GameObject:
   - component: {fileID: 2738341488238723943}
   - component: {fileID: 2738341488238723942}
   - component: {fileID: 2738341488238723937}
-  m_Layer: 0
+  m_Layer: 16
   m_Name: Collision
   m_TagString: MineWall
   m_Icon: {fileID: 0}
@@ -2012,7 +2012,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 5
+  m_SortingOrder: 3
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16

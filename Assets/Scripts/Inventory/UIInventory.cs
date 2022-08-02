@@ -477,7 +477,7 @@ public class UIInventory : MonoBehaviour
                 break;
 
             case "shieldPotion":
-                description.text = "Immune for 6s, but disables dash during its duration";
+                description.text = "Immune for 6s, but disables dash and attack during its duration";
                 infoName.text = "Shield potion";
                 break;
 
