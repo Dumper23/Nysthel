@@ -218,6 +218,8 @@ public class Player : MonoBehaviour, IShopCustomer
 
     private void Awake()
     {
+        QualitySettings.vSyncCount = 1;
+        Application.targetFrameRate = 60;
         inventory = new Inventory(UseItem);
         uiInventory.setInventory(inventory);
         uiInventory.setPlayer(this);

@@ -103,7 +103,10 @@ public class DialogSystem : MonoBehaviour
     {
         index = 0;
         sentences = new string[s.Length + 1];
-        this.interactable = interactable;
+        if (interactable != null)
+        {
+            this.interactable = interactable;
+        }
         for (int i = 0; i < sentences.Length; i++)
         {
             sentences[i] = "";

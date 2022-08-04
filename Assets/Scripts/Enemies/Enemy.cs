@@ -124,6 +124,10 @@ public abstract class Enemy : MonoBehaviour
 
     private void startFreeze()
     {
+        if (isFrozen && isInWater)
+        {
+            takeDamage(15);
+        }
         anim.speed = 0;
         target = transform;
         isFrozen = true;

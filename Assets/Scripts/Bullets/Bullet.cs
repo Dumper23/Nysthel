@@ -114,6 +114,14 @@ public class Bullet : MonoBehaviour
             collision.GetComponent<AcidSkill>().incendiate();
         }
 
+        if (collision.transform.tag == "skill" && collision.transform.name == "Water(Clone)" && SaveVariables.ICE_ORB == 2)
+        {
+            if (!collision.GetComponent<waterSkill>().isFrozen)
+            {
+                collision.GetComponent<waterSkill>().froze(iceHit, ADSIce);
+            }
+        }
+
         if (collision.CompareTag("coinContainer"))
         {
             Physics2D.IgnoreCollision(collision.GetComponent<Collider2D>(), GetComponent<Collider2D>());

@@ -87,7 +87,7 @@ public class SaveVariablesDebug : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.L) && Input.GetKey(KeyCode.H))
+        if (Input.GetKey(KeyCode.N) && Input.GetKey(KeyCode.Y) && Input.GetKey(KeyCode.S) && Input.GetKey(KeyCode.T) && Input.GetKey(KeyCode.H) && Input.GetKey(KeyCode.E) && Input.GetKey(KeyCode.L))
         {
             FindObjectOfType<Player>().gold = 999999;
             FindObjectOfType<Player>().wood = 999999;

@@ -46,7 +46,7 @@ public class Interactable : MonoBehaviour
         EstatuaSecondChance,
         EstatuaBendicion,
         ChestShop,
-        GoToGoldRush,
+        GoToGoldRush
     };
 
     private bool inRange = false;
@@ -567,26 +567,26 @@ public class Interactable : MonoBehaviour
                     }
                     break;
             }
-        }
 
-        if ((Input.GetButtonDown("Pause") || Input.GetButtonDown("Inventory") || Input.GetButtonDown("Cancel")) && inShop)
-        {
-            if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+            if ((Input.GetButtonDown("Pause") || Input.GetButtonDown("Inventory") || Input.GetButtonDown("Cancel")) && inShop)
             {
-                Time.timeScale = 1f;
+                if (!GameObject.FindGameObjectWithTag("Player").GetComponent<Player>().timeSlowed)
+                {
+                    Time.timeScale = 1f;
+                }
+                else
+                {
+                    Time.timeScale = 0.5f;
+                }
+                GameStateManager.Instance.SetState(GameState.Gameplay);
+                uiShop.hide();
+                uiItemShop.hide();
+                if (mapSelectionUi != null)
+                {
+                    mapSelectionUi.SetActive(false);
+                }
+                inShop = false;
             }
-            else
-            {
-                Time.timeScale = 0.5f;
-            }
-            GameStateManager.Instance.SetState(GameState.Gameplay);
-            uiShop.hide();
-            uiItemShop.hide();
-            if (mapSelectionUi != null)
-            {
-                mapSelectionUi.SetActive(false);
-            }
-            inShop = false;
         }
     }
 
