@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class BOSS_Ulrus : Enemy
 {
@@ -81,6 +82,9 @@ public class BOSS_Ulrus : Enemy
     public float immuneTime = 1f;
     public GameObject shield;
     public GameObject deathSound;
+    public GameObject endPanel;
+    public PauseManager pm;
+    public EndSelection end;
 
     private bool patronDone = false;
     public int fase = 0;
@@ -97,6 +101,7 @@ public class BOSS_Ulrus : Enemy
 
     private void Start()
     {
+        endPanel.SetActive(false);
         shield.SetActive(false);
         fires.SetActive(false);
         penthagram.color = new Color(0, 0, 0, 0.5f);
@@ -150,10 +155,10 @@ public class BOSS_Ulrus : Enemy
                 }
                 Destroy(lasersFase1.gameObject);
                 Destroy(lasersFase2.gameObject);
-                Instantiate(portal,  transform.position, Quaternion.identity);
+                //Instantiate(portal,  transform.position, Quaternion.identity);
                 Destroy(fires);
                 Instantiate(deathSound);
-                die();
+                Dead();
             }
 
             if(health > (startHealth / 3) * 2.5f)
@@ -172,7 +177,7 @@ public class BOSS_Ulrus : Enemy
             }
             else
             {
-                fires.SetActive(true);
+                if(fires != null) fires.SetActive(true);
                 fase = 3;
                 dashSpeed = initialDashSpeed;
                 moveSpeed = initialMoveSpeed * 2.25f;
@@ -301,6 +306,68 @@ public class BOSS_Ulrus : Enemy
             }
         }
     }
+
+
+    private void Dead()
+    {
+        if (health <= 0)
+        {
+            if (bloodStain != null)
+            {
+                Instantiate(bloodStain, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            }
+            if (bloodParticles != null)
+            {
+                Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
+            }
+            sprite.enabled = false;
+            endPanel.SetActive(true);
+            endPanel.GetComponent<Animator>().Play("endPanel");
+            endPanel.transform.Find("Ulrus").GetComponent<Animator>().Play("inUlrusEnd");
+            GameStateManager.Instance.SetState(GameState.Paused);
+            EventSystem.current.SetSelectedGameObject(endPanel.transform.Find("kill").gameObject);
+            Cursor.visible = true;
+            pm.enabled = false;
+            end.startNewMusic();
+            Destroy(this);
+            //Time.timeScale = 0f;
+            
+
+            /*Statistics.Instance.enemiesKilled += 1;
+            Statistics.Instance.shake();
+
+            if (bloodStain != null)
+            {
+                Instantiate(bloodStain, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+            }
+            if (bloodParticles != null)
+            {
+                Instantiate(bloodParticles, transform.position, Quaternion.Euler(90, 0, 0));
+            }
+            int g = Random.Range(minGoldToGive, maxGoldToGive);
+            if (g < 0) g = 0;
+            goldToGive = g;
+            if (g > 0)
+            {
+                for (int i = 0; i < goldToGive; i++)
+                {
+                    GameObject go = CoinManager.Instance.GetCoin(coinType);
+                    go.SetActive(true);
+                    go.transform.position = transform.position;
+                    Coin c = go.GetComponent<Coin>();
+                    c.playerInRange = false;
+                    c.isPreSet = true;
+                    c.startPosition = transform.position;
+                    c.target = new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f), 0) * coinForce + new Vector3(transform.position.x, transform.position.y, 0);
+                    c.coinForce = coinForce;
+                    c.isSet = true;
+                    go.GetComponent<DestroyAfterTime>().isPool = true;
+                }
+            }
+            Destroy(gameObject);*/
+        }
+    }
+
 
     private void changeProximity()
     {

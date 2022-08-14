@@ -1339,7 +1339,7 @@ public class Player : MonoBehaviour, IShopCustomer
                     hasSecondChance = true;
                 }
 
-                if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush")
+                if (hasSecondChance && SceneManager.GetActiveScene().name != "WoodFarm" && SceneManager.GetActiveScene().name != "GoldRush" && SceneManager.GetActiveScene().name != "Castle")
                 {
                     saveInventory();
                     SaveManager.Instance.SaveGame();
