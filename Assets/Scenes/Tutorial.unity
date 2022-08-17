@@ -118335,6 +118335,7 @@ MonoBehaviour:
   attacksDone: 0
   enemiesKilled: 0
   timeSpent: 0
+  isInBoss: 0
   statisticsText: {fileID: 1650403876}
   statisticsUI: {fileID: 1906575947}
   button: {fileID: 173806021}

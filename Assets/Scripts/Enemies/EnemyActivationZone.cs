@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
 
 [RequireComponent(typeof(BoxCollider2D))]
 [RequireComponent(typeof(AudioSource))]
@@ -12,6 +13,7 @@ public class EnemyActivationZone : MonoBehaviour
     public AudioClip endOfRoom;
     public AudioClip startOfRoom;
     public TextMeshPro enemyNumber;
+    public bool isBoss = false;
 
     private bool activated = false;
     private bool finished = false;
@@ -91,6 +93,11 @@ public class EnemyActivationZone : MonoBehaviour
             }
             if (enemyCount == 0)
             {
+                if (isBoss)
+                {
+                    Invoke("endZoom", 0.75f);
+                    Camera.main.GetComponent<Animator>().Play("zoomIn");
+                }
                 finished = true;
                 p.inCombat = false;
                 //Avis que ja s'ha acabat la sala
@@ -134,6 +141,7 @@ public class EnemyActivationZone : MonoBehaviour
 
     private void destroyObj()
     {
+        Statistics.Instance.isInBoss = false;
         Destroy(gameObject);
     }
 
@@ -143,6 +151,11 @@ public class EnemyActivationZone : MonoBehaviour
         {
             if (collision.CompareTag("Player") && !collision.GetComponent<Player>().inCombat)
             {
+                if (isBoss)
+                {
+                    Statistics.Instance.isInBoss = true;
+                    Camera.main.GetComponent<Animator>().Play("zoomOut");
+                }
                 p = collision.GetComponent<Player>();
                 p.inCombat = true;
                 activated = true;
@@ -184,6 +197,11 @@ public class EnemyActivationZone : MonoBehaviour
             {
                 p.inCombat = false;
                 activated = false;
+                if (isBoss && !finished)
+                {
+                    Statistics.Instance.isInBoss = false;
+                    Camera.main.GetComponent<Animator>().Play("zoomIn");
+                }
                 if (hasBarriers)
                 {
                     foreach (GameObject barrier in Barriers)
@@ -212,6 +230,11 @@ public class EnemyActivationZone : MonoBehaviour
                 }
             }
         }
+    }
+
+    private void endZoom()
+    {
+        Statistics.Instance.isInBoss = false;
     }
 
     private void OnDrawGizmos()

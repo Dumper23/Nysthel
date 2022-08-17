@@ -23,12 +23,14 @@ public class RoomTemplates : MonoBehaviour
     public AudioClip endBoss;
     public AudioClip startBoss;
 
+    private float initialWait;
     private int emergencyBreak = 0;
     private bool spawnedBoss;
     private int roomIndex = 0;
 
     private void Start()
     {
+        initialWait = waitTime;
         GameStateManager.Instance.SetState(GameState.Paused);
         GameObject.FindGameObjectWithTag("LoadingScreen").transform.GetChild(0).gameObject.SetActive(true);
     }
@@ -98,14 +100,11 @@ public class RoomTemplates : MonoBehaviour
                         }
                         i++;
                     }
-                    else
-                    {
-                        SceneManager.LoadScene("Village");
-                    }
+                    
                 }
                 if (!spawnedBoss)
                 {
-                    SceneManager.LoadScene("Village");
+                    Debug.Log("No boss :(");
                 }
             }
         }

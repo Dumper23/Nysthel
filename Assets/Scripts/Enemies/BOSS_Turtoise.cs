@@ -30,6 +30,7 @@ public class BOSS_Turtoise : Enemy
     private Vector2 moveDir;
     private float nextTurtle = 0f;
     private bool canDash = false;
+    private List<Enemy> turtles = new List<Enemy>();
 
     private bool phase2 = false;
     private bool shot = false;
@@ -67,6 +68,13 @@ public class BOSS_Turtoise : Enemy
             target = GameObject.FindGameObjectWithTag("Player").transform;
             if (health <= 0)
             {
+                foreach(Enemy turtle in turtles)
+                {
+                    if(turtle != null)
+                    {
+                        turtle.health = 0;
+                    }
+                }
                 Instantiate(villagePortal, transform.position, Quaternion.identity);
                 Instantiate(levelCompletedUi, target);
                 Instantiate(deathSound);
@@ -171,7 +179,8 @@ public class BOSS_Turtoise : Enemy
             if (Time.time > nextTurtle)
             {
                 nextTurtle = Time.time + attackRate;
-                Instantiate(miniTurtle, transform.position, Quaternion.identity);
+                Enemy go = Instantiate(miniTurtle, transform.position, Quaternion.identity).GetComponent<Enemy>();
+                turtles.Add(go);
             }
         }
     }

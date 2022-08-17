@@ -58,7 +58,7 @@ public class StaticEye : Enemy
                 Instantiate(deathSound, transform.position, Quaternion.identity);
                 die();
             }
-            if (!isScared)
+            if (!isScared && !isFrozen)
             {
                 hitParticles.gameObject.SetActive(true);
                 hitLight.gameObject.SetActive(true);

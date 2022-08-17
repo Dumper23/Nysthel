@@ -25657,7 +25657,7 @@ GameObject:
   - component: {fileID: 4768534887399789445}
   - component: {fileID: 8159917902356849977}
   - component: {fileID: 7758844458070715902}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Acid
   m_TagString: skill
   m_Icon: {fileID: 0}
@@ -25903,7 +25903,7 @@ GameObject:
   - component: {fileID: 3272639783107866312}
   - component: {fileID: 3272639783107866314}
   - component: {fileID: 3272639783107866315}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30707,7 +30707,7 @@ GameObject:
   - component: {fileID: 3272639783153069305}
   - component: {fileID: 3272639783153069307}
   - component: {fileID: 3272639783153069304}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -35511,7 +35511,7 @@ GameObject:
   - component: {fileID: 3272639783278116796}
   - component: {fileID: 3272639783278116798}
   - component: {fileID: 3272639783278116799}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -40315,7 +40315,7 @@ GameObject:
   - component: {fileID: 3272639783561190093}
   - component: {fileID: 3272639783561190095}
   - component: {fileID: 3272639783561190092}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45119,7 +45119,7 @@ GameObject:
   - component: {fileID: 3272639783733871229}
   - component: {fileID: 3272639783733871231}
   - component: {fileID: 3272639783733871228}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -49923,7 +49923,7 @@ GameObject:
   - component: {fileID: 3272639783894434866}
   - component: {fileID: 3272639783894434868}
   - component: {fileID: 3272639783894434869}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54727,7 +54727,7 @@ GameObject:
   - component: {fileID: 3272639784066587707}
   - component: {fileID: 3272639784066587709}
   - component: {fileID: 3272639784066587706}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -59531,7 +59531,7 @@ GameObject:
   - component: {fileID: 3272639784392746850}
   - component: {fileID: 3272639784392746852}
   - component: {fileID: 3272639784392746853}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -64335,7 +64335,7 @@ GameObject:
   - component: {fileID: 3272639784405524086}
   - component: {fileID: 3272639784405524072}
   - component: {fileID: 3272639784405524073}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Particle System (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -124420,7 +124420,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3534126082185127999}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Fire
   m_TagString: Untagged
   m_Icon: {fileID: 0}

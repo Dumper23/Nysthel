@@ -824,9 +824,18 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\nThis is the end of the beta, thank you so much for playing, I hope\nyou
-    enjoyed this experience! There is some content that we are still missing that
-    will be\n implemented in the following updates.\n\n"
+  m_text: '
+
+    This is the end of the beta, thank you so much for playing, I hope
+
+    you
+    enjoyed this experience!
+
+
+    This game will have 3 different endings that are
+    still in WiP
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8aace40644dc34a40b844e81bb145ac4, type: 2}
   m_sharedMaterial: {fileID: -7501091212084840320, guid: 8aace40644dc34a40b844e81bb145ac4, type: 2}

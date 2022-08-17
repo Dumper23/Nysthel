@@ -11178,6 +11178,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 2
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &99752129741654669
@@ -14291,6 +14292,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 3
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &99752130167436423
@@ -24073,6 +24075,9 @@ MonoBehaviour:
   endOfRoom: {fileID: 8300000, guid: 5d37f34aed7e88c4da92908d9a5d9f09, type: 3}
   startOfRoom: {fileID: 8300000, guid: aec064d693a57ec4587c4e363e83efba, type: 3}
   enemyNumber: {fileID: 692478317891928323}
+  isBoss: 0
+  camZoom: 60
+  originalCamZoom: 108
 --- !u!82 &1369603183764167919
 AudioSource:
   m_ObjectHideFlags: 0
@@ -24663,7 +24668,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9172520884960766441, guid: 197c444febc726b45b34aaf4b33e0214, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 16.119892
+      value: 15.87
       objectReference: {fileID: 0}
     - target: {fileID: 9172520884960766441, guid: 197c444febc726b45b34aaf4b33e0214, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24729,7 +24734,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948097282978748286, guid: f0a1d205c7f47dc4e9a60b433858c2ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -13.317097
+      value: -12.95
       objectReference: {fileID: 0}
     - target: {fileID: 1948097282978748286, guid: f0a1d205c7f47dc4e9a60b433858c2ab, type: 3}
       propertyPath: m_LocalPosition.z

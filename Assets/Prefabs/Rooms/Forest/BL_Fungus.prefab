@@ -192,6 +192,9 @@ MonoBehaviour:
   endOfRoom: {fileID: 8300000, guid: 5d37f34aed7e88c4da92908d9a5d9f09, type: 3}
   startOfRoom: {fileID: 8300000, guid: aec064d693a57ec4587c4e363e83efba, type: 3}
   enemyNumber: {fileID: 3218260694035428540}
+  isBoss: 0
+  camZoom: 60
+  originalCamZoom: 108
 --- !u!61 &1607680768877292775
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -20318,6 +20321,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 2
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &8268569113776108829
@@ -21206,6 +21210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   openingDirection: 4
+  isCloseToStart: 0
   spawned: 0
   waitTime: 4
 --- !u!61 &8268569113907572737
@@ -24371,7 +24376,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9172520884960766441, guid: 197c444febc726b45b34aaf4b33e0214, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -16.44
+      value: -16.23
       objectReference: {fileID: 0}
     - target: {fileID: 9172520884960766441, guid: 197c444febc726b45b34aaf4b33e0214, type: 3}
       propertyPath: m_LocalPosition.y
@@ -24437,7 +24442,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1948097282978748286, guid: f0a1d205c7f47dc4e9a60b433858c2ab, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -10.06
+      value: -9.6
       objectReference: {fileID: 0}
     - target: {fileID: 1948097282978748286, guid: f0a1d205c7f47dc4e9a60b433858c2ab, type: 3}
       propertyPath: m_LocalPosition.z

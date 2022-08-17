@@ -165,35 +165,37 @@ public class PauseManager : MonoBehaviour
         {
             if (info != null)
             {
-                info.GetComponent<TextMeshProUGUI>().SetText("Navigate with the arrows");
+                info.GetComponent<TextMeshProUGUI>().SetText("  Navigate with the  <sprite=166><sprite=167><sprite=168><sprite=169>or <sprite=34>");
             }
             Map.transform.localScale = new Vector3(4, 4, 4);
+            if (info != null) info.transform.localScale = new Vector3(0.55f, 0.55f, 0.55f);
             minimapCam.orthographicSize = maxZoom;
             if (Input.GetAxisRaw("verticalA") < 0 || Input.GetButton("left"))
             {
-                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(1, 0, 0), 0.45f);
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(1, 0, 0), 0.85f);
             }
             if (Input.GetAxisRaw("verticalA") > 0 || Input.GetButton("right"))
             {
-                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position + new Vector3(1, 0, 0), 0.45f);
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position + new Vector3(1, 0, 0), 0.85f);
             }
             if (Input.GetAxisRaw("horizontalA") > 0 || Input.GetButton("up"))
             {
-                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position + new Vector3(0, 1, 0), 0.45f);
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position + new Vector3(0, 1, 0), 0.85f);
             }
             if (Input.GetAxisRaw("horizontalA") < 0 || Input.GetButton("down"))
             {
-                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(0, 1, 0), 0.45f);
+                minimapCam.transform.position = Vector3.Lerp(minimapCam.transform.position, minimapCam.transform.position - new Vector3(0, 1, 0), 0.85f);
             }
         }
         else
         {
             if (info != null)
             {
-                info.GetComponent<TextMeshProUGUI>().SetText("Tab or L2 to zoom");
+                info.GetComponent<TextMeshProUGUI>().SetText("     <sprite=189><sprite=188>or <sprite=628>to zoom");
             }
             minimapCam.transform.position = new Vector3(player.transform.position.x, player.transform.position.y, minimapCam.transform.position.z);
             Map.transform.localScale = new Vector3(2, 2, 2);
+            if(info != null)info.transform.localScale = new Vector3(1f, 1f, 1f);
             minimapCam.orthographicSize = minZoom;
         }
 

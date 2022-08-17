@@ -88,7 +88,7 @@ public class Miner : Enemy
                         Invoke("stopMoving", timeMoving);
                         Invoke("startMoving", animationTime);
                     }
-                    if (startedMoving)
+                    if (startedMoving && !isFrozen)
                     {
                         immune = true;
                         transform.Translate(moveDir * Time.deltaTime * moveSpeed);
@@ -99,7 +99,7 @@ public class Miner : Enemy
                 {
                     pointOfLight.SetActive(true);
                     rb.velocity = Vector2.zero;
-                    if (!isShooting)
+                    if (!isShooting && !isFrozen)
                     {
                         groundParticles.Stop();
                         if (lastIsMoving)

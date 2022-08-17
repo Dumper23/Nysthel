@@ -32,11 +32,11 @@ RectTransform:
   m_Father: {fileID: 5808513693089813616}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.00012207031, y: 92.44049}
-  m_SizeDelta: {x: 165.1, y: 20.319}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0.44992065, y: 164.90671}
+  m_SizeDelta: {x: 296.6833, y: 27.586601}
+  m_Pivot: {x: 0, y: 0}
 --- !u!222 &4564182055998245664
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Navigate with the arrows
+  m_text: Navigate with the  <sprite=166><sprite=167><sprite=168><sprite=169>or <sprite=34>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: aee32ba6812ff144197e48919e971886, type: 2}
   m_sharedMaterial: {fileID: -7501091212084840320, guid: aee32ba6812ff144197e48919e971886, type: 2}
@@ -84,7 +84,7 @@ MonoBehaviour:
     bottomLeft: {r: 1, g: 1, b: 1, a: 1}
     bottomRight: {r: 1, g: 1, b: 1, a: 1}
   m_fontColorGradientPreset: {fileID: 0}
-  m_spriteAsset: {fileID: 0}
+  m_spriteAsset: {fileID: 11400000, guid: 54fa5288cc1713046a2d28ea34ead9c5, type: 2}
   m_tintAllSprites: 0
   m_StyleSheet: {fileID: 0}
   m_TextStyleHashCode: -1183493901
@@ -99,7 +99,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0

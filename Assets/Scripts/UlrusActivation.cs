@@ -7,6 +7,8 @@ public class UlrusActivation : MonoBehaviour
     public GameObject barrier;
     public GameObject Ulrus;
     public AudioClip start;
+    public int camZoom = 60;
+    public int originalCamZoom = 108;
 
     private AudioSource a;
     private bool done = false;
@@ -23,6 +25,10 @@ public class UlrusActivation : MonoBehaviour
     {
         if (collision.transform.CompareTag("Player") && !done)
         {
+
+            Statistics.Instance.isInBoss = true;
+            Camera.main.GetComponent<Animator>().Play("zoomOut");
+            
             done = true;
             a.clip = start;
             a.Play();

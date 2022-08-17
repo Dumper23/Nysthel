@@ -16,6 +16,7 @@ public class Statistics : MonoBehaviour
 
     private float tempTime;
 
+    public bool isInBoss = false;
     public TextMeshProUGUI statisticsText;
     public GameObject statisticsUI;
     public GameObject button;
@@ -40,7 +41,14 @@ public class Statistics : MonoBehaviour
 
     public void shake()
     {
-        cameraContainer.GetComponent<Animator>().Play("shake");
+        if (!isInBoss)
+        {
+            cameraContainer.GetComponent<Animator>().Play("shake");
+        }
+        else
+        {
+            cameraContainer.GetComponent<Animator>().Play("shakeZoom");
+        }
     }
 
     private void Update()

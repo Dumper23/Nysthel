@@ -115,7 +115,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void freeze()
     {
-        if (!isFrozen)
+        if (!isFrozen && !immuneToElementalEffects)
         {
             isFrozen = true;
             Invoke("startFreeze", 1f);
@@ -124,15 +124,17 @@ public abstract class Enemy : MonoBehaviour
 
     private void startFreeze()
     {
-        if (isFrozen && isInWater)
-        {
-            takeDamage(15);
+        if (!immuneToElementalEffects) {
+            if (isFrozen && isInWater && !immuneToElementalEffects)
+            {
+                takeDamage(15);
+            }
+            anim.speed = 0;
+            target = transform;
+            isFrozen = true;
+            nextShot = 99999;
+            Invoke("stopFrozen", 3.75f);
         }
-        anim.speed = 0;
-        target = transform;
-        isFrozen = true;
-        nextShot = 99999;
-        Invoke("stopFrozen", 3.75f);
     }
 
     private void stopFrozen()
@@ -146,7 +148,7 @@ public abstract class Enemy : MonoBehaviour
     protected bool Seek()
     {
         bool inRange = false;
-        if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused)
+        if (activated && GameStateManager.Instance.CurrentGameState != GameState.Paused && !isFrozen)
         {
             if (isScared)
             {
@@ -223,7 +225,7 @@ public abstract class Enemy : MonoBehaviour
 
     public void fireEffect(int damage, int times)
     {
-        if (!isInFire)
+        if (!isInFire && !immuneToElementalEffects)
         {
             isInFire = true;
             fireDMG = damage;
@@ -263,13 +265,16 @@ public abstract class Enemy : MonoBehaviour
 
     private void acidDamage()
     {
-        if (acid.isInFire)
+        if (!immuneToElementalEffects)
         {
-            takeDamage(5);
-        }
-        else
-        {
-            takeDamage(1);
+            if (acid.isInFire)
+            {
+                takeDamage(5);
+            }
+            else
+            {
+                takeDamage(1);
+            }
         }
     }
 
@@ -293,12 +298,12 @@ public abstract class Enemy : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.CompareTag("skill") && collision.transform.name == "Water(Clone)")
+        if (collision.CompareTag("skill") && collision.transform.name == "Water(Clone)" && !immuneToElementalEffects)
         {
             isInWater = false;
         }
 
-        if (collision.CompareTag("skill") && collision.transform.name == "Acid(Clone)")
+        if (collision.CompareTag("skill") && collision.transform.name == "Acid(Clone)" && !immuneToElementalEffects)
         {
             isInAcid = false;
             CancelInvoke("acidDamage");

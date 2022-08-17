@@ -46,6 +46,13 @@ public class UiShop : MonoBehaviour
 
     private void Update()
     {
+
+        if (Input.GetButtonDown("Cancel"))
+        {
+            exitShop();
+        }
+        
+
         if (EventSystem.current != null && (EventSystem.current.currentSelectedGameObject == null || !EventSystem.current.currentSelectedGameObject.activeInHierarchy))
         {
             bool found = false;

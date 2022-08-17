@@ -57,27 +57,32 @@ public class Bat : Enemy
             }
             if (health - value > 0)
             {
-                audioSource.Play();
-                Vector3 spawnPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
-                GameObject copy = Instantiate(batCopy, transform.position + spawnPos, Quaternion.identity);
-                intantiatedCopy = copy;
-                transform.position = transform.position + spawnPos;
-                copy.GetComponent<Bat>().startHealth = 10;
-                copy.GetComponent<Bat>().health = 10;
-                copy.GetComponent<Bat>().activated = true;
-                copy.GetComponent<Bat>().immune = false;
-                if (isSecondChance)
+                if (!isFrozen)
                 {
-                    copy.GetComponent<Bat>().maxGoldToGive = 0;
-                    copy.GetComponent<Bat>().minGoldToGive = 0;
+                    audioSource.Play();
+                    Vector3 spawnPos = new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f), 0);
+                    GameObject copy = Instantiate(batCopy, transform.position + spawnPos, Quaternion.identity);
+                    intantiatedCopy = copy;
+                    transform.position = transform.position + spawnPos;
+                    copy.GetComponent<Bat>().startHealth = 10;
+                    copy.GetComponent<Bat>().health = 10;
+                    copy.GetComponent<Bat>().activated = true;
+                    copy.GetComponent<Bat>().immune = false;
+
+
+                    if (isSecondChance)
+                    {
+                        copy.GetComponent<Bat>().maxGoldToGive = 0;
+                        copy.GetComponent<Bat>().minGoldToGive = 0;
+                    }
+                    else
+                    {
+                        copy.GetComponent<Bat>().maxGoldToGive = copyMaxGold;
+                        copy.GetComponent<Bat>().minGoldToGive = copyMinGold;
+                    }
+                    copy.GetComponent<Bat>().moveSpeed = moveSpeed * 2f;
+                    copy.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 0, 0.4f);
                 }
-                else
-                {
-                    copy.GetComponent<Bat>().maxGoldToGive = copyMaxGold;
-                    copy.GetComponent<Bat>().minGoldToGive = copyMinGold;
-                }
-                copy.GetComponent<Bat>().moveSpeed = moveSpeed * 2f;
-                copy.GetComponentInChildren<SpriteRenderer>().color = new Color(255, 0, 0, 0.4f);
             }
             health -= value;
         }
@@ -85,7 +90,7 @@ public class Bat : Enemy
         {
             if (go != null)
             {
-                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("- 0");
+                go.transform.GetChild(0).GetComponent<TextMeshPro>().SetText("immune");
             }
         }
     }

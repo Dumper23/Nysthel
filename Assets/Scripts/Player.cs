@@ -1530,6 +1530,9 @@ public class Player : MonoBehaviour, IShopCustomer
                     GameObject tpPoint = GameObject.FindGameObjectWithTag("Respawn");
                     if (tpPoint != null)
                     {
+                        GameStateManager.Instance.SetState(GameState.Gameplay);
+                        FindObjectOfType<PauseManager>().inventoryUi.SetActive(false);
+                        Time.timeScale = 1f;
                         audioSource[PICKUP_AUDIO].clip = audios[7];
                         audioSource[PICKUP_AUDIO].Play();
                         transform.position = tpPoint.transform.position;

@@ -1317,15 +1317,15 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: -0.20278184
-    y: -0.203125
-    width: 1.4055637
-    height: 1.40625
+    x: 0
+    y: 0
+    width: 1
+    height: 1
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7.714286
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3995,10 +3995,6 @@ PrefabInstance:
     - target: {fileID: 5808513693779937555, guid: 61b282ba026e1654c8c7b6c7147c66db, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5808513693779937556, guid: 61b282ba026e1654c8c7b6c7147c66db, type: 3}
-      propertyPath: m_AdditionalShaderChannelsFlag
-      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5808513693779937559, guid: 61b282ba026e1654c8c7b6c7147c66db, type: 3}
       propertyPath: m_Name

@@ -482,6 +482,14 @@ public class UiItemShop : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            exitShop();
+        }
+    }
+
     private void endShop()
     {
         shopInteractable.setInShop(false);
