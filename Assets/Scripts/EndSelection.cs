@@ -12,12 +12,14 @@ public class EndSelection : MonoBehaviour
     public AudioClip press;
 
     private bool pressed = false;
-    
+
+
     public void startNewMusic()
     {
-        music.clip = audioClip;
+        Invoke("changeScene", 4.5f);
+       /* music.clip = audioClip;
         music.volume = 0.8f;
-        music.Play();
+        music.Play();*/
     }
 
     public void killUlrus()
@@ -42,7 +44,7 @@ public class EndSelection : MonoBehaviour
 
     private void changeScene()
     {
-        SceneManager.LoadScene("endGame");
+        SceneManager.LoadScene("Castle_Cinematic");
     }
 
     public void selectButton()

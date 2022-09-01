@@ -37,7 +37,7 @@ public class RoomSpawner : MonoBehaviour
                 if (isCloseToStart)
                 {
                     emergencyBreak = 0;
-                    while (emergencyBreak >= 100 || templates.bottomRooms[rand].name == "B" || templates.bottomRooms[rand].name == "T" || templates.bottomRooms[rand].name == "L" || templates.bottomRooms[rand].name == "R")
+                    while (emergencyBreak <= 100 || templates.bottomRooms[rand].name == "B" || templates.bottomRooms[rand].name == "T" || templates.bottomRooms[rand].name == "L" || templates.bottomRooms[rand].name == "R")
                     {
                         emergencyBreak++;
                         rand = Random.Range(0, templates.bottomRooms.Length);
@@ -52,9 +52,10 @@ public class RoomSpawner : MonoBehaviour
                 if (isCloseToStart)
                 {
                     emergencyBreak = 0;
-                    while (emergencyBreak >= 100 || templates.topRooms[rand].name == "B" || templates.topRooms[rand].name == "T" || templates.topRooms[rand].name == "L" || templates.topRooms[rand].name == "R")
+                    while (emergencyBreak <= 100 || templates.topRooms[rand].name == "B" || templates.topRooms[rand].name == "T" || templates.topRooms[rand].name == "L" || templates.topRooms[rand].name == "R")
                     {
                         rand = Random.Range(0, templates.topRooms.Length);
+                        emergencyBreak++;
                     }
                 }
                 Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
@@ -66,9 +67,10 @@ public class RoomSpawner : MonoBehaviour
                 if (isCloseToStart)
                 {
                     emergencyBreak = 0;
-                    while (emergencyBreak >= 100 || templates.leftRooms[rand].name == "B" || templates.leftRooms[rand].name == "T" || templates.leftRooms[rand].name == "L" || templates.leftRooms[rand].name == "R")
+                    while (emergencyBreak <= 100 || templates.leftRooms[rand].name == "B" || templates.leftRooms[rand].name == "T" || templates.leftRooms[rand].name == "L" || templates.leftRooms[rand].name == "R")
                     {
                         rand = Random.Range(0, templates.leftRooms.Length);
+                        emergencyBreak++;
                     }
                 }
                 Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
@@ -80,9 +82,10 @@ public class RoomSpawner : MonoBehaviour
                 if (isCloseToStart)
                 {
                     emergencyBreak = 0;
-                    while (emergencyBreak >= 100 || templates.rightRooms[rand].name == "B" || templates.rightRooms[rand].name == "T" || templates.rightRooms[rand].name == "L" || templates.rightRooms[rand].name == "R")
+                    while (emergencyBreak <= 100 || templates.rightRooms[rand].name == "B" || templates.rightRooms[rand].name == "T" || templates.rightRooms[rand].name == "L" || templates.rightRooms[rand].name == "R")
                     {
                         rand = Random.Range(0, templates.rightRooms.Length);
+                        emergencyBreak++;
                     }
                 }
                 Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);

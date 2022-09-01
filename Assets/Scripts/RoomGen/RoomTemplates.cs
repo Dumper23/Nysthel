@@ -85,12 +85,12 @@ public class RoomTemplates : MonoBehaviour
             if (!spawnedBoss)
             {
                 int i = 0;
-                while (!spawnedBoss || emergencyBreak >= 100)
+                while (!spawnedBoss || emergencyBreak <= 100)
                 {
                     emergencyBreak++;
                     if (i < rooms.Count)
                     {
-                        if (rooms[i].GetComponent<AddRoom>().canSpawnBoss)
+                        if (!spawnedBoss && rooms[i].GetComponent<AddRoom>().canSpawnBoss)
                         {
                             Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
                             Instantiate(bossIndicator, rooms[i].transform.position, Quaternion.identity);

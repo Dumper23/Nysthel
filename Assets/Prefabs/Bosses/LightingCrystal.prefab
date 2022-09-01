@@ -1086,6 +1086,9 @@ MonoBehaviour:
   activated: 0
   isInFire: 0
   isFrozen: 0
+  isInWater: 0
+  isInAcid: 0
+  isScared: 0
   LaserEyes:
   - {fileID: 7279383079904245274}
   - {fileID: 7279383079695353236}
@@ -1142,7 +1145,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 22711b1bdafe1d549a308c7de8b84a1d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.57
   m_Pitch: 1.3
   Loop: 0

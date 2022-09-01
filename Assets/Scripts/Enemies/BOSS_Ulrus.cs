@@ -325,8 +325,8 @@ public class BOSS_Ulrus : Enemy
             endPanel.GetComponent<Animator>().Play("endPanel");
             endPanel.transform.Find("Ulrus").GetComponent<Animator>().Play("inUlrusEnd");
             GameStateManager.Instance.SetState(GameState.Paused);
-            EventSystem.current.SetSelectedGameObject(endPanel.transform.Find("kill").gameObject);
-            Cursor.visible = true;
+            //EventSystem.current.SetSelectedGameObject(endPanel.transform.Find("kill").gameObject);
+            //Cursor.visible = true;
             pm.enabled = false;
             end.startNewMusic();
             Destroy(this);
