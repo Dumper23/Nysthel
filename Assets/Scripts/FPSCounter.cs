@@ -5,7 +5,7 @@ using UnityEngine;
 public class FPSCounter : MonoBehaviour
 {
     /* Assign this script to any object in the Scene to display frames per second */
-
+    /*
     public float updateInterval = 0.5f; //How often should the number update
 
     float accum = 0.0f;
@@ -45,6 +45,7 @@ public class FPSCounter : MonoBehaviour
     void OnGUI()
     {
         //Display the fps and round to 2 decimals
-        GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + "FPS", textStyle);
+        //GUI.Label(new Rect(5, 5, 100, 25), fps.ToString("F2") + "FPS", textStyle);
     }
+    */
 }
