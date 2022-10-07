@@ -27,9 +27,11 @@ public class RoomTemplates : MonoBehaviour
     private int emergencyBreak = 0;
     private bool spawnedBoss;
     private int roomIndex = 0;
+    private bool doing = false;
 
     private void Start()
     {
+        Debug.Log("Template start");
         initialWait = waitTime;
         GameStateManager.Instance.SetState(GameState.Paused);
         GameObject.FindGameObjectWithTag("LoadingScreen").transform.GetChild(0).gameObject.SetActive(true);
@@ -37,8 +39,9 @@ public class RoomTemplates : MonoBehaviour
 
     private void Update()
     {
-        if (waitTime <= 0 && spawnedBoss == false)
+        if (waitTime <= 0 && spawnedBoss == false && !doing)
         {
+            doing = true;
             for (int i = 0; i < rooms.Count; i++)
             {
                 if (i == rooms.Count - 1)
@@ -81,32 +84,31 @@ public class RoomTemplates : MonoBehaviour
                     }
                 }
             }
-
+            
             if (!spawnedBoss)
             {
-                int i = 0;
-                while (!spawnedBoss || emergencyBreak <= 100)
+                Debug.Log("Room Template while started");
+                for(int i = 0; i < rooms.Count; i++)
                 {
-                    emergencyBreak++;
-                    if (i < rooms.Count)
+                    if (!spawnedBoss && rooms[i].GetComponent<AddRoom>().canSpawnBoss)
                     {
-                        if (!spawnedBoss && rooms[i].GetComponent<AddRoom>().canSpawnBoss)
-                        {
-                            Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
-                            Instantiate(bossIndicator, rooms[i].transform.position, Quaternion.identity);
-                            spawnedBoss = true;
-                            GameStateManager.Instance.SetState(GameState.Gameplay);
-                            GameObject.FindGameObjectWithTag("LoadingScreen").transform.GetChild(0).gameObject.SetActive(false);
-                        }
-                        i++;
+                        Instantiate(boss, rooms[i].transform.position, Quaternion.identity);
+                        Instantiate(bossIndicator, rooms[i].transform.position, Quaternion.identity);
+                        spawnedBoss = true;
+                        GameStateManager.Instance.SetState(GameState.Gameplay);
+                        GameObject.FindGameObjectWithTag("LoadingScreen").transform.GetChild(0).gameObject.SetActive(false);
                     }
-                    
                 }
+                Debug.Log("Room Template while finished");
                 if (!spawnedBoss)
                 {
                     Debug.Log("No boss :(");
                 }
             }
+            else{
+                Debug.Log("Room Template no while needed");
+            }
+            doing = false;
         }
         else
         {

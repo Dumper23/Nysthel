@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomSpawner : MonoBehaviour
+public class RoomSpawner1 : MonoBehaviour
 {
     public int openingDirection;
     public bool isCloseToStart = false;
@@ -37,12 +37,15 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.bottomRooms.Length);
                 if (isCloseToStart)
                 {
-                    Instantiate(templates.bottomRooms[0], transform.position, templates.bottomRooms[0].transform.rotation);
+                    emergencyBreak = 0;
+                    while (emergencyBreak <= 100 || templates.bottomRooms[rand].name == "B")
+                    {
+                        emergencyBreak++;
+                        rand = Random.Range(0, templates.bottomRooms.Length);
+                    }
+                    Debug.Log("spawned on top: " + templates.bottomRooms[rand].name + " " + emergencyBreak);
                 }
-                else
-                {
-                    Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
-                }
+                Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
                
             }
             else if (openingDirection == 2)
@@ -51,12 +54,15 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.topRooms.Length);
                 if (isCloseToStart)
                 {
-                    Instantiate(templates.topRooms[0], transform.position, templates.topRooms[0].transform.rotation); ;
+                    emergencyBreak = 0;
+                    while (emergencyBreak <= 100 || templates.topRooms[rand].name == "T")
+                    {
+                        rand = Random.Range(0, templates.topRooms.Length);
+                        emergencyBreak++;
+                    }
+                    Debug.Log("spawned on bottom: " + templates.topRooms[rand].name + " " + emergencyBreak);
                 }
-                else
-                {
-                    Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
-                }
+                Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
             }
             else if (openingDirection == 3)
             {
@@ -64,12 +70,15 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.leftRooms.Length);
                 if (isCloseToStart)
                 {
-                    Instantiate(templates.leftRooms[0], transform.position, templates.leftRooms[0].transform.rotation);
+                    emergencyBreak = 0;
+                    while (emergencyBreak <= 100 || templates.leftRooms[rand].name == "L")
+                    {
+                        rand = Random.Range(0, templates.leftRooms.Length);
+                        emergencyBreak++;
+                    }
+                    Debug.Log("spawned on right: " + templates.leftRooms[rand].name + " " + emergencyBreak);
                 }
-                else
-                {
-                    Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
-                }
+                Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
             }
             else if (openingDirection == 4)
             {
@@ -77,12 +86,15 @@ public class RoomSpawner : MonoBehaviour
                 rand = Random.Range(0, templates.rightRooms.Length);
                 if (isCloseToStart)
                 {
-                    Instantiate(templates.rightRooms[0], transform.position, templates.rightRooms[0].transform.rotation);
+                    emergencyBreak = 0;
+                    while (emergencyBreak <= 100 || templates.rightRooms[rand].name == "R")
+                    {
+                        rand = Random.Range(0, templates.rightRooms.Length);
+                        emergencyBreak++;
+                    }
+                    Debug.Log("spawned on left: " + templates.rightRooms[rand].name + " " + emergencyBreak);
                 }
-                else
-                {
-                    Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
-                }
+                Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
             }
             Debug.Log("Room Spawner whiles finished (" + gameObject.GetComponentInParent<AddRoom>().gameObject.name + ")");
             spawned = true;
